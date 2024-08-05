@@ -16,6 +16,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <link rel="icon" type="image/ico" href="/assets/Tortuga_durisima_logo.ico" />
+      <meta name="descripcion" content="Desripción de la página "/>
+      <title>Miquel Gómez Corral</title>
       <body className={inter.className}>{children}</body>
     </html>
   );

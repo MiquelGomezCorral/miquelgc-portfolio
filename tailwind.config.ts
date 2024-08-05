@@ -8,10 +8,35 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      colors: {
+        "miquel-black": {
+          300: "#363e5c",
+          400: "#202436",
+          500: "#161925",
+        },
+        "miquel-white": {
+          100: "#FFFFFF",
+          200: "#F5F5F5",
+          500: "#BBBBBB",
+        },
+        "miquel-blue":{
+          400: "#3EA7F8",
+          500: "#583EDC",
+        },
+      },
+      keyframes: {
+        fadeOut: {
+          '0%': { opacity: '1' },
+          '50%': { opacity: '1' },
+          '100%': { opacity: '0' },
+        },
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+      },
+      animation: {
+        'fade-in-out': 'fadeOut 0.5s linear infinite alternate',
       },
     },
   },
