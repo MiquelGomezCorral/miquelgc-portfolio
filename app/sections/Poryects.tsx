@@ -1,48 +1,90 @@
+import Image from "next/image";
 
 
-const PROYECTS = [
+const PROYECTS:  {title: string, finished: boolean, description: string, technologies:Technologystrig[] }[] = [
   {
-    title: "Hola 1",
-    description: "AWDDDDDDDDDDDDDDDDAWDAWDAWDAWDAWD",
-    content: <Proyect/>
+    title: "Porfolio web personal",
+    finished: false,
+    description: "Desarrollado desde cero, este portafolio personal destaca mis habilidades y experiencia en programación. Incluye una descripción sobre mí, un currículum en línea, información de contacto, una sección de proyectos destacados y las tecnologías que uso y con las que estoy familiarizado. Con un diseño responsivo y una experiencia de usuario optimizada, ofrece una presentación profesional y accesible de mi trabajo y logros.",
+    technologies: ["html", "css", "react", "typescript","next", "tailwind", "github"]
   },
   {
     title: "Hola 2",
-    description: "AWDDDDDDDDDDDDDDDDAWDAWDAWDAWDAWD",
-    content: <Proyect/>
+    finished: true,
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    technologies: ["python", "pygame"]
   },
   {
     title: "Hola 3",
-    description: "AWDDDDDDDDDDDDDDDDAWDAWDAWDAWDAWD",
-    content: <Proyect/>
+    finished: true,
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    technologies: ["unity", "c-sharp"]
   },
   {
     title: "Hola 4",
-    description: "AWDDDDDDDDDDDDDDDDAWDAWDAWDAWDAWD",
-    content: <Proyect/>
+    finished: true,
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    technologies: ["java"]
   },
   {
     title: "Hola 5",
-    description: "AWDDDDDDDDDDDDDDDDAWDAWDAWDAWDAWD",
-    content: <Proyect/>
+    finished: true,
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    technologies: ["c++"]
+  },
+  {
+    title: "Hola 5",
+    finished: true,
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    technologies: []
+  },
+  {
+    title: "Hola 5",
+    finished: true,
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    technologies: []
+  },
+  {
+    title: "Hola 5",
+    finished: true,
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    technologies: []
+  },
+  {
+    title: "Hola 5", 
+    finished: true,
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    technologies: []
   },
 ]
 
 export default function Proyects() {
   return (
-    <section className="w-full flex flex-col gap-4">
+    <section className="w-full flex flex-col gap-6">
       <header className="w-full py-4 border-b-2 border-b-miquel-white-200/50">
         <h1 className="text-5xl font-bold">Proyectos</h1>
       </header>
 
-      <main className="grid grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-10">
+      <main className="flex flex-col justify-center gap-6">
         {PROYECTS.map((object, idx) =>
           <section key={idx}
-            className="border border-miquel-white-200/50 rounded-xl p-4 gap-2"
+            className="flex gap-4"
           >
-            <h3>{object.title}</h3>
-            <p>{object.description}</p>
-            {object.content}
+            <aside className="w-full max-w-96 border border-miquel-white-200/50 rounded-xl flex justify-center items-center aspect-video"> 
+              SOY UNA IMAGEN
+            </aside>
+            <main className="flex flex-col justify-between">
+              <span>
+                <h2 className="text-2xl">{object.title}</h2>
+                <p className="opacity-50">{object.finished ? "Terminado" : "En progreso"}</p>
+              </span>
+              <p className="opacity-70 ">{object.description}</p>
+              <footer className="flex gap-2">
+                {object.technologies.map((tech, idx) =>
+                  <Technology key={idx} src={tech}/>
+                )}
+              </footer>
+            </main>
           </section>
         )}
       </main>
@@ -51,10 +93,37 @@ export default function Proyects() {
   )
 }
 
-function Proyect(){
-  return(
-    <div className="w-96 h-24 border border-miquel-white-200/50 rounded-xl">
 
-    </div>
+type Technologystrig = "html" | "react" | "typescript" | "next" | "tailwind" | "github" | "css" | "java" | "unity" | "python" | "pygame" | "c++" | "c-sharp"
+
+function Technology({src}:{src:string}){
+  const Title = (src:string) => {
+    switch(src){
+      case "html": return "Html"
+      case "react": return "React"
+      case "typescript": return "TypeScript"
+      case "next": return "Next.js"
+      case "tailwind": return "Tailwind CSS"
+      case "github": return "GitHub"
+      case "css": return "CSS"
+      case "java": return "Java"
+      case "unity": return "Unity"
+      case "python": return "Python"
+      case "pygame": return "Pygame"
+      case "c++": return "C ++"
+      case "c-sharp": return "C #"
+    }
+  }
+
+  return (
+    <section className="rounded-full bg-miquel-black-200 px-4 py-1 flex justify-center items-center gap-2 text-xs">
+      <Image src={`/assets/icons/${src}.svg`} alt={src}
+        width={20}
+        height={20}
+        title={Title(src)}
+      />
+      <p className="opacity-80">{Title(src)}</p>
+    </section>
   )
 }
+

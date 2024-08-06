@@ -59,13 +59,13 @@ export default function InfoSection() {
         <p className="text-miquel-white-500 flex flex-col gap-2">
           <span >
             <IconCopy
-              src="location-pin" alt={Location} title={Location}
+              src="location-pin" title={Location}
               width={20} height={20}
               copyText={Location}
               text={Location}
             />
           </span>
-
+          
           En mi grado, estoy estudiando la rama de computación: Optimización, aprendizaje automático etc. Mis competencias Informáticas son de calidad,
           desenvolviéndome sin problemas en diferentes lenguajes y entornos de trabajo. A lo largo de mi carrera he destaco en los estudios y he obtenido reconocimientos.
           Por mi cuenta, he desarrollado pequeños proyectos con lo aprendido en mis estudios, al igual  que he ampliado mis habilidades en la edición de imágenes, hasta el punto de trabajar con
@@ -75,19 +75,19 @@ export default function InfoSection() {
 
         <footer className="flex justify-center xl:justify-start gap-4">
           <GlowingIconCopySolid
-            src="email" alt={Email} title={Email}
+            src="email" title={Email}
             width={20} height={20}
             copyText={Email}
             text={Email}
           />
           <GlowingIconLink
-            src="linkedin" alt={Linkedin} title={Linkedin}
+            src="linkedin" title={Linkedin}
             width={20} height={20}
             link={LinkedinLink}
             blank
           />
           <GlowingIconLink
-            src="github" alt={Github} title={Github}
+            src="github" title={Github}
             width={20} height={20}
             link={GithubLink}
             blank

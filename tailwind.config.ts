@@ -11,6 +11,7 @@ const config: Config = {
       colors: {
         "miquel-background": "#16171f",
         "miquel-black": {
+          200: "#21222e",
           300: "#363e5c",
           400: "#202436",
           500: "#161925",
