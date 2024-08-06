@@ -2,7 +2,7 @@ import HeaderButton from "../components/HeaderButton";
 
 export default function Header() {
     return (
-      <header className='z-50 px-20 py-5 w-full flex fixed justify-between gap-10 top-0 backdrop-blur-md border-b-2 border-b-miquel-white-200/50'>
+      <header className='z-50 px-20 py-4 w-full flex fixed justify-between gap-10 top-0 backdrop-blur-md border-b-2 border-b-miquel-white-200/50'>
         <aside>
           Miquel Gómez
         </aside>

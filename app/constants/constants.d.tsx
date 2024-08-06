@@ -5,3 +5,5 @@ export const LinkedinLink = "https://www.linkedin.com/in/miquel-gomez-corral/";
 
 export const Github = "@MiquelGomezCorral";
 export const GithubLink = "https://github.com/MiquelGomezCorral";
+
+export const Location = "Almenara, Valencia, España"

@@ -9,6 +9,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        "miquel-background": "#16171f",
         "miquel-black": {
           300: "#363e5c",
           400: "#202436",
@@ -21,8 +22,11 @@ const config: Config = {
         },
         "miquel-blue":{
           400: "#3EA7F8",
-          500: "#583EDC",
+          500: "#2f63c4",
         },
+        "miquel-purple":{
+          500: "#583EDC",
+        }
       },
       keyframes: {
         fadeOut: {

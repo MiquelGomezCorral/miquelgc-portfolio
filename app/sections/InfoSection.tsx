@@ -2,8 +2,8 @@
 import { useEffect, useState } from "react";
 import GlowingText from "../components/GlowingText";
 import Image from "next/image";
-import { IconCopy, IconLink } from "../components/GlowingButton";
-import { Email, Github, GithubLink, Linkedin, LinkedinLink } from "../constants/constants.d";
+import { GlowingIconCopySolid, GlowingIconLink, IconCopy } from "../components/IconsButtons";
+import { Location, Email, Github, GithubLink, Linkedin, LinkedinLink } from "../constants/constants.d";
 
 export default function InfoSection() {
   const [quality, setQuality] = useState("Creativo")
@@ -13,11 +13,11 @@ export default function InfoSection() {
     " Creativo",
     " Apasionado",
     " Curioso",
-    " Estudiante",
-    " Aplicado",
+    " Un estudiante aplicado",
+    " Bueno programador",
     " Determinado",
     " Trabajador",
-    " Guapo?"
+    " Guapo? ;)"
   ]
   useEffect(() => {
     const deletingTime = 25
@@ -45,46 +45,54 @@ export default function InfoSection() {
     }, deletingTime)
     return () => clearInterval(intervalDel)
   }, [quality, isWriting])
+
   return (
-    <section className='w-full flex justify-between items-center pr-64'>
-      <aside className="flex flex-col gap-6 max-w-3xl">
-        <h1 className='text-5xl flex gap-4 font-bold'>
+    <section className='w-full flex flex-col xl:flex-row-reverse justify-between items-center gap-24 xl:gap-10'>
+      <Foto />
+      <aside className="flex flex-col gap-6 max-w-3xl text-center xl:text-start">
+        <h1 className='text-5xl flex flex-col md:flex-row justify-center xl:justify-start gap-4 font-bold whitespace-nowrap'>
           ¡Hola, soy <GlowingText>Miquel Gómez!</GlowingText>
         </h1>
-        <h2 className="text-2xl flex gap-2">Soy <GlowingText>{quality}<WritingBar /> </GlowingText></h2>
-        <p className="text-miquel-white-500 ">
+        <h2 className="text-2xl flex justify-center xl:justify-start gap-2">
+          Soy <GlowingText>{quality}<WritingBar /> </GlowingText>
+        </h2>
+        <p className="text-miquel-white-500 flex flex-col gap-2">
+          <span >
+            <IconCopy
+              src="location-pin" alt={Location} title={Location}
+              width={20} height={20}
+              copyText={Location}
+              text={Location}
+            />
+          </span>
+
           En mi grado, estoy estudiando la rama de computación: Optimización, aprendizaje automático etc. Mis competencias Informáticas son de calidad,
           desenvolviéndome sin problemas en diferentes lenguajes y entornos de trabajo. A lo largo de mi carrera he destaco en los estudios y he obtenido reconocimientos.
           Por mi cuenta, he desarrollado pequeños proyectos con lo aprendido en mis estudios, al igual  que he ampliado mis habilidades en la edición de imágenes, hasta el punto de trabajar con
           diversos clientes de todo el mundo. Actualmente, busco integrarme como informático en el sector de la IA y de la Ciberseguridad.
         </p>
-        <footer className="flex gap-4">
-          <IconLink 
-            src="/assets/linkedin.svg" alt={Linkedin} title={Linkedin}
-            width={20} height={20}  
-            link={LinkedinLink}
-            blank         
-          />
-          <IconLink 
-            src="/assets/github.svg" alt={Github}title={Github}
-            width={20} height={20} 
-            link={GithubLink}            
-            blank         
-          />
-          <IconCopy 
-            src="/assets/email.svg" alt={Email} title={Email}
-            width={20} height={20} 
+
+
+        <footer className="flex justify-center xl:justify-start gap-4">
+          <GlowingIconCopySolid
+            src="email" alt={Email} title={Email}
+            width={20} height={20}
             copyText={Email}
-            />
-      </footer>
-      </aside>
-      <aside className="">
-        <div className="w-[400px] h-[400px] bg-miquel-blue-400 rounded-full absolute blur-md" />
-        <Image src="/yo/DNI-png.png" alt="Miquel Gómez Corral"
-          width={400}
-          height={400}
-          className="rounded-full bg-miquel-blue-400 relative"
-        />
+            text={Email}
+          />
+          <GlowingIconLink
+            src="linkedin" alt={Linkedin} title={Linkedin}
+            width={20} height={20}
+            link={LinkedinLink}
+            blank
+          />
+          <GlowingIconLink
+            src="github" alt={Github} title={Github}
+            width={20} height={20}
+            link={GithubLink}
+            blank
+          />
+        </footer>
       </aside>
     </section>
   )
@@ -98,3 +106,15 @@ function WritingBar() {
   )
 }
 
+function Foto() {
+  return (
+    <section className="min-w-[400px] min-h-[400px] w-full flex justify-center">
+      <div className="absolute bg-miquel-blue-400 rounded-full blur-md w-full h-full max-w-[400px] max-h-[400px] object-cover" />
+      <Image src="/yo/DNI-png.png" alt="Miquel Gómez Corral"
+        width={400}
+        height={400}
+        className="rounded-full bg-miquel-blue-400 relative "
+      />
+    </section>
+  )
+}
