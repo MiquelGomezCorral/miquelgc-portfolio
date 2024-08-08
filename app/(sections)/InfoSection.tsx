@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import GlowingText from "../(components)/GlowingText";
 import Image from "next/image";
 import { GlowingIconCopySolid, IconLGlowingink, IconCopy, IconGlowingSolid, IconGlowingCopy } from "../(components)/IconsButtons";
-import { Location, Email, Github, GithubLink, Linkedin, LinkedinLink } from "../(constants)/constants.d";
+import { Location, Email, Github, GithubLink, Linkedin, LinkedinLink, Curriculum, CurriculumSiglas } from "../(constants)/constants.d";
+import { DownloadCV } from "../(components)/Utils";
 
 export default function InfoSection() {
   const [quality, setQuality] = useState("Creativo")
@@ -74,13 +75,13 @@ export default function InfoSection() {
 
 
         <footer className="flex justify-center xl:justify-start gap-4">
-          <a href="yo/Curriculum 01-06-24.pdf" download="yo/Curriculum 01-06-24.pdf">
+          <DownloadCV>
             <IconGlowingSolid
-              src="download-document" title="Curriculum Vitae"
+              src="download-document" title={Curriculum}
               width={20} height={20}
-              text="CV"
+              text={CurriculumSiglas}
             />
-          </a> 
+          </DownloadCV> 
           <IconGlowingCopy
             src="email" title={Email}
             width={20} height={20}

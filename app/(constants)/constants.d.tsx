@@ -7,3 +7,6 @@ export const Github = "@MiquelGomezCorral";
 export const GithubLink = "https://github.com/MiquelGomezCorral";
 
 export const Location = "Almenara, Valencia, España"
+
+export const Curriculum = "Curriculum Vitae"
+export const CurriculumSiglas = "C.V."

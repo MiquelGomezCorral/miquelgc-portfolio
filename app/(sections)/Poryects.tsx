@@ -80,12 +80,18 @@ export default function Proyects() {
         {PROYECTS.map((object, idx) =>
           <Link key={idx}
             href="/"            
-            className="flex gap-4 p-4 rounded-xl transform duration-300 hover:scale-105 hover:bg-miquel-black-400/20"
+            className="relative grid gird-cols-1 lg:grid-cols-12 gap-4 p-4 rounded-xl transform duration-300 hover:scale-105 hover:bg-miquel-black-400/20"
           >
-            <aside className="w-full max-w-96 border border-miquel-white-200/50 rounded-xl flex justify-center items-center aspect-video"> 
-              SOY UNA IMAGEN
-            </aside>
-            <main className="flex flex-col justify-between">
+            <div className="relative w-full aspect-video col-span-1 lg:col-span-5">
+              <Image 
+                src="/assets/proyects/Captura.png"
+                alt={object.title}
+                fill
+                className="border border-miquel-white-200/50 rounded-xl"
+              />
+            </div>
+
+            <main className="flex flex-col gap-2 justify-between col-span-1 lg:col-start-6 lg:col-span-7">
               <span>
                 <header className="flex items-center gap-3">
                   <h2 className="text-2xl">{object.title}</h2>
@@ -99,7 +105,7 @@ export default function Proyects() {
                 <p className="opacity-50">{object.finished ? "Terminado" : "En progreso"}</p>
               </span>
               <p className="opacity-70 ">{object.description}</p>
-              <footer className="flex gap-2">
+              <footer className="flex gap-2 overflow-x-auto scroll-smooth hide-scrollbar">
                 {object.technologies.map((tech, idx) =>
                   <Technology key={idx} src={tech}/>
                 )}
@@ -142,7 +148,7 @@ function Technology({src}:{src:string}){
         height={20}
         title={Title(src)}
       />
-      <p className="opacity-80">{Title(src)}</p>
+      <p className="opacity-80 text-nowrap">{Title(src)}</p>
     </section>
   )
 }

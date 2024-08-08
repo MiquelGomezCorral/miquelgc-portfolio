@@ -201,7 +201,7 @@ interface IconTextProps {
   text?: string,
   className?: string,
 }
-function IconText({width, height, src, title, text, className}: IconTextProps){
+export function IconText({width, height, src, title, text, className}: IconTextProps){
   return (
     <>
       <div className={cn("relative gap-2 flex items-center rounded-full transform duration-300 opacity-70 hover:opacity-100", className)}>
