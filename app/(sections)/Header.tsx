@@ -1,4 +1,4 @@
-import HeaderButton from "../components/HeaderButton";
+import HeaderButton from "../(components)/HeaderButton";
 
 export default function Header() {
     return (

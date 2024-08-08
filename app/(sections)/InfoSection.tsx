@@ -1,23 +1,23 @@
 "use client"
 import { useEffect, useState } from "react";
-import GlowingText from "../components/GlowingText";
+import GlowingText from "../(components)/GlowingText";
 import Image from "next/image";
-import { GlowingIconCopySolid, GlowingIconLink, IconCopy } from "../components/IconsButtons";
-import { Location, Email, Github, GithubLink, Linkedin, LinkedinLink } from "../constants/constants.d";
+import { GlowingIconCopySolid, IconLGlowingink, IconCopy, IconGlowingSolid, IconGlowingCopy } from "../(components)/IconsButtons";
+import { Location, Email, Github, GithubLink, Linkedin, LinkedinLink } from "../(constants)/constants.d";
 
 export default function InfoSection() {
   const [quality, setQuality] = useState("Creativo")
   const [indexQuality, setIndexQuality] = useState(0)
   const [isWriting, setIsWriting] = useState(false)
   const qualities = [
-    " Creativo",
-    " Apasionado",
-    " Curioso",
-    " Un estudiante aplicado",
-    " Bueno programador",
-    " Determinado",
-    " Trabajador",
-    " Guapo? ;)"
+    " creativo.",
+    " apasionado.",
+    " curioso.",
+    " aplicado.",
+    " hábil programador.",
+    " determinado.",
+    " trabajador.",
+    " guapo? ;)"
   ]
   useEffect(() => {
     const deletingTime = 25
@@ -54,7 +54,7 @@ export default function InfoSection() {
           ¡Hola, soy <GlowingText>Miquel Gómez!</GlowingText>
         </h1>
         <h2 className="text-2xl flex justify-center xl:justify-start gap-2">
-          Soy <GlowingText>{quality}<WritingBar /> </GlowingText>
+          Soy un estudiante <GlowingText>{quality}<WritingBar /> </GlowingText>
         </h2>
         <p className="text-miquel-white-500 flex flex-col gap-2">
           <span >
@@ -74,19 +74,26 @@ export default function InfoSection() {
 
 
         <footer className="flex justify-center xl:justify-start gap-4">
-          <GlowingIconCopySolid
+          <a href="yo/Curriculum 01-06-24.pdf" download="yo/Curriculum 01-06-24.pdf">
+            <IconGlowingSolid
+              src="download-document" title="Curriculum Vitae"
+              width={20} height={20}
+              text="CV"
+            />
+          </a> 
+          <IconGlowingCopy
             src="email" title={Email}
             width={20} height={20}
             copyText={Email}
             text={Email}
           />
-          <GlowingIconLink
+          <IconLGlowingink
             src="linkedin" title={Linkedin}
             width={20} height={20}
             link={LinkedinLink}
             blank
           />
-          <GlowingIconLink
+          <IconLGlowingink
             src="github" title={Github}
             width={20} height={20}
             link={GithubLink}

@@ -1,60 +1,71 @@
 import Image from "next/image";
+import { IconLink } from "../(components)/IconsButtons";
+import Link from "next/link";
 
 
-const PROYECTS:  {title: string, finished: boolean, description: string, technologies:Technologystrig[] }[] = [
+const PROYECTS:  {title: string, finished: boolean, description: string, technologies:Technologystrig[], link: string }[] = [
   {
     title: "Porfolio web personal",
     finished: false,
     description: "Desarrollado desde cero, este portafolio personal destaca mis habilidades y experiencia en programación. Incluye una descripción sobre mí, un currículum en línea, información de contacto, una sección de proyectos destacados y las tecnologías que uso y con las que estoy familiarizado. Con un diseño responsivo y una experiencia de usuario optimizada, ofrece una presentación profesional y accesible de mi trabajo y logros.",
-    technologies: ["html", "css", "react", "typescript","next", "tailwind", "github"]
+    technologies: ["html", "css", "react", "typescript","next", "tailwind", "github"],
+    link: "/",
   },
   {
     title: "Hola 2",
     finished: true,
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    technologies: ["python", "pygame"]
+    technologies: ["python", "pygame"],
+    link: "/",
   },
   {
     title: "Hola 3",
     finished: true,
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    technologies: ["unity", "c-sharp"]
+    technologies: ["unity", "c-sharp"],
+    link: "/",
   },
   {
     title: "Hola 4",
     finished: true,
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    technologies: ["java"]
+    technologies: ["java"],
+    link: "/",
   },
   {
     title: "Hola 5",
     finished: true,
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    technologies: ["c++"]
+    technologies: ["c++"],
+    link: "/",
   },
   {
     title: "Hola 5",
     finished: true,
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    technologies: []
+    technologies: [],
+    link: "/",
   },
   {
     title: "Hola 5",
     finished: true,
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    technologies: []
+    technologies: [],
+    link: "/",
   },
   {
     title: "Hola 5",
     finished: true,
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    technologies: []
+    technologies: [],
+    link: "/",
   },
   {
     title: "Hola 5", 
     finished: true,
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    technologies: []
+    technologies: [],
+    link: "/",
   },
 ]
 
@@ -67,15 +78,24 @@ export default function Proyects() {
 
       <main className="flex flex-col justify-center gap-6">
         {PROYECTS.map((object, idx) =>
-          <section key={idx}
-            className="flex gap-4"
+          <Link key={idx}
+            href="/"            
+            className="flex gap-4 p-4 rounded-xl transform duration-300 hover:scale-105 hover:bg-miquel-black-400/20"
           >
             <aside className="w-full max-w-96 border border-miquel-white-200/50 rounded-xl flex justify-center items-center aspect-video"> 
               SOY UNA IMAGEN
             </aside>
             <main className="flex flex-col justify-between">
               <span>
-                <h2 className="text-2xl">{object.title}</h2>
+                <header className="flex items-center gap-3">
+                  <h2 className="text-2xl">{object.title}</h2>
+                  <IconLink 
+                    src="external-link" title={object.title}
+                    width={20} height={20} 
+                    link="/"            
+                    blank         
+                  />
+                </header>
                 <p className="opacity-50">{object.finished ? "Terminado" : "En progreso"}</p>
               </span>
               <p className="opacity-70 ">{object.description}</p>
@@ -85,7 +105,7 @@ export default function Proyects() {
                 )}
               </footer>
             </main>
-          </section>
+          </Link>
         )}
       </main>
 

@@ -9,14 +9,16 @@ import cn from 'classnames';
 //                        ICONS GLOW
 // =================================================================
 
-interface ImageGlowingProps {
+// ================== ICONS ==================
+
+interface IconGlowingProps {
   width: number, 
   height: number, 
   src: string, 
   title: string
   text?: string;
 }
-export function ImageGlowing({ width, height, src, title, text}: ImageGlowingProps){
+export function IconGlowing({ width, height, src, title, text}: IconGlowingProps){
   return(
     <button className="relative">
       <div className="absolute rounded-full flex h-full w-full bg-miquel-blue-400/50 blur-md" />
@@ -34,14 +36,14 @@ export function ImageGlowing({ width, height, src, title, text}: ImageGlowingPro
   )
 }
 
-interface ImageGlowingProps {
+interface IconGlowingProps {
   width: number, 
   height: number, 
   src: string, 
   title: string
   text?: string;
 }
-export function ImageGlowingSolid({ width, height, src, title, text}: ImageGlowingProps){
+export function IconGlowingSolid({ width, height, src, title, text}: IconGlowingProps){
   return(
     <button className="relative">
       <div className="absolute rounded-full h-full w-full bg-miquel-blue-400/50 blur-md" />
@@ -59,6 +61,8 @@ export function ImageGlowingSolid({ width, height, src, title, text}: ImageGlowi
   )
 }
 
+// ================== ICONS LINK ==================
+
 interface IconLinkGlowingProps {
   width: number, 
   height: number, 
@@ -68,20 +72,34 @@ interface IconLinkGlowingProps {
   blank?: boolean
   text?: string,
 }
-export function GlowingIconLink({ width, height, src, title, link, blank, text}: IconLinkGlowingProps) {
+export function IconLGlowingink({ width, height, src, title, link, blank, text}: IconLinkGlowingProps) {
   return (
     <Link 
       className="relative"
       href={link}
       target={blank ? "_blank": ""}
     >
-      <ImageGlowing
+      <IconGlowing
+        width={width} height={height} src={src} title={title} text={text}
+      />
+    </Link>
+  )
+}
+export function IconLGlowinginkSolid({ width, height, src, title, link, blank, text}: IconLinkGlowingProps) {
+  return (
+    <Link 
+      className="relative"
+      href={link}
+      target={blank ? "_blank": ""}
+    >
+      <IconGlowingSolid
         width={width} height={height} src={src} title={title} text={text}
       />
     </Link>
   )
 }
 
+// ================== ICONS COPY ==================
 interface IconCopyGlowingProps {
   width: number, 
   height: number, 
@@ -90,7 +108,7 @@ interface IconCopyGlowingProps {
   copyText: string,
   text?: string,
 }
-export function GlowingIconCopy({ width, height, src, title, copyText, text}:IconCopyGlowingProps) {
+export function IconGlowingCopy({ width, height, src, title, copyText, text}:IconCopyGlowingProps) {
   const handleCopyClick = () => {
     navigator.clipboard.writeText(copyText).then(() => {
       alert(`${copyText} copied to clipboard!`);
@@ -100,7 +118,7 @@ export function GlowingIconCopy({ width, height, src, title, copyText, text}:Ico
   };
   return (
     <nav className="relative flex" onClick={handleCopyClick}>
-      <ImageGlowing
+      <IconGlowing
         width={width} height={height} src={src} title={title} text={text}
       />
     </nav>
@@ -116,7 +134,7 @@ export function GlowingIconCopySolid({ width, height, src, title, copyText, text
   };
   return (
     <nav className="relative flex" onClick={handleCopyClick}>
-      <ImageGlowingSolid
+      <IconGlowingSolid
         width={width} height={height} src={src} title={title} text={text}
       />
     </nav>
@@ -128,9 +146,6 @@ export function GlowingIconCopySolid({ width, height, src, title, copyText, text
 // =================================================================
 //                        ICONS NO GLOW
 // =================================================================
-
-
-
 interface IconLinkProps {
   width: number, 
   height: number, 

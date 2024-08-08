@@ -1,5 +1,5 @@
-import { IconLink, IconCopy} from "../components/IconsButtons";
-import { Email, Github, GithubLink, Linkedin, LinkedinLink } from "../constants/constants.d";
+import { IconLink, IconCopy} from "../(components)/IconsButtons";
+import { Email, Github, GithubLink, Linkedin, LinkedinLink } from "../(constants)/constants.d";
 
 export default function Footer() {
   return (
@@ -10,20 +10,20 @@ export default function Footer() {
       </div>
       <nav className="flex flex-col gap-4 p-4 border rounded-xl min-w-72 text-xs">
         <IconCopy 
-          src="email" alt={Email} title={Email}
+          src="email" title={Email}
           width={20} height={20} 
           copyText={Email}
           text={Email}
           />
         <IconLink 
-          src="linkedin" alt={Linkedin} title={Linkedin}
+          src="linkedin" title={Linkedin}
           width={20} height={20}  
           link={LinkedinLink}
           text={Linkedin}
           blank         
           />
         <IconLink 
-          src="github" alt={Github}title={Github}
+          src="github" title={Github}
           width={20} height={20} 
           link={GithubLink}            
           text={Github}
