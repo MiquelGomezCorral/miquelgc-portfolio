@@ -74,7 +74,7 @@ export default function InfoSection() {
         </p>
 
 
-        <footer className="flex justify-center xl:justify-start gap-4">
+        <footer className="flex flex-wrap justify-center xl:justify-start gap-4">
           <DownloadCV>
             <IconGlowingSolid
               src="download-document" title={Curriculum}

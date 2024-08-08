@@ -105,7 +105,7 @@ export default function Proyects() {
                 <p className="opacity-50">{object.finished ? "Terminado" : "En progreso"}</p>
               </span>
               <p className="opacity-70 ">{object.description}</p>
-              <footer className="flex gap-2 overflow-x-auto scroll-smooth hide-scrollbar">
+              <footer className="flex gap-2 flex-wrap">
                 {object.technologies.map((tech, idx) =>
                   <Technology key={idx} src={tech}/>
                 )}
