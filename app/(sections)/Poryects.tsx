@@ -71,7 +71,7 @@ const PROYECTS:  {title: string, finished: boolean, description: string, technol
 
 export default function Proyects() {
   return (
-    <section className="w-full flex flex-col gap-6">
+    <section id="Proyects" className="w-full flex flex-col gap-6">
       <header className="w-full py-4 border-b-2 border-b-miquel-white-200/50">
         <h1 className="text-5xl font-bold">Proyectos</h1>
       </header>
@@ -91,7 +91,7 @@ export default function Proyects() {
               />
             </div>
 
-            <main className="flex flex-col gap-2 justify-between col-span-1 lg:col-start-6 lg:col-span-7">
+            <article className="flex flex-col gap-2 justify-between col-span-1 lg:col-start-6 lg:col-span-7">
               <span>
                 <header className="flex items-center gap-3">
                   <h2 className="text-2xl">{object.title}</h2>
@@ -110,7 +110,7 @@ export default function Proyects() {
                   <Technology key={idx} src={tech}/>
                 )}
               </footer>
-            </main>
+            </article>
           </Link>
         )}
       </main>

@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import GlowingText from "../(components)/GlowingText";
 import Image from "next/image";
-import { GlowingIconCopySolid, IconLGlowingink, IconCopy, IconGlowingSolid, IconGlowingCopy } from "../(components)/IconsButtons";
+import { GlowingIconCopySolid, IconLGlowingLink, IconCopy, IconGlowingSolid, IconGlowingCopy } from "../(components)/IconsButtons";
 import { Location, Email, Github, GithubLink, Linkedin, LinkedinLink, Curriculum, CurriculumSiglas } from "../(constants)/constants.d";
 import { DownloadCV } from "../(components)/Utils";
 
@@ -48,7 +48,7 @@ export default function InfoSection() {
   }, [quality, isWriting])
 
   return (
-    <section className='w-full flex flex-col xl:flex-row-reverse justify-between items-center gap-24 xl:gap-10'>
+    <section id="Info-Section" className='w-full flex flex-col xl:flex-row-reverse justify-between items-center gap-24 xl:gap-10'>
       <Foto />
       <aside className="flex flex-col gap-6 max-w-3xl text-center xl:text-start">
         <h1 className='text-5xl flex flex-col md:flex-row justify-center xl:justify-start gap-4 font-bold whitespace-nowrap'>
@@ -88,13 +88,13 @@ export default function InfoSection() {
             copyText={Email}
             text={Email}
           />
-          <IconLGlowingink
+          <IconLGlowingLink
             src="linkedin" title={Linkedin}
             width={20} height={20}
             link={LinkedinLink}
             blank
           />
-          <IconLGlowingink
+          <IconLGlowingLink
             src="github" title={Github}
             width={20} height={20}
             link={GithubLink}
@@ -118,7 +118,7 @@ function Foto() {
   return (
     <section className="min-w-[400px] min-h-[400px] w-full flex justify-center">
       <div className="absolute bg-miquel-blue-400 rounded-full blur-md w-full h-full max-w-[400px] max-h-[400px] object-cover" />
-      <Image src="/yo/DNI-png.png" alt="Miquel Gómez Corral"
+      <Image src="/miquel/DNI-png.png" alt="Miquel Gómez Corral"
         width={400}
         height={400}
         className="rounded-full bg-miquel-blue-400 relative "

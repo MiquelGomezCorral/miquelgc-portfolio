@@ -72,7 +72,7 @@ interface IconLinkGlowingProps {
   blank?: boolean
   text?: string,
 }
-export function IconLGlowingink({ width, height, src, title, link, blank, text}: IconLinkGlowingProps) {
+export function IconLGlowingLink({ width, height, src, title, link, blank, text}: IconLinkGlowingProps) {
   return (
     <Link 
       className="relative"
@@ -203,15 +203,13 @@ interface IconTextProps {
 }
 export function IconText({width, height, src, title, text, className}: IconTextProps){
   return (
-    <>
-      <div className={cn("relative gap-2 flex items-center rounded-full transform duration-300 opacity-70 hover:opacity-100", className)}>
-        <Image src={`/assets/icons/${src}.svg`} alt={src}
-          width={width}
-          height={height}
-          title={title}
-        />
-        {text}
-      </div>
-    </>
+    <div className={cn("gap-2 flex items-center rounded-full transform duration-300 opacity-70 hover:opacity-100", className)}>
+      <Image src={`/assets/icons/${src}.svg`} alt={src}
+        width={width}
+        height={height}
+        title={title}
+      />
+      {text}
+    </div>
   )
 }

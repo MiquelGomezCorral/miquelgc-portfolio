@@ -9,7 +9,7 @@ export default function App() {
       bg-radient bg-miquel-background text-miquel-white-200 pt-60'>
       <Header />
 
-      <InfoSection />
+      <InfoSection/>
       <Poryects />
 
       <Footer />

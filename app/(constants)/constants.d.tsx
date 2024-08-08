@@ -10,3 +10,6 @@ export const Location = "Almenara, Valencia, España"
 
 export const Curriculum = "Curriculum Vitae"
 export const CurriculumSiglas = "C.V."
+
+export const OpenMenu = "Open Menu"
+export const CloseMenu = "Close Menu"
