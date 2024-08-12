@@ -6,20 +6,20 @@ import { GlowingIconCopySolid, IconLGlowingLink, IconCopy, IconGlowingSolid, Ico
 import { Location, Email, Github, GithubLink, Linkedin, LinkedinLink, Curriculum, CurriculumSiglas } from "../(constants)/constants.d";
 import { DownloadCV } from "../(components)/Utils";
 
+const qualities = [
+  " creativo.",
+  " apasionado.",
+  " curioso.",
+  " aplicado.",
+  " hábil programando.",
+  " determinado.",
+  " trabajador.",
+  " guapo? ;)"
+]
 export default function InfoSection() {
   const [quality, setQuality] = useState("Creativo")
   const [indexQuality, setIndexQuality] = useState(0)
   const [isWriting, setIsWriting] = useState(false)
-  const qualities = [
-    " creativo.",
-    " apasionado.",
-    " curioso.",
-    " aplicado.",
-    " hábil programador.",
-    " determinado.",
-    " trabajador.",
-    " guapo? ;)"
-  ]
   useEffect(() => {
     const deletingTime = 25
     const writingTime = 150

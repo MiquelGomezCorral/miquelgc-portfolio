@@ -162,7 +162,7 @@ export function IconLink({ link, blank, width, height, src, title, text}: IconLi
       href={link}
       target={blank ? "_blank": ""}
     >
-      <IconText width={width} height={height} src={src} title={title} text={text} />
+      <Icon width={width} height={height} src={src} title={title} text={text} />
     </Link>
   )
 }
@@ -188,12 +188,12 @@ export function IconCopy({ width, height, src, title, copyText, text}: IconCopyP
       className="relative"
       onClick={handleCopyClick}
     >
-      <IconText width={width} height={height} src={src} title={title} text={text} />
+      <Icon width={width} height={height} src={src} title={title} text={text} />
     </button>
   )
 }
 
-interface IconTextProps {
+interface IconProps {
   width: number, 
   height: number, 
   src: string, 
@@ -201,7 +201,7 @@ interface IconTextProps {
   text?: string,
   className?: string,
 }
-export function IconText({width, height, src, title, text, className}: IconTextProps){
+export function Icon({width, height, src, title, text, className}: IconProps){
   return (
     <div className={cn("gap-2 flex items-center rounded-full transform duration-300 opacity-70 hover:opacity-100", className)}>
       <Image src={`/assets/icons/${src}.svg`} alt={src}

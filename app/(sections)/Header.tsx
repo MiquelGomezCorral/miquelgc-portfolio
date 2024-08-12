@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { HeaderButton, HeaderButtonLink } from "../(components)/HeaderButton";
 import { DownloadCV } from "../(components)/Utils";
-import { IconText } from "../(components)/IconsButtons";
+import { Icon } from "../(components)/IconsButtons";
 import { CloseMenu, OpenMenu } from "../(constants)/constants.d";
 import { useState } from "react";
 import cn from 'classnames';
@@ -13,11 +13,11 @@ export default function Header() {
   return (
     <>
       <div
-        className="fixed z-50 top-4 right-6 rounded-full p-2 w-9 border hover:bg-miquel-black-300"
+        className="fixed sm:hidden z-50 top-4 right-6 rounded-full p-2 w-9 border hover:bg-miquel-black-300"
         onClick={() => setshowMenu(!showMenu)}
       >
-        <IconText
-          src={!showMenu ? "menu-close" : "menu-open"} title={!showMenu ? CloseMenu : OpenMenu}
+        <Icon
+          src={showMenu ? "menu-close" : "menu-open"} title={!showMenu ? CloseMenu : OpenMenu}
           width={20} height={20}
         />
       </div>
@@ -37,7 +37,7 @@ export default function Header() {
           </nav>
         </section>
 
-        <section className='gap-4 sm:hidden flex flex-col'>
+        <section className={cn('gap-4 sm:hidden flex flex-col',{"hidden": !showMenu})}>
           <Link href="/" className="opacity-70 hover:opacity-100 transform duration-300 text-2xl font-semibold">
             <h3>Miquel Gómez</h3>
           </Link>
