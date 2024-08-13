@@ -1,17 +1,16 @@
 "use client"
 import { useEffect, useState } from "react";
-import GlowingText from "../../utils/(components)/GlowingText";
+import GlowingText from "../(utils)/(components)/GlowingText";
 import Image from "next/image";
-import { GlowingIconCopySolid, IconLGlowingLink, IconCopy, IconGlowingSolid, IconGlowingCopy } from "../../utils/(components)/IconsButtons";
-import { Location, Email, Github, GithubLink, Linkedin, LinkedinLink, Curriculum, CurriculumSiglas } from "../../utils/(constants)/constants.d";
-import { DownloadCV } from "../../utils/(components)/Utils";
+import { GlowingIconCopySolid, IconLGlowingLink, IconCopy, IconGlowingSolid, IconGlowingCopy } from "../(utils)/(components)/IconsButtons";
+import { Location, Email, Github, GithubLink, Linkedin, LinkedinLink, Curriculum, CurriculumSiglas } from "../(utils)/(constants)/constants.d"
+import { DownloadCV } from "../(utils)/(components)/Utils";
 
 const qualities = [
   " creativo.",
   " apasionado.",
   " curioso.",
   " aplicado.",
-  " hábil programando.",
   " determinado.",
   " trabajador.",
   " guapo? ;)"
@@ -51,13 +50,13 @@ export default function InfoSection() {
     <section id="Info-Section" className='w-full flex flex-col xl:flex-row-reverse justify-between items-center gap-24 xl:gap-10'>
       <Foto />
       <aside className="flex flex-col gap-6 max-w-3xl text-center xl:text-start">
-        <h1 className='text-5xl flex flex-col md:flex-row justify-center xl:justify-start gap-4 font-bold whitespace-nowrap'>
+        <h1 className='text-3xl sm:text-5xl flex flex-col md:flex-row justify-center xl:justify-start gap-4 font-bold whitespace-nowrap'>
           ¡Hola, soy <GlowingText>Miquel Gómez!</GlowingText>
         </h1>
-        <h2 className="text-2xl flex justify-center xl:justify-start gap-2">
+        <h2 className="text-lg sm:text-2xl flex justify-center items-center xl:justify-start gap-2 text-nowrap overflow-hidden">
           Soy un estudiante <GlowingText>{quality}<WritingBar /> </GlowingText>
         </h2>
-        <p className="text-miquel-white-500 flex flex-col gap-2">
+        <p className="text-sm sm:text-base text-miquel-white-500 flex flex-col gap-2">
           <span >
             <IconCopy
               src="location-pin" title={Location}
@@ -66,7 +65,7 @@ export default function InfoSection() {
               text={Location}
             />
           </span>
-          
+
           En mi grado, estoy estudiando la rama de computación: Optimización, aprendizaje automático etc. Mis competencias Informáticas son de calidad,
           desenvolviéndome sin problemas en diferentes lenguajes y entornos de trabajo. A lo largo de mi carrera he destaco en los estudios y he obtenido reconocimientos.
           Por mi cuenta, he desarrollado pequeños proyectos con lo aprendido en mis estudios, al igual  que he ampliado mis habilidades en la edición de imágenes, hasta el punto de trabajar con
@@ -81,7 +80,7 @@ export default function InfoSection() {
               width={20} height={20}
               text={CurriculumSiglas}
             />
-          </DownloadCV> 
+          </DownloadCV>
           <IconGlowingCopy
             src="email" title={Email}
             width={20} height={20}
@@ -116,13 +115,16 @@ function WritingBar() {
 
 function Foto() {
   return (
-    <section className="min-w-[400px] min-h-[400px] w-full flex justify-center">
-      <div className="absolute bg-miquel-blue-400 rounded-full blur-md w-full h-full max-w-[400px] max-h-[400px] object-cover" />
-      <Image src="/miquel/DNI-png.png" alt="Miquel Gómez Corral"
-        width={400}
-        height={400}
-        className="rounded-full bg-miquel-blue-400 relative "
-      />
+    <section className="relative flex justify-center w-full h-auto">
+      <div className="relative w-full max-w-[400px] lg:min-w-[300px] aspect-square">
+        <div className="absolute bg-miquel-blue-400 rounded-full blur-md w-full h-full" />
+        <Image
+          src="/miquel/DNI-png.png"
+          alt="Miquel Gómez Corral"
+          layout="fill"
+          className="rounded-full bg-miquel-blue-400 object-cover"
+        />
+      </div>
     </section>
   )
 }

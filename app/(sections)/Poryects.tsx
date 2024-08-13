@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { IconLink } from "../../utils/(components)/IconsButtons";
+import { IconLink } from "../(utils)/(components)/IconsButtons";
 import Link from "next/link";
 
 
@@ -9,7 +9,7 @@ const PROYECTS:  {title: string, finished: boolean, description: string, technol
     finished: false,
     description: "Desarrollado desde cero, este portafolio personal destaca mis habilidades y experiencia en programación. Incluye una descripción sobre mí, un currículum en línea, información de contacto, una sección de proyectos destacados y las tecnologías que uso y con las que estoy familiarizado. Con un diseño responsivo y una experiencia de usuario optimizada, ofrece una presentación profesional y accesible de mi trabajo y logros.",
     technologies: ["html", "css", "react", "typescript","next", "tailwind", "github"],
-    link: "/",
+    link: "/proyects/portfolio",
   },
   {
     title: "Hola 2",
@@ -81,7 +81,7 @@ export default function Proyects() {
           <li key={idx}       
             className="relative grid gird-cols-1 lg:grid-cols-12 gap-4 p-4 rounded-xl transform duration-300 hover:scale-105 hover:bg-miquel-black-400/20"
           >
-            <Link href="/" target="_blank" className="relative w-full aspect-video col-span-1 lg:col-span-5">
+            <Link href={object.link} target="_blank" className="relative w-full aspect-video col-span-1 lg:col-span-5">
               <Image 
                 src="/assets/proyects/Captura.png"
                 alt={object.title}
@@ -97,7 +97,7 @@ export default function Proyects() {
                   <IconLink 
                     src="external-link" title={object.title}
                     width={20} height={20} 
-                    link="/"            
+                    link={object.link}            
                     blank         
                   />
                 </header>

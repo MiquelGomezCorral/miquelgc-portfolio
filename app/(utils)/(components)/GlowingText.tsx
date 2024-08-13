@@ -4,19 +4,19 @@ export default function GlowingText({ bold, ...props }: { bold?: boolean, childr
 			{bold
 				?
 				<p>
-					<strong className="text-miquel-blue-400 blur-md absolute">
+					<strong className="text-miquel-blue-400 blur-md absolute text-nowrap">
 						{props.children}
 					</strong>
-					<strong className="text-miquel-blue-400 relative">
+					<strong className="text-miquel-blue-400 relative text-nowrap">
 						{props.children}
 					</strong>
 				</p>
 				:
 				<p>
-					<span className="text-miquel-blue-400 blur-md absolute">
+					<span className="text-miquel-blue-400 blur-md absolute text-nowrap">
 						{props.children}
 					</span>
-					<span className="text-miquel-blue-400 relative">
+					<span className="text-miquel-blue-400 relative text-nowrap">
 						{props.children}
 					</span>
 				</p>
