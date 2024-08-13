@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { IconLink } from "../(components)/IconsButtons";
+import { IconLink } from "../../utils/(components)/IconsButtons";
 import Link from "next/link";
 
 
@@ -78,18 +78,17 @@ export default function Proyects() {
 
       <main className="flex flex-col justify-center gap-6">
         {PROYECTS.map((object, idx) =>
-          <Link key={idx}
-            href="/"            
+          <li key={idx}       
             className="relative grid gird-cols-1 lg:grid-cols-12 gap-4 p-4 rounded-xl transform duration-300 hover:scale-105 hover:bg-miquel-black-400/20"
           >
-            <div className="relative w-full aspect-video col-span-1 lg:col-span-5">
+            <Link href="/" target="_blank" className="relative w-full aspect-video col-span-1 lg:col-span-5">
               <Image 
                 src="/assets/proyects/Captura.png"
                 alt={object.title}
                 fill
-                className="border border-miquel-white-200/50 rounded-xl"
+                className="ring ring-miquel-white-200/20 hover:ring-miquel-white-200/50 rounded-xl hover:-translate-y-2 transform duration-300"
               />
-            </div>
+            </Link>
 
             <article className="flex flex-col gap-2 justify-between col-span-1 lg:col-start-6 lg:col-span-7">
               <span>
@@ -111,7 +110,7 @@ export default function Proyects() {
                 )}
               </footer>
             </article>
-          </Link>
+          </li>
         )}
       </main>
 

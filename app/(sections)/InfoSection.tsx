@@ -1,10 +1,10 @@
 "use client"
 import { useEffect, useState } from "react";
-import GlowingText from "../(components)/GlowingText";
+import GlowingText from "../../utils/(components)/GlowingText";
 import Image from "next/image";
-import { GlowingIconCopySolid, IconLGlowingLink, IconCopy, IconGlowingSolid, IconGlowingCopy } from "../(components)/IconsButtons";
-import { Location, Email, Github, GithubLink, Linkedin, LinkedinLink, Curriculum, CurriculumSiglas } from "../(constants)/constants.d";
-import { DownloadCV } from "../(components)/Utils";
+import { GlowingIconCopySolid, IconLGlowingLink, IconCopy, IconGlowingSolid, IconGlowingCopy } from "../../utils/(components)/IconsButtons";
+import { Location, Email, Github, GithubLink, Linkedin, LinkedinLink, Curriculum, CurriculumSiglas } from "../../utils/(constants)/constants.d";
+import { DownloadCV } from "../../utils/(components)/Utils";
 
 const qualities = [
   " creativo.",

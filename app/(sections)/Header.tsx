@@ -1,10 +1,10 @@
 "use client"
 
 import Link from "next/link";
-import { HeaderButton, HeaderButtonLink } from "../(components)/HeaderButton";
-import { DownloadCV } from "../(components)/Utils";
-import { Icon } from "../(components)/IconsButtons";
-import { CloseMenu, OpenMenu } from "../(constants)/constants.d";
+import { HeaderButton, HeaderButtonLink } from "../../utils/(components)/HeaderButton";
+import { DownloadCV } from "../../utils/(components)/Utils";
+import { Icon } from "../../utils/(components)/IconsButtons";
+import { CloseMenu, OpenMenu } from "../../utils/(constants)/constants.d";
 import { useState } from "react";
 import cn from 'classnames';
 
@@ -21,7 +21,7 @@ export default function Header() {
           width={20} height={20}
         />
       </div>
-      <header className={cn('z-40 px-6 sm:px-20 py-4 w-full h-full sm:h-auto fixed gap-10 top-0 backdrop-blur-md sm:border-b-2 border-b-miquel-white-200/50', { "opacity-0 -z-10": showMenu })}>
+      <header className={cn('z-40 px-6 sm:px-20 py-4 w-full h-full sm:h-auto fixed gap-10 top-0 backdrop-blur-md sm:border-b-2 border-b-miquel-white-200/50', { "opacity-0 -z-10": !showMenu })}>
         <section className="w-full hidden sm:flex justify-between">
           <Link href="/" className="opacity-70 hover:opacity-100 transform duration-300">
             Miquel Gómez

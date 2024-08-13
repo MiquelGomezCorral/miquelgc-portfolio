@@ -1,6 +1,6 @@
-import { IconLink, IconCopy, Icon} from "../(components)/IconsButtons";
-import { DownloadCV } from "../(components)/Utils";
-import { Curriculum, Email, Github, GithubLink, Linkedin, LinkedinLink } from "../(constants)/constants.d";
+import { IconLink, IconCopy, Icon} from "../../utils/(components)/IconsButtons";
+import { DownloadCV } from "../../utils/(components)/Utils";
+import { Curriculum, Email, Github, GithubLink, Linkedin, LinkedinLink } from "../../utils/(constants)/constants.d";
 
 export default function Footer() {
   return (
