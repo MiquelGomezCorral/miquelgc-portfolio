@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { IconLink } from "../(utils)/(components)/IconsButtons";
+import { Icon, IconLink } from "../(utils)/(components)/IconsButtons";
 import Link from "next/link";
 import cn from 'classnames';
 
@@ -169,6 +169,36 @@ export function Proyect({object, disabled}:{object:typeof PROYECTS[0], disabled?
   )
 }
 
+export function EmptyProyect({object}:{object:typeof PROYECTS[0]}) {
+  return (
+    <li 
+      className="relative grid gird-cols-1 lg:grid-cols-12 gap-4 p-4 rounded-xl transform duration-300"
+    >
+      <div className="relative w-full aspect-video col-span-1 lg:col-span-5">
+        <Image
+          src="/assets/proyects/Captura.png"
+          alt={object.title}
+          fill
+          className="ring ring-miquel-white-200/20 hover:ring-miquel-white-200/50 rounded-xl hover:-translate-y-2 transform duration-300"
+        />
+      </div>
+
+      <article className="flex flex-col gap-2 justify-between col-span-1 lg:col-start-6 lg:col-span-7">
+        <span>
+          <header className="flex items-center gap-3">
+            <h2 className="text-2xl">{object.title}</h2>
+            <Icon
+              src="external-link" title={object.title}
+              width={20} height={20}
+            />
+          </header>
+          <p className="opacity-50">{object.finished ? "Terminado" : "En progreso"}</p>
+        </span>
+        <p className="opacity-70 ">{object.description}</p>
+      </article>
+    </li>
+  )
+}
 export type Technologystrig = "html" | "react" | "typescript" | "next" | "tailwind" | "github" | "css" | "java" | "unity" | "python" | "pygame" | "c++" | "c-sharp"
 
 export function Technology({ src }: { src: string }) {

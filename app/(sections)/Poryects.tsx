@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Proyect, ProyectType, Technology, Technologystrig } from "../proyects/page";
+import { EmptyProyect, Proyect, ProyectType, Technology, Technologystrig } from "../proyects/page";
 
 
 const PROYECTS: ProyectType[] = [
@@ -65,7 +65,7 @@ export default function Proyects() {
           Ver más
         </span>
         <figure className="pt-1 h-20 overflow-hidden blur-sm">
-          <Proyect object={PROYECTS[4]} disabled/>
+          <EmptyProyect object={PROYECTS[4]}/>
         </figure>
       </Link>
     </section>
