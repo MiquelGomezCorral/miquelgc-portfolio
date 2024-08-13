@@ -12,7 +12,7 @@ export default function Header() {
   const [showMenu, setshowMenu] = useState(false)
   return (
     <>
-      <header className='fixed hidden sm:flex justify-between z-40 px-10 md:px-16 lg:px-20 py-4 w-full h-full sm:h-auto gap-10 top-0 text-miquel-white-200
+      <header className='fixed hidden sm:flex justify-between z-40 px-10 md:px-16 lg:px-20 py-4 w-full h-full sm:h-auto gap-10 top-0
       backdrop-blur-md border-b-2 border-b-miquel-white-200/50'>
         <Link href="/" className="opacity-70 hover:opacity-100 transform duration-300">
           Miquel Gómez
