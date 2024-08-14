@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { EmptyProyect, ProyectElement } from "../proyects/page";
+import { EmptyProyect, Proyect } from "../proyects/page";
 import { PROYECTS } from "../(utils)/(constants)/proyect.text.d";
 
 export default function Proyects() {
@@ -11,7 +11,7 @@ export default function Proyects() {
 
       <main className="flex flex-col justify-center gap-6">
         {PROYECTS.slice(0,4).map((object, idx) =>
-          <ProyectElement key={idx} object={object}/>
+          <Proyect key={idx} object={object}/>
         )}
       </main>
       
