@@ -54,7 +54,7 @@ export default function ProyectsPage() {
   )
 }
 
-export function Proyect({object, disabled}:{object: ProyectType, disabled?: boolean}) {
+export const Proyect = ({object, disabled}:{object: ProyectType, disabled?: boolean}) => {
   return (
     <li 
       className={cn("relative grid gird-cols-1 lg:grid-cols-12 gap-4 p-4 rounded-xl transform duration-300",{" hover:scale-105 hover:bg-miquel-black-400/20": !disabled})}
