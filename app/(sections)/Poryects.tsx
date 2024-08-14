@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { EmptyProyect, Proyect } from "../proyects/page";
+import { EmptyProyect, Proyect } from "../proyects/elements";
 import { PROYECTS } from "../(utils)/(constants)/proyect.text.d";
 
 export default function Proyects() {

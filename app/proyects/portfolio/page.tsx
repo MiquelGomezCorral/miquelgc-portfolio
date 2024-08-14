@@ -1,6 +1,6 @@
 import { IconLink } from "@/app/(utils)/(components)/IconsButtons";
 import Image from "next/image";
-import { Technology } from "../page";
+import { Technology } from "../elements";
 import { Porfolio as object } from "../../(utils)/(constants)/proyect.text.d"
 import cn from "classnames"
 
