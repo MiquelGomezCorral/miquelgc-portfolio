@@ -147,7 +147,7 @@ export function ProyectPageTemplate({object}: {object: ProyectType}) {
           </footer>
         </section>
 
-        <section className="h-96 w-full">
+        <section className="h-56 sm:h-96 w-full">
           <Marquee pauseOnHover
             className="[--duration:20s] w-full h-full">
             {object.screenShoots.map((screenShoot, idx) =>
