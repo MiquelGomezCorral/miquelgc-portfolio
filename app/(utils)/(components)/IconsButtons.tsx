@@ -151,7 +151,7 @@ interface IconLinkProps {
   height: number, 
   src: string, 
   link: string
-  blank: boolean
+  blank?: boolean
   title: string,
   text?: string,
 }

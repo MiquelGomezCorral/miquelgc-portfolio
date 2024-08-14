@@ -16,7 +16,7 @@ export default function ProyectsPage() {
           <li key={idx}
             className="relative grid gird-cols-1 lg:grid-cols-12 gap-4 p-4 rounded-xl transform duration-300 hover:scale-105 hover:bg-miquel-black-400/20"
           >
-            <Link href={object.link} target="_blank" className="relative w-full aspect-video col-span-1 lg:col-span-5">
+            <Link href={object.link} className="relative w-full aspect-video col-span-1 lg:col-span-5">
               <Image
                 src={`/assets/proyects/${object.miniatura}.webp`}
                 alt={object.title}
@@ -33,7 +33,6 @@ export default function ProyectsPage() {
                     src="external-link" title={object.title}
                     width={20} height={20}
                     link={object.link}
-                    blank
                   />
                 </header>
                 <p className="opacity-50">{object.finished ? "Terminado" : "En progreso"}</p>
@@ -60,7 +59,7 @@ export function Proyect({object, disabled}:{object: typeof PROYECTS[0], disabled
     <li 
       className={cn("relative grid gird-cols-1 lg:grid-cols-12 gap-4 p-4 rounded-xl transform duration-300",{" hover:scale-105 hover:bg-miquel-black-400/20": !disabled})}
     >
-      <Link href={object.link} target="_blank" className="relative w-full aspect-video col-span-1 lg:col-span-5">
+      <Link href={object.link} className="relative w-full aspect-video col-span-1 lg:col-span-5">
         <Image
           src={`/assets/proyects/${object.miniatura}.webp`}
           alt={object.title}
@@ -77,7 +76,6 @@ export function Proyect({object, disabled}:{object: typeof PROYECTS[0], disabled
               src="external-link" title={object.title}
               width={20} height={20}
               link={object.link}
-              blank
             />
           </header>
           <p className="opacity-50">{object.finished ? "Terminado" : "En progreso"}</p>
