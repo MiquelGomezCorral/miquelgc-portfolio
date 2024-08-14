@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Icon, IconLink } from "../(utils)/(components)/IconsButtons";
 import Link from "next/link";
 import cn from 'classnames';
-import { PROYECTS } from "./proyect.text.d"
+import { PROYECTS } from "../(utils)/(constants)/proyect.text.d";
 
 export default function ProyectsPage() {
   return (
@@ -54,7 +54,7 @@ export default function ProyectsPage() {
   )
 }
 
-export function Proyect({object, disabled}:{object: typeof PROYECTS[0], disabled?: boolean}) {
+export function ProyectElement({object, disabled}:{object: typeof PROYECTS[0], disabled?: boolean}) {
   return (
     <li 
       className={cn("relative grid gird-cols-1 lg:grid-cols-12 gap-4 p-4 rounded-xl transform duration-300",{" hover:scale-105 hover:bg-miquel-black-400/20": !disabled})}
