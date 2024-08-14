@@ -53,7 +53,6 @@ export function EmptyProyect({ object }: { object: ProyectType }) {
           src="/assets/proyects/Captura.png"
           alt={object.title}
           fill
-          className="ring ring-miquel-white-200/20 hover:ring-miquel-white-200/50 rounded-xl hover:-translate-y-2 transform duration-300"
         />
       </div>
 
