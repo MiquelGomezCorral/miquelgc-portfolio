@@ -93,7 +93,7 @@ export const Proyect = ({object, disabled}:{object: ProyectType, disabled?: bool
   )
 }
 
-export function EmptyProyect({object}:{object: typeof PROYECTS[0]}) {
+export const EmptyProyect = ({object}:{object: typeof PROYECTS[0]}) => {
   return (
     <li 
       className="relative grid gird-cols-1 lg:grid-cols-12 gap-4 p-4 rounded-xl transform duration-300"
@@ -124,7 +124,7 @@ export function EmptyProyect({object}:{object: typeof PROYECTS[0]}) {
   )
 }
 
-export function Technology({ src }: { src: string }) {
+export const Technology = ({ src }: { src: string }) => {
   const Title = (src: string) => {
     switch (src) {
       case "html": return "Html"
