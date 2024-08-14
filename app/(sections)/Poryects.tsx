@@ -1,49 +1,6 @@
 import Link from "next/link";
-import { EmptyProyect, Proyect, ProyectType, Technology, Technologystrig } from "../proyects/page";
-
-
-const PROYECTS: ProyectType[] = [
-  {
-    title: "Porfolio web personal",
-    finished: false,
-    description: "Desarrollado desde cero, este portafolio personal destaca mis habilidades y experiencia en programación. Incluye una descripción sobre mí, un currículum en línea, información de contacto, una sección de proyectos destacados y las tecnologías que uso y con las que estoy familiarizado. Con un diseño responsivo y una experiencia de usuario optimizada, ofrece una presentación profesional y accesible de mi trabajo y logros.",
-    technologies: ["html", "css", "react", "typescript", "next", "tailwind", "github"],
-    src: "Captura",
-    link: "/proyects/portfolio",
-  },
-  {
-    title: "Hola 1",
-    finished: true,
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    technologies: ["python", "pygame"],
-    src: "Captura",
-    link: "/",
-  },
-  {
-    title: "Hola 2",
-    finished: true,
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    technologies: ["unity", "c-sharp"],
-    src: "Captura",
-    link: "/",
-  },
-  {
-    title: "Hola 3",
-    finished: true,
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    technologies: ["java"],
-    src: "Captura",
-    link: "/",
-  },
-  {
-    title: "Hola 4",
-    finished: true,
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    technologies: ["c++"],
-    src: "Captura",
-    link: "/",
-  },
-]
+import { EmptyProyect, Proyect } from "../proyects/page";
+import { PROYECTS } from "../proyects/proyect.text.d"
 
 export default function Proyects() {
   return (
@@ -53,7 +10,7 @@ export default function Proyects() {
       </header>
 
       <main className="flex flex-col justify-center gap-6">
-        {PROYECTS.slice(0,-1).map((object, idx) =>
+        {PROYECTS.slice(0,4).map((object, idx) =>
           <Proyect key={idx} object={object}/>
         )}
       </main>

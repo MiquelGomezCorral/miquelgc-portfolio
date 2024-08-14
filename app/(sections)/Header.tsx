@@ -23,7 +23,7 @@ export default function Header() {
           <DownloadCV>
             <HeaderButton>CV</HeaderButton>
           </DownloadCV>
-          <HeaderButtonLink link="">Links</HeaderButtonLink>
+          <HeaderButtonLink link="/#footer">Links</HeaderButtonLink>
           <HeaderButtonLink link="">ES ^</HeaderButtonLink>
         </nav>
       </header>

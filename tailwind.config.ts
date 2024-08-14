@@ -43,6 +43,14 @@ const config: Config = {
       animation: {
         'fade-in-out': 'fadeOut 0.5s linear infinite alternate',
       },
+      marquee: {
+        from: { transform: "translateX(0)" },
+        to: { transform: "translateX(calc(-100% - var(--gap)))" },
+      },
+      "marquee-vertical": {
+        from: { transform: "translateY(0)" },
+        to: { transform: "translateY(calc(-100% - var(--gap)))" },
+      },
     },
   },
   plugins: [],

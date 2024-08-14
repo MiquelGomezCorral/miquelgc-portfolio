@@ -4,7 +4,7 @@ import { Curriculum, Email, Github, GithubLink, Linkedin, LinkedinLink } from ".
 
 export default function Footer() {
   return (
-    <footer className="pt-20 w-full flex justify-between gap-10">
+    <footer id="footer" className="pt-20 w-full flex justify-between gap-10">
       <div className="w-full border rounded-xl p-4 ">
         . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 

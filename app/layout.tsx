@@ -18,7 +18,7 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
       <meta name="descripcion" content="Desripción de la página " />
       <title>Miquel Gómez Corral</title>
       <body className={inter.className +
-        `h-screen w-full px-4 md:px-10 xl:px-48 2xl:px-64 py-5 pt-20 sm:pt-60 gap-20 flex flex-col justify-center items-center 
+        `h-screen w-full px-4 md:px-10 xl:px-48 2xl:px-64 py-5 pt-32 gap-20 flex flex-col justify-center items-center 
       bg-miquel-background text-miquel-white-200`}>
         <Header />
         {children}

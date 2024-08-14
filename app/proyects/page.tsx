@@ -2,83 +2,7 @@ import Image from "next/image";
 import { Icon, IconLink } from "../(utils)/(components)/IconsButtons";
 import Link from "next/link";
 import cn from 'classnames';
-
-export type ProyectType= { title: string, finished: boolean, description: string, technologies: Technologystrig[], src: string, link: string }
-
-const PROYECTS: ProyectType[] = [
-  {
-    title: "Porfolio web personal",
-    finished: false,
-    description: "Desarrollado desde cero, este portafolio personal destaca mis habilidades y experiencia en programación. Incluye una descripción sobre mí, un currículum en línea, información de contacto, una sección de proyectos destacados y las tecnologías que uso y con las que estoy familiarizado. Con un diseño responsivo y una experiencia de usuario optimizada, ofrece una presentación profesional y accesible de mi trabajo y logros.",
-    technologies: ["html", "css", "react", "typescript", "next", "tailwind", "github"],
-    src: "Captura",
-    link: "/proyects/portfolio",
-  },
-  {
-    title: "Hola 1",
-    finished: true,
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    technologies: ["python", "pygame"],
-    src: "Captura",
-    link: "/",
-  },
-  {
-    title: "Hola 2",
-    finished: true,
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    technologies: ["unity", "c-sharp"],
-    src: "Captura",
-    link: "/",
-  },
-  {
-    title: "Hola 3",
-    finished: true,
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    technologies: ["java"],
-    src: "Captura",
-    link: "/",
-  },
-  {
-    title: "Hola 4",
-    finished: true,
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    technologies: ["c++"],
-    src: "Captura",
-    link: "/",
-  },
-  {
-    title: "Hola 4",
-    finished: true,
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    technologies: ["c++"],
-    src: "Captura",
-    link: "/",
-  },
-  {
-    title: "Hola 4",
-    finished: true,
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    technologies: ["c++"],
-    src: "Captura",
-    link: "/",
-  },
-  {
-    title: "Hola 4",
-    finished: true,
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    technologies: ["c++"],
-    src: "Captura",
-    link: "/",
-  },
-  {
-    title: "Hola 4",
-    finished: true,
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    technologies: ["c++"],
-    src: "Captura",
-    link: "/",
-  },
-]
+import { PROYECTS } from "./proyect.text.d"
 
 export default function ProyectsPage() {
   return (
@@ -94,7 +18,7 @@ export default function ProyectsPage() {
           >
             <Link href={object.link} target="_blank" className="relative w-full aspect-video col-span-1 lg:col-span-5">
               <Image
-                src={`/assets/proyects/${object.src}.png`}
+                src={`/assets/proyects/${object.miniatura}.png`}
                 alt={object.title}
                 fill
                 className="ring ring-miquel-white-200/20 hover:ring-miquel-white-200/50 rounded-xl hover:-translate-y-2 transform duration-300"
@@ -115,7 +39,7 @@ export default function ProyectsPage() {
                 <p className="opacity-50">{object.finished ? "Terminado" : "En progreso"}</p>
               </span>
 
-              <p className="opacity-70 ">{object.description}</p>
+              <p className="opacity-70 ">{object.descriptionShort}</p>
 
               <footer className="flex gap-2 flex-wrap">
                 {object.technologies.map((tech, idx) =>
@@ -131,7 +55,7 @@ export default function ProyectsPage() {
   )
 }
 
-export function Proyect({object, disabled}:{object:typeof PROYECTS[0], disabled?: boolean}) {
+export function Proyect({object, disabled}:{object: typeof PROYECTS[0], disabled?: boolean}) {
   return (
     <li 
       className={cn("relative grid gird-cols-1 lg:grid-cols-12 gap-4 p-4 rounded-xl transform duration-300",{" hover:scale-105 hover:bg-miquel-black-400/20": !disabled})}
@@ -158,7 +82,9 @@ export function Proyect({object, disabled}:{object:typeof PROYECTS[0], disabled?
           </header>
           <p className="opacity-50">{object.finished ? "Terminado" : "En progreso"}</p>
         </span>
-        <p className="opacity-70 ">{object.description}</p>
+
+        <p className="opacity-70 ">{object.descriptionShort}</p>
+
         <footer className="flex gap-2 flex-wrap">
           {object.technologies.map((tech, idx) =>
             <Technology key={idx} src={tech} />
@@ -169,7 +95,7 @@ export function Proyect({object, disabled}:{object:typeof PROYECTS[0], disabled?
   )
 }
 
-export function EmptyProyect({object}:{object:typeof PROYECTS[0]}) {
+export function EmptyProyect({object}:{object: typeof PROYECTS[0]}) {
   return (
     <li 
       className="relative grid gird-cols-1 lg:grid-cols-12 gap-4 p-4 rounded-xl transform duration-300"
@@ -194,12 +120,11 @@ export function EmptyProyect({object}:{object:typeof PROYECTS[0]}) {
           </header>
           <p className="opacity-50">{object.finished ? "Terminado" : "En progreso"}</p>
         </span>
-        <p className="opacity-70 ">{object.description}</p>
+        <p className="opacity-70 ">{object.descriptionShort}</p>
       </article>
     </li>
   )
 }
-export type Technologystrig = "html" | "react" | "typescript" | "next" | "tailwind" | "github" | "css" | "java" | "unity" | "python" | "pygame" | "c++" | "c-sharp"
 
 export function Technology({ src }: { src: string }) {
   const Title = (src: string) => {

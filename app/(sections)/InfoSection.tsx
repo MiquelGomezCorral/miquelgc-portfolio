@@ -49,6 +49,7 @@ export default function InfoSection() {
   return (
     <section id="Info-Section" className='w-full flex flex-col xl:flex-row-reverse justify-between items-center gap-24 xl:gap-10'>
       <Foto />
+
       <aside className="flex flex-col gap-6 max-w-3xl text-center xl:text-start">
         <h1 className='text-3xl sm:text-5xl flex flex-col md:flex-row justify-center xl:justify-start gap-4 font-bold whitespace-nowrap'>
           ¡Hola, soy <GlowingText>Miquel Gómez!</GlowingText>
@@ -115,16 +116,14 @@ function WritingBar() {
 
 function Foto() {
   return (
-    <section className="relative flex justify-center w-full h-auto">
-      <div className="relative w-full max-w-[400px] lg:min-w-[300px] aspect-square">
-        <div className="absolute bg-miquel-blue-400 rounded-full blur-md w-full h-full" />
-        <Image
-          src="/miquel/DNI-png.png"
-          alt="Miquel Gómez Corral"
-          layout="fill"
-          className="rounded-full bg-miquel-blue-400 object-cover"
-        />
-      </div>
+    <section className="relative flex justify-center w-full max-w-[400px] lg:min-w-[300px] aspect-square">
+      <div className="absolute bg-miquel-blue-400 rounded-full blur-md w-full h-full" />
+      <Image
+        src="/miquel/DNI-png.png"
+        alt="Miquel Gómez Corral"
+        layout="fill"
+        className="rounded-full bg-miquel-blue-400 object-cover"
+      />
     </section>
   )
 }
