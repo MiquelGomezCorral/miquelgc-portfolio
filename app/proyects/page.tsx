@@ -18,7 +18,7 @@ export default function ProyectsPage() {
           >
             <Link href={object.link} target="_blank" className="relative w-full aspect-video col-span-1 lg:col-span-5">
               <Image
-                src={`/assets/proyects/${object.miniatura}.png`}
+                src={`/assets/proyects/${object.miniatura}.webp`}
                 alt={object.title}
                 fill
                 className="ring ring-miquel-white-200/20 hover:ring-miquel-white-200/50 rounded-xl hover:-translate-y-2 transform duration-300"
@@ -62,10 +62,10 @@ export function Proyect({object, disabled}:{object: typeof PROYECTS[0], disabled
     >
       <Link href={object.link} target="_blank" className="relative w-full aspect-video col-span-1 lg:col-span-5">
         <Image
-          src="/assets/proyects/Captura.png"
+          src={`/assets/proyects/${object.miniatura}.webp`}
           alt={object.title}
           fill
-          className="ring ring-miquel-white-200/20 hover:ring-miquel-white-200/50 rounded-xl hover:-translate-y-2 transform duration-300"
+          className="hover:ring hover:ring-miquel-white-200/20 rounded-xl hover:-translate-y-2 transform duration-300"
         />
       </Link>
 

@@ -17,8 +17,8 @@ export const Porfolio: ProyectType = {
   descriptionShort: "Desarrollado desde cero, este portafolio personal destaca mis habilidades y experiencia en programación. Incluye una descripción sobre mí, un currículum en línea, información de contacto, una sección de proyectos destacados y las tecnologías que uso y con las que estoy familiarizado. Con un diseño responsivo y una experiencia de usuario optimizada, ofrece una presentación profesional y accesible de mi trabajo y logros.",
   descriptionLong: "Desarrollado desde cero, este portafolio personal destaca mis habilidades y experiencia en programación. Incluye una descripción sobre mí, un currículum en línea, información de contacto, una sección de proyectos destacados y las tecnologías que uso y con las que estoy familiarizado. Con un diseño responsivo y una experiencia de usuario optimizada, ofrece una presentación profesional y accesible de mi trabajo y logros.",
   technologies: ["html", "css", "react", "typescript", "next", "tailwind", "github"],
-  miniatura: "Captura",
-  screenShoots: ["Captura","Captura","Captura","Captura"],
+  miniatura: "Portfolio-miniatura",
+  screenShoots: ["Portfolio-miniatura","Portfolio-miniatura","Portfolio-miniatura","Portfolio-miniatura"],
   link: "/proyects/portfolio",
   github: "https://github.com/MiquelGomezCorral/miquelgc-portfolio",
 }

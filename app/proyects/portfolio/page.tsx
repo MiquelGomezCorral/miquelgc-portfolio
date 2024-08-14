@@ -10,10 +10,10 @@ export default function Portfolio() {
       <header className="w-full h-full flex justify-center">
         <div className="relative max-w-3xl w-full h-full aspect-video">
           <Image
-            src={`/assets/proyects/${object.miniatura}.png`}
+            src={`/assets/proyects/${object.miniatura}.webp`}
             alt={object.title}
             fill
-            className="rounded-xl ring ring-miquel-white-200/20"
+            className="rounded-xl"
           />
         </div>
       </header>
@@ -47,17 +47,13 @@ export default function Portfolio() {
           </footer>
         </section>
 
-        <section className="h-96 w-full flex gap-6 overflow-x-hidden p-4">
-          {object.screenShoots.map((screenShoot, idx) =>
-            <div key={idx} className="relative max-w-lg aspect-video">
-              <Image
-                src={`/assets/proyects/${screenShoot}.png`}
-                alt={object.title}
-                fill
-                className="rounded-xl ring ring-miquel-white-200/20"
-              />
-            </div>
-          )}
+        <section className="h-96 w-full">
+          <Marquee pauseOnHover
+            className="[--duration:20s] w-full h-full">
+            {object.screenShoots.map((screenShoot, idx) =>
+              <CarrouselItem key={idx} screenShoot={screenShoot}/>
+            )}
+          </Marquee>
         </section>
 
       </article>
@@ -65,18 +61,15 @@ export default function Portfolio() {
   )
 }
 
-function CarrouselItem({ logo}: { logo: string}) {
+function CarrouselItem({ screenShoot }: { screenShoot: string}) {
   return (
-    <figure
-      className="relative h-full w-32"
-      aria-label={`${logo} logo`}
-    >
+    <figure className="relative h-full aspect-video" aria-label={screenShoot}>
       <Image
-        src={`/icons/companies/${logo}.svg`}
-        alt={`${logo} logo`}
+        src={`/assets/proyects/${screenShoot}.webp`}
+        alt={screenShoot}
         fill
         loading="eager"
-        className="opacity-40 hover:opacity-100 transition duration-300"
+        className="rounded-xl"
       />
     </figure>
   );
@@ -89,7 +82,6 @@ interface MarqueeProps {
   children?: React.ReactNode;
   vertical?: boolean;
   repeat?: number;
-  [key: string]: any;
 }
 
 export function Marquee({
