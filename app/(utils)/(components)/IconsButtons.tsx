@@ -154,11 +154,12 @@ interface IconLinkProps {
   blank?: boolean
   title: string,
   text?: string,
+  className?: string,
 }
-export function IconLink({ link, blank, width, height, src, title, text}: IconLinkProps) {
+export function IconLink({ link, blank, width, height, src, title, text, className}: IconLinkProps) {
   return (
     <Link 
-      className="relative"
+      className={cn("relative", className)}
       href={link}
       target={blank ? "_blank": ""}
     >
@@ -175,7 +176,7 @@ interface IconCopyProps {
   copyText: string,
   text?: string,
 }
-export function IconCopy({ width, height, src, title, copyText, text}: IconCopyProps) {
+export function IconCopy({width, height, src, title, copyText, text}: IconCopyProps) {
   const handleCopyClick = () => {
     navigator.clipboard.writeText(copyText).then(() => {
       alert(`${copyText} copied to clipboard!`);

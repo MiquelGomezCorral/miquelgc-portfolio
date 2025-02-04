@@ -8,6 +8,10 @@ export default function Footer() {
       <div className="w-full border rounded-xl p-4 ">
         . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
       </div>
       <nav className="flex flex-col gap-4 p-4 border rounded-xl min-w-72 text-xs">
         <DownloadCV>

@@ -1,20 +1,25 @@
 import Image from "next/image";
-import { Icon, IconLink } from "../(utils)/(components)/IconsButtons";
 import Link from "next/link";
 import cn from 'classnames';
-import { ProyectType } from "../(utils)/(constants)/proyect.text.d";
+import { Icon, IconLink } from "../(utils)/(components)/IconsButtons";
+import { ProjectType } from "../(utils)/(constants)/project.text.d";
 
-export function Proyect({ object, disabled }: { object: ProyectType, disabled?: boolean }) {
+export function Project({ object, disabled }: { object: ProjectType, disabled?: boolean }) {
   return (
     <li
-      className={cn("relative grid gird-cols-1 lg:grid-cols-12 gap-4 p-4 rounded-xl transform duration-300", { " hover:scale-105 hover:bg-miquel-black-400/20": !disabled })}
+      className={cn("relative grid gird-cols-1 lg:grid-cols-12 gap-4 p-4 rounded-xl transform duration-300 group", { "hover:bg-miquel-black-400/40": !disabled })} // hover:scale-105
     >
-      <Link href={object.link} className="relative w-full aspect-video col-span-1 lg:col-span-5">
+      <Link href={object.link} className={
+        "group/img relative w-full rounded-xl aspect-video col-span-1 flex justify-end items-center overflow-hidden"+  " " +
+        "lg:col-span-5 bg-gradient-to-r from-blue-500 to-orange-500 hover:outline hover:outline-miquel-black-100" 
+      }>
         <Image
-          src={`/assets/proyects/${object.miniatura}.webp`}
+          src={`/assets/projects/${object.miniatura}.webp`}
           alt={object.title}
-          fill
-          className="hover:ring hover:ring-miquel-white-200/20 rounded-xl hover:-translate-y-2 transform duration-300"
+          // fill
+          width={800}
+          height={450}
+          className="rounded-xl w-9/12 group-hover/img:w-10/12 translate-x-4 transform duration-500 aspect-video"
         />
       </Link>
 
@@ -26,6 +31,7 @@ export function Proyect({ object, disabled }: { object: ProyectType, disabled?: 
               src="external-link" title={object.title}
               width={20} height={20}
               link={object.link}
+              className="opacity-0 group-hover:opacity-100 transform duration-300"
             />
           </header>
           <p className="opacity-50">{object.finished ? "Terminado" : "En progreso"}</p>
@@ -43,14 +49,14 @@ export function Proyect({ object, disabled }: { object: ProyectType, disabled?: 
   )
 }
 
-export function EmptyProyect({ object }: { object: ProyectType }) {
+export function EmptyProject({ object }: { object: ProjectType }) {
   return (
     <li
       className="relative grid gird-cols-1 lg:grid-cols-12 gap-4 p-4 rounded-xl transform duration-300"
     >
       <div className="relative w-full aspect-video col-span-1 lg:col-span-5">
         <Image
-          src="/assets/proyects/Captura.png"
+          src="/assets/projects/Captura.png"
           alt={object.title}
           fill
         />
@@ -104,13 +110,13 @@ export function Technology({ src }: { src: string }) {
   )
 }
 
-export function ProyectPageTemplate({object}: {object: ProyectType}) {
+export function ProjectPageTemplate({object}: {object: ProjectType}) {
   return (
     <main className="w-full flex flex-col justify-center gap-10 rounded-xl">
       <header className="w-full h-full flex justify-center">
         <div className="relative max-w-3xl w-full h-full aspect-video">
           <Image
-            src={`/assets/proyects/${object.miniatura}.webp`}
+            src={`/assets/projects/${object.miniatura}.webp`}
             alt={object.title}
             fill
             className="rounded-xl"
@@ -147,7 +153,7 @@ export function ProyectPageTemplate({object}: {object: ProyectType}) {
           </footer>
         </section>
 
-        <section className="h-56 sm:h-96 w-full">
+        <section className="h-52 sm:h-96 w-full">
           <Marquee pauseOnHover
             className="[--duration:20s] w-full h-full">
             {object.screenShoots.map((screenShoot, idx) =>
@@ -165,7 +171,7 @@ function CarrouselItem({ screenShoot }: { screenShoot: string}) {
   return (
     <figure className="relative h-full aspect-video" aria-label={screenShoot}>
       <Image
-        src={`/assets/proyects/${screenShoot}.webp`}
+        src={`/assets/projects/${screenShoot}.webp`}
         alt={screenShoot}
         fill
         loading="eager"

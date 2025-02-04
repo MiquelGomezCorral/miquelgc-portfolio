@@ -19,7 +19,7 @@ export default function Header() {
         </Link>
         <nav className='gap-4 flex'>
           <HeaderButtonLink link="/">Sobre mí</HeaderButtonLink>
-          <HeaderButtonLink link="/proyects">Proyectos</HeaderButtonLink>
+          <HeaderButtonLink link="/projects">Projectos</HeaderButtonLink>
           <DownloadCV>
             <HeaderButton>CV</HeaderButton>
           </DownloadCV>
@@ -48,7 +48,7 @@ export default function Header() {
 
         <nav className="flex flex-col gap-4 pl-4">
           <HeaderButtonLink link="/">Sobre mí</HeaderButtonLink>
-          <HeaderButtonLink link="/#Proyects">Proyectos</HeaderButtonLink>
+          <HeaderButtonLink link="/#Projects">Projectos</HeaderButtonLink>
           <DownloadCV>
             <HeaderButton>CV</HeaderButton>
           </DownloadCV>

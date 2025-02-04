@@ -1,13 +1,13 @@
-import Header from "./(sections)/Header"
+// import Header from "./(sections)/Header"
+// import Footer from "./(sections)/Footer"
 import InfoSection from "./(sections)/InfoSection"
-import Footer from "./(sections)/Footer"
-import Poryects from "./(sections)/Poryects"
+import Projects from "./(sections)/Projects"
 
 export default function App() {
   return (
     <>
       <InfoSection/>
-      <Poryects />
+      <Projects/>
     </>
   )
 }
