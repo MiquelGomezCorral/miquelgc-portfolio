@@ -4,6 +4,37 @@ import cn from 'classnames';
 import { Icon, IconLink } from "../(utils)/(components)/IconsButtons";
 import { ProjectType } from "../(utils)/(constants)/project.text.d";
 
+export function Technology({ src }: { src: string }) {
+  const Title = (src: string) => {
+    switch (src) {
+      case "html": return "Html"
+      case "react": return "React"
+      case "typescript": return "TypeScript"
+      case "next": return "Next.js"
+      case "tailwind": return "Tailwind CSS"
+      case "github": return "GitHub"
+      case "css": return "CSS"
+      case "java": return "Java"
+      case "unity": return "Unity"
+      case "python": return "Python"
+      case "pygame": return "Pygame"
+      case "c++": return "C ++"
+      case "c-sharp": return "C #"
+    }
+  }
+
+  return (
+    <section className="rounded-full bg-miquel-black-200 px-4 py-1 flex justify-center items-center gap-2 text-xs">
+      <Image src={`/assets/icons/${src}.svg`} alt={src}
+        width={20}
+        height={20}
+        title={Title(src)}
+      />
+      <p className="opacity-80 text-nowrap">{Title(src)}</p>
+    </section>
+  )
+}
+
 export function Project({ object, disabled }: { object: ProjectType, disabled?: boolean }) {
   return (
     <li
@@ -79,48 +110,26 @@ export function EmptyProject({ object }: { object: ProjectType }) {
   )
 }
 
-export function Technology({ src }: { src: string }) {
-  const Title = (src: string) => {
-    switch (src) {
-      case "html": return "Html"
-      case "react": return "React"
-      case "typescript": return "TypeScript"
-      case "next": return "Next.js"
-      case "tailwind": return "Tailwind CSS"
-      case "github": return "GitHub"
-      case "css": return "CSS"
-      case "java": return "Java"
-      case "unity": return "Unity"
-      case "python": return "Python"
-      case "pygame": return "Pygame"
-      case "c++": return "C ++"
-      case "c-sharp": return "C #"
-    }
-  }
-
-  return (
-    <section className="rounded-full bg-miquel-black-200 px-4 py-1 flex justify-center items-center gap-2 text-xs">
-      <Image src={`/assets/icons/${src}.svg`} alt={src}
-        width={20}
-        height={20}
-        title={Title(src)}
-      />
-      <p className="opacity-80 text-nowrap">{Title(src)}</p>
-    </section>
-  )
-}
-
 export function ProjectPageTemplate({object}: {object: ProjectType}) {
   return (
     <main className="w-full flex flex-col justify-center gap-10 rounded-xl">
       <header className="w-full h-full flex justify-center">
         <div className="relative max-w-3xl w-full h-full aspect-video">
-          <Image
+          {/* <Image
             src={`/assets/projects/${object.miniatura}.webp`}
             alt={object.title}
             fill
             className="rounded-xl"
-          />
+          /> */}
+          <iframe
+            // width="560"
+            // height="315"
+            src={object.youtube} // Replace with your video ID
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="rounded-xl w-full h-full"
+            ></iframe>
         </div>
       </header>
 
@@ -166,6 +175,12 @@ export function ProjectPageTemplate({object}: {object: ProjectType}) {
     </main>
   )
 }
+
+
+
+// =============================================
+//              IMAGE CARROUSEL 
+// =============================================
 
 function CarrouselItem({ screenShoot }: { screenShoot: string}) {
   return (

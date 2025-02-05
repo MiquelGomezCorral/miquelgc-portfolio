@@ -1,3 +1,5 @@
+import { GithubLink, YouTubeEmbed } from "./constants.d"
+
 export type ProjectType = { 
   title: string, 
   finished: boolean, 
@@ -7,11 +9,13 @@ export type ProjectType = {
   miniatura: string,
   screenShoots: string[] 
   link: string 
+  youtube: string
   github: string
 }
 export type TechnologyStrig = "html" | "react" | "typescript" | "next" | "tailwind" | "github" | "css" | "java" | "unity" | "python" | "pygame" | "c++" | "c-sharp"
+export const ProjectsFolder = "/projects/"
 
-export const PoryectsFolder = "/projects/"
+
 export const Porfolio: ProjectType = {
   title: "Porfolio web personal",
   finished: false,
@@ -20,8 +24,9 @@ export const Porfolio: ProjectType = {
   technologies: ["html", "css", "react", "typescript", "next", "tailwind", "github"],
   miniatura: "portfolio-miniatura",
   screenShoots: ["Portfolio-miniatura","Portfolio-miniatura","Portfolio-miniatura","Portfolio-miniatura"],
-  link: "/projects/portfolio",
-  github: "https://github.com/MiquelGomezCorral/miquelgc-portfolio",
+  link: ProjectsFolder+"portfolio",
+  youtube: YouTubeEmbed+"", //video id
+  github: GithubLink+"miquelgc-portfolio",
 }
 
 export const ProceduralAnimations: ProjectType = {
@@ -30,10 +35,11 @@ export const ProceduralAnimations: ProjectType = {
   descriptionShort: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
   descriptionLong: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
   technologies: ["python", "pygame"],
-  screenShoots: ["Captura","Captura","Captura","Captura"],
-  miniatura: "Captura",
-  link: "/",
-  github:  "",
+  screenShoots: Array.from({ length: 10 }, (_, i) => `Procedural (${i+1})`),
+  miniatura: "Procedural (9)",
+  link: ProjectsFolder+"procedural_animations",
+  youtube: YouTubeEmbed+"DXGSoyjN9PA", //video id
+  github: GithubLink+"Procedural_Animations",
 }
 
 export const InverseKinematics: ProjectType = {
@@ -41,11 +47,12 @@ export const InverseKinematics: ProjectType = {
   finished: true,
   descriptionShort: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
   descriptionLong: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  technologies: ["unity", "c-sharp"],
-  miniatura: "Captura",
-  screenShoots: ["Captura","Captura","Captura","Captura"],
-  link: "/",
-  github:  "",
+  technologies: ["python", "pygame"],
+  miniatura: "Kinematics (4)",
+  screenShoots: Array.from({ length: 6 }, (_, i) => `Kinematics (${i+1})`),
+  link: ProjectsFolder+"incerse_kinematics",
+  youtube: YouTubeEmbed+"fmYzdNtMQSY", //video id
+  github: GithubLink+"Inverse_Kinematics",
 }
 
 export const DoublePendulum: ProjectType =   {
@@ -53,11 +60,12 @@ export const DoublePendulum: ProjectType =   {
   finished: true,
   descriptionShort: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
   descriptionLong: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  technologies: ["java"],
-  miniatura: "Captura",
-  screenShoots: ["Captura","Captura","Captura","Captura"],
-  link: "/",
-  github:  "",
+  technologies: ["python", "pygame"],
+  miniatura: "Pendulum (2)",
+  screenShoots: Array.from({ length: 7 }, (_, i) => `Pendulum (${i+1})`),
+  link: ProjectsFolder+"double_pendulum",
+  youtube: YouTubeEmbed+"Gw-FDuWRabM", //video id
+  github: GithubLink+"Double-pendulum",
 }
 
 export const BoidsSimulator: ProjectType ={
@@ -65,11 +73,12 @@ export const BoidsSimulator: ProjectType ={
   finished: true,
   descriptionShort: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
   descriptionLong: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  technologies: ["c++"],
-  miniatura: "Captura",
-  screenShoots: ["Captura","Captura","Captura","Captura"],
-  link: "/",
-  github:  "",
+  technologies: ["python", "pygame"],
+  miniatura: "Boids (4)",
+  screenShoots: Array.from({ length: 9 }, (_, i) => `Boids (${i+1})`),
+  link: ProjectsFolder+"boids_simulator",
+  youtube: YouTubeEmbed+"ExgxrMtjV3M", //video id
+  github:  GithubLink+"Boids-simulator",
 }
 
 export const MazeGeneratorSolver: ProjectType ={
@@ -80,8 +89,9 @@ export const MazeGeneratorSolver: ProjectType ={
   technologies: ["c++"],
   miniatura: "Captura",
   screenShoots: ["Captura","Captura","Captura","Captura"],
-  link: "/",
-  github:  "",
+  link: ProjectsFolder+"portfolio",
+  youtube: YouTubeEmbed+"", //video id
+  github:  GithubLink+"Maze-Generator-Solver",
 }
 
 export const TheCubeElJueguito: ProjectType ={
@@ -92,8 +102,9 @@ export const TheCubeElJueguito: ProjectType ={
   technologies: ["c++"],
   miniatura: "Captura",
   screenShoots: ["Captura","Captura","Captura","Captura"],
-  link: "/",
-  github:  "",
+  link: ProjectsFolder+"portfolio",
+  youtube: YouTubeEmbed+"", //video id
+  github:  GithubLink+"",
 }
 
 export const AutoImageToAscii: ProjectType ={
@@ -104,8 +115,9 @@ export const AutoImageToAscii: ProjectType ={
   technologies: ["c++"],
   miniatura: "Captura",
   screenShoots: ["Captura","Captura","Captura","Captura"],
-  link: "/",
-  github:  "",
+  link: ProjectsFolder+"portfolio",
+  youtube: YouTubeEmbed+"", //video id
+  github:  GithubLink+"Auto-image-to-Ascii",
 }
 
 export const TetrisJavaFX: ProjectType ={
@@ -116,8 +128,9 @@ export const TetrisJavaFX: ProjectType ={
   technologies: ["c++"],
   miniatura: "Captura",
   screenShoots: ["Captura","Captura","Captura","Captura"],
-  link: "/",
-  github:  "",
+  link: ProjectsFolder+"portfolio",
+  youtube: YouTubeEmbed+"", //video id
+  github:  GithubLink+"/Tetris-JavaFX",
 }
 
 export const OrbitsSimulator: ProjectType ={
@@ -128,8 +141,9 @@ export const OrbitsSimulator: ProjectType ={
   technologies: ["c++"],
   miniatura: "Captura",
   screenShoots: ["Captura","Captura","Captura","Captura"],
-  link: "/",
-  github:  "",
+  link: ProjectsFolder+"portfolio",
+  youtube: YouTubeEmbed+"", //video id
+  github:  GithubLink+"",
 }
 
 export const ProjectS: ProjectType[] = [
