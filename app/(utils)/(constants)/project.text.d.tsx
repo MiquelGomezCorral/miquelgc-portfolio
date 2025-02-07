@@ -86,11 +86,11 @@ export const MazeGeneratorSolver: ProjectType ={
   finished: true,
   descriptionShort: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
   descriptionLong: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  technologies: ["c++"],
-  miniatura: "Captura",
-  screenShoots: ["Captura","Captura","Captura","Captura"],
+  technologies: ["python", "pygame"],
+  miniatura: "MazeSolver (3)",
+  screenShoots: Array.from({ length: 8 }, (_, i) => `MazeSolver (${i+1})`),
   link: ProjectsFolder+"portfolio",
-  youtube: YouTubeEmbed+"", //video id
+  youtube: YouTubeEmbed+"ExgxrMtjV3M", //video id
   github:  GithubLink+"Maze-Generator-Solver",
 }
 
@@ -99,12 +99,12 @@ export const TheCubeElJueguito: ProjectType ={
   finished: true,
   descriptionShort: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
   descriptionLong: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  technologies: ["c++"],
-  miniatura: "Captura",
-  screenShoots: ["Captura","Captura","Captura","Captura"],
+  technologies: ["c-sharp", "unity"],
+  miniatura: "El jueguito (1)",
+  screenShoots: Array.from({ length: 7 }, (_, i) => `El jueguito (${i+1})`),
   link: ProjectsFolder+"portfolio",
-  youtube: YouTubeEmbed+"", //video id
-  github:  GithubLink+"",
+  youtube: YouTubeEmbed+"J6wj_w_J8AU", //video id
+  github:  GithubLink+"The-Cube-ElJueguito",
 }
 
 export const AutoImageToAscii: ProjectType ={
@@ -112,11 +112,11 @@ export const AutoImageToAscii: ProjectType ={
   finished: true,
   descriptionShort: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
   descriptionLong: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  technologies: ["c++"],
-  miniatura: "Captura",
-  screenShoots: ["Captura","Captura","Captura","Captura"],
+  technologies: ["python"],
+  miniatura: "Ascci Converter (1)",
+  screenShoots: Array.from({ length: 3 }, (_, i) => `Ascci Converter (${i+1})`),
   link: ProjectsFolder+"portfolio",
-  youtube: YouTubeEmbed+"", //video id
+  youtube: YouTubeEmbed+"ta2pDyuCPKc", //video id
   github:  GithubLink+"Auto-image-to-Ascii",
 }
 
@@ -127,7 +127,7 @@ export const TetrisJavaFX: ProjectType ={
   descriptionLong: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
   technologies: ["c++"],
   miniatura: "Captura",
-  screenShoots: ["Captura","Captura","Captura","Captura"],
+  screenShoots: Array.from({ length: 9 }, (_, i) => `Boids (${i+1})`),
   link: ProjectsFolder+"portfolio",
   youtube: YouTubeEmbed+"", //video id
   github:  GithubLink+"/Tetris-JavaFX",
@@ -140,7 +140,7 @@ export const OrbitsSimulator: ProjectType ={
   descriptionLong: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
   technologies: ["c++"],
   miniatura: "Captura",
-  screenShoots: ["Captura","Captura","Captura","Captura"],
+  screenShoots: Array.from({ length: 9 }, (_, i) => `Boids (${i+1})`),
   link: ProjectsFolder+"portfolio",
   youtube: YouTubeEmbed+"", //video id
   github:  GithubLink+"",

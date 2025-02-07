@@ -50,19 +50,19 @@ export function Project({ object, disabled }: { object: ProjectType, disabled?: 
           // fill
           width={800}
           height={450}
-          className="rounded-xl w-9/12 group-hover/img:w-10/12 translate-x-4 transform duration-500 aspect-video"
+          className="rounded-xl w-10/12 group-hover/img:w-11/12 translate-x-4 transform duration-500 aspect-video outline outline-miquel-white-500/40"
         />
       </Link>
 
       <article className="flex flex-col gap-2 justify-between col-span-1 lg:col-start-6 lg:col-span-7">
         <span>
-          <header className="flex items-center gap-3">
+          <header className="flex items-end gap-3">
             <h2 className="text-2xl">{object.title}</h2>
             <IconLink
               src="external-link" title={object.title}
-              width={20} height={20}
+              width={25} height={25}
               link={object.link}
-              className="opacity-0 group-hover:opacity-100 transform duration-300"
+              className="opacity-90 group-hover:opacity-100 transform duration-300"
             />
           </header>
           <p className="opacity-50">{object.finished ? "Terminado" : "En progreso"}</p>
@@ -136,8 +136,9 @@ export function ProjectPageTemplate({object}: {object: ProjectType}) {
       <article className="flex flex-col gap-10">
         <section className="flex flex-col gap-6 col-span-7">
           <span>
-            <header className="flex items-center gap-3">
+            <header className="flex items-end gap-3">
               <h2 className="text-5xl">{object.title}</h2>
+
               {object.github &&
                 <IconLink
                   src="external-link" title={object.title}
