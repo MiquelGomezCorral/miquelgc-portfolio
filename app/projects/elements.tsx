@@ -3,6 +3,7 @@ import Link from "next/link";
 import cn from 'classnames';
 import { Icon, IconLink } from "../(utils)/(components)/IconsButtons";
 import { ProjectType } from "../(utils)/(constants)/project.text.d";
+import { usePageStackStore } from "../(global_state)/state";
 
 export function Technology({ src }: { src: string }) {
   const Title = (src: string) => {
@@ -36,6 +37,8 @@ export function Technology({ src }: { src: string }) {
 }
 
 export function Project({ object, disabled }: { object: ProjectType, disabled?: boolean }) {
+  const { goToPage } = usePageStackStore()
+
   return (
     <li
       className={cn("relative grid gird-cols-1 lg:grid-cols-12 gap-4 p-4 rounded-xl transform duration-300 group", { "hover:bg-miquel-black-400/40": !disabled })} // hover:scale-105
@@ -43,7 +46,9 @@ export function Project({ object, disabled }: { object: ProjectType, disabled?: 
       <Link href={object.link} className={
         "group/img relative w-full rounded-xl aspect-video col-span-1 flex justify-end items-center overflow-hidden"+  " " +
         "lg:col-span-5 bg-gradient-to-r from-blue-500 to-orange-500 hover:outline hover:outline-miquel-black-100" 
-      }>
+        }
+        onClick={() => goToPage(object.link)}
+      >
         <Image
           src={`/assets/projects/${object.miniatura}.webp`}
           alt={object.title}
@@ -62,7 +67,7 @@ export function Project({ object, disabled }: { object: ProjectType, disabled?: 
               src="external-link" title={object.title}
               width={25} height={25}
               link={object.link}
-              className="opacity-90 group-hover:opacity-100 transform duration-300"
+              className="opacity-0 group-hover:opacity-100 transform duration-300"
             />
           </header>
           <p className="opacity-50">{object.finished ? "Terminado" : "En progreso"}</p>

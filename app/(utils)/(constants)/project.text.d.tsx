@@ -55,7 +55,7 @@ export const InverseKinematics: ProjectType = {
   github: GithubLink+"Inverse_Kinematics",
 }
 
-export const DoublePendulum: ProjectType =   {
+export const DoublePendulum: ProjectType = {
   title: "Double Pendulum",
   finished: true,
   descriptionShort: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
@@ -68,7 +68,7 @@ export const DoublePendulum: ProjectType =   {
   github: GithubLink+"Double-pendulum",
 }
 
-export const BoidsSimulator: ProjectType ={
+export const BoidsSimulator: ProjectType = {
   title: "Boids Simulator",
   finished: true,
   descriptionShort: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
@@ -81,7 +81,7 @@ export const BoidsSimulator: ProjectType ={
   github:  GithubLink+"Boids-simulator",
 }
 
-export const MazeGeneratorSolver: ProjectType ={
+export const MazeGeneratorSolver: ProjectType = {
   title: "Maze Generator Solver",
   finished: true,
   descriptionShort: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
@@ -89,12 +89,12 @@ export const MazeGeneratorSolver: ProjectType ={
   technologies: ["python", "pygame"],
   miniatura: "MazeSolver (3)",
   screenShoots: Array.from({ length: 8 }, (_, i) => `MazeSolver (${i+1})`),
-  link: ProjectsFolder+"portfolio",
-  youtube: YouTubeEmbed+"ExgxrMtjV3M", //video id
+  link: ProjectsFolder+"maze_generator_solver",
+  youtube: YouTubeEmbed+"bZt4bsz9n9Q", //video id
   github:  GithubLink+"Maze-Generator-Solver",
 }
 
-export const TheCubeElJueguito: ProjectType ={
+export const TheCubeElJueguito: ProjectType = {
   title: "The Cube El Jueguito",
   finished: true,
   descriptionShort: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
@@ -102,12 +102,12 @@ export const TheCubeElJueguito: ProjectType ={
   technologies: ["c-sharp", "unity"],
   miniatura: "El jueguito (1)",
   screenShoots: Array.from({ length: 7 }, (_, i) => `El jueguito (${i+1})`),
-  link: ProjectsFolder+"portfolio",
+  link: ProjectsFolder+"the_cube_el_jueguito",
   youtube: YouTubeEmbed+"J6wj_w_J8AU", //video id
   github:  GithubLink+"The-Cube-ElJueguito",
 }
 
-export const AutoImageToAscii: ProjectType ={
+export const AutoImageToAscii: ProjectType = {
   title: "Auto Image To Ascii",
   finished: true,
   descriptionShort: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
@@ -115,12 +115,12 @@ export const AutoImageToAscii: ProjectType ={
   technologies: ["python"],
   miniatura: "Ascci Converter (1)",
   screenShoots: Array.from({ length: 3 }, (_, i) => `Ascci Converter (${i+1})`),
-  link: ProjectsFolder+"portfolio",
+  link: ProjectsFolder+"auto_image_to_ascii",
   youtube: YouTubeEmbed+"ta2pDyuCPKc", //video id
   github:  GithubLink+"Auto-image-to-Ascii",
 }
 
-export const TetrisJavaFX: ProjectType ={
+export const TetrisJavaFX: ProjectType = {
   title: "Tetris JavaFX",
   finished: true,
   descriptionShort: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
@@ -133,28 +133,28 @@ export const TetrisJavaFX: ProjectType ={
   github:  GithubLink+"/Tetris-JavaFX",
 }
 
-export const OrbitsSimulator: ProjectType ={
+export const OrbitsSimulator: ProjectType = {
   title: "Orbits Simulator",
   finished: true,
   descriptionShort: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
   descriptionLong: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
   technologies: ["c++"],
-  miniatura: "Captura",
-  screenShoots: Array.from({ length: 9 }, (_, i) => `Boids (${i+1})`),
+  miniatura: "Orbits (1)",
+  screenShoots: Array.from({ length: 8 }, (_, i) => `Orbits (${i+1})`),
   link: ProjectsFolder+"portfolio",
-  youtube: YouTubeEmbed+"", //video id
-  github:  GithubLink+"",
+  youtube: YouTubeEmbed+"UPl4bBSgKtM", //video id
+  github:  GithubLink+"Orbits-Simulator",
 }
 
 export const ProjectS: ProjectType[] = [
-  Porfolio,
   ProceduralAnimations,
-  InverseKinematics,
   DoublePendulum,
   BoidsSimulator,
   MazeGeneratorSolver,
+  InverseKinematics,
   TheCubeElJueguito,
-  AutoImageToAscii,
-  TetrisJavaFX,
+  Porfolio,
+  // TetrisJavaFX,
   OrbitsSimulator,
+  AutoImageToAscii,
 ]
