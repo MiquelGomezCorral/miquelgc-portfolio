@@ -3,40 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import cn from 'classnames';
-import { Icon, IconLink } from "../(utils)/(components)/IconsButtons";
+import { IconLink } from "../(utils)/(components)/IconsButtons";
 import { ProjectType } from "../(utils)/(constants)/project.text.d";
 import { usePageStackStore } from "../(global_state)/state";
+import { Technology } from "../(utils)/(constants)/technologies.d";
 
-export function Technology({ src }: { src: string }) {
-  const Title = (src: string) => {
-    switch (src) {
-      case "html": return "Html"
-      case "react": return "React"
-      case "typescript": return "TypeScript"
-      case "next": return "Next.js"
-      case "tailwind": return "Tailwind CSS"
-      case "github": return "GitHub"
-      case "css": return "CSS"
-      case "java": return "Java"
-      case "unity": return "Unity"
-      case "python": return "Python"
-      case "pygame": return "Pygame"
-      case "c++": return "C ++"
-      case "c-sharp": return "C #"
-    }
-  }
-
-  return (
-    <section className="rounded-full bg-miquel-black-200 px-4 py-1 flex justify-center items-center gap-2 text-xs">
-      <Image src={`/assets/icons/${src}.svg`} alt={src}
-        width={20}
-        height={20}
-        title={Title(src)}
-      />
-      <p className="opacity-80 text-nowrap">{Title(src)}</p>
-    </section>
-  )
-}
 
 export function Project({ object, disabled }: { object: ProjectType, disabled?: boolean }) {
   const { goToPageFrom } = usePageStackStore()
@@ -49,10 +20,10 @@ export function Project({ object, disabled }: { object: ProjectType, disabled?: 
         "group/img relative w-full rounded-xl aspect-video col-span-1 flex justify-end items-center overflow-hidden"+  " " +
         "lg:col-span-5 bg-gradient-to-r from-blue-500 to-orange-500 hover:outline hover:outline-miquel-black-100" 
         }
-        onClick={() => goToPageFrom(window.location.pathname)}
+        onClick={() => goToPageFrom(window.location.pathname, object.link)}
       >
         <Image
-          src={`/assets/projects/${object.miniatura}.webp`}
+          src={`/assets/projects/${object.logo}.webp`}
           alt={object.title}
           // fill
           width={800}
@@ -92,22 +63,25 @@ export function EmptyProject({ object }: { object: ProjectType }) {
     <li
       className="relative grid gird-cols-1 lg:grid-cols-12 gap-4 p-4 rounded-xl transform duration-300"
     >
-      <div className="relative w-full aspect-video col-span-1 lg:col-span-5">
+      <figure className={
+        " relative w-full rounded-xl aspect-video col-span-1 flex justify-end items-center overflow-hidden "+  " " +
+        "lg:col-span-5 bg-gradient-to-r from-blue-500 to-orange-500" 
+        }
+      >
         <Image
-          src="/assets/projects/Captura.png"
+          src={`/assets/projects/${object.logo}.webp`}
           alt={object.title}
-          fill
+          // fill
+          width={800}
+          height={450}
+          className="rounded-xl w-10/12 translate-x-4 transform duration-500 aspect-video outline outline-miquel-white-500/40"
         />
-      </div>
+      </figure>
 
       <article className="flex flex-col gap-2 justify-between col-span-1 lg:col-start-6 lg:col-span-7">
         <span>
-          <header className="flex items-center gap-3">
-            <h2 className="text-2xl">{object.title}</h2>
-            <Icon
-              src="external-link" title={object.title}
-              width={20} height={20}
-            />
+          <header className="flex items-center gap-3 text-2xl">
+            {object.title}
           </header>
           <p className="opacity-50">{object.finished ? "Terminado" : "En progreso"}</p>
         </span>
@@ -123,7 +97,7 @@ export function ProjectPageTemplate({object}: {object: ProjectType}) {
       <header className="w-full h-full flex justify-center">
         <div className="relative max-w-3xl w-full h-full aspect-video">
           {/* <Image
-            src={`/assets/projects/${object.miniatura}.webp`}
+            src={`/assets/projects/${object.logo}.webp`}
             alt={object.title}
             fill
             className="rounded-xl"

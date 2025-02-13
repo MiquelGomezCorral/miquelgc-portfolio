@@ -1,6 +1,7 @@
 "use client"
 
 import cn from 'classnames';
+import Image from "next/image";
 import Link from "next/link";
 import { HeaderButton, HeaderButtonLink } from "../(utils)/(components)/HeaderButton";
 import { DownloadCV } from "../(utils)/(components)/Utils";
@@ -14,17 +15,20 @@ export default function Header() {
   const [showMenu, setshowMenu] = useState(false)
   const { backToPage, currentPage } = usePageStackStore()
   const router = useRouter()
-
   return (
     <>
       <header className='fixed hidden sm:flex justify-between z-40 px-10 md:px-16 lg:px-20 py-4 w-full h-full sm:h-auto gap-10 top-0
       backdrop-blur-md border-b-2 border-b-miquel-white-200/50'>
-        <nav className='w-max flex justify-between'>
+        <nav className='w-max flex justify-between gap-4'>
           <button 
             className={cn("opacity-70 hover:opacity-100 transform duration-300", {"hidden": currentPage === "/"})}
             onClick={() => router.push(backToPage())}
           >
-            {"<"}
+            <Image src={`/assets/icons/go-back.svg`} alt={'go back'}
+              width={20}
+              height={20}
+              title={'go back'}
+            />
           </button>
           <Link href="/" className="opacity-70 hover:opacity-100 transform duration-300">
             Miquel Gómez
@@ -37,7 +41,7 @@ export default function Header() {
           <DownloadCV>
             <HeaderButton>CV</HeaderButton>
           </DownloadCV>
-          <HeaderButtonLink link="/#footer">Links</HeaderButtonLink>
+          <HeaderButtonLink link="/#footer" notAddToStack>Links</HeaderButtonLink>
           <HeaderButtonLink link="">ES ^</HeaderButtonLink>
         </nav>
       </header>
@@ -62,11 +66,11 @@ export default function Header() {
 
         <nav className="flex flex-col gap-4 pl-4">
           <HeaderButtonLink link="/">Sobre mí</HeaderButtonLink>
-          <HeaderButtonLink link="/#Projects">Projectos</HeaderButtonLink>
+          <HeaderButtonLink link="/projects">Projectos</HeaderButtonLink>
           <DownloadCV>
             <HeaderButton>CV</HeaderButton>
           </DownloadCV>
-          <HeaderButtonLink link="">Links</HeaderButtonLink>
+          <HeaderButtonLink link="/#footer" notAddToStack>Links</HeaderButtonLink>
           <HeaderButtonLink link="">ES ^</HeaderButtonLink>
         </nav>
       </header>

@@ -4,7 +4,7 @@ import { create } from 'zustand'
 interface State{
     pageStack: string[],
     currentPage: string,
-    goToPageFrom: (page: string) => void,
+    goToPageFrom: (fromPage: string, ToPage: string) => void,
     backToPage: () => string,
 }
 
@@ -13,27 +13,30 @@ export const usePageStackStore = create<State>((set, get)=>{
     return {
         pageStack: [],
         currentPage: "/",
-        goToPageFrom: (page: string) =>{
+        goToPageFrom: (fromPage: string, ToPage: string) =>{
             const {pageStack} = get()
 
-            const newPageStack = [...pageStack, page]
+            const newPageStack = [...pageStack, fromPage]
             console.log("New page stack: " + newPageStack);
-            console.log("Coming from: " + page);
+            console.log("Coming from: " + fromPage);
+            console.log("Current: " + ToPage);
 
-            set({pageStack: newPageStack, currentPage: page})
+            set({pageStack: newPageStack, currentPage: ToPage})
         },
         backToPage: () => {
             const {pageStack} = get()
 
             const newPageStack = [... pageStack]
-            const nextPage = newPageStack.pop() || "/" // Fallback to "home"
+            const followingPage = newPageStack.pop() || "/" // Fallback to "home"
 
             console.log("New page stack: " + newPageStack);
-            console.log("Going to: " + nextPage);
+            console.log("Going to: " + followingPage);
+            console.log("Current: " + followingPage);
 
-            set({pageStack: [...newPageStack], currentPage: nextPage})
 
-            return nextPage
+            set({pageStack: [...newPageStack], currentPage: followingPage})
+
+            return followingPage
         },
     }
 })

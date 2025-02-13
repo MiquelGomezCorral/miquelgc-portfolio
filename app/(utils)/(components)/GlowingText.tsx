@@ -1,9 +1,12 @@
-export default function GlowingText({ bold, ...props }: { bold?: boolean, children: React.ReactNode }) {
+import cn from 'classnames';
+
+
+export default function GlowingText({ bold, className, ...props }: { bold?: boolean, className?: string, children: React.ReactNode }) {
 	return (
 		<span>
 			{bold
 				?
-				<p>
+				<p className={cn("", className)}>
 					<strong className="text-miquel-blue-400 blur-md absolute text-nowrap">
 						{props.children}
 					</strong>
@@ -12,7 +15,7 @@ export default function GlowingText({ bold, ...props }: { bold?: boolean, childr
 					</strong>
 				</p>
 				:
-				<p>
+				<p className={cn("", className)}>
 					<span className="text-miquel-blue-400 blur-md absolute text-nowrap">
 						{props.children}
 					</span>
