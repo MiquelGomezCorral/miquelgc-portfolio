@@ -16,6 +16,8 @@ export function Technology({ src }: { src: string }) {
         case "pygame": return "Pygame"
         case "c++": return "C ++"
         case "c-sharp": return "C Sharp"
+        case "ai": return "AI"
+        case "photoshop": return "Photoshop"
       }
     }
   
@@ -32,7 +34,7 @@ export function Technology({ src }: { src: string }) {
 }
 
   
-export type TechnologyStrig = (
+export type TechnologyString = (
     "html" | 
     "react" | 
     "typescript" | 
@@ -45,5 +47,7 @@ export type TechnologyStrig = (
     "python" | 
     "pygame" | 
     "c++" | 
-    "c-sharp" 
+    "c-sharp"|
+    "ai"|
+    "photoshop" 
 )

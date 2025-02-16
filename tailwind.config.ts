@@ -25,6 +25,8 @@ const config: Config = {
           500: "#BBBBBB",
         },
         "miquel-blue":{
+          100: "#d2eafc",
+          200: "#9ed5ff",
           400: "#3EA7F8",
           500: "#2f63c4",
         },

@@ -1,18 +1,18 @@
 import { GithubLink, YouTubeEmbed } from "./constants.d"
+import { TechnologyString } from "./technologies.d"
 
 export type ProjectType = { 
   title: string, 
   finished: boolean, 
   descriptionShort: string, 
   descriptionLong: string, 
-  technologies: TechnologyStrig[], 
+  technologies: TechnologyString[], 
   logo: string,
   screenShoots: string[] 
   link: string 
   youtube: string
   github: string
 }
-export type TechnologyStrig = "html" | "react" | "typescript" | "next" | "tailwind" | "github" | "css" | "java" | "unity" | "python" | "pygame" | "c++" | "c-sharp"
 export const ProjectsFolder = "/projects/"
 
 

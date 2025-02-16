@@ -19,16 +19,24 @@
     overflow: -moz-scrollbars-none; /* Old Firefox 
 } */
 
-::-webkit-scrollbar{
-    width: 8px;
-}
+/* Vertical scrollbar */
+::-webkit-scrollbar {
+    width: 8px; /* Vertical scrollbar width */
+    height: 8px; /* Horizontal scrollbar height */
+  }
+  
+  /* Horizontal scrollbar */
+  ::-webkit-scrollbar:horizontal {
+    height: 8px; /* Horizontal scrollbar height */
+  }
+  
 ::-webkit-scrollbar-track{
     background: #00000000;
 }
 ::-webkit-scrollbar-thumb{
     background: #3a3b44;
     border-radius: 4px;
-    transition: background 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
 }
 ::-webkit-scrollbar-thumb:hover{
     background: #505160;
