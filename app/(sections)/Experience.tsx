@@ -40,7 +40,7 @@ function ExperienceCard({ object, disabled }: { object: ExperienceType, disabled
     }>
       <main className="flex flex-col gap-4">
         <header className="w-[50rem] h-full flex gap-4">
-          <Link href={object.link} className={
+          <Link href={object.link} target="_blank" className={
             "group/img relative w-1/3 h-16 rounded-xl aspect-video col-span-1 flex justify-center items-center overflow-hidden p-6 py-10"
             +" lg:col-span-5 bg-gradient-to-r from-miquel-white-200 to-miquel-white-100 hover:outline hover:outline-miquel-black-100" 
             }
@@ -65,6 +65,7 @@ function ExperienceCard({ object, disabled }: { object: ExperienceType, disabled
                   src="external-link" title={object.title}
                   width={25} height={25}
                   link={object.link}
+                  blank
                   className="opacity-0 group-hover:opacity-100 transform duration-300"
                 />
               </header>
@@ -83,7 +84,7 @@ function ExperienceCard({ object, disabled }: { object: ExperienceType, disabled
       </main>
 
       <figure className="w-full flex items-center">
-        <div className="h-10 w-10 rounded-full bg-miquel-white-100 border-miquel-blue-200 border-4 z-20 group-hover:-translate-y-2 transition duration-300"/>
+        <div className="h-10 w-10 rounded-full bg-miquel-white-100 border-miquel-blue-200 border-4 z-20 group-hover:-translate-y-1 transition duration-300"/>
         <div className="h-2 w-full -translate-x-2 rounded-md bg-miquel-white-100 border-miquel-blue-200 border-2 z-10" />
       </figure>
 

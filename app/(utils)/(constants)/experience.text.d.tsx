@@ -20,7 +20,7 @@ export const SolverAI: ExperienceType = {
   description: "En Solver he podido realizar mi TFG, orientado a LLM para el procesado de documentos, además de usar mis conocimientos en Machinelearning e IA para implementar soluciones con el fin de resolver los problemas de los clientes de la empresa", 
   technologies: ["python", "ai", "github"], 
   logo: "Solver",
-  link: "iasolver.es/" 
+  link: "https://www.iasolver.es/" 
 }
 export const Vidext: ExperienceType = {
   title: "Prácticas universitarias", 
@@ -30,7 +30,7 @@ export const Vidext: ExperienceType = {
   description: "En Vidext, he aprendido a desarrollar aplicaciones WEB en React y Next.js. Con ello, he creado la landing page de la empresa y una aplicación para uso interno de los empleados. ", 
   technologies: ["html", "css", "react", "typescript", "next", "tailwind", "github"], 
   logo: "Vidext",
-  link: "vidext.io" 
+  link: "https://www.vidext.io" 
 }
 export const Laberit: ExperienceType = {
   title: "Prácticas universitarias", 
@@ -40,7 +40,7 @@ export const Laberit: ExperienceType = {
   description: "Durante los meses de prácticas he aprendido a manejar y desarrollar extensiones del ERP de Microsoft 'Navision'.", 
   technologies: ["html", "css", "react", "typescript", "next", "tailwind", "github"], 
   logo: "Laberit",
-  link: "laberit.com/" 
+  link: "https://www.laberit.com/" 
 }
 export const Fiverr: ExperienceType = {
   title: "Editor de Imágenes, Freelance", 
@@ -50,7 +50,7 @@ export const Fiverr: ExperienceType = {
   description: "En esta página he puesto a disposición de diversos clientes mis habilidades en la edición de imágenes.", 
   technologies: ["photoshop"], 
   logo: "Fiverr",
-  link: "fiverr.com/" 
+  link: "https://www.fiverr.com/" 
 }
 export const PuntISeguit: ExperienceType = {
   title: "Profesor de repaso", 
@@ -70,7 +70,7 @@ export const Karting: ExperienceType = {
   description: "Durante los meses de verano, serví como camarero en el restaurante del Karting de mi pueblo.", 
   technologies: [], 
   logo: "Karting",
-  link: "kartingalmenara.com/" 
+  link: "http://www.kartingalmenara.com/" 
 }
 export const PapiBeach: ExperienceType = {
   title: "Pinche de cocina", 
