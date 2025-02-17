@@ -175,8 +175,9 @@ interface IconCopyProps {
   title: string,
   copyText: string,
   text?: string,
+  className?: string
 }
-export function IconCopy({width, height, src, title, copyText, text}: IconCopyProps) {
+export function IconCopy({width, height, src, title, copyText, text, className}: IconCopyProps) {
   const handleCopyClick = () => {
     navigator.clipboard.writeText(copyText).then(() => {
       alert(`${copyText} copied to clipboard!`);
@@ -189,7 +190,7 @@ export function IconCopy({width, height, src, title, copyText, text}: IconCopyPr
       className="relative"
       onClick={handleCopyClick}
     >
-      <Icon width={width} height={height} src={src} title={title} text={text} />
+      <Icon width={width} height={height} src={src} title={title} text={text} className={className} />
     </button>
   )
 }
@@ -204,7 +205,7 @@ interface IconProps {
 }
 export function Icon({width, height, src, title, text, className}: IconProps){
   return (
-    <div className={cn("gap-2 flex items-center rounded-full transform duration-300 opacity-70 hover:opacity-100", className)}>
+    <div className={cn("gap-1 flex items-center rounded-full transform duration-300 opacity-70 hover:opacity-100", className)}>
       <Image src={`/assets/icons/${src}.svg`} alt={src}
         width={width}
         height={height}

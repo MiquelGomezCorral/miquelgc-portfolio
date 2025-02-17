@@ -59,7 +59,7 @@ export const PuntISeguit: ExperienceType = {
   date: "Sep 2023 – Jun 2024", 
   description: "En Punt I Seguit, he tenido la oportunidad de enseñar a laumnos desde 1 de la ESO, hasta 2nd de Bachillerato, y reforzar lo aprendido durante las clases para mejorar sus calificaciones.", 
   technologies: [], 
-  logo: "PuntISeguit",
+  logo: "PuntISeguitText",
   link: "https://www.facebook.com/AcademiaDestudisPuntISeguit/?locale=ca_ES" 
 }
 export const Karting: ExperienceType = {
@@ -69,7 +69,7 @@ export const Karting: ExperienceType = {
   place: "Almenara, Castellón, España",
   description: "Durante los meses de verano, serví como camarero en el restaurante del Karting de mi pueblo.", 
   technologies: [], 
-  logo: "Karting",
+  logo: "EKR",
   link: "http://www.kartingalmenara.com/" 
 }
 export const PapiBeach: ExperienceType = {

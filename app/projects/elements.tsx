@@ -18,7 +18,7 @@ export function Project({ object, disabled }: { object: ProjectType, disabled?: 
     >
       <Link href={object.link} className={
         "group/img relative w-full rounded-xl aspect-video col-span-1 flex justify-end items-center overflow-hidden"+  " " +
-        "lg:col-span-5 bg-gradient-to-r from-blue-500 to-orange-500 hover:outline hover:outline-miquel-black-100" 
+        "lg:col-span-5 bg-gradient-to-r from-miquel-blue-400 to-indigo-400 hover:outline hover:outline-miquel-black-100" //from-blue-500 to-orange-500
         }
         onClick={() => goToPageFrom(window.location.pathname, object.link)}
       >
