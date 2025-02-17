@@ -27,16 +27,16 @@ interface IconButtonArrow {
   height: number, 
   src: string, 
   title: string
-  solid?: boolean,
+  disable?: boolean,
   className?: string,
   onClick?: ()=>void,
 }
-export function IconButtonArrow({ width, height, src, title, solid, className, onClick}: IconButtonArrow){
+export function IconButtonArrow({ width, height, src, title, disable, className, onClick}: IconButtonArrow){
   return(
     <button className={cn("", className)} onClick={onClick}>
-      <div className={cn(`gap-2 text-xs flex items-center rounded-full p-2 transform duration-300`,
+      <div className={cn(`gap-2 text-xs flex items-center rounded-full p-2`,
       )}>
-        <Icon width={width} height={height} src={src} title={title}/>
+        <Icon width={width} height={height} src={src} title={title} disable={disable}/>
       </div>
     </button>
   )
@@ -170,11 +170,12 @@ interface IconProps {
   src: string, 
   title: string,
   text?: string,
+  disable?: boolean
   className?: string,
 }
-export function Icon({width, height, src, title, text, className}: IconProps){
+export function Icon({width, height, src, title, text, disable, className}: IconProps){
   return (
-    <div className={cn("gap-1 flex items-center rounded-full transform duration-300 opacity-70 hover:opacity-100", className)}>
+    <div className={cn("gap-1 flex items-center rounded-full transform duration-300 opacity-70", className, {"hover:opacity-100": !disable})}>
       <Image src={`/assets/icons/${src}.svg`} alt={src}
         width={width}
         height={height}

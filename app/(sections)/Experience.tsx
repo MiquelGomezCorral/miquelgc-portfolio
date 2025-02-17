@@ -17,6 +17,7 @@ export default function Experience() {
   let timeout: NodeJS.Timeout;
 
   const scrollLeft = () => {
+    if (scrollOn === 0) return
     if (scrollContainerRef.current) {
       const container = scrollContainerRef.current
       const currentScroll = Math.ceil(container.scrollLeft / cardSize)
@@ -28,6 +29,8 @@ export default function Experience() {
   };
   
   const scrollRight = () => {
+    if (scrollOn === 2) return
+
     if (scrollContainerRef.current) {
       const container = scrollContainerRef.current
       const currentScroll = Math.ceil(container.scrollLeft / cardSize)
@@ -74,7 +77,7 @@ export default function Experience() {
           {"Experiencia"}
       </header>
 
-      <main className="flex relative flex-col lg:flex-row items-center gap-4">
+      <main className="flex relative flex-col xl:flex-row items-center gap-4">
 
         <div 
           className="grid grid-flow-col md:auto-cols-[minmax(45rem,1fr)] auto-cols-[minmax(25rem,1fr)] gap-2 w-full h-full overflow-x-scroll"
@@ -87,21 +90,23 @@ export default function Experience() {
         </div>
         <div className='flex gap-4'>
           <IconButtonArrow width={20} height={20} src={'chevron-left'} title={'left'}
+            disable={scrollOn === 0}
             onClick={scrollLeft}
             className={cn(
-              "lg:absolute lg:-left-12 lg:top-1/2 lg:-translate-y-1/2 " + // Large screens
-              "static order-last transform duration-300 lg:group-hover:scale-125 " + // Small screens
-              " lg:py-24 flex justify-center hover:bg-miquel-black-100/20 rounded-md md:opacity-100 opacity-0 lg:animate-pulse hover:animate-none",
-              {"hidden": scrollOn === 0}
+              "xl:absolute xl:-left-12 xl:top-1/2 xl:-translate-y-1/2 " + // Large screens
+              "static order-last transform duration-300 xl:group-hover:scale-125 " + // Small screens
+              " xl:py-24 flex justify-center hover:bg-miquel-black-100/20 rounded-md md:opacity-100 opacity-0 xl:animate-pulse hover:animate-none",
+              {"xl:hidden hover:bg-miquel-black-100/0 cursor-not-allowed": scrollOn === 0}
             )}
           />
           <IconButtonArrow width={20} height={20} src={'chevron-right'} title={'right'} 
             onClick={scrollRight}
+            disable={scrollOn === 2}
             className={cn(
-              "lg:absolute lg:-right-12 lg:top-1/2 lg:-translate-y-1/2 " + // Large screens
-              "static order-last transform duration-300 lg:group-hover:scale-125 " + // Small screens
-              " lg:py-24 flex justify-center hover:bg-miquel-black-100/20 rounded-md md:opacity-100 opacity-0 lg:animate-pulse hover:animate-none",
-              {"lg:hidden": scrollOn === 2},
+              "xl:absolute xl:-right-12 xl:top-1/2 xl:-translate-y-1/2 " + // Large screens
+              "static order-last transform duration-300 xl:group-hover:scale-125 " + // Small screens
+              " xl:py-24 flex justify-center hover:bg-miquel-black-100/20 rounded-md md:opacity-100 opacity-0 xl:animate-pulse hover:animate-none",
+              {"xl:hidden hover:bg-miquel-black-100/0 cursor-not-allowed": scrollOn === 2},
             )}
           />
         </div>
@@ -115,7 +120,7 @@ function ExperienceCard({ object }: { object: ExperienceType }) {
   return( 
     <li 
       className={
-        "md:w-[45rem] w-[25rem] h-full hover:bg-miquel-black-400/40 rounded-xl transform duration-300 group "+
+        "md:w-[45rem] w-[25rem] h-full hover:bg-miquel-black-400/40 rounded-xl transform duration-300 group/li "+
         "gap-4 p-4 flex flex-col justify-between list-none"
     }>
       <main className="flex flex-col gap-4">
@@ -171,10 +176,10 @@ function ExperienceCard({ object }: { object: ExperienceType }) {
         </footer>
       </main>
 
-      <figure className="w-full flex items-center opacity-80 group-hover:opacity-100 transition duration-300">
+      <figure className="w-full flex items-center opacity-80 group-hover/li:opacity-100 transition duration-300">
         <div className={
-          "h-8 w-8 rounded-full bg-miquel-white-100 border-miquel-blue-400 border-4 z-20 group-hover:animate-spin-slow transition duration-1000"+ 
-          " text-transparent group-hover:text-black/60 flex justify-center items-center text-xs hover:cursor-pointer"}
+          "h-8 w-8 rounded-full bg-miquel-white-100 border-miquel-blue-400 border-4 z-20 group-hover/li:animate-spin-slow transition duration-1000"+ 
+          " text-transparent group-hover/li:text-black/60 hover:cursor-pointer flex justify-center items-center text-xs "}
           onClick={() => alert(`YOU FOUND ME! :D`)}
         >
           {object.silly}
