@@ -4,9 +4,24 @@ import GlowingText from "../(utils)/(components)/GlowingText";
 import { Experiences, ExperienceType } from "../(utils)/(constants)/experience.text.d";
 import { Technology } from "../(utils)/(constants)/technologies.d";
 import { IconLink, IconCopy } from "../(utils)/(components)/IconsButtons";
+import { useRef } from "react";
 
 
 export default function Experience() {
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  const scrollLeft = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: -300, behavior: "smooth" });
+    }
+  }
+
+  const scrollRight = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: 300, behavior: "smooth" });
+    }
+  }
+
   return (
     <section id="Projects" className="w-full flex flex-col gap-6">
       <header className="w-full py-4 border-b-2 border-b-miquel-white-200/50 text-5xl font-bold transform duration-300 flex gap-2">
@@ -21,7 +36,10 @@ export default function Experience() {
           {"Experiencia"}
       </header>
 
-      <main className="grid grid-flow-col auto-cols-[minmax(45rem,1fr)] gap-2 w-full h-full overflow-x-scroll">
+      <main 
+        className="grid grid-flow-col auto-cols-[minmax(45rem,1fr)] gap-2 w-full h-full overflow-x-scroll"
+        ref={scrollContainerRef}
+      >
         {Experiences.map((object, idx) =>
           <ExperienceCard key={idx} object={object} />
         )}
@@ -30,7 +48,7 @@ export default function Experience() {
     </section>
   )
 }
-function ExperienceCard({ object, disabled }: { object: ExperienceType, disabled?: boolean }) {
+function ExperienceCard({ object }: { object: ExperienceType }) {
   return( 
     <li 
       className={

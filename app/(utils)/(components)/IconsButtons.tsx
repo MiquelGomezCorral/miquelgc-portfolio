@@ -17,13 +17,16 @@ interface IconGlowingProps {
   src: string, 
   title: string
   text?: string;
+  solid?: boolean
 }
-export function IconGlowing({ width, height, src, title, text}: IconGlowingProps){
+export function IconGlowing({ width, height, src, title, text, solid}: IconGlowingProps){
   return(
     <button className="relative">
       <div className="absolute rounded-full flex h-full w-full bg-miquel-blue-400/50 blur-md" />
-      <div className={cn(`relative gap-2 text-xs flex items-center rounded-full p-2 border border-miquel-blue-400 bg-miquel-black-500 hover:bg-miquel-black-300 transform duration-300`,
-        {'px-4': text}
+      <div className={cn(`relative gap-2 text-xs flex items-center rounded-full p-2 transform duration-300`,
+        {'px-4': text},
+        {'border border-miquel-blue-400 bg-miquel-black-500 hover:bg-miquel-black-300': !solid},
+        {'bg-miquel-blue-500 hover:bg-miquel-blue-400': solid},
       )}>
         <Image src={`/assets/icons/${src}.svg`} alt={src}
           width={width}
@@ -35,32 +38,6 @@ export function IconGlowing({ width, height, src, title, text}: IconGlowingProps
     </button>
   )
 }
-
-interface IconGlowingProps {
-  width: number, 
-  height: number, 
-  src: string, 
-  title: string
-  text?: string;
-}
-export function IconGlowingSolid({ width, height, src, title, text}: IconGlowingProps){
-  return(
-    <button className="relative">
-      <div className="absolute rounded-full h-full w-full bg-miquel-blue-400/50 blur-md" />
-      <div className={cn(`relative gap-2 text-xs flex items-center rounded-full p-2 bg-miquel-blue-500 hover:bg-miquel-blue-400  transform duration-300`,
-        {'px-4': text}
-      )}>
-        <Image src={`/assets/icons/${src}.svg`} alt={src}
-          width={width}
-          height={height}
-          title={title}
-        />
-        {text}
-      </div>
-    </button>
-  )
-}
-
 // ================== ICONS LINK ==================
 
 interface IconLinkGlowingProps {
@@ -71,8 +48,9 @@ interface IconLinkGlowingProps {
   link: string,
   blank?: boolean
   text?: string,
+  solid?: boolean,
 }
-export function IconLGlowingLink({ width, height, src, title, link, blank, text}: IconLinkGlowingProps) {
+export function IconLGlowingLink({ width, height, src, title, link, blank, text, solid}: IconLinkGlowingProps) {
   return (
     <Link 
       className="relative"
@@ -80,24 +58,13 @@ export function IconLGlowingLink({ width, height, src, title, link, blank, text}
       target={blank ? "_blank": ""}
     >
       <IconGlowing
-        width={width} height={height} src={src} title={title} text={text}
+        width={width} height={height} src={src} title={title} text={text} solid={solid}
       />
     </Link>
   )
 }
-export function IconLGlowinginkSolid({ width, height, src, title, link, blank, text}: IconLinkGlowingProps) {
-  return (
-    <Link 
-      className="relative"
-      href={link}
-      target={blank ? "_blank": ""}
-    >
-      <IconGlowingSolid
-        width={width} height={height} src={src} title={title} text={text}
-      />
-    </Link>
-  )
-}
+// export function IconLGlowinginkSolid({ width, height, src, title, link, blank, text}
+
 
 // ================== ICONS COPY ==================
 interface IconCopyGlowingProps {
@@ -107,8 +74,9 @@ interface IconCopyGlowingProps {
   title: string,
   copyText: string,
   text?: string,
+  solid?: boolean
 }
-export function IconGlowingCopy({ width, height, src, title, copyText, text}:IconCopyGlowingProps) {
+export function IconGlowingCopy({ width, height, src, title, copyText, text, solid}:IconCopyGlowingProps) {
   const handleCopyClick = () => {
     navigator.clipboard.writeText(copyText).then(() => {
       alert(`${copyText} copied to clipboard!`);
@@ -119,29 +87,11 @@ export function IconGlowingCopy({ width, height, src, title, copyText, text}:Ico
   return (
     <nav className="relative flex" onClick={handleCopyClick}>
       <IconGlowing
-        width={width} height={height} src={src} title={title} text={text}
+        width={width} height={height} src={src} title={title} text={text} solid={solid}
       />
     </nav>
   )
 }
-export function GlowingIconCopySolid({ width, height, src, title, copyText, text}:IconCopyGlowingProps) {
-  const handleCopyClick = () => {
-    navigator.clipboard.writeText(copyText).then(() => {
-      alert(`${copyText} copied to clipboard!`);
-    }).catch(err => {
-      console.error('Failed to copy text: ', err);
-    });
-  };
-  return (
-    <nav className="relative flex" onClick={handleCopyClick}>
-      <IconGlowingSolid
-        width={width} height={height} src={src} title={title} text={text}
-      />
-    </nav>
-  )
-}
-
-
 
 // =================================================================
 //                        ICONS NO GLOW
