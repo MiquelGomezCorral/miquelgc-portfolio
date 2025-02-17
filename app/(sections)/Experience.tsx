@@ -38,7 +38,7 @@ export default function Experience() {
   };
 
   return (
-    <section id="Projects" className="w-full flex flex-col gap-6">
+    <section id="experiences" className="w-full flex flex-col gap-6">
       <header className="w-full py-4 border-b-2 border-b-miquel-white-200/50 text-5xl font-bold transform duration-300 flex gap-2">
           <GlowingText>
             <Image 
@@ -55,7 +55,7 @@ export default function Experience() {
         <IconButtonArrow width={20} height={20} src={'chevron-left'} title={'left'}
           onClick={scrollLeft}
           className={cn(
-            "absolute -left-12 top-1/2 transform -translate-y-1/2 z-10 transform duration-300" + //lg:-left-44 -left-40 
+            "absolute -left-12 top-1/2 -translate-y-1/2 z-10 transform duration-300" + //lg:-left-44 -left-40 
             " py-32 flex justify-center hover:bg-miquel-black-100/20 rounded-md md:opacity-100 opacity-0",
             {"hidden": scrollOn === 0}
           )}

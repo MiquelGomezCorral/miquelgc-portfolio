@@ -37,7 +37,8 @@ export default function Header() {
 
         <nav className='gap-4 flex'>
           <HeaderButtonLink link="/">Sobre mí</HeaderButtonLink>
-          <HeaderButtonLink link="/projects">Projectos</HeaderButtonLink>
+          <HeaderButtonLink link="/projects">Proyectos</HeaderButtonLink>
+          <HeaderButtonLink link="/#experiences">Experiencias</HeaderButtonLink>
           <DownloadCV>
             <HeaderButton>CV</HeaderButton>
           </DownloadCV>
