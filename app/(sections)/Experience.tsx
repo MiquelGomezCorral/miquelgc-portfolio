@@ -180,7 +180,7 @@ function ExperienceCard({ object }: { object: ExperienceType }) {
         <div className={
           "h-8 w-8 rounded-full bg-miquel-white-100 border-miquel-blue-400 border-4 z-20 group-hover/li:animate-spin-slow transition duration-1000"+ 
           " text-transparent group-hover/li:text-black/60 hover:cursor-pointer flex justify-center items-center text-xs "}
-          onClick={() => alert(`YOU FOUND ME! :D`)}
+          onClick={() => alert(`YOU FOUND ME! ${object.silly}`)}
         >
           {object.silly}
         </div>
