@@ -55,8 +55,9 @@ const config: Config = {
       },
       animation: {
         'fade-in-out': 'fadeOut 0.5s linear infinite alternate',
-        marquee: "marquee var(--duration) linear infinite",
+        'marquee': "marquee var(--duration) linear infinite",
         "marquee-vertical": "marquee-vertical var(--duration) linear infinite",
+        'spin-slow': 'spin 5s linear infinite'
       },
     },
   },

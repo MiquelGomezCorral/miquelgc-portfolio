@@ -5,6 +5,17 @@ import Link from "next/link";
 import cn from 'classnames';
 
 
+export function showAlertCopy(text:string){
+  return () => {
+    navigator.clipboard.writeText(text).then(() => {
+      alert(`'${text}' has been copied to clipboard!`);
+    }).catch(err => {
+      console.error('Failed to copy text: ', err);
+    });
+  };
+}
+
+
 // =================================================================
 //                        ICONS GLOW
 // =================================================================
@@ -99,15 +110,8 @@ interface IconCopyGlowingProps {
   solid?: boolean
 }
 export function IconGlowingCopy({ width, height, src, title, copyText, text, solid}:IconCopyGlowingProps) {
-  const handleCopyClick = () => {
-    navigator.clipboard.writeText(copyText).then(() => {
-      alert(`${copyText} copied to clipboard!`);
-    }).catch(err => {
-      console.error('Failed to copy text: ', err);
-    });
-  };
   return (
-    <nav className="relative flex" onClick={handleCopyClick}>
+    <nav className="relative flex" onClick={showAlertCopy(copyText)}>
       <IconGlowing
         width={width} height={height} src={src} title={title} text={text} solid={solid}
       />
@@ -150,17 +154,10 @@ interface IconCopyProps {
   className?: string
 }
 export function IconCopy({width, height, src, title, copyText, text, className}: IconCopyProps) {
-  const handleCopyClick = () => {
-    navigator.clipboard.writeText(copyText).then(() => {
-      alert(`${copyText} copied to clipboard!`);
-    }).catch(err => {
-      console.error('Failed to copy text: ', err);
-    });
-  };
   return (
     <button 
       className="relative"
-      onClick={handleCopyClick}
+      onClick={showAlertCopy(copyText)}
     >
       <Icon width={width} height={height} src={src} title={title} text={text} className={className} />
     </button>
@@ -187,3 +184,4 @@ export function Icon({width, height, src, title, text, className}: IconProps){
     </div>
   )
 }
+

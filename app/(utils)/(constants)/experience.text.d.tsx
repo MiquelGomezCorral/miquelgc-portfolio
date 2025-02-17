@@ -8,7 +8,8 @@ export type ExperienceType = {
   description: string, 
   technologies: TechnologyString[], 
   logo: string,
-  link: string 
+  link: string,
+  silly: string,
 }
 // export const ExperienceFolder = "/projects/"
 
@@ -20,7 +21,8 @@ export const SolverAI: ExperienceType = {
   description: "En Solver he podido realizar mi TFG, orientado a LLM para el procesado de documentos, además de usar mis conocimientos en Machinelearning e IA para implementar soluciones con el fin de resolver los problemas de los clientes de la empresa", 
   technologies: ["python", "ai", "github"], 
   logo: "Solver",
-  link: "https://www.iasolver.es/" 
+  link: "https://www.iasolver.es/",
+  silly: ":D"
 }
 export const Vidext: ExperienceType = {
   title: "Prácticas universitarias", 
@@ -30,7 +32,8 @@ export const Vidext: ExperienceType = {
   description: "En Vidext, he aprendido a desarrollar aplicaciones WEB en React y Next.js. Con ello, he creado la landing page de la empresa y una aplicación para uso interno de los empleados. ", 
   technologies: ["html", "css", "react", "typescript", "next", "tailwind", "github"], 
   logo: "Vidext",
-  link: "https://www.vidext.io" 
+  link: "https://www.vidext.io",
+  silly: ". _."
 }
 export const Laberit: ExperienceType = {
   title: "Prácticas universitarias", 
@@ -40,7 +43,8 @@ export const Laberit: ExperienceType = {
   description: "Durante los meses de prácticas he aprendido a manejar y desarrollar extensiones del ERP de Microsoft 'Navision'.", 
   technologies: ["html", "css", "react", "typescript", "next", "tailwind", "github"], 
   logo: "Laberit",
-  link: "https://www.laberit.com/" 
+  link: "https://www.laberit.com/",
+  silly: "D:" 
 }
 export const Fiverr: ExperienceType = {
   title: "Editor de Imágenes, Freelance", 
@@ -50,7 +54,8 @@ export const Fiverr: ExperienceType = {
   description: "En esta página he puesto a disposición de diversos clientes mis habilidades en la edición de imágenes.", 
   technologies: ["photoshop"], 
   logo: "Fiverr",
-  link: "https://www.fiverr.com/" 
+  link: "https://www.fiverr.com/",
+  silly: ": /" 
 }
 export const PuntISeguit: ExperienceType = {
   title: "Profesor de repaso", 
@@ -60,7 +65,8 @@ export const PuntISeguit: ExperienceType = {
   description: "En Punt I Seguit, he tenido la oportunidad de enseñar a laumnos desde 1 de la ESO, hasta 2nd de Bachillerato, y reforzar lo aprendido durante las clases para mejorar sus calificaciones.", 
   technologies: [], 
   logo: "PuntISeguitText",
-  link: "https://www.facebook.com/AcademiaDestudisPuntISeguit/?locale=ca_ES" 
+  link: "https://www.facebook.com/AcademiaDestudisPuntISeguit/?locale=ca_ES",
+  silly: "^_^" 
 }
 export const Karting: ExperienceType = {
   title: "Camarero", 
@@ -70,7 +76,8 @@ export const Karting: ExperienceType = {
   description: "Durante los meses de verano, serví como camarero en el restaurante del Karting de mi pueblo.", 
   technologies: [], 
   logo: "EKR",
-  link: "http://www.kartingalmenara.com/" 
+  link: "http://www.kartingalmenara.com/",
+  silly: ":)" 
 }
 export const PapiBeach: ExperienceType = {
   title: "Pinche de cocina", 
@@ -80,7 +87,8 @@ export const PapiBeach: ExperienceType = {
   description: "Durante los meses de verano, serví como ayudante de cocina en el merendero Papi Beach de mi pueblo.", 
   technologies: [], 
   logo: "PapiBeach",
-  link: "https://www.facebook.com/papibeach/" 
+  link: "https://www.facebook.com/papibeach/",
+  silly: "T-T" 
 }
 
 export const Experiences: ExperienceType[] = [

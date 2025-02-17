@@ -14,6 +14,7 @@ export default function Experience() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [scrollOn, setScrollOn] = useState<number>(0) // 0 left, 1 middle, 2 right
   const cardSize = 724 // 720 px for the w-[45rem] + 8/2 for the gap-2
+  let timeout: NodeJS.Timeout;
 
   const scrollLeft = () => {
     if (scrollContainerRef.current) {
@@ -37,8 +38,30 @@ export default function Experience() {
     }
   };
 
+  const scrollSlider = () => {
+    if (scrollContainerRef.current) {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        const container = scrollContainerRef.current
+        if(!container) return
+
+        const currentScroll = Math.ceil(container.scrollLeft / cardSize)
+        const targetScroll = currentScroll * cardSize // Scroll fixed to by 724px
+        container.scrollTo({ left: targetScroll, behavior: "smooth" })
+        
+        setScrollOn(
+          Math.ceil(targetScroll / cardSize) >= Experiences.length - 1? 
+          2 : 
+          Math.ceil(targetScroll / cardSize) === 0 ? 
+          0 : 1
+        )
+      }, 350);
+
+    }
+  };
+
   return (
-    <section id="experiences" className="w-full flex flex-col gap-6">
+    <section id="experiences" className="w-full flex flex-col gap-6 group">
       <header className="w-full py-4 border-b-2 border-b-miquel-white-200/50 text-5xl font-bold transform duration-300 flex gap-2">
           <GlowingText>
             <Image 
@@ -51,33 +74,38 @@ export default function Experience() {
           {"Experiencia"}
       </header>
 
-      <main className="flex relative">
-        <IconButtonArrow width={20} height={20} src={'chevron-left'} title={'left'}
-          onClick={scrollLeft}
-          className={cn(
-            "absolute -left-12 top-1/2 -translate-y-1/2 z-10 transform duration-300" + //lg:-left-44 -left-40 
-            " py-32 flex justify-center hover:bg-miquel-black-100/20 rounded-md md:opacity-100 opacity-0",
-            {"hidden": scrollOn === 0}
-          )}
-        />
+      <main className="flex relative flex-col lg:flex-row items-center gap-4">
 
         <div 
-        className="grid grid-flow-col md:auto-cols-[minmax(45rem,1fr)] auto-cols-[minmax(25rem,1fr)] gap-2 w-full h-full overflow-x-scroll"
-        ref={scrollContainerRef}
+          className="grid grid-flow-col md:auto-cols-[minmax(45rem,1fr)] auto-cols-[minmax(25rem,1fr)] gap-2 w-full h-full overflow-x-scroll"
+          ref={scrollContainerRef}
+          onScroll={scrollSlider}
         >
           {Experiences.map((object, idx) =>
             <ExperienceCard key={idx} object={object} />
           )}
         </div>
+        <div className='flex gap-4'>
+          <IconButtonArrow width={20} height={20} src={'chevron-left'} title={'left'}
+            onClick={scrollLeft}
+            className={cn(
+              "lg:absolute lg:-left-12 lg:top-1/2 lg:-translate-y-1/2 " + // Large screens
+              "static order-last transform duration-300 lg:group-hover:scale-125 " + // Small screens
+              " lg:py-24 flex justify-center hover:bg-miquel-black-100/20 rounded-md md:opacity-100 opacity-0 lg:animate-pulse hover:animate-none",
+              {"hidden": scrollOn === 0}
+            )}
+          />
+          <IconButtonArrow width={20} height={20} src={'chevron-right'} title={'right'} 
+            onClick={scrollRight}
+            className={cn(
+              "lg:absolute lg:-right-12 lg:top-1/2 lg:-translate-y-1/2 " + // Large screens
+              "static order-last transform duration-300 lg:group-hover:scale-125 " + // Small screens
+              " lg:py-24 flex justify-center hover:bg-miquel-black-100/20 rounded-md md:opacity-100 opacity-0 lg:animate-pulse hover:animate-none",
+              {"lg:hidden": scrollOn === 2},
+            )}
+          />
+        </div>
 
-        <IconButtonArrow width={20} height={20} src={'chevron-right'} title={'right'} 
-          onClick={scrollRight}
-          className={cn(
-            "absolute -right-12 top-1/2 -translate-y-1/2 z-10 transform duration-300" +
-            " py-32 flex justify-center hover:bg-miquel-black-100/20 rounded-md md:opacity-100 opacity-0",
-            {"hidden": scrollOn === 2}
-          )}
-        />
       </main>
     
     </section>
@@ -144,8 +172,12 @@ function ExperienceCard({ object }: { object: ExperienceType }) {
       </main>
 
       <figure className="w-full flex items-center opacity-80 group-hover:opacity-100 transition duration-300">
-        <div className="h-8 w-8 rounded-full bg-miquel-white-100 border-miquel-blue-400 border-4 z-20 group-hover:animate-spin transition duration-500 text-transparent group-hover:text-black/60 flex justify-center items-center text-xs">
-          :D
+        <div className={
+          "h-8 w-8 rounded-full bg-miquel-white-100 border-miquel-blue-400 border-4 z-20 group-hover:animate-spin-slow transition duration-1000"+ 
+          " text-transparent group-hover:text-black/60 flex justify-center items-center text-xs hover:cursor-pointer"}
+          onClick={() => alert(`YOU FOUND ME! :D`)}
+        >
+          {object.silly}
         </div>
         <div className="h-2 w-full -translate-x-2 rounded-md bg-miquel-white-100 border-miquel-blue-400 border-[2.5px] z-10" />
       </figure>
