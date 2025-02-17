@@ -7,7 +7,7 @@ export default function Projects() {
   return (
     <section id="Projects" className="w-full flex flex-col gap-6 group/proyects">
       <header className="w-full py-4 border-b-2 border-b-miquel-white-200/50">
-        <Link href="/projects" className="text-5xl font-bold opacity-70 group-hover/proyects:opacity-100 transform duration-300 cursor-pointer flex gap-2">
+        <Link href="/projects" className="text-5xl font-bold opacity-70 group-hover/proyects:opacity-100 transform duration-300 flex gap-2">
           <GlowingText className="cursor-pointer">
             {"</>"}
           </GlowingText>

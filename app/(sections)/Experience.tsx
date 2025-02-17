@@ -52,17 +52,17 @@ export default function Experience() {
       </header>
 
       <main className="flex relative">
-        <IconButtonArrow width={20} height={20} src={'chevron-up'} title={'left'}
+        <IconButtonArrow width={20} height={20} src={'chevron-left'} title={'left'}
           onClick={scrollLeft}
           className={cn(
-            "-rotate-90 absolute -left-44 top-1/2 transform -translate-y-1/2 z-10" +
-            " px-32 flex justify-center hover:bg-miquel-black-100/20 rounded-md",
-            {"opacity-0 cursor-auto": scrollOn === 0}
+            "absolute -left-12 top-1/2 transform -translate-y-1/2 z-10 transform duration-300" + //lg:-left-44 -left-40 
+            " py-32 flex justify-center hover:bg-miquel-black-100/20 rounded-md md:opacity-100 opacity-0",
+            {"hidden": scrollOn === 0}
           )}
         />
 
         <div 
-        className="grid grid-flow-col auto-cols-[minmax(45rem,1fr)] gap-2 w-full h-full overflow-x-scroll"
+        className="grid grid-flow-col md:auto-cols-[minmax(45rem,1fr)] auto-cols-[minmax(25rem,1fr)] gap-2 w-full h-full overflow-x-scroll"
         ref={scrollContainerRef}
         >
           {Experiences.map((object, idx) =>
@@ -70,12 +70,12 @@ export default function Experience() {
           )}
         </div>
 
-        <IconButtonArrow width={20} height={20} src={'chevron-up'} title={'right'} 
+        <IconButtonArrow width={20} height={20} src={'chevron-right'} title={'right'} 
           onClick={scrollRight}
           className={cn(
-            "rotate-90 absolute -right-44 top-1/2 transform -translate-y-1/2 z-10" +
-            " px-32 flex justify-center hover:bg-miquel-black-100/20 rounded-md",
-            {"opacity-0 cursor-auto": scrollOn === 2}
+            "absolute -right-12 top-1/2 -translate-y-1/2 z-10 transform duration-300" +
+            " py-32 flex justify-center hover:bg-miquel-black-100/20 rounded-md md:opacity-100 opacity-0",
+            {"hidden": scrollOn === 2}
           )}
         />
       </main>
@@ -87,13 +87,13 @@ function ExperienceCard({ object }: { object: ExperienceType }) {
   return( 
     <li 
       className={
-        "w-[45rem] h-full hover:bg-miquel-black-400/40 rounded-xl transform duration-300 group "+
+        "md:w-[45rem] w-[25rem] h-full hover:bg-miquel-black-400/40 rounded-xl transform duration-300 group "+
         "gap-4 p-4 flex flex-col justify-between list-none"
     }>
       <main className="flex flex-col gap-4">
-        <header className="w-full h-full flex gap-4">
+        <header className="w-full h-full flex md:flex-row flex-col md:justify-start justify-center md:items-start items-center gap-4">
           <Link href={object.link} target="_blank" className={
-            "group/img relative w-1/3 h-16 rounded-xl aspect-video col-span-1 flex justify-center items-center overflow-hidden p-6 py-10"
+            "group/img relative md:w-1/3 md:h-16 w-full rounded-xl aspect-video col-span-1 flex justify-center items-center overflow-hidden p-6 py-10"
             +" lg:col-span-5 bg-gradient-to-r from-miquel-white-200 to-miquel-white-100 hover:outline hover:outline-miquel-black-100" 
             }
             // onClick={() => goToPageFrom(window.location.pathname, object.link)}
@@ -108,29 +108,29 @@ function ExperienceCard({ object }: { object: ExperienceType }) {
           </Link>
 
           <aside className="flex flex-col justify-between"> 
-              <header className=" flex flex-col">
-                <h2 className="text-2xl flex items-end gap-3">
-                  <GlowingText bold>{object.title}</GlowingText>
-                  <IconLink
-                    src="external-link" title={object.title}
-                    width={25} height={25}
-                    link={object.link}
-                    blank
-                    className="opacity-0 group-hover:opacity-100 transform duration-300"
-                  />
-                </h2>
-                <i className="text-2xl">{object.company}</i>
-              </header>
-              <span className=" flex justify-between w-full gap-6">
-                <p className="opacity-50">{object.date} </p>
-                <IconCopy
-                  src="location-pin" title={object.place}
-                  width={20} height={20}
-                  copyText={object.place}
-                  text={object.place}
-                  className="!opacity-50 hover:!opacity-100"
+            <header className="flex flex-col">
+              <h2 className="text-2xl flex items-end md:justify-start justify-center gap-3">
+                <GlowingText bold>{object.title}</GlowingText>
+                <IconLink
+                  src="external-link" title={object.title}
+                  width={25} height={25}
+                  link={object.link}
+                  blank
+                  className="opacity-0 group-hover:opacity-100 transform duration-300 md:block hidden"
                 />
-              </span>
+              </h2>
+              <i className="text-2xl flex md:justify-start justify-center">{object.company}</i>
+            </header>
+            <span className=" flex justify-between w-full gap-6">
+              <p className="opacity-50">{object.date} </p>
+              <IconCopy
+                src="location-pin" title={object.place}
+                width={20} height={20}
+                copyText={object.place}
+                text={object.place}
+                className="!opacity-50 hover:!opacity-100"
+              />
+            </span>
           </aside>
         </header>
 
@@ -144,7 +144,9 @@ function ExperienceCard({ object }: { object: ExperienceType }) {
       </main>
 
       <figure className="w-full flex items-center opacity-80 group-hover:opacity-100 transition duration-300">
-        <div className="h-8 w-8 rounded-full bg-miquel-white-100 border-miquel-blue-400 border-4 z-20 group-hover:animate-spin transition duration-500"/>
+        <div className="h-8 w-8 rounded-full bg-miquel-white-100 border-miquel-blue-400 border-4 z-20 group-hover:animate-spin transition duration-500 text-transparent group-hover:text-black/60 flex justify-center items-center text-xs">
+          :D
+        </div>
         <div className="h-2 w-full -translate-x-2 rounded-md bg-miquel-white-100 border-miquel-blue-400 border-[2.5px] z-10" />
       </figure>
 
