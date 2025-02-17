@@ -1,26 +1,41 @@
+"use client"
+
+import cn from 'classnames';
 import Image from "next/image";
 import Link from "next/link";
 import GlowingText from "../(utils)/(components)/GlowingText";
 import { Experiences, ExperienceType } from "../(utils)/(constants)/experience.text.d";
 import { Technology } from "../(utils)/(constants)/technologies.d";
-import { IconLink, IconCopy } from "../(utils)/(components)/IconsButtons";
-import { useRef } from "react";
+import { IconLink, IconCopy, IconButtonArrow } from "../(utils)/(components)/IconsButtons";
+import { useRef, useState } from "react";
 
 
 export default function Experience() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [scrollOn, setScrollOn] = useState<number>(0) // 0 left, 1 middle, 2 right
+  const cardSize = 724 // 720 px for the w-[45rem] + 8/2 for the gap-2
 
   const scrollLeft = () => {
     if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: -300, behavior: "smooth" });
-    }
-  }
+      const container = scrollContainerRef.current
+      const currentScroll = Math.ceil(container.scrollLeft / cardSize)
+      const targetScroll = Math.max(currentScroll * cardSize - cardSize, 0)
+      container.scrollTo({ left: targetScroll, behavior: "smooth" })
 
+      setScrollOn(Math.ceil(targetScroll / cardSize) === 0 ? 0 : 1)
+    }
+  };
+  
   const scrollRight = () => {
     if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: 300, behavior: "smooth" });
+      const container = scrollContainerRef.current
+      const currentScroll = Math.ceil(container.scrollLeft / cardSize)
+      const targetScroll = currentScroll * cardSize + cardSize // Scroll by 724px
+      container.scrollTo({ left: targetScroll, behavior: "smooth" })
+
+      setScrollOn(Math.ceil(targetScroll / cardSize) >= Experiences.length - 1? 2 : 1)
     }
-  }
+  };
 
   return (
     <section id="Projects" className="w-full flex flex-col gap-6">
@@ -36,13 +51,33 @@ export default function Experience() {
           {"Experiencia"}
       </header>
 
-      <main 
+      <main className="flex relative">
+        <IconButtonArrow width={20} height={20} src={'chevron-up'} title={'left'}
+          onClick={scrollLeft}
+          className={cn(
+            "-rotate-90 absolute -left-44 top-1/2 transform -translate-y-1/2 z-10" +
+            " px-32 flex justify-center hover:bg-miquel-black-100/20 rounded-md",
+            {"opacity-0 cursor-auto": scrollOn === 0}
+          )}
+        />
+
+        <div 
         className="grid grid-flow-col auto-cols-[minmax(45rem,1fr)] gap-2 w-full h-full overflow-x-scroll"
         ref={scrollContainerRef}
-      >
-        {Experiences.map((object, idx) =>
-          <ExperienceCard key={idx} object={object} />
-        )}
+        >
+          {Experiences.map((object, idx) =>
+            <ExperienceCard key={idx} object={object} />
+          )}
+        </div>
+
+        <IconButtonArrow width={20} height={20} src={'chevron-up'} title={'right'} 
+          onClick={scrollRight}
+          className={cn(
+            "rotate-90 absolute -right-44 top-1/2 transform -translate-y-1/2 z-10" +
+            " px-32 flex justify-center hover:bg-miquel-black-100/20 rounded-md",
+            {"opacity-0 cursor-auto": scrollOn === 2}
+          )}
+        />
       </main>
     
     </section>

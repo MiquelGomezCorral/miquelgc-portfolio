@@ -9,7 +9,29 @@ import cn from 'classnames';
 //                        ICONS GLOW
 // =================================================================
 
-// ================== ICONS ==================
+// ================== ICONS BUTTONS ==================
+
+interface IconButtonArrow {
+  width: number, 
+  height: number, 
+  src: string, 
+  title: string
+  solid?: boolean,
+  className?: string,
+  onClick?: ()=>void,
+}
+export function IconButtonArrow({ width, height, src, title, solid, className, onClick}: IconButtonArrow){
+  return(
+    <button className={cn("", className)} onClick={onClick}>
+      <div className={cn(`gap-2 text-xs flex items-center rounded-full p-2 transform duration-300`,
+      )}>
+        <Icon width={width} height={height} src={src} title={title}/>
+      </div>
+    </button>
+  )
+}
+
+// ================== ICONS GLOING ==================
 
 interface IconGlowingProps {
   width: number, 

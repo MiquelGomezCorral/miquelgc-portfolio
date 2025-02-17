@@ -7,6 +7,7 @@ import { IconLink } from "../(utils)/(components)/IconsButtons";
 import { ProjectType } from "../(utils)/(constants)/project.text.d";
 import { usePageStackStore } from "../(global_state)/state";
 import { Technology } from "../(utils)/(constants)/technologies.d";
+import GlowingText from "../(utils)/(components)/GlowingText";
 
 
 export function Project({ object, disabled }: { object: ProjectType, disabled?: boolean }) {
@@ -135,7 +136,7 @@ export function ProjectPageTemplate({object}: {object: ProjectType}) {
           <p className="opacity-70">{object.descriptionLong}</p>
 
           <footer className="flex flex-col gap-2">
-            <h2 className="text-xl">Tecnologías</h2>
+            <GlowingText className="text-xl">Tecnologías</GlowingText>
             <div className="flex gap-2 flex-wrap">
               {object.technologies.map((tech, idx) =>
                 <Technology key={idx} src={tech} />

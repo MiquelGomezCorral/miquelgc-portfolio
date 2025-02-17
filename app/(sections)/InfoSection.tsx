@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import GlowingText from "../(utils)/(components)/GlowingText";
 import Image from "next/image";
-import { GlowingIconCopySolid, IconLGlowingLink, IconCopy, IconGlowingSolid, IconGlowingCopy } from "../(utils)/(components)/IconsButtons";
+import { IconLGlowingLink, IconCopy, IconGlowingCopy, IconGlowing } from "../(utils)/(components)/IconsButtons";
 import { Location, Email, Github, GithubLink, Linkedin, LinkedinLink, Curriculum, CurriculumSiglas } from "../(utils)/(constants)/constants.d"
 import { DownloadCV } from "../(utils)/(components)/Utils";
 
@@ -76,10 +76,11 @@ export default function InfoSection() {
 
         <footer className="flex flex-wrap justify-center xl:justify-start gap-4">
           <DownloadCV>
-            <IconGlowingSolid
+            <IconGlowing
               src="download-document" title={Curriculum}
               width={20} height={20}
               text={CurriculumSiglas}
+              solid
             />
           </DownloadCV>
           <IconGlowingCopy
