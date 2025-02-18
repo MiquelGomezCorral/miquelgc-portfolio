@@ -58,35 +58,50 @@ export function Project({ object, disabled }: { object: ProjectType, disabled?: 
 }
 
 export function SeeMoreProject({ object }: { object: ProjectType }) {
-  return (
-    <li
-      className="relative grid gird-cols-1 lg:grid-cols-12 gap-4 p-4 rounded-xl transform duration-300"
-    >
-      <figure className={
-        " relative w-full rounded-xl aspect-video col-span-1 flex justify-end items-center overflow-hidden "+  " " +
-        "lg:col-span-5 bg-gradient-to-r from-miquel-blue-400 to-indigo-400" 
-        }
-      >
-        <Image
-          src={`/assets/projects/${object.logo}.webp`}
-          alt={object.title}
-          // fill
-          width={800}
-          height={450}
-          className="rounded-xl w-10/12 translate-x-4 transform duration-500 aspect-video outline outline-miquel-white-500/40"
-        />
-      </figure>
+  const { goToPageFrom } = usePageStackStore()
 
-      <article className="flex flex-col gap-2 justify-between col-span-1 lg:col-start-6 lg:col-span-7">
-        <span>
-          <header className="flex items-center gap-3 text-2xl">
-            {object.title}
-          </header>
-          <p className="opacity-50">{object.finished ? "Terminado" : "En progreso"}</p>
-        </span>
-        <p className="opacity-70 ">{object.descriptionShort}</p>
-      </article>
-    </li>
+  return (
+    <Link 
+      onClick={() => goToPageFrom(window.location.pathname, object.link)}
+
+      href="/projects"
+      className="relative rounded-xl opacity-70 hover:opacity-100 hover:bg-miquel-black-400/20 transform duration-300 cursor-pointer">
+      <span className="absolute left-1/2 transform -translate-x-1/2 top-6 text-2xl">
+        Ver más
+      </span>
+
+      <figure className="pt-1 h-20 overflow-hidden blur-sm">
+        <li
+          className="relative grid gird-cols-1 lg:grid-cols-12 gap-4 p-4 rounded-xl transform duration-300"
+        >
+          <figure className={
+            " relative w-full rounded-xl aspect-video col-span-1 flex justify-end items-center overflow-hidden "+  " " +
+            "lg:col-span-5 bg-gradient-to-r from-miquel-blue-400 to-indigo-400" 
+            }
+          >
+            <Image
+              src={`/assets/projects/${object.logo}.webp`}
+              alt={object.title}
+              // fill
+              width={800}
+              height={450}
+              className="rounded-xl w-10/12 translate-x-4 transform duration-500 aspect-video outline outline-miquel-white-500/40"
+            />
+          </figure>
+
+          <article className="flex flex-col gap-2 justify-between col-span-1 lg:col-start-6 lg:col-span-7">
+            <span>
+              <header className="flex items-center gap-3 text-2xl">
+                {object.title}
+              </header>
+              <p className="opacity-50">{object.finished ? "Terminado" : "En progreso"}</p>
+            </span>
+            <p className="opacity-70 ">{object.descriptionShort}</p>
+          </article>
+        </li>
+      </figure>
+    </Link>
+    
   )
 }
 

@@ -1,35 +1,24 @@
 "use client"
 
 import cn from 'classnames';
-import Image from "next/image";
 import Link from "next/link";
 import { HeaderButton, HeaderButtonLink } from "@/app/(utils)/(components)/HeaderButton";
 import { DownloadCV } from "@/app/(utils)/(components)/Utils";
 import { Icon } from "@/app/(utils)/(components)/IconsButtons";
 import { CloseMenu, OpenMenu } from "@/app/(utils)/(constants)/constants.d";
 import { useState } from "react";
-import { useRouter } from "next/navigation"; 
-import { usePageStackStore } from '@/app/(global_state)/state';
+import { GoBackButton } from '@/app/(utils)/(components)/GoBackButton';
 
 export default function Header() {
-  const [showMenu, setshowMenu] = useState(false)
-  const { backToPage, currentPage } = usePageStackStore()
-  const router = useRouter()
+  const [ showMenu, setshowMenu ] = useState(false)
+
   return (
     <>
       <header className='fixed hidden sm:flex justify-between z-40 px-10 md:px-16 lg:px-20 py-4 w-full h-full sm:h-auto gap-10 top-0
       backdrop-blur-md border-b-2 border-b-miquel-white-200/50'>
         <nav className='w-max flex justify-between gap-4'>
-          <button 
-            className={cn("opacity-70 hover:opacity-100 transform duration-300", {"hidden": currentPage === "/"})}
-            onClick={() => router.push(backToPage())}
-          >
-            <Image src={`/assets/icons/go-back.svg`} alt={'go back'}
-              width={20}
-              height={20}
-              title={'go back'}
-            />
-          </button>
+          <GoBackButton />
+          
           <Link href="/" className="opacity-70 hover:opacity-100 transform duration-300">
             Miquel Gómez
           </Link>

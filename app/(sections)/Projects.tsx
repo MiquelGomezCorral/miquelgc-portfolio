@@ -21,16 +21,8 @@ export default function Projects() {
         )}
       </main>
       
-      <Link 
-        href="/projects"
-        className="relative rounded-xl opacity-70 hover:opacity-100 hover:bg-miquel-black-400/20 transform duration-300 cursor-pointer">
-        <span className="absolute left-1/2 transform -translate-x-1/2 top-6 text-2xl">
-          Ver más
-        </span>
-        <figure className="pt-1 h-20 overflow-hidden blur-sm">
-          <SeeMoreProject object={ProjectS[4]}/>
-        </figure>
-      </Link>
+      <SeeMoreProject object={ProjectS[4]}/>
+
     </section>
   )
 }
