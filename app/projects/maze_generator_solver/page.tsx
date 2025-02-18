@@ -1,4 +1,4 @@
-import { MazeGeneratorSolver } from "../../(utils)/(constants)/project.text.d"
+import { MazeGeneratorSolver } from "@/app/(utils)/(constants)/project.text.d"
 import { ProjectPageTemplate } from "../elements"
 
 export default function Portfolio() {

@@ -3,13 +3,13 @@
 import cn from 'classnames';
 import Image from "next/image";
 import Link from "next/link";
-import { HeaderButton, HeaderButtonLink } from "../(utils)/(components)/HeaderButton";
-import { DownloadCV } from "../(utils)/(components)/Utils";
-import { Icon } from "../(utils)/(components)/IconsButtons";
-import { CloseMenu, OpenMenu } from "../(utils)/(constants)/constants.d";
+import { HeaderButton, HeaderButtonLink } from "@/app/(utils)/(components)/HeaderButton";
+import { DownloadCV } from "@/app/(utils)/(components)/Utils";
+import { Icon } from "@/app/(utils)/(components)/IconsButtons";
+import { CloseMenu, OpenMenu } from "@/app/(utils)/(constants)/constants.d";
 import { useState } from "react";
 import { useRouter } from "next/navigation"; 
-import { usePageStackStore } from '../(global_state)/state';
+import { usePageStackStore } from '@/app/(global_state)/state';
 
 export default function Header() {
   const [showMenu, setshowMenu] = useState(false)

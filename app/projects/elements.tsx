@@ -3,12 +3,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import cn from 'classnames';
-import { IconLink } from "../(utils)/(components)/IconsButtons";
-import { ProjectType } from "../(utils)/(constants)/project.text.d";
-import { usePageStackStore } from "../(global_state)/state";
-import { Technology } from "../(utils)/(constants)/technologies.d";
-import GlowingText from "../(utils)/(components)/GlowingText";
-import { Marquee } from "../(utils)/(components)/Marquee";
+import { IconLink } from "@/app/(utils)/(components)/IconsButtons";
+import { ProjectType } from "@/app/(utils)/(constants)/project.text.d";
+import { usePageStackStore } from "@/app/(global_state)/state";
+import { Technology } from "@/app/(utils)/(constants)/technologies.d";
+import GlowingText from "@/app/(utils)/(components)/GlowingText";
+import { Marquee } from "@/app/(utils)/(components)/Marquee";
 
 
 export function Project({ object, disabled }: { object: ProjectType, disabled?: boolean }) {

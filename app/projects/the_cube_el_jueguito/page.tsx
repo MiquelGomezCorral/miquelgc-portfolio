@@ -1,4 +1,4 @@
-import { TheCubeElJueguito } from "../../(utils)/(constants)/project.text.d"
+import { TheCubeElJueguito } from "@/app/(utils)/(constants)/project.text.d"
 import { ProjectPageTemplate } from "../elements"
 
 export default function Portfolio() {

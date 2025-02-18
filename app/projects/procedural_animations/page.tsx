@@ -1,4 +1,4 @@
-import { ProceduralAnimations } from "../../(utils)/(constants)/project.text.d"
+import { ProceduralAnimations } from "@/app/(utils)/(constants)/project.text.d"
 import { ProjectPageTemplate } from "../elements"
 
 export default function Portfolio() {

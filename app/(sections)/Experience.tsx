@@ -4,14 +4,11 @@ import cn from 'classnames';
 import Image from "next/image";
 
 import Link from "next/link";
-import GlowingText from "../(utils)/(components)/GlowingText";
-import { Experiences, ExperienceType } from "../(utils)/(constants)/experience.text.d";
-import { Technology } from "../(utils)/(constants)/technologies.d";
-import { IconLink, IconCopy, IconButtonArrow } from "../(utils)/(components)/IconsButtons";
-import { useCarrousel } from '../(utils)/(components)/Carrousel';
-import { Marquee } from '../(utils)/(components)/Marquee';
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-
+import GlowingText from "@/app/(utils)/(components)/GlowingText";
+import { Experiences, ExperienceType } from "@/app/(utils)/(constants)/experience.text.d";
+import { IconLink, IconCopy, IconButtonArrow } from "@/app/(utils)/(components)/IconsButtons";
+import { useCarrousel } from '@/app/(utils)/(components)/Carrousel';
+import { TechnologyMarquee } from '@/app/(utils)/(components)/Technologies';
 
 export default function Experience() {
   const  { scrollContainerRef, scrollOn, scrollLeft, scrollRight, scrollSlider } = useCarrousel({list: Experiences})
@@ -70,27 +67,6 @@ export default function Experience() {
   )
 }
 function ExperienceCard({ object }: { object: ExperienceType }) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [fits, setFits] = useState(true);
-
-  useLayoutEffect(() => {
-    if (containerRef.current) {
-      const container = containerRef.current;
-      setFits(container.scrollWidth <= container.clientWidth);
-    }
-  }, []);
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (containerRef.current) {
-        const container = containerRef.current;
-        setFits(container.scrollWidth <= container.clientWidth);
-      }
-    };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-  
   return( 
     <li 
       className={
@@ -145,22 +121,8 @@ function ExperienceCard({ object }: { object: ExperienceType }) {
       </main>
       
       <footer className='flex flex-col gap-4'>
-        <figure ref={containerRef}>
-          {fits ? 
-            <div className='flex gap-2 flex-wrap w-max'>
-              {object.technologies.map((tech, idx) =>
-                <Technology key={idx} src={tech} />
-              )}
-            </div>
-          :
-            <Marquee
-              className="[--duration:20s] w-full py-0">
-              {object.technologies.map((tech, idx) =>
-                <Technology key={idx} src={tech} />
-              )}
-            </Marquee>
-          }
-        </figure>
+          
+        <TechnologyMarquee technologies={object.technologies}/>
 
         <figure className="w-full flex items-center opacity-80 group-hover/li:opacity-100 transition duration-300">
           <div className={
@@ -176,3 +138,4 @@ function ExperienceCard({ object }: { object: ExperienceType }) {
 
     </li>
 )}
+

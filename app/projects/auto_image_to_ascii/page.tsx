@@ -1,4 +1,4 @@
-import { AutoImageToAscii } from "../../(utils)/(constants)/project.text.d"
+import { AutoImageToAscii } from "@/app/(utils)/(constants)/project.text.d"
 import { ProjectPageTemplate } from "../elements"
 
 export default function Portfolio() {

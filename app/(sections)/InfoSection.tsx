@@ -1,10 +1,10 @@
 
-import GlowingText from "../(utils)/(components)/GlowingText";
+import GlowingText from "@/app/(utils)/(components)/GlowingText";
 import Image from "next/image";
-import { IconLGlowingLink, IconCopy, IconGlowingCopy, IconGlowing } from "../(utils)/(components)/IconsButtons";
-import { Location, Email, Github, GithubLink, Linkedin, LinkedinLink, Curriculum, CurriculumSiglas } from "../(utils)/(constants)/constants.d"
-import { DownloadCV } from "../(utils)/(components)/Utils";
-import { WritingText } from "../(utils)/(components)/TypingText";
+import { IconLGlowingLink, IconCopy, IconGlowingCopy, IconGlowing } from "@/app/(utils)/(components)/IconsButtons";
+import { Location, Email, Github, GithubLink, Linkedin, LinkedinLink, Curriculum, CurriculumSiglas } from "@/app/(utils)/(constants)/constants.d"
+import { DownloadCV } from "@/app/(utils)/(components)/Utils";
+import { WritingText } from "@/app/(utils)/(components)/TypingText";
 
 const qualities = [
   " creativo.",

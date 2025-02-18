@@ -1,4 +1,4 @@
-import { BoidsSimulator } from "../../(utils)/(constants)/project.text.d"
+import { BoidsSimulator } from "@/app/(utils)/(constants)/project.text.d"
 import { ProjectPageTemplate } from "../elements"
 
 export default function Portfolio() {

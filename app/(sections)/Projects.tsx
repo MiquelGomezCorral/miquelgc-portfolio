@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { SeeMoreProject, Project } from "../projects/elements";
-import { ProjectS } from "../(utils)/(constants)/project.text.d";
-import GlowingText from "../(utils)/(components)/GlowingText";
+import { SeeMoreProject, Project } from "@/app/projects/elements";
+import { ProjectS } from "@/app/(utils)/(constants)/project.text.d";
+import GlowingText from "@/app/(utils)/(components)/GlowingText";
 
 export default function Projects() {
   return (

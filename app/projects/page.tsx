@@ -1,4 +1,4 @@
-import { ProjectS } from "../(utils)/(constants)/project.text.d";
+import { ProjectS } from "@/app/(utils)/(constants)/project.text.d";
 import { Project } from "./elements";
 
 export default function ProjectsPage() {

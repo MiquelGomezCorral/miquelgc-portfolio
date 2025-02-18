@@ -1,4 +1,4 @@
-import { Porfolio } from "../../(utils)/(constants)/project.text.d"
+import { Porfolio } from "@/app/(utils)/(constants)/project.text.d"
 import { ProjectPageTemplate } from "../elements"
 
 export default function Portfolio() {
