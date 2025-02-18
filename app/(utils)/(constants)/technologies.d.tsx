@@ -19,6 +19,7 @@ export function Technology({ src }: { src: string }) {
         case "c-sharp": return "C Sharp"
         case "ai": return "AI"
         case "photoshop": return "Photoshop"
+        default: return "Missing Technology 🚫"
       }
     }
   
