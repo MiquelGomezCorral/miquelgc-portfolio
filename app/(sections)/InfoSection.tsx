@@ -1,10 +1,10 @@
-"use client"
-import { useEffect, useState } from "react";
+
 import GlowingText from "../(utils)/(components)/GlowingText";
 import Image from "next/image";
 import { IconLGlowingLink, IconCopy, IconGlowingCopy, IconGlowing } from "../(utils)/(components)/IconsButtons";
 import { Location, Email, Github, GithubLink, Linkedin, LinkedinLink, Curriculum, CurriculumSiglas } from "../(utils)/(constants)/constants.d"
 import { DownloadCV } from "../(utils)/(components)/Utils";
+import { WritingText } from "../(utils)/(components)/TypingText";
 
 const qualities = [
   " creativo.",
@@ -16,36 +16,6 @@ const qualities = [
   " guapo? ;)"
 ]
 export default function InfoSection() {
-  const [quality, setQuality] = useState("Creativo")
-  const [indexQuality, setIndexQuality] = useState(0)
-  const [isWriting, setIsWriting] = useState(false)
-  useEffect(() => {
-    const deletingTime = 25
-    const writingTime = 150
-    if (isWriting) return
-    const intervalDel = setInterval(() => {
-      if (quality) {
-        setQuality(prev => prev.slice(0, -1))
-      } else {
-        setIsWriting(true)
-        const nextIndext = (indexQuality + 1) % qualities.length
-        setIndexQuality(nextIndext)
-
-        let i = 0
-        const intervalWrite = setInterval(() => {
-          if (i < qualities[nextIndext].length - 1) {
-            setQuality(prev => prev + qualities[nextIndext][i])
-            i++
-          } else {
-            clearInterval(intervalWrite)
-            setTimeout(() => setIsWriting(false), 750);
-          }
-        }, writingTime)
-      }
-    }, deletingTime)
-    return () => clearInterval(intervalDel)
-  }, [quality, isWriting])
-
   return (
     <section id="Info-Section" className='w-full flex flex-col xl:flex-row-reverse justify-between items-center gap-24 xl:gap-10'>
       <Foto />
@@ -55,7 +25,7 @@ export default function InfoSection() {
           ¡Hola, soy <GlowingText>Miquel Gómez!</GlowingText>
         </h1>
         <h2 className="text-lg sm:text-2xl flex justify-center items-center xl:justify-start gap-2 text-nowrap overflow-hidden">
-          Soy un estudiante <GlowingText>{quality}<WritingBar /> </GlowingText>
+          Soy un estudiante <GlowingText> <WritingText list={qualities}/> <WritingBar /> </GlowingText>
         </h2>
         <p className="text-sm sm:text-base text-miquel-white-500 flex flex-col gap-2">
           <span >

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { EmptyProject, Project } from "../projects/elements";
+import { SeeMoreProject, Project } from "../projects/elements";
 import { ProjectS } from "../(utils)/(constants)/project.text.d";
 import GlowingText from "../(utils)/(components)/GlowingText";
 
@@ -28,7 +28,7 @@ export default function Projects() {
           Ver más
         </span>
         <figure className="pt-1 h-20 overflow-hidden blur-sm">
-          <EmptyProject object={ProjectS[4]}/>
+          <SeeMoreProject object={ProjectS[4]}/>
         </figure>
       </Link>
     </section>

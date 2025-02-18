@@ -8,6 +8,7 @@ import { ProjectType } from "../(utils)/(constants)/project.text.d";
 import { usePageStackStore } from "../(global_state)/state";
 import { Technology } from "../(utils)/(constants)/technologies.d";
 import GlowingText from "../(utils)/(components)/GlowingText";
+import { Marquee } from "../(utils)/(components)/Marquee";
 
 
 export function Project({ object, disabled }: { object: ProjectType, disabled?: boolean }) {
@@ -59,14 +60,14 @@ export function Project({ object, disabled }: { object: ProjectType, disabled?: 
   )
 }
 
-export function EmptyProject({ object }: { object: ProjectType }) {
+export function SeeMoreProject({ object }: { object: ProjectType }) {
   return (
     <li
       className="relative grid gird-cols-1 lg:grid-cols-12 gap-4 p-4 rounded-xl transform duration-300"
     >
       <figure className={
         " relative w-full rounded-xl aspect-video col-span-1 flex justify-end items-center overflow-hidden "+  " " +
-        "lg:col-span-5 bg-gradient-to-r from-blue-500 to-orange-500" 
+        "lg:col-span-5 bg-gradient-to-r from-miquel-blue-400 to-indigo-400" 
         }
       >
         <Image
@@ -97,21 +98,24 @@ export function ProjectPageTemplate({object}: {object: ProjectType}) {
     <main className="w-full flex flex-col justify-center gap-10 rounded-xl">
       <header className="w-full h-full flex justify-center">
         <div className="relative max-w-3xl w-full h-full aspect-video">
-          {/* <Image
-            src={`/assets/projects/${object.logo}.webp`}
-            alt={object.title}
-            fill
-            className="rounded-xl"
-          /> */}
-          <iframe
-            // width="560"
-            // height="315"
-            src={object.youtube} // Replace with your video ID
-            title="YouTube video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            className="rounded-xl w-full h-full"
+          {object.youtube ? 
+            <iframe
+              // width="560"
+              // height="315"
+              src={object.youtube} // Replace with your video ID
+              title="YouTube video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="rounded-xl w-full h-full"
             ></iframe>
+            :
+            <Image
+              src={`/assets/projects/${object.logo}.webp`}
+              alt={object.title}
+              fill
+              className="rounded-xl"
+            /> 
+          }
         </div>
       </header>
 
@@ -176,54 +180,5 @@ function CarrouselItem({ screenShoot }: { screenShoot: string}) {
         className="rounded-xl"
       />
     </figure>
-  );
-}
-
-interface MarqueeProps {
-  className?: string;
-  reverse?: boolean;
-  pauseOnHover?: boolean;
-  children?: React.ReactNode;
-  vertical?: boolean;
-  repeat?: number;
-}
-
-function Marquee({
-  className,
-  reverse,
-  pauseOnHover = false,
-  children,
-  vertical = false,
-  repeat = 4,
-  ...props
-}: MarqueeProps) {
-  return (
-    <div
-      {...props}
-      className={cn(
-        "group flex overflow-hidden p-2 [--duration:40s] [--gap:1rem] [gap:var(--gap)]",
-        {
-          "flex-row": !vertical,
-          "flex-col": vertical,
-        },
-        className,
-      )}
-    >
-      {Array(repeat)
-        .fill(0)
-        .map((_, i) => (
-          <div
-            key={i}
-            className={cn("flex shrink-0 justify-around [gap:var(--gap)]", {
-              "animate-marquee flex-row": !vertical,
-              "animate-marquee-vertical flex-col": vertical,
-              "group-hover:[animation-play-state:paused]": pauseOnHover,
-              "[animation-direction:reverse]": reverse,
-            })}
-          >
-            {children}
-          </div>
-        ))}
-    </div>
   );
 }
