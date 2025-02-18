@@ -28,6 +28,7 @@ export default function Header() {
           <HeaderButtonLink link="/">Sobre mí</HeaderButtonLink>
           <HeaderButtonLink link="/projects">Proyectos</HeaderButtonLink>
           <HeaderButtonLink link="/#experiences">Experiencias</HeaderButtonLink>
+          <HeaderButtonLink link="/#skills">Habilidades</HeaderButtonLink>
           <DownloadCV>
             <HeaderButton>CV</HeaderButton>
           </DownloadCV>
