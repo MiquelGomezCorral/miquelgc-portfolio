@@ -9,6 +9,7 @@ import { usePageStackStore } from "@/app/(global_state)/state";
 import { Technology } from "@/app/(utils)/(constants)/technologies.d";
 import GlowingText from "@/app/(utils)/(components)/GlowingText";
 import { Marquee } from "@/app/(utils)/(components)/Marquee";
+import { TechnologyMarquee } from "@/app/(utils)/(components)/Technologies";
 
 
 export function Project({ object, disabled }: { object: ProjectType, disabled?: boolean }) {
@@ -50,11 +51,7 @@ export function Project({ object, disabled }: { object: ProjectType, disabled?: 
 
         <p className="opacity-70 ">{object.descriptionShort}</p>
 
-        <footer className="flex gap-2 flex-wrap">
-          {object.technologies.map((tech, idx) =>
-            <Technology key={idx} src={tech} />
-          )}
-        </footer>
+        <TechnologyMarquee technologies={object.technologies} />
       </article>
     </li>
   )
@@ -139,14 +136,8 @@ export function ProjectPageTemplate({object}: {object: ProjectType}) {
 
           <p className="opacity-70">{object.descriptionLong}</p>
 
-          <footer className="flex flex-col gap-2">
-            <GlowingText className="text-xl">Tecnologías</GlowingText>
-            <div className="flex gap-2 flex-wrap">
-              {object.technologies.map((tech, idx) =>
-                <Technology key={idx} src={tech} />
-              )}
-            </div>
-          </footer>
+          <GlowingText className="text-xl">Tecnologías</GlowingText>
+          <TechnologyMarquee technologies={object.technologies} />
         </section>
 
         <section className="h-52 sm:h-96 w-full">
