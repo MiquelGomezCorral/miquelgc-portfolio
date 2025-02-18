@@ -26,6 +26,7 @@ export default function Footer() {
             src="download-document" title={Curriculum}
             width={20} height={20}  
             text={Curriculum}
+            hover
           />
         </DownloadCV>
         <IconCopy 

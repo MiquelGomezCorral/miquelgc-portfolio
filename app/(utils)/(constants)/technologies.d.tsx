@@ -1,4 +1,5 @@
 import Image from "next/image"
+import { Icon } from "@/app/(utils)/(components)/IconsButtons"
 
 export function Technology({ src }: { src: string }) {
     const Title = (src: string) => {
@@ -23,7 +24,8 @@ export function Technology({ src }: { src: string }) {
   
     return (
       <section className="rounded-full bg-miquel-black-200 px-4 py-1 flex justify-center items-center gap-2 text-xs">
-        <Image src={`/assets/icons/${src}.svg`} alt={src}
+        <Icon 
+          src={src}
           width={20}
           height={20}
           title={Title(src)}

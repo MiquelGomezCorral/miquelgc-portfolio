@@ -29,14 +29,15 @@ interface IconButtonArrow {
   title: string
   disable?: boolean,
   className?: string,
+  color?: boolean
   onClick?: ()=>void,
 }
-export function IconButtonArrow({ width, height, src, title, disable, className, onClick}: IconButtonArrow){
+export function IconButtonArrow({ width, height, src, title, disable, className, color, onClick}: IconButtonArrow){
   return(
     <button className={cn("", className)} onClick={onClick}>
       <div className={cn(`gap-2 text-xs flex items-center rounded-full p-2`,
       )}>
-        <Icon width={width} height={height} src={src} title={title} disable={disable}/>
+        <Icon width={width} height={height} src={src} title={title} disable={disable} color={color}/>
       </div>
     </button>
   )
@@ -51,8 +52,10 @@ interface IconGlowingProps {
   title: string
   text?: string;
   solid?: boolean
+  color?: boolean
+  hover?: boolean
 }
-export function IconGlowing({ width, height, src, title, text, solid}: IconGlowingProps){
+export function IconGlowing({ width, height, src, title, text, solid, color, hover}: IconGlowingProps){
   return(
     <button className="relative">
       <div className="absolute rounded-full flex h-full w-full bg-miquel-blue-400/50 blur-md" />
@@ -61,11 +64,7 @@ export function IconGlowing({ width, height, src, title, text, solid}: IconGlowi
         {'border border-miquel-blue-400 bg-miquel-black-500 hover:bg-miquel-black-300': !solid},
         {'bg-miquel-blue-500 hover:bg-miquel-blue-400': solid},
       )}>
-        <Image src={`/assets/icons/${src}.svg`} alt={src}
-          width={width}
-          height={height}
-          title={title}
-        />
+        <Icon src={src} width={width} height={height} title={title} color={color} hover={hover}/>
         {text}
       </div>
     </button>
@@ -82,8 +81,9 @@ interface IconLinkGlowingProps {
   blank?: boolean
   text?: string,
   solid?: boolean,
+  color?: boolean
 }
-export function IconLGlowingLink({ width, height, src, title, link, blank, text, solid}: IconLinkGlowingProps) {
+export function IconLGlowingLink({ width, height, src, title, link, blank, text, solid, color}: IconLinkGlowingProps) {
   return (
     <Link 
       className="relative"
@@ -91,7 +91,7 @@ export function IconLGlowingLink({ width, height, src, title, link, blank, text,
       target={blank ? "_blank": ""}
     >
       <IconGlowing
-        width={width} height={height} src={src} title={title} text={text} solid={solid}
+        width={width} height={height} src={src} title={title} text={text} solid={solid} color={color} hover
       />
     </Link>
   )
@@ -108,12 +108,13 @@ interface IconCopyGlowingProps {
   copyText: string,
   text?: string,
   solid?: boolean
+  color?: boolean
 }
-export function IconGlowingCopy({ width, height, src, title, copyText, text, solid}:IconCopyGlowingProps) {
+export function IconGlowingCopy({ width, height, src, title, copyText, text, solid, color}:IconCopyGlowingProps) {
   return (
     <nav className="relative flex" onClick={showAlertCopy(copyText)}>
       <IconGlowing
-        width={width} height={height} src={src} title={title} text={text} solid={solid}
+        width={width} height={height} src={src} title={title} text={text} solid={solid} color={color} hover
       />
     </nav>
   )
@@ -131,15 +132,16 @@ interface IconLinkProps {
   title: string,
   text?: string,
   className?: string,
+  color?: boolean,
 }
-export function IconLink({ link, blank, width, height, src, title, text, className}: IconLinkProps) {
+export function IconLink({ link, blank, width, height, src, title, text, color, className}: IconLinkProps) {
   return (
     <Link 
       className={cn("relative", className)}
       href={link}
       target={blank ? "_blank": ""}
     >
-      <Icon width={width} height={height} src={src} title={title} text={text} />
+      <Icon width={width} height={height} src={src} title={title} text={text} color={color} hover/>
     </Link>
   )
 }
@@ -151,15 +153,16 @@ interface IconCopyProps {
   title: string,
   copyText: string,
   text?: string,
-  className?: string
+  className?: string,
+  color?: boolean,
 }
-export function IconCopy({width, height, src, title, copyText, text, className}: IconCopyProps) {
+export function IconCopy({width, height, src, title, copyText, text, color, className}: IconCopyProps) {
   return (
     <button 
       className="relative"
       onClick={showAlertCopy(copyText)}
     >
-      <Icon width={width} height={height} src={src} title={title} text={text} className={className} />
+      <Icon width={width} height={height} src={src} title={title} text={text} className={className} color={color} hover/>
     </button>
   )
 }
@@ -171,18 +174,25 @@ interface IconProps {
   title: string,
   text?: string,
   disable?: boolean
+  hover?: boolean
+  color?: boolean
   className?: string,
 }
-export function Icon({width, height, src, title, text, disable, className}: IconProps){
+export function Icon({width, height, src, title, text, hover, disable, color, className}: IconProps){
   return (
-    <div className={cn("gap-1 flex items-center rounded-full transform duration-300 opacity-70", className, {"hover:opacity-100": !disable})}>
-      <Image src={`/assets/icons/${src}.svg`} alt={src}
+    <figure className={
+      cn("gap-1 flex items-center rounded-full transform duration-300 ", 
+      className, 
+      {"hover:opacity-100": !disable},
+      {"opacity-70": hover},
+    )}>
+      <Image src={`/assets/icons/${color ? 'color' : 'white'}/${src}.svg`} alt={src}
         width={width}
         height={height}
         title={title}
       />
       {text}
-    </div>
+    </figure>
   )
 }
 
