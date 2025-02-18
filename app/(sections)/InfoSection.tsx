@@ -90,7 +90,7 @@ function Foto() {
     <section className="relative flex justify-center w-full max-w-[400px] lg:min-w-[300px] aspect-square">
       <div className="absolute bg-miquel-blue-400 rounded-full blur-md w-full h-full" />
       <Image
-        src="/miquel/DNI-png.png"
+        src="/miquel/DNI-png@0.75x.webp"
         alt="Miquel Gómez Corral"
         layout="fill"
         className="rounded-full bg-miquel-blue-400 object-cover"
