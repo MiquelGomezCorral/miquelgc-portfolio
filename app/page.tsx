@@ -9,8 +9,8 @@ export default function App() {
   return (
     <>
       <InfoSection/>
-      <Skills/>
       <TechnologiesSection/>
+      <Skills/>
       <Experience/> 
       <Projects/>
     </>
