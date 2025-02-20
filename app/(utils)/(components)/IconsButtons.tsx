@@ -168,8 +168,9 @@ export function IconCopy({width, height, src, title, copyText, text, color, clas
 }
 
 interface IconProps {
-  width: number, 
-  height: number, 
+  width?: number, 
+  height?: number, 
+  fill?: boolean, 
   src: string, 
   title: string,
   text?: string,
@@ -178,19 +179,26 @@ interface IconProps {
   color?: boolean
   className?: string,
 }
-export function Icon({width, height, src, title, text, hover, disable, color, className}: IconProps){
+export function Icon({width, height, fill, src, title, text, hover, disable, color, className}: IconProps){
   return (
     <figure className={
-      cn("gap-1 flex items-center rounded-full transform duration-300 ", 
+      cn("relative gap-1 flex items-center justify-center rounded-full transform duration-300 ", 
       className, 
       {"hover:opacity-100": !disable},
       {"opacity-70": hover},
     )}>
+      {fill ? 
+      <Image src={`/assets/icons/${color ? 'color' : 'white'}/${src}.svg`} alt={src}
+        fill
+        title={title}
+      />
+      :
       <Image src={`/assets/icons/${color ? 'color' : 'white'}/${src}.svg`} alt={src}
         width={width}
         height={height}
         title={title}
       />
+      }
       {text}
     </figure>
   )

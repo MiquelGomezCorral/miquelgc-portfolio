@@ -94,3 +94,25 @@ export type TechnologyString = (
   "ai" |
   "photoshop"
 );
+
+
+export type TechnologyCathegoryType = {
+  title: string,
+  description: string,
+  techStars45: TechnologyString[],
+  tehcStars34: TechnologyString[],
+}
+export const TechnologyCathegories: TechnologyCathegoryType[] = [
+  {
+    title: "Lenguajes de Progaramación", 
+    description: "Lenguajes de Progaramación para desarrollo. Desde aplicaciones de escritorio o web hasta moviles",
+    techStars45: ["python", "typescript", "react", "css", "java"], 
+    tehcStars34:["c", "c++", "c-sharp", "risc-v", "haskell", "prolog"]
+  },
+  {
+    title: "Lenguajes de Progaramación", 
+    description: "Lenguajes de Progaramación para desarrollo. Desde aplicaciones de escritorio o web hasta moviles",
+    techStars45: ["python", "typescript", "react", "css", "java"], 
+    tehcStars34:["c", "c++", "c-sharp", "risc-v", "haskell", "prolog"]
+  }
+]
