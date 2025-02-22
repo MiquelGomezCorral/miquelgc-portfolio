@@ -3,27 +3,27 @@
 import cn from 'classnames';
 
 import GlowingText from "@/app/(utils)/(components)/GlowingText";
-import { Experiences } from "@/app/(utils)/(constants)/experience.text.d";
+import { Studies } from "@/app/(utils)/(constants)/studies.text.d";
 import { IconButtonArrow, Icon } from "@/app/(utils)/(components)/IconsButtons";
 import { useCarrousel } from '@/app/(utils)/(components)/Carrousel';
-import { Card } from '@/app//(utils)/(components)/Card';
+import { Card } from '@/app/(utils)/(components)/Card';
 
-export default function Experience() {
-  const  { scrollContainerRef, scrollOn, scrollLeft, scrollRight, scrollSlider } = useCarrousel({list: Experiences})
+export default function StudiesSection() {
+  const  { scrollContainerRef, scrollOn, scrollLeft, scrollRight, scrollSlider } = useCarrousel({list: Studies})
 
   return (
-    <section id="experiences" className="w-full flex flex-col gap-6 group">
+    <section id="studies" className="w-full flex flex-col gap-6 group">
       <header className="w-full py-4 border-b-2 border-b-miquel-white-200/50 text-5xl font-bold transform duration-300 flex gap-2">
         <GlowingText>
           <Icon 
-            src={`experience`}
+            src={`miscelanea`}
             width={50}
             height={50}
             color
-            title={'experience'}
+            title={'Studies'}
           />
         </GlowingText>
-        {"Experiencia"}
+        {"Estudios"}
       </header>
 
       <main className="flex relative flex-col xl:flex-row items-center gap-4">
@@ -32,7 +32,7 @@ export default function Experience() {
           ref={scrollContainerRef}
           onScroll={scrollSlider}
         >
-          {Experiences.map((object, idx) =>
+          {Studies.map((object, idx) =>
             <Card key={idx} object={object} />
           )}
         </div>

@@ -182,7 +182,7 @@ interface IconProps {
 export function Icon({width, height, fill, src, title, text, hover, disable, color, className}: IconProps){
   return (
     <figure className={
-      cn("relative flex items-center justify-center rounded-full transform duration-300 ", 
+      cn("relative flex items-center justify-center rounded-full transform duration-300 gap-1", 
       className, 
       {"hover:opacity-100": !disable},
       {"opacity-70": hover},
