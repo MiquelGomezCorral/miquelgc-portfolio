@@ -1,12 +1,12 @@
 "use client"
-
+import cn from "classnames"
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { TechnologyString, Technology } from "@/app/(utils)/(constants)/technologies.d";
 import { Marquee } from "./Marquee";
 
-export function TechnologyList({technologies}: {technologies: TechnologyString[]}){
+export function TechnologyList({technologies, className}: {technologies: TechnologyString[], className?: string}){
   return(
-    <div className="flex flex-wrap gap-2 w-full">
+    <div className={cn("flex flex-wrap gap-2 w-full h-full items-center", className)}>
       {technologies.map((tech, idx) =>
         <Technology key={idx} src={tech} />
       )}
@@ -14,7 +14,7 @@ export function TechnologyList({technologies}: {technologies: TechnologyString[]
   )
 }
 
-export function TechnologyMarquee({technologies}: {technologies: TechnologyString[]}){
+export function TechnologyMarquee({technologies, className}: {technologies: TechnologyString[], className?: string}){
   const containerRef = useRef<HTMLDivElement>(null);
   const [fits, setFits] = useState(true);
 
@@ -37,7 +37,7 @@ export function TechnologyMarquee({technologies}: {technologies: TechnologyStrin
   }, []);
 
   return(
-    <figure ref={containerRef}>
+    <figure ref={containerRef} className={cn("",className)}>
       {fits ? 
         <div className='flex gap-2 flex-wrap w-max'>
           {technologies.map((tech, idx) =>

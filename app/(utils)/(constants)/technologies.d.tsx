@@ -22,6 +22,7 @@ export function Technology({ src }: { src: string }) {
         case "c": return "C"
         case "unity": return "Unity"
         case "java": return "Java"
+        case "java-fx": return "Java"
         case "haskell": return "Haskell"
         case "mathematica": return "Mathematica"
         case "haskell": return "Haskell"
@@ -38,6 +39,7 @@ export function Technology({ src }: { src: string }) {
         case "numpy": return "NumPy"
         case "pytorch": return "pytorch"
         case "sklearn": return "Sklearn"
+        case "xg-boost": return "XG Boost"
         case "pandas": return "Pandas"
         case "plotly": return "Plotly"
         
@@ -50,7 +52,7 @@ export function Technology({ src }: { src: string }) {
     }
   
     return (
-      <section className="rounded-full bg-miquel-black-200 px-4 py-1 flex justify-center items-center gap-2 text-xs">
+      <section className="rounded-full bg-miquel-black-200 px-4 py-1 flex justify-center items-center gap-2 text-xs h-min">
         <Icon 
           src={src}
           width={20}
@@ -73,8 +75,8 @@ export type TechnologyString = (
   "css" | "css-2" |
   "zustand" |
   "c++" | "c-sharp" | "c" |
-  "unity" |
-  "java" |
+  "unity" | 
+  "java" | "java-fx" |
   "haskell" |
   "mathematica" |
   "prolog" |
@@ -88,6 +90,7 @@ export type TechnologyString = (
   "numpy" |
   "pytorch" |
   "sklearn" |
+  "xg-boost" |
   "pandas" |
   "plotly" |
   "github" |
@@ -100,19 +103,42 @@ export type TechnologyCathegoryType = {
   title: string,
   description: string,
   techStars45: TechnologyString[],
-  tehcStars34: TechnologyString[],
+  techStars34: TechnologyString[],
+  startsUp: number,
+  startsDown: number,
 }
+
 export const TechnologyCathegories: TechnologyCathegoryType[] = [
   {
-    title: "Lenguajes de Progaramación", 
-    description: "Lenguajes de Progaramación para desarrollo. Desde aplicaciones de escritorio o web hasta moviles",
+    title: "Lenguajes de Programación", 
+    description: "Lenguajes para desarrollo web, móvil y sistemas, abarcando paradigmas altos y funcionales",
     techStars45: ["python", "typescript", "react", "css", "java"], 
-    tehcStars34:["c", "c++", "c-sharp", "risc-v", "haskell", "prolog"]
+    techStars34: ["c", "c++", "c-sharp", "risc-v", "haskell", "prolog"],
+    startsUp: 5,
+    startsDown: 3,
   },
   {
-    title: "Lenguajes de Progaramación", 
-    description: "Lenguajes de Progaramación para desarrollo. Desde aplicaciones de escritorio o web hasta moviles",
-    techStars45: ["python", "typescript", "react", "css", "java"], 
-    tehcStars34:["c", "c++", "c-sharp", "risc-v", "haskell", "prolog"]
+    title: "Entornos y Herramientas de Desarrollo", 
+    description: "Herramientas modernas para desarrollo ágil, diseño e implementación, de Tailwind a Node.",
+    techStars45: ["tailwind", "pygame", "zustand", "node", "jupyter"], 
+    techStars34: ["unity", "java-fx"],
+    startsUp: 5,
+    startsDown: 3,
+  },
+  {
+    title: "Análisis y Tratamiento de Datos", 
+    description: "Soluciones para manipular, analizar y visualizar datos con Python y frameworks backend.",
+    techStars45: ["pandas", "sklearn", "matplot", "plotly", "numpy"], 
+    techStars34: ["sql", "fastapi", "mathematica"],
+    startsUp: 5,
+    startsDown: 3,
+  },
+  {
+    title: "Inteligencia Artificial y Modelos", 
+    description: "Frameworks para construir y entrenar modelos de IA, de ML tradicional a deep learning.",
+    techStars45: ["sklearn", "numpy"], 
+    techStars34: ["pytorch", "xg-boost"],
+    startsUp: 5,
+    startsDown: 4,
   }
 ]
