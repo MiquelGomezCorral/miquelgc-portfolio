@@ -78,6 +78,7 @@ export function FormSendEmail(){
           type="text" 
           placeholder='Isbel Vallés Bertomeu'
           value={name}
+          autoComplete="additional-name"
           onChange={(e) => {
             const newValue = e.target.value
             setName(newValue)
@@ -95,6 +96,7 @@ export function FormSendEmail(){
           type="email" 
           placeholder='isabel_vb@eg.company.com'
           value={email}
+          autoComplete="email"
           onChange={(e) => {
             const newValue = e.target.value;
             setEmail(newValue);
