@@ -139,6 +139,6 @@ export const TechnologyCathegories: TechnologyCathegoryType[] = [
     techStars45: ["sklearn", "numpy"], 
     techStars34: ["pytorch", "xg-boost"],
     startsUp: 5,
-    startsDown: 4,
+    startsDown: 3,
   }
 ]

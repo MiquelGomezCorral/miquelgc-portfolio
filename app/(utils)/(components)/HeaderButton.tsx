@@ -4,8 +4,8 @@ import Link from "next/link"
 import { usePageStackStore } from "@/app/(global_state)/state"
 
 export function HeaderButtonLink(
-  {link, blank, notAddToStack, ...props }: 
-  {link: string, blank?: boolean, notAddToStack?:boolean, children: React.ReactNode }) 
+  {link, blank, notAddToStack, onClick, ...props }: 
+  {link: string, blank?: boolean, notAddToStack?:boolean, children: React.ReactNode, onClick?: ()=>void }) 
 {
   const { goToPageFrom } = usePageStackStore()
 
@@ -15,8 +15,10 @@ export function HeaderButtonLink(
       target={blank ? "_blank": ""}
       className="group"
       onClick={() => {
-        if (!notAddToStack)
+        if(!notAddToStack)
           goToPageFrom(window.location.pathname, link)
+        if(onClick)
+          onClick()
       }}
     >
       <button className="text-miquel-white opacity-70 group-hover:opacity-100 transform duration-300">

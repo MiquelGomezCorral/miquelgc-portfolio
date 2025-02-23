@@ -27,8 +27,9 @@ export default function Header() {
         <nav className='gap-4 flex'>
           <HeaderButtonLink link="/">Sobre mí</HeaderButtonLink>
           <HeaderButtonLink link="/projects">Proyectos</HeaderButtonLink>
-          <HeaderButtonLink link="/#experiences">Experiencias</HeaderButtonLink>
-          <HeaderButtonLink link="/#skills">Habilidades</HeaderButtonLink>
+          <HeaderButtonLink link="/#experiences" notAddToStack>Experiencias</HeaderButtonLink>
+          <HeaderButtonLink link="/#studies" notAddToStack>Estudios</HeaderButtonLink>
+          {/* <HeaderButtonLink link="/#skills">Habilidades</HeaderButtonLink> */}
           <DownloadCV>
             <HeaderButton>CV</HeaderButton>
           </DownloadCV>
@@ -48,7 +49,7 @@ export default function Header() {
         />
       </div>
 
-      <header className={cn('z-40 fixed gap-4 sm:hidden flex flex-col w-full h-full top-4 left-0 backdrop-blur-md text-miquel-white-200', { "hidden": !showMenu })}>
+      <header className={cn('z-40 fixed gap-4 sm:hidden flex flex-col w-full h-full top-0 left-0 py-4 backdrop-blur-md text-miquel-white-200', { "hidden": !showMenu })}>
         <Link href="/" className="pl-4 opacity-70 hover:opacity-100 transform duration-300 text-2xl font-semibold">
           <h3>Miquel Gómez</h3>
         </Link>
@@ -56,13 +57,28 @@ export default function Header() {
         <div className="border-b-2 border-b-miquel-white-200/50" />
 
         <nav className="flex flex-col gap-4 pl-4">
-          <HeaderButtonLink link="/">Sobre mí</HeaderButtonLink>
-          <HeaderButtonLink link="/projects">Projectos</HeaderButtonLink>
+          <HeaderButtonLink link="/" onClick={()=>setshowMenu(false)}>
+            Sobre mí
+          </HeaderButtonLink>
+          <HeaderButtonLink link="/projects" onClick={()=>setshowMenu(false)}>
+            Proyectos
+          </HeaderButtonLink>
+          <HeaderButtonLink link="/#experiences" notAddToStack onClick={()=>setshowMenu(false)}>
+            Experiencias
+          </HeaderButtonLink>
+          <HeaderButtonLink link="/#studies" notAddToStack onClick={()=>setshowMenu(false)}>
+            Estudios
+          </HeaderButtonLink>
+          {/* <HeaderButtonLink link="/#skills" onClick={()=>setshowMenu(false)}>Habilidades</HeaderButtonLink> */}
           <DownloadCV>
             <HeaderButton>CV</HeaderButton>
           </DownloadCV>
-          <HeaderButtonLink link="/#footer" notAddToStack>Links</HeaderButtonLink>
-          <HeaderButtonLink link="">ES ^</HeaderButtonLink>
+          <HeaderButtonLink link="/#footer" notAddToStack onClick={()=>setshowMenu(false)}>
+            Links
+          </HeaderButtonLink>
+          <HeaderButtonLink link="" onClick={()=>setshowMenu(false)}>
+              ES ^
+          </HeaderButtonLink>
         </nav>
       </header>
 

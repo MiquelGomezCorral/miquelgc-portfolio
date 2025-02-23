@@ -21,8 +21,8 @@ export function Project({ object, disabled }: { object: ProjectType, disabled?: 
     >
       <Link href={object.link} className={
         "group/img relative w-full rounded-xl aspect-video col-span-1 flex justify-end items-center overflow-hidden"+  " " +
-        "lg:col-span-5 bg-gradient-to-r from-miquel-blue-400 to-indigo-400 hover:outline hover:outline-miquel-black-100" //from-blue-500 to-orange-500
-        }
+        "lg:col-span-5 bg-gradient-to-r from-miquel-blue-400 to-indigo-400 hover:outline-miquel-black-100" //from-blue-500 to-orange-500
+        } // bg-gradient-to-r from-miquel-blue-400 to-indigo-400
         onClick={() => goToPageFrom(window.location.pathname, object.link)}
       >
         <Image
@@ -38,7 +38,7 @@ export function Project({ object, disabled }: { object: ProjectType, disabled?: 
       <article className="flex flex-col gap-2 justify-between col-span-1 lg:col-start-6 lg:col-span-7">
         <span>
           <header className="flex items-end gap-3">
-            <h2 className="text-2xl">{object.title}</h2>
+            <GlowingText bold className="text-2xl">{object.title}</GlowingText>
             <IconLink
               src="external-link" title={object.title}
               width={25} height={25}
