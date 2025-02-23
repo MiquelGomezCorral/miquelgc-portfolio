@@ -50,10 +50,10 @@ export function FormSendEmail(){
       to_name: 'Miquel Gómez',
       message: message,
     }
-    setName("")
-    setEmail("")
-    setMessage("")
-    return
+    // setName("")
+    // setEmail("")
+    // setMessage("")
+    // return
     emailjs.send(serviceId, templateId, templateParams, publicKey)
       .then(
         () => {
