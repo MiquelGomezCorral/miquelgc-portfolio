@@ -5,6 +5,8 @@ import { Curriculum, Email, Github, GithubLink, Linkedin, LinkedinLink } from "@
 import { GoBackButton } from '@/app/(utils)/(components)/GoBackButton';
 import { FormSendEmail } from "@/app/(utils)/(components)/FormSendEmail";
 import GlowingText from "@/app/(utils)/(components)/GlowingText";
+import Link from "next/link";
+import { HeaderButtonLink } from "@/app/(utils)/(components)/HeaderButton";
 
 export default function Footer() {
 
@@ -59,8 +61,29 @@ export default function Footer() {
         </div>
       </main>
 
-      <section className="col-start-5 w-full h-full">
-        <GoBackButton />
+      <section className="col-start-5 col-span-2 w-full h-full flex flex-col items-center justify-end gap-4 pb-16 ">
+        <figure className="w-full flex items-end justify-center animate-bounce transform duration-700">
+          <IconLink
+            link="/"
+            src="arrow-up" title={"arrow-up" }
+            width={100} height={100}  
+            // text={"arrow-up" }
+            hover
+          />
+        </figure>
+        <Link 
+          className="opacity-70 hover:opacity-100"
+          href="/"
+        >
+          
+        </Link>
+        <HeaderButtonLink link="/" notAddToStack stayPage>
+          ¡Llevame arriba!
+        </HeaderButtonLink>
+        <HeaderButtonLink link="/projects">
+          O... ¡Mira mis proyectos!
+        </HeaderButtonLink>
+
       </section>
 
       <section className="col-span-4 col-start-8 w-full h-full">

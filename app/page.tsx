@@ -9,10 +9,10 @@ export default function App() {
   return (
     <>
       <InfoSection/>
-      <Experience/> 
+      {/* <Experience/> 
       <StudiesSection/> 
       <Projects/>
-      <TechnologiesSection/>
+      <TechnologiesSection/> */}
     </>
   )
 }

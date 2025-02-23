@@ -99,6 +99,7 @@ export function FormSendEmail(){
       );
   }
 
+  const formStyle = "p-2 rounded-md text-white bg-miquel-blue-500/20 border border-miquel-blue-400 broder-2"
   return(
     <form onSubmit={handleSubmit} noValidate className='flex flex-col p-4 border border-miquel-blue-400 rounded-md gap-2'>
       <section className="w-full flex flex-col gap-1">
@@ -112,7 +113,7 @@ export function FormSendEmail(){
             setName(newValue)
           }}
           className={
-            cn('p-2 rounded-md text-white bg-miquel-blue-500/40 border border-miquel-blue-400 broder-2',
+            cn(formStyle + '',
             {'border-red-500 bg-red-500/30 placeholder-red-400/80': errors.name }
           )}
         />
@@ -130,7 +131,7 @@ export function FormSendEmail(){
             setEmail(newValue);
           }}
           className={
-            cn('p-2 rounded-md text-white bg-miquel-blue-500/40 border border-miquel-blue-400 broder-2',
+            cn(formStyle + '',
             { 'border-red-500 bg-red-500/30 placeholder-red-400/80': errors.email }
           )}
         />
@@ -146,7 +147,7 @@ export function FormSendEmail(){
             setMessage(newValue)
           }}
           className={
-            cn('p-2 rounded-md text-white bg-miquel-blue-500/40 border border-miquel-blue-400 broder-2 h-64 w-full',
+            cn(formStyle + ' h-64 w-full',
             { 'border-red-500 bg-red-500/30 placeholder-red-400/80': errors.message }
           )}
         />

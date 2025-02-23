@@ -4,14 +4,16 @@ import Link from "next/link"
 import { usePageStackStore } from "@/app/(global_state)/state"
 
 export function HeaderButtonLink(
-  {link, blank, notAddToStack, onClick, ...props }: 
-  {link: string, blank?: boolean, notAddToStack?:boolean, children: React.ReactNode, onClick?: ()=>void }) 
+  {link, blank, notAddToStack, stayPage, onClick, ...props }: 
+  {link: string, blank?: boolean, notAddToStack?:boolean, stayPage?:boolean, children: React.ReactNode, onClick?: ()=>void }) 
 {
-  const { goToPageFrom } = usePageStackStore()
+  const { goToPageFrom, currentPage } = usePageStackStore()
 
   return (
     <Link 
-      href={link}
+      href={
+        (stayPage && currentPage !== "") ? `${currentPage}/${link}` : link
+      }
       target={blank ? "_blank": ""}
       className="group"
       onClick={() => {
