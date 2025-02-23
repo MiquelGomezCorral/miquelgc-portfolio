@@ -72,8 +72,7 @@ export function FormSendEmail(){
   }
 
   return(
-    <form onSubmit={handleSubmit} className='flex flex-col p-4 border border-miquel-blue-400 rounded-md gap-2 w-1/3' noValidate>
-
+    <form onSubmit={handleSubmit} noValidate className='flex flex-col p-4 border border-miquel-blue-400 rounded-md gap-2 w-1/3'>
       <section className="w-full flex flex-col gap-1">
         <input 
           type="text" 
@@ -82,30 +81,23 @@ export function FormSendEmail(){
           onChange={(e) => {
             const newValue = e.target.value
             setName(newValue)
-            // setErrors((prev) => ({...prev, name: !newValue.trim()}))
           }}
           className={
             cn('p-2 rounded-md text-white bg-miquel-blue-500/40 border border-miquel-blue-400 broder-2',
-            { 'border-red-500 bg-red-500/30 placeholder-red-400/80': errors.name }
+            {'border-red-500 bg-red-500/30 placeholder-red-400/80': errors.name }
           )}
         />
-
         <p className="text-red-500 min-h-[1rem] text-xs">{errors.name}</p>
       </section>
 
       <section className="w-full flex flex-col gap-1">
         <input 
-          
           type="email" 
           placeholder='isabel_vb@eg.company.com'
           value={email}
           onChange={(e) => {
             const newValue = e.target.value;
             setEmail(newValue);
-            // setErrors((prev) => ({
-            //   ...prev,
-            //   email: !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newValue),
-            // }));
           }}
           className={
             cn('p-2 rounded-md text-white bg-miquel-blue-500/40 border border-miquel-blue-400 broder-2',
@@ -122,10 +114,9 @@ export function FormSendEmail(){
           onChange={(e) => {
             const newValue = e.target.value
             setMessage(newValue)
-            // setErrors((prev) => ({...prev, message: !newValue.trim()}))
           }}
           className={
-            cn('p-2 rounded-md text-white bg-miquel-blue-500/40 border border-miquel-blue-400 broder-2  h-64 w-full',
+            cn('p-2 rounded-md text-white bg-miquel-blue-500/40 border border-miquel-blue-400 broder-2 h-64 w-full',
             { 'border-red-500 bg-red-500/30 placeholder-red-400/80': errors.message }
           )}
         />
