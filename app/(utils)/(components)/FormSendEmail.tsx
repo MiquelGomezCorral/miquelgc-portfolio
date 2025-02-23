@@ -9,9 +9,7 @@ export function FormSendEmail(){
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [message, setMessage] = useState("")
-
-  const [errors, setErrors] = useState({ name: "", email: "", message: "" });
-
+  const [errors, setErrors] = useState({ name: "", email: "", message: "" , general: ""});
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault();
@@ -21,6 +19,7 @@ export function FormSendEmail(){
       errorName = "El nombre tiene que tener al menos 3 letras."
     }
 
+    // Check email format
     let errorEmail = ""
     if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
       errorEmail = "Use un formato de mail valido: isabel_vb@eg.company.com"
@@ -31,14 +30,35 @@ export function FormSendEmail(){
       errorMessage = "El mensaje tiene que tener al menos 3 palabras."
     }
     
+
+    // Check last time sent
+    let errorGeneral = ""
+    const lastSubmitTime = localStorage.getItem('lastSubmitTime');
+    const currentTime = Date.now();
+    const timeLimit = 5 * 60 * 1000; // 5 minutes in milliseconds -> at most every 5 minutes (300,000ms)
+    if (lastSubmitTime && currentTime - parseInt(lastSubmitTime) < timeLimit) { 
+      const diff = timeLimit - (currentTime - parseInt(lastSubmitTime))
+
+      const mins = Math.floor(diff / 60000); // Get the full minutes
+      const secs = Math.floor((diff % 60000) / 1000); // Get the remaining seconds
+      // Format minutes and seconds as 00:00
+      const formattedTime = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+
+      errorGeneral = `Solo puedes mandar un mensaje cada 5 minutos. Restante: ${formattedTime} min`
+    }
+
     const newErrors = {
       name: errorName,
       email: errorEmail,
       message: errorMessage,
+      general: errorGeneral,
     };
-
     setErrors(newErrors);
-    if (newErrors.name || newErrors.email || newErrors.message) return;
+    if (newErrors.name || newErrors.email || newErrors.message || newErrors.general) return;
+
+    // ============================================
+    //  ALL CHECK PASSED, SENDING THE EMAIL
+    // ============================================
 
     const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID ?? "";
     const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID ?? "";
@@ -50,13 +70,21 @@ export function FormSendEmail(){
       to_name: 'Miquel Gómez',
       message: message,
     }
-    // setName("")
-    // setEmail("")
-    // setMessage("")
-    // return
+
+
+    localStorage.setItem('lastSubmitTime', currentTime.toString());
+
+    setName("")
+    setEmail("")
+    setMessage("")
+    return
+
     emailjs.send(serviceId, templateId, templateParams, publicKey)
       .then(
         () => {
+          // Save last time sent
+          localStorage.setItem('lastSubmitTime', currentTime.toString());
+
           alert("¡Email mandado con éxito! En cuanto pueda te contacto de vuelta ;)")
           console.log('SUCCESS!');
 
@@ -72,7 +100,7 @@ export function FormSendEmail(){
   }
 
   return(
-    <form onSubmit={handleSubmit} noValidate className='flex flex-col p-4 border border-miquel-blue-400 rounded-md gap-2 w-1/3'>
+    <form onSubmit={handleSubmit} noValidate className='flex flex-col p-4 border border-miquel-blue-400 rounded-md gap-2'>
       <section className="w-full flex flex-col gap-1">
         <input 
           type="text" 
@@ -125,9 +153,13 @@ export function FormSendEmail(){
         <p className="text-red-500 min-h-[1rem] text-xs">{errors.message}</p>
       </section>
 
-      <Button type='submit' disabled={ !name.trim() || !email.trim() ||  !message.trim()}>
-        Send email
-      </Button>
+      <section className="w-full flex flex-col gap-1">
+        <Button type='submit' disabled={ !name.trim() || !email.trim() ||  !message.trim()}>
+          Send email
+        </Button>
+        <p className="text-red-500 min-h-[1rem] text-xs">{errors.general}</p>
+      </section>
+
     </form>
   )
 }

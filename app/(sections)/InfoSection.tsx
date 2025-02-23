@@ -1,7 +1,7 @@
 
 import GlowingText from "@/app/(utils)/(components)/GlowingText";
 import Image from "next/image";
-import { IconLGlowingLink, IconCopy, IconGlowingCopy, IconGlowing } from "@/app/(utils)/(components)/IconsButtons";
+import { IconLGlowingLink, IconCopy, IconGlowingCopy, IconGlowingButton } from "@/app/(utils)/(components)/IconsButtons";
 import { Location, Email, Github, GithubLink, Linkedin, LinkedinLink, Curriculum, CurriculumSiglas } from "@/app/(utils)/(constants)/constants.d"
 import { DownloadCV } from "@/app/(utils)/(components)/Utils";
 import { WritingText } from "@/app/(utils)/(components)/TypingText";
@@ -46,7 +46,7 @@ export default function InfoSection() {
 
         <footer className="flex flex-wrap justify-center xl:justify-start gap-4">
           <DownloadCV>
-            <IconGlowing
+            <IconGlowingButton
               src="download-document" title={Curriculum}
               width={20} height={20}
               text={CurriculumSiglas}
