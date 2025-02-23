@@ -1,4 +1,3 @@
-"use client"
 
 import { IconLink, IconCopy, Icon} from "@/app/(utils)/(components)/IconsButtons";
 import { DownloadCV } from "@/app/(utils)/(components)/Utils";
@@ -12,15 +11,6 @@ export default function Footer() {
   return (
     <footer id="footer" className="pt-10 w-full flex justify-between gap-10">
       <GoBackButton />
-      <FormSendEmail/>
-      <div className="w-full border rounded-xl p-4 ">
-        . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-      </div>
       <nav className="flex flex-col gap-4 p-4 border rounded-xl min-w-72 text-xs">
         <DownloadCV>
           <Icon 
@@ -51,6 +41,9 @@ export default function Footer() {
           blank         
         />
       </nav>
+
+      <FormSendEmail/>
+
     </footer>
   )
 }
