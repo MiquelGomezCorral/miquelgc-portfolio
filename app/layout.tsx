@@ -18,11 +18,16 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
       <meta name="descripcion" content="Desripción de la página " />
       <title>Miquel Gómez Corral</title>
       <body className={inter.className +
-        `h-screen w-full px-4 md:px-10 xl:px-48 2xl:px-64 py-5 pt-32 gap-20 flex flex-col justify-center items-center 
-      bg-miquel-background text-miquel-white-200`}>
+        `h-screen w-full pt-32 gap-20 flex flex-col justify-center items-center 
+      bg-miquel-background text-miquel-white-200`
+      }>
         <Header />
-        {children}
-        <Footer />
+          <main className="max-w-[110rem] w-full flex flex-col gap-16 px-4 md:px-10 xl:px-48 2xl:px-64">
+            {children}
+          </main>
+        <div className="w-full bg-gradient-to-b from-miquel-background to-black flex justify-center ">
+          <Footer />
+        </div>
       </body>
     </html>
   );

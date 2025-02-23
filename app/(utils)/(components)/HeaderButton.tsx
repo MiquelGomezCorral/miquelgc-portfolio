@@ -1,12 +1,20 @@
 "use client"
 
 import Link from "next/link"
+import cn from "classnames"
 import { usePageStackStore } from "@/app/(global_state)/state"
 
-export function HeaderButtonLink(
-  {link, blank, notAddToStack, stayPage, onClick, ...props }: 
-  {link: string, blank?: boolean, notAddToStack?:boolean, stayPage?:boolean, children: React.ReactNode, onClick?: ()=>void }) 
-{
+interface HeaderButtonProps  {
+  link: string,
+  blank?: boolean,
+  notAddToStack?:boolean,
+  stayPage?:boolean,
+  className?: string
+  children: React.ReactNode,
+  onClick?: ()=>void 
+}
+
+export function HeaderButtonLink({link, blank, notAddToStack, stayPage, onClick, className, ...props }: HeaderButtonProps){
   const { goToPageFrom, currentPage } = usePageStackStore()
 
   return (
@@ -23,7 +31,7 @@ export function HeaderButtonLink(
           onClick()
       }}
     >
-      <button className="text-miquel-white opacity-70 group-hover:opacity-100 transform duration-300">
+      <button className={cn("text-miquel-white opacity-70 group-hover:opacity-100 transform duration-300", className)}>
         {props.children}
       </button>
     </Link>

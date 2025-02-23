@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import cn from 'classnames';
 import GlowingText from "./GlowingText";
+import { usePageStackStore } from "@/app/(global_state)/state";
 
 
 export function showAlertCopy(text:string){
@@ -101,13 +102,26 @@ export function IconGlowingCopy({ solid, copyText, ...props}:IconCopyGlowingProp
 interface IconLinkProps extends IconProps{
   link: string
   blank?: boolean
+  stayPage?: boolean
+  notAddToStack?: boolean
+  onClick?: () => void
 }
-export function IconLink({ link, blank, className, ...props}: IconLinkProps) {
+export function IconLink({ link, blank, notAddToStack, stayPage, onClick, className, ...props}: IconLinkProps) {
+  const { goToPageFrom, currentPage } = usePageStackStore()
+  
   return (
     <Link 
-      className={cn("relative", className)}
-      href={link}
+      href={
+        (stayPage && currentPage !== "") ? `${currentPage}/${link}` : link
+      }
       target={blank ? "_blank": ""}
+      className={cn("relative", className)}
+      onClick={() => {
+        if(!notAddToStack)
+          goToPageFrom(window.location.pathname, link)
+        if(onClick)
+          onClick()
+      }}
     >
       <Icon {...props} hover/>
     </Link>

@@ -33,7 +33,7 @@ export default function Header() {
           <DownloadCV>
             <HeaderButton>CV</HeaderButton>
           </DownloadCV>
-          <HeaderButtonLink link="/#footer" notAddToStack>Links</HeaderButtonLink>
+          <HeaderButtonLink link="/#footer" notAddToStack stayPage>Contacto</HeaderButtonLink>
           <HeaderButtonLink link="">ES ^</HeaderButtonLink>
         </nav>
       </header>
@@ -73,8 +73,8 @@ export default function Header() {
           <DownloadCV>
             <HeaderButton>CV</HeaderButton>
           </DownloadCV>
-          <HeaderButtonLink link="/#footer" notAddToStack onClick={()=>setshowMenu(false)}>
-            Links
+          <HeaderButtonLink link="/#footer" notAddToStack stayPage onClick={()=>setshowMenu(false)}>
+            Contacto
           </HeaderButtonLink>
           <HeaderButtonLink link="" onClick={()=>setshowMenu(false)}>
               ES ^
