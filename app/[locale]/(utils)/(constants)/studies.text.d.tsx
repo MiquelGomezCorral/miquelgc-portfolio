@@ -8,7 +8,7 @@ export const Erasmus: CardType = {
   date: "Sep 2024 – Ene 2025",
   place: "Lausanne, Suiza",
   description: "En Solver he podido realizar mi TFG, orientado a LLM para el procesado de documentos, además de usar mis conocimientos en Machinelearning e IA para implementar soluciones con el fin de resolver los problemas de los clientes de la empresa", 
-  technologies: ["python", "ai", "github"], 
+  technologies: ["python", "ai", "pandas", "pytorch", "pandas", "plotly", "matplot", "jupyter"], 
   logo: "studies/EPFL",
   link: "https://www.epfl.ch/en/",
   silly: "^-^"
@@ -19,7 +19,7 @@ export const Upv: CardType = {
   place: "Valencia, España",
   date: "Sep 2021 – Actualmente", 
   description: "En Vidext, he aprendido a desarrollar aplicaciones WEB en React y Next.js. Con ello, he creado la landing page de la empresa y una aplicación para uso interno de los empleados. ", 
-  technologies: ["html", "css", "react", "typescript", "next", "tailwind", "github"], 
+  technologies: ["ai", "java", "sql" , "c", "sklearn", "jupyter" ,"mathematica",  "risc-v" , "java-fx", "haskell", "prolog"], 
   logo: "studies/UPV",
   link: "https://www.upv.es/",
   silly: ":O"

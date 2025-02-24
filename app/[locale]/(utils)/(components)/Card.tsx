@@ -49,7 +49,7 @@ export function Card({ object }: { object: CardType }) {
                     width={25} height={25}
                     link={object.link}
                     blank
-                    className="opacity-0 group-hover:opacity-100 transform duration-300 md:block hidden"
+                    className="opacity-0 group-hover/li:opacity-100 transform duration-300 md:block hidden"
                   />
                 </h2>
                 <i className="text-2xl flex md:justify-start justify-center">{object.company}</i>
