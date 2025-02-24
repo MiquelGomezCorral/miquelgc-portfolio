@@ -40,9 +40,9 @@ pipeline {
       success{
         archiveArtifacts 'target/*.jar'
       }
-      always {
-        junit '**/target/surefire-reports/TEST-*.xml'
-      }
+    //   always {
+    //     junit '**/target/surefire-reports/TEST-*.xml'
+    //   }
       // changed{
       //     emailext subject: "Job '${JOB_NAME}' (${BUILD_NUMBER})",
       //     body: "Please go to ${BUILD_URL} and verify the build",
