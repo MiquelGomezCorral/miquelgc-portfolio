@@ -15,7 +15,7 @@ export type CardType = {
     logo: string,
     link: string,
     silly: string,
-  }
+}
 
 export function Card({ object }: { object: CardType }) {
     return( 

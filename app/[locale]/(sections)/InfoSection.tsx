@@ -1,10 +1,10 @@
 
-import GlowingText from "@/app/[locale]/(utils)/(components)/GlowingText";
-import Image from "next/image";
 import { IconLGlowingLink, IconCopy, IconGlowingCopy, IconGlowingButton } from "@/app/[locale]/(utils)/(components)/IconsButtons";
 import { Location, Email, Github, GithubLink, Linkedin, LinkedinLink, Curriculum, CurriculumSiglas } from "@/app/[locale]/(utils)/(constants)/constants.d"
 import { DownloadCV } from "@/app/[locale]/(utils)/(components)/Utils";
 import { WritingText } from "@/app/[locale]/(utils)/(components)/TypingText";
+import { Foto } from "@/app/[locale]/(utils)/(components)/Foto";
+import GlowingText from "@/app/[locale]/(utils)/(components)/GlowingText";
 
 const qualities = [
   " creativo.",
@@ -85,16 +85,3 @@ function WritingBar() {
   )
 }
 
-function Foto() {
-  return (
-    <section className="relative flex justify-center w-full max-w-[400px] lg:min-w-[300px] aspect-square">
-      <div className="absolute bg-miquel-blue-400 rounded-full blur-md w-full h-full" />
-      <Image
-        src="/miquel/DNI-png@0.75x.webp"
-        alt="Miquel Gómez Corral"
-        layout="fill"
-        className="rounded-full bg-miquel-blue-400 object-cover"
-      />
-    </section>
-  )
-}
