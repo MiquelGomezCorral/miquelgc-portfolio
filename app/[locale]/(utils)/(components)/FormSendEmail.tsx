@@ -74,10 +74,10 @@ export function FormSendEmail(){
 
     localStorage.setItem('lastSubmitTime', currentTime.toString());
 
-    setName("")
-    setEmail("")
-    setMessage("")
-    return
+    // setName("")
+    // setEmail("")
+    // setMessage("")
+    // return
 
     emailjs.send(serviceId, templateId, templateParams, publicKey)
       .then(
@@ -101,11 +101,11 @@ export function FormSendEmail(){
 
   const formStyle = "p-2 rounded-md text-white bg-miquel-blue-500/20 border border-miquel-blue-400 broder-2"
   return(
-    <form onSubmit={handleSubmit} noValidate className='flex flex-col p-4 border border-miquel-blue-400 rounded-md gap-2'>
+    <form onSubmit={handleSubmit} noValidate className='w-full flex flex-col p-4 border border-miquel-blue-400 rounded-md gap-2'>
       <section className="w-full flex flex-col gap-1">
         <input 
           type="text" 
-          placeholder='Isbel Vallés Bertomeu'
+          placeholder='Isabel Vallés Bertomeu'
           value={name}
           autoComplete="additional-name"
           onChange={(e) => {

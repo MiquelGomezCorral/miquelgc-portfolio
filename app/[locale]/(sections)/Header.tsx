@@ -2,11 +2,11 @@
 
 import cn from 'classnames';
 import Link from "next/link";
+import { useState } from "react";
 import { HeaderButton, HeaderButtonLink } from "@/app/[locale]/(utils)/(components)/HeaderButton";
 import { DownloadCV } from "@/app/[locale]/(utils)/(components)/Utils";
 import { Icon } from "@/app/[locale]/(utils)/(components)/IconsButtons";
 import { CloseMenu, OpenMenu } from "@/app/[locale]/(utils)/(constants)/constants.d";
-import { useState } from "react";
 import { GoBackButton } from '@/app/[locale]/(utils)/(components)/GoBackButton';
 
 export default function Header() {
@@ -33,7 +33,7 @@ export default function Header() {
           <DownloadCV>
             <HeaderButton>CV</HeaderButton>
           </DownloadCV>
-          <HeaderButtonLink link="/#footer" notAddToStack stayPage>Contacto</HeaderButtonLink>
+          <HeaderButtonLink link="#footer" notAddToStack stayPage>Contacto</HeaderButtonLink>
           <HeaderButtonLink link="">ES ^</HeaderButtonLink>
         </nav>
       </header>
@@ -73,7 +73,7 @@ export default function Header() {
           <DownloadCV>
             <HeaderButton>CV</HeaderButton>
           </DownloadCV>
-          <HeaderButtonLink link="/#footer" notAddToStack stayPage onClick={()=>setshowMenu(false)}>
+          <HeaderButtonLink link="#footer" notAddToStack stayPage onClick={()=>setshowMenu(false)}>
             Contacto
           </HeaderButtonLink>
           <HeaderButtonLink link="" onClick={()=>setshowMenu(false)}>

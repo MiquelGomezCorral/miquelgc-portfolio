@@ -1,7 +1,6 @@
 "use client"
 
 import cn from 'classnames';
-
 import GlowingText from "@/app/[locale]/(utils)/(components)/GlowingText";
 import { Experiences } from "@/app/[locale]/(utils)/(constants)/experience.text.d";
 import { IconButtonArrow, Icon } from "@/app/[locale]/(utils)/(components)/IconsButtons";
@@ -10,7 +9,7 @@ import { Card } from '@/app/[locale]//(utils)/(components)/Card';
 
 export default function Experience() {
   const  { scrollContainerRef, scrollOn, scrollLeft, scrollRight, scrollSlider } = useCarrousel({list: Experiences})
-
+ 
   return (
     <section id="experiences" className="w-full flex flex-col gap-6 group">
       <header className="w-full py-4 border-b-2 border-b-miquel-white-200/50 text-5xl font-bold transform duration-300 flex gap-2">

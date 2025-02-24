@@ -5,7 +5,7 @@ export default function ProjectsPage() {
   return (
     <section className="w-full h-full flex flex-col gap-6 bg-miquel-background text-white ">
       <header className="w-full pb-20 flex justify-center">
-        <h1 className="text-8xl font-bold">Proyectos</h1>
+        <h1 className="text-6xl sm:text-8xl font-bold">Proyectos</h1>
       </header>
 
       <main className="flex flex-col justify-center gap-6">

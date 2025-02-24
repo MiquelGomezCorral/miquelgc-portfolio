@@ -24,7 +24,7 @@ export function HeaderButtonLink({link, blank, notAddToStack, stayPage, onClick,
       }
       target={blank ? "_blank": ""}
       className="group"
-      onClick={() => {
+      onClick={() => {        
         if(!notAddToStack)
           goToPageFrom(window.location.pathname, link)
         if(onClick)

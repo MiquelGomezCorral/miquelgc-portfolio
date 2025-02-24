@@ -28,7 +28,7 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
           {children}
         </main>
 
-        <div className="w-full bg-gradient-to-b from-miquel-background to-black flex justify-center ">
+        <div id="footer" className="w-full bg-gradient-to-b from-miquel-background to-black flex justify-center ">
           <Footer />
         </div>
       </body>
