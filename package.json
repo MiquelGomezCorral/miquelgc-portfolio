@@ -12,9 +12,13 @@
     "@emailjs/browser": "^4.4.1",
     "classnames": "^2.5.1",
     "framer-motion": "^11.3.24",
+    "i18next": "^24.2.2",
+    "i18next-resources-to-backend": "^1.2.1",
     "next": "14.2.5",
+    "next-i18n-router": "^5.5.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-i18next": "^15.4.1",
     "zustand": "5.0.3"
   },
   "devDependencies": {
