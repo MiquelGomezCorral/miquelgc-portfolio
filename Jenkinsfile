@@ -15,7 +15,7 @@ pipeline {
         stage('Checkout'){
             steps {
                 // Get some code from a GitHub repository
-                git branch: 'main', url: 'https://github.com/MiquelGomezCorral/miquelgc-portfolio.git' 
+                git branch: 'develop-isa', url: 'https://github.com/MiquelGomezCorral/miquelgc-portfolio.git' 
             }
         }
         
