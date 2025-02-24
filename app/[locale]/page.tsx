@@ -8,6 +8,7 @@ import StudiesSection from "./(sections)/Studies"
 import initTranslations from "../i18n"
 import TranslationsProvider from "@/app/[locale]/(utils)/TranslationsProvider"
 
+
 const i18nNamespaces = ["sections",'experiences'];
 export default async function App({ params }: { params: { locale: string } }) {
   const { locale } = params;
