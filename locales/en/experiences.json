@@ -2,6 +2,36 @@
     "solver": {
         "title": "University Internship",
         "date": "Jun 2025 - Present",
-        "description": ""
+        "description": "At Solver, I worked on my final degree project focused on LLMs for document processing. Additionally, I applied my knowledge of machine learning and AI to implement solutions addressing the company's client needs."
+    },
+    "vidext": {
+        "title": "University Internship",
+        "date": "Jun 2024 – Sep 2024",
+        "description": "At Vidext, I learned to develop web applications using React and Next.js. I created the company's landing page and an internal application for employees."
+    },
+    "laberit": {
+        "title": "University Internship",
+        "date": "Sep 2022 – Mar 2023", 
+        "description": "During my internship, I learned to manage and develop extensions for Microsoft's ERP 'Navision'."
+    },
+    "fiverr": {
+        "title": "Freelance Image Editor", 
+        "date": "Jan 2022 – Jun 2024", 
+        "description": "On this platform, I offered my image editing skills to various clients."
+    },
+    "puntiseguit": {
+        "title": "Tutoring Teacher", 
+        "date": "Sep 2023 – Jun 2024", 
+        "description": "At Punt I Seguit, I had the opportunity to teach students from 1st year of ESO to 2nd year of Bachillerato, reinforcing their learning to improve their grades."
+    },
+    "karting": {
+        "title": "Waiter", 
+        "date": "Jun 2022 – Sep 2022", 
+        "description": "During the summer months, I worked as a waiter at the karting restaurant in my hometown."
+    },
+    "papibeach": {
+        "title": "Kitchen Assistant", 
+        "date": "Jun 2021 – Sep 2021", 
+        "description": "During the summer months, I worked as a kitchen assistant at the Papi Beach snack bar in my hometown."
     }
 }
