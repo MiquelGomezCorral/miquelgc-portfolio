@@ -1,6 +1,6 @@
 
 import { IconLGlowingLink, IconCopy, IconGlowingCopy, IconGlowingButton } from "@/app/[locale]/(utils)/(components)/IconsButtons";
-import { Location, Email, Github, GithubLink, Linkedin, LinkedinLink, Curriculum, CurriculumSiglas } from "@/app/[locale]/(utils)/(constants)/constants.d"
+import { Location, Email, Github, GithubLink, Linkedin, LinkedinLink, Curriculum, CurriculumSiglas } from "@/app/[locale]/(utils)/(constants)/constants.text.d"
 import { DownloadCV } from "@/app/[locale]/(utils)/(components)/Utils";
 import { WritingText } from "@/app/[locale]/(utils)/(components)/TypingText";
 import { Foto } from "@/app/[locale]/(utils)/(components)/Foto";

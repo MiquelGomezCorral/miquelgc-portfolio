@@ -31,7 +31,7 @@ export function Foto() {
       <Image
         src="/miquel/DNI-png@0.75x.webp"
         alt="Miquel Gómez Corral"
-        layout="fill"
+        fill
         className="rounded-full bg-miquel-blue-400 object-cover"
       />
     </section>

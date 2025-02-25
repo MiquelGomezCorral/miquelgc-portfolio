@@ -14,7 +14,7 @@ export default function Projects() {
               src={`html`}
               width={50}
               height={50}
-              color
+              type={"color"}
               title={'Projects'}
             />
           </GlowingText>

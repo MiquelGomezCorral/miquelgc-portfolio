@@ -1,7 +1,7 @@
 
 import { IconLink, IconCopy, Icon} from "@/app/[locale]/(utils)/(components)/IconsButtons";
 import { DownloadCV } from "@/app/[locale]/(utils)/(components)/Utils";
-import { Curriculum, Email, Github, GithubLink, Linkedin, LinkedinLink } from "@/app/[locale]/(utils)/(constants)/constants.d";
+import { Curriculum, Email, Github, GithubLink, Linkedin, LinkedinLink } from "@/app/[locale]/(utils)/(constants)/constants.text.d";
 import { FormSendEmail } from "@/app/[locale]/(utils)/(components)/FormSendEmail";
 import GlowingText from "@/app/[locale]/(utils)/(components)/GlowingText";
 import { ArrowUp } from "@/app/[locale]/(utils)/(components)/ArrowUp";
@@ -25,7 +25,7 @@ export default function Footer() {
                 src="download-document" title={Curriculum}
                 width={20} height={20}  
                 text={Curriculum}
-                hover color glowing
+                hover type={"color"} glowing
               />
             </DownloadCV>
             <IconCopy 
@@ -33,7 +33,7 @@ export default function Footer() {
               width={20} height={20} 
               copyText={Email}
               text={Email}
-              color
+              type={"color"}
               glowing
             />
             <IconLink 
@@ -42,7 +42,7 @@ export default function Footer() {
               link={LinkedinLink}
               text={Linkedin}
               blank         
-              color
+              type={"color"}
               glowing
             />
             <IconLink 
@@ -51,7 +51,7 @@ export default function Footer() {
               link={GithubLink}            
               text={Github}
               blank         
-              color
+              type={"color"}
               glowing
               className="gap-2"
             />

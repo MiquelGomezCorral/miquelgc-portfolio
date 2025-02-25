@@ -17,7 +17,7 @@ export default function TechnologiesSection() {
             src={`terminal`}
             width={50}
             height={50}
-            color
+            type={"color"}
             title={'technologies'}
           />
         </GlowingText>
@@ -112,7 +112,7 @@ export function StarCircle({ n, radius = 20, iconSize = 25, className }: {n: num
           >
             <Icon
               src="star"
-              color
+              type={"color"}
               width={iconSize}
               height={iconSize}
               title="Star"

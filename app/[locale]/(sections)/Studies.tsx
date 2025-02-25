@@ -19,7 +19,7 @@ export default function StudiesSection() {
             src={`miscelanea`}
             width={50}
             height={50}
-            color
+            type={"color"}
             title={'Studies'}
           />
         </GlowingText>

@@ -21,7 +21,7 @@ export default function Experience() {
             src={`experience`}
             width={50}
             height={50}
-            color
+            type="color"
             title={'experience'}
           />
         </GlowingText>

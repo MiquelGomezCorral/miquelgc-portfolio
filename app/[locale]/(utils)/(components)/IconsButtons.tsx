@@ -28,12 +28,12 @@ interface IconButtonArrow extends IconProps{
   disable?: boolean,
   onClick?: ()=>void,
 }
-export function IconButtonArrow({ color, onClick, className, ...props}: IconButtonArrow){
+export function IconButtonArrow({ type, onClick, className, ...props}: IconButtonArrow){
   return(
     <button className={cn("", className)} onClick={onClick}>
       <div className={cn(`gap-2 text-xs flex items-center rounded-full p-2`,
       )}>
-        <Icon {...props} color={color}/>
+        <Icon {...props} type={type}/>
       </div>
     </button>
   )
@@ -150,11 +150,11 @@ interface IconProps {
   text?: string,
   disable?: boolean
   hover?: boolean
-  color?: boolean
+  type?: "white" | "color" | "country"
   glowing?: boolean
   className?: string,
 }
-export function Icon({width, height, src, title, text, hover, disable, color, glowing, className}: IconProps){
+export function Icon({width, height, src, title, text, hover, disable, type = "white", glowing, className}: IconProps){
   return (
     <figure className={
       cn("relative flex items-center justify-center rounded-full transform duration-300 gap-2", 
@@ -164,14 +164,14 @@ export function Icon({width, height, src, title, text, hover, disable, color, gl
     )}>
       {glowing ? 
       <GlowingText>
-        <Image src={`/assets/icons/${color ? 'color' : 'white'}/${src}.svg`} alt={src}
+        <Image src={`/assets/icons/${type}/${src}.svg`} alt={src}
           width={width}
           height={height}
           title={title}
         />
       </GlowingText>
       :
-      <Image src={`/assets/icons/${color ? 'color' : 'white'}/${src}.svg`} alt={src}
+      <Image src={`/assets/icons/${type}/${src}.svg`} alt={src}
         width={width}
         height={height}
         title={title}

@@ -6,8 +6,9 @@ import { useState } from "react";
 import { HeaderButton, HeaderButtonLink } from "@/app/[locale]/(utils)/(components)/HeaderButton";
 import { DownloadCV } from "@/app/[locale]/(utils)/(components)/Utils";
 import { Icon } from "@/app/[locale]/(utils)/(components)/IconsButtons";
-import { CloseMenu, OpenMenu } from "@/app/[locale]/(utils)/(constants)/constants.d";
+import { CloseMenu, OpenMenu } from "@/app/[locale]/(utils)/(constants)/constants.text.d";
 import { GoBackButton } from '@/app/[locale]/(utils)/(components)/GoBackButton';
+import LanguageChanger from '@/app/[locale]/(utils)/(components)/LanguageChangert';
 
 export default function Header() {
   const [ showMenu, setshowMenu ] = useState(false)
@@ -34,7 +35,7 @@ export default function Header() {
             <HeaderButton>CV</HeaderButton>
           </DownloadCV>
           <HeaderButtonLink link="#footer" notAddToStack stayPage>Contacto</HeaderButtonLink>
-          <HeaderButtonLink link="">ES ^</HeaderButtonLink>
+          <LanguageChanger/>
         </nav>
       </header>
 
@@ -45,7 +46,7 @@ export default function Header() {
       >
         <Icon
           src={showMenu ? "menu-close" : "menu-open"} title={!showMenu ? CloseMenu : OpenMenu}
-          width={20} height={20}
+          width={20} height={20} 
         />
       </div>
 

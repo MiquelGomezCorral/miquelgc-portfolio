@@ -1,4 +1,4 @@
-import { GithubLink, YouTubeEmbed } from "./constants.d"
+import { GithubLink, YouTubeEmbed } from "./constants.text.d"
 import { TechnologyString } from "./technologies.d"
 
 export type ProjectType = { 

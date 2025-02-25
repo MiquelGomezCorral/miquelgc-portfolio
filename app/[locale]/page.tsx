@@ -4,9 +4,12 @@ import Projects from "./(sections)/Projects"
 import Experience from "./(sections)/Experience"
 import TechnologiesSection from "./(sections)/Technologies"
 import StudiesSection from "./(sections)/Studies"
+import Header from "@/app/[locale]/(sections)/Header";
+import Footer from "@/app/[locale]/(sections)/Footer";
 // import { useTranslation } from "react-i18next"
 import initTranslations from "../i18n"
 import TranslationsProvider from "@/app/[locale]/(utils)/TranslationsProvider"
+import { Icon } from "@/app/[locale]/(utils)/(components)/IconsButtons"
 
 const i18nNamespaces = ["sections",'experiences'];
 export default async function App({ params }: { params: { locale: string } }) {
@@ -18,11 +21,18 @@ export default async function App({ params }: { params: { locale: string } }) {
       locale={locale}
       resources={resources}
     >
-      <InfoSection params={{locale: locale}}/>
-      <Experience/> 
-      <StudiesSection/> 
-      <Projects/>
-      <TechnologiesSection/>
+      <Header />
+      <main className="max-w-[110rem] w-full flex flex-col gap-16 px-4 md:px-10 xl:px-48 2xl:px-64">
+        <InfoSection params={{locale: locale}}/>
+        <Icon src={"spain"} width={15} height={15} type={"country"} title={"es"}/>
+        <Experience/> 
+        <StudiesSection/> 
+        <Projects/>
+        <TechnologiesSection/>
+      </main>
+      <div id="footer" className="w-full bg-gradient-to-b from-miquel-background to-black flex justify-center ">
+        <Footer />
+      </div>
     </TranslationsProvider>
   )
 }

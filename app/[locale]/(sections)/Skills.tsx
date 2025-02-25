@@ -1,9 +1,6 @@
 "use client"
 
-import cn from 'classnames';
-import Image from "next/image";
 
-import Link from "next/link";
 import GlowingText from "@/app/[locale]/(utils)/(components)/GlowingText";
 import { IconLink, IconCopy, IconButtonArrow, Icon } from "@/app/[locale]/(utils)/(components)/IconsButtons";
 
@@ -17,7 +14,7 @@ export default function Skills() {
             src={`miscelanea`}
             width={50}
             height={50}
-            color
+            type={"color"}
             title={'skills'}
           />
         </GlowingText>
