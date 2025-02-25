@@ -18,7 +18,7 @@ export default async function App({ params }: { params: { locale: string } }) {
       locale={locale}
       resources={resources}
     >
-      <InfoSection/>
+      <InfoSection params={{locale: locale}}/>
       <Experience/> 
       <StudiesSection/> 
       <Projects/>

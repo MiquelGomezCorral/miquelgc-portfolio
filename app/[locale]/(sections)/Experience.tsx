@@ -2,12 +2,15 @@
 
 import cn from 'classnames';
 import GlowingText from "@/app/[locale]/(utils)/(components)/GlowingText";
-import { Experiences } from "@/app/[locale]/(utils)/(constants)/experience.text.d";
+import { getExperiences } from "@/app/[locale]/(utils)/(constants)/experience.text.d";
 import { IconButtonArrow, Icon } from "@/app/[locale]/(utils)/(components)/IconsButtons";
 import { useCarrousel } from '@/app/[locale]/(utils)/(components)/Carrousel';
 import { Card } from '@/app/[locale]//(utils)/(components)/Card';
+import { useTranslation } from 'react-i18next';
 
 export default function Experience() {
+  const {t} = useTranslation("experiences")
+  const Experiences = getExperiences(t)
   const  { scrollContainerRef, scrollOn, scrollLeft, scrollRight, scrollSlider } = useCarrousel({list: Experiences})
  
   return (

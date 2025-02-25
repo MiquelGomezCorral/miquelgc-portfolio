@@ -12,7 +12,7 @@ export function Foto() {
       const rect = sectionRef.current.getBoundingClientRect();
       confetti({
         particleCount: 100,
-        spread: 70,
+        spread: 80,
         origin: {
           x: (rect.left + rect.right) / 2 / window.innerWidth, // X position in relative percentage
           y: (rect.top + rect.bottom + 400) / 2 / window.innerHeight  // Y position in relative percentage
