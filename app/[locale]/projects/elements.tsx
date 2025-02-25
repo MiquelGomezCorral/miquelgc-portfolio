@@ -6,11 +6,11 @@ import cn from 'classnames';
 import { IconLink } from "@/app/[locale]/(utils)/(components)/IconsButtons";
 import { ProjectType } from "@/app/[locale]/(utils)/(constants)/project.text.d";
 import { usePageStackStore } from "@/app/[locale]/(global_state)/state";
-import { Technology } from "@/app/[locale]/(utils)/(constants)/technologies.d";
 import GlowingText from "@/app/[locale]/(utils)/(components)/GlowingText";
 import { Marquee } from "@/app/[locale]/(utils)/(components)/Marquee";
 import { TechnologyMarquee } from "@/app/[locale]/(utils)/(components)/Technologies";
-
+import Header from "@/app/[locale]/(sections)/Header";
+import Footer from "@/app/[locale]/(sections)/Footer";
 
 export function Project({ object, disabled }: { object: ProjectType, disabled?: boolean }) {
   const { goToPageFrom } = usePageStackStore()
@@ -107,65 +107,74 @@ export function SeeMoreProject({ object }: { object: ProjectType }) {
 
 export function ProjectPageTemplate({object}: {object: ProjectType}) {
   return (
-    <main className="w-full flex flex-col justify-center gap-10 rounded-xl">
-      <header className="w-full h-full flex justify-center">
-        <div className="relative max-w-3xl w-full h-full aspect-video">
-          {object.youtube ? 
-            <iframe
-              // width="560"
-              // height="315"
-              src={object.youtube} // Replace with your video ID
-              title="YouTube video player"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              className="rounded-xl w-full h-full"
-            ></iframe>
-            :
-            <Image
-              src={`/assets/projects/${object.logo}.webp`}
-              alt={object.title}
-              fill
-              className="rounded-xl"
-            /> 
-          }
-        </div>
-      </header>
-
-      <article className="flex flex-col gap-10">
-        <section className="flex flex-col gap-6 col-span-7">
-          <span>
-            <header className="flex items-end gap-3">
-              <h2 className="text-5xl">{object.title}</h2>
-
-              {object.github &&
-                <IconLink
-                  src="external-link" title={object.title}
-                  width={40} height={40}
-                  link={object.github}
-                  blank
-                />
+    <>
+      <Header />
+      <main className="max-w-[110rem] w-full flex flex-col gap-16 px-4 md:px-10 xl:px-48 2xl:px-64">
+        <div className="w-full flex flex-col justify-center gap-10 rounded-xl">
+          <header className="w-full h-full flex justify-center">
+            <div className="relative max-w-3xl w-full h-full aspect-video">
+              {object.youtube ? 
+                <iframe
+                  // width="560"
+                  // height="315"
+                  src={object.youtube} // Replace with your video ID
+                  title="YouTube video player"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="rounded-xl w-full h-full"
+                ></iframe>
+                :
+                <Image
+                  src={`/assets/projects/${object.logo}.webp`}
+                  alt={object.title}
+                  fill
+                  className="rounded-xl"
+                /> 
               }
-            </header>
-            <p className="opacity-50 text-xl">{object.finished ? "Terminado" : "En progreso"}</p>
-          </span>
+            </div>
+          </header>
 
-          <p className="opacity-70">{object.descriptionLong}</p>
+          <article className="flex flex-col gap-10">
+            <section className="flex flex-col gap-6 col-span-7">
+              <span>
+                <header className="flex items-end gap-3">
+                  <h2 className="text-5xl">{object.title}</h2>
 
-          <GlowingText className="text-xl">Tecnologías</GlowingText>
-          <TechnologyMarquee technologies={object.technologies} />
-        </section>
+                  {object.github &&
+                    <IconLink
+                      src="external-link" title={object.title}
+                      width={40} height={40}
+                      link={object.github}
+                      blank
+                    />
+                  }
+                </header>
+                <p className="opacity-50 text-xl">{object.finished ? "Terminado" : "En progreso"}</p>
+              </span>
 
-        <section className="h-52 sm:h-96 w-full">
-          <Marquee pauseOnHover
-            className="[--duration:20s] w-full h-full">
-            {object.screenShoots.map((screenShoot, idx) =>
-              <CarrouselItem key={idx} screenShoot={screenShoot}/>
-            )}
-          </Marquee>
-        </section>
+              <p className="opacity-70">{object.descriptionLong}</p>
 
-      </article>
-    </main>
+              <GlowingText className="text-xl">Tecnologías</GlowingText>
+              <TechnologyMarquee technologies={object.technologies} />
+            </section>
+
+            <section className="h-52 sm:h-96 w-full">
+              <Marquee pauseOnHover
+                className="[--duration:20s] w-full h-full">
+                {object.screenShoots.map((screenShoot, idx) =>
+                  <CarrouselItem key={idx} screenShoot={screenShoot}/>
+                )}
+              </Marquee>
+            </section>
+
+          </article>
+        </div>
+      </main>
+
+      <div id="footer" className="w-full bg-gradient-to-b from-miquel-background to-black flex justify-center ">
+        <Footer />
+      </div>
+    </>
   )
 }
 

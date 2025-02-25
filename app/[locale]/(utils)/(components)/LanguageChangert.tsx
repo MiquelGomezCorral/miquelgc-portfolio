@@ -9,6 +9,7 @@ import i18nConfig from '@/i18nConfig';
 
 export default function LanguageChanger() {
   const {t, i18n } = useTranslation("languages");
+  
   const currentLocale = i18n.language;
   const router = useRouter();
   const currentPathname = usePathname();
@@ -17,7 +18,7 @@ export default function LanguageChanger() {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const {languages, fallbackLanguage} = getLanguages(t)
-
+  
   const handleChange = (newLocale: localesType) => {
     if (newLocale === currentLocale) return;
 
@@ -61,7 +62,7 @@ export default function LanguageChanger() {
     <div ref={dropdownRef} className="relative inline-block ">
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center ml-16 px-4 gap-2 opacity-70 hover:opacity-100 transform duration-300"
+        className="flex items-center px-4 gap-2 opacity-70 hover:opacity-100 transform duration-300"
       >
         <Icon 
           src={currentLang.iconSrc} 

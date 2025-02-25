@@ -12,11 +12,11 @@ export type langauges = {
 
 export const getLanguages = (t: TFunction) => {
     const languages: langauges[] = [
-        { locale: 'en', label: t('english'), iconSrc: 'uk' },
-        { locale: 'es', label: t('spanish'), iconSrc: 'spain' },
+        { locale: 'en', label: t('English'), iconSrc: 'uk' },
+        { locale: 'es', label: t('Spanish'), iconSrc: 'spain' },
     ];
 
-    const fallbackLanguage = { locale: 'en', label: t('english'), iconSrc: 'uk' }
+    const fallbackLanguage = { locale: 'en', label: t('English'), iconSrc: 'uk' }
 
     return {fallbackLanguage, languages}
 }
