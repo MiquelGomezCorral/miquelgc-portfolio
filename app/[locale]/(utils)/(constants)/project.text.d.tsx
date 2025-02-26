@@ -2,6 +2,7 @@ import type { TFunction } from "i18next";
 import { GithubLink, YouTubeEmbed } from "./constants.text.d"
 import { TechnologyString } from "./technologies.d"
 
+export const ProjectsFolder = "/projects/"
 export type ProjectType = { 
   title: string, 
   finished: boolean, 
@@ -14,9 +15,18 @@ export type ProjectType = {
   youtube: string
   github: string
 }
-export const ProjectsFolder = "/projects/"
-
-export const getProjects = (t: TFunction):  ProjectType[] => {
+type ProjectsObject = {
+  DoublePendulum: ProjectType;
+  ProceduralAnimations: ProjectType;
+  BoidsSimulator: ProjectType;
+  TheCubeElJueguito: ProjectType;
+  MazeGeneratorSolver: ProjectType;
+  InverseKinematics: ProjectType;
+  Porfolio: ProjectType;
+  OrbitsSimulator: ProjectType;
+  AutoImageToAscii: ProjectType;
+};
+export const getProjects = (t: TFunction):  ProjectsObject => {
   const Porfolio: ProjectType = {
     title: "Porfolio web personal",
     finished: false,
@@ -147,9 +157,9 @@ export const getProjects = (t: TFunction):  ProjectType[] => {
     github:  GithubLink+"Orbits-Simulator",
   }
 
-  return [
-    ProceduralAnimations,
+  return {
     DoublePendulum,
+    ProceduralAnimations,
     BoidsSimulator,
     TheCubeElJueguito,
     MazeGeneratorSolver,
@@ -158,5 +168,5 @@ export const getProjects = (t: TFunction):  ProjectType[] => {
     // TetrisJavaFX,
     OrbitsSimulator,
     AutoImageToAscii,
-  ]
+  }
 }

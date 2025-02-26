@@ -14,7 +14,7 @@ import { Marquee } from "@/app/[locale]/(utils)/(components)/Marquee";
 export default async function ProjectsPage({ params }: { params: { locale: string } }) {
   const { locale } = params;
   const { t, resources } = await initTranslations(locale, i18nNamespaces);
-  const ProjectS = getProjects(t)
+  const ProjectS = Object.values(getProjects(t))
   return (
     <TranslationsProvider
       namespaces={i18nNamespaces}

@@ -9,7 +9,7 @@ const i18nNamespaces = ["projects"]
 export default async function Projects({ params }: { params: { locale: string } }) {
   const { locale } = params;
   const { t } = await initTranslations(locale, i18nNamespaces);
-  const ProjectS = getProjects(t)
+  const ProjectS = Object.values(getProjects(t))
 
   return (
     <section id="Projects" className="w-full flex flex-col gap-6 group/proyects">
