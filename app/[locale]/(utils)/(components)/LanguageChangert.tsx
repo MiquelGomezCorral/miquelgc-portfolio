@@ -30,10 +30,7 @@ export default function LanguageChanger() {
     document.cookie = `NEXT_LOCALE=${newLocale};expires=${expires};path=/`;
 
     // redirect to the new locale path
-    if (
-      currentLocale === i18nConfig.defaultLocale &&
-      !i18nConfig.prefixDefault
-    ) {
+    if (currentLocale === i18nConfig.defaultLocale && !i18nConfig.prefixDefault) {
       router.push('/' + newLocale + currentPathname);
     } else {
       router.push(
@@ -62,7 +59,7 @@ export default function LanguageChanger() {
     <div ref={dropdownRef} className="relative inline-block ">
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center px-4 gap-2 opacity-70 hover:opacity-100 transform duration-300"
+        className="flex items-center px-5 gap-2 opacity-70 hover:opacity-100 transform duration-300"
       >
         <Icon 
           src={currentLang.iconSrc} 

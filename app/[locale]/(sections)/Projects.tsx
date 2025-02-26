@@ -1,10 +1,16 @@
 import { SeeMoreProject, Project } from "@/app/[locale]/projects/elements";
-import { ProjectS } from "@/app/[locale]/(utils)/(constants)/project.text.d";
+import { getProjects } from "@/app/[locale]/(utils)/(constants)/project.text.d";
 import GlowingText from "@/app/[locale]/(utils)/(components)/GlowingText";
 import { Icon } from "@/app/[locale]/(utils)/(components)/IconsButtons";
 import { HeaderButtonLink } from "@/app/[locale]/(utils)/(components)/HeaderButton";
+import initTranslations from "@/app/i18n";
 
-export default function Projects() {
+const i18nNamespaces = ["projects"]
+export default async function Projects({ params }: { params: { locale: string } }) {
+  const { locale } = params;
+  const { t } = await initTranslations(locale, i18nNamespaces);
+  const ProjectS = getProjects(t)
+
   return (
     <section id="Projects" className="w-full flex flex-col gap-6 group/proyects">
       <header className="w-full py-4 border-b-2 border-b-miquel-white-200/50">

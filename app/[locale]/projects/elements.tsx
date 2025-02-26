@@ -7,10 +7,7 @@ import { IconLink } from "@/app/[locale]/(utils)/(components)/IconsButtons";
 import { ProjectType } from "@/app/[locale]/(utils)/(constants)/project.text.d";
 import { usePageStackStore } from "@/app/[locale]/(global_state)/state";
 import GlowingText from "@/app/[locale]/(utils)/(components)/GlowingText";
-import { Marquee } from "@/app/[locale]/(utils)/(components)/Marquee";
 import { TechnologyMarquee } from "@/app/[locale]/(utils)/(components)/Technologies";
-import Header from "@/app/[locale]/(sections)/Header";
-import Footer from "@/app/[locale]/(sections)/Footer";
 
 export function Project({ object, disabled }: { object: ProjectType, disabled?: boolean }) {
   const { goToPageFrom } = usePageStackStore()
@@ -72,11 +69,11 @@ export function SeeMoreProject({ object }: { object: ProjectType }) {
 
       <figure className="pt-1 h-20 overflow-hidden blur-sm">
         <li
-          className="relative grid gird-cols-1 lg:grid-cols-12 gap-4 p-4 rounded-xl transform duration-300"
+          className="relative grid gird-cols-1 lg:max-h-64 lg:grid-cols-12 gap-4 p-4 rounded-xl transform duration-300 group"
         >
           <figure className={
             " relative w-full rounded-xl aspect-video col-span-1 flex justify-end items-center overflow-hidden "+  " " +
-            "lg:col-span-5 bg-gradient-to-r from-miquel-blue-400 to-indigo-400" 
+            "lg:max-h-64 lg:col-span-4 bg-gradient-to-r from-miquel-blue-400 to-indigo-400" 
             }
           >
             <Image
@@ -89,10 +86,10 @@ export function SeeMoreProject({ object }: { object: ProjectType }) {
             />
           </figure>
 
-          <article className="flex flex-col gap-2 justify-between col-span-1 lg:col-start-6 lg:col-span-7">
+          <article className="flex flex-col gap-2 justify-between col-span-1 lg:col-start-5 lg:col-span-8">
             <span>
-              <header className="flex items-center gap-3 text-2xl">
-                {object.title}
+              <header className="flex items-center gap-3 text-2xl opacity-70">
+                <GlowingText className="text-2xl">{object.title}</GlowingText>
               </header>
               <p className="opacity-50">{object.finished ? "Terminado" : "En progreso"}</p>
             </span>
@@ -105,95 +102,5 @@ export function SeeMoreProject({ object }: { object: ProjectType }) {
   )
 }
 
-export function ProjectPageTemplate({object}: {object: ProjectType}) {
-  return (
-    <>
-      <Header />
-      <main className="max-w-[110rem] w-full flex flex-col gap-16 px-4 md:px-10 xl:px-48 2xl:px-64">
-        <div className="w-full flex flex-col justify-center gap-10 rounded-xl">
-          <header className="w-full h-full flex justify-center">
-            <div className="relative max-w-3xl w-full h-full aspect-video">
-              {object.youtube ? 
-                <iframe
-                  // width="560"
-                  // height="315"
-                  src={object.youtube} // Replace with your video ID
-                  title="YouTube video player"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  className="rounded-xl w-full h-full"
-                ></iframe>
-                :
-                <Image
-                  src={`/assets/projects/${object.logo}.webp`}
-                  alt={object.title}
-                  fill
-                  className="rounded-xl"
-                /> 
-              }
-            </div>
-          </header>
-
-          <article className="flex flex-col gap-10">
-            <section className="flex flex-col gap-6 col-span-7">
-              <span>
-                <header className="flex items-end gap-3">
-                  <h2 className="text-5xl">{object.title}</h2>
-
-                  {object.github &&
-                    <IconLink
-                      src="external-link" title={object.title}
-                      width={40} height={40}
-                      link={object.github}
-                      blank
-                    />
-                  }
-                </header>
-                <p className="opacity-50 text-xl">{object.finished ? "Terminado" : "En progreso"}</p>
-              </span>
-
-              <p className="opacity-70">{object.descriptionLong}</p>
-
-              <GlowingText className="text-xl">Tecnologías</GlowingText>
-              <TechnologyMarquee technologies={object.technologies} />
-            </section>
-
-            <section className="h-52 sm:h-96 w-full">
-              <Marquee pauseOnHover
-                className="[--duration:20s] w-full h-full">
-                {object.screenShoots.map((screenShoot, idx) =>
-                  <CarrouselItem key={idx} screenShoot={screenShoot}/>
-                )}
-              </Marquee>
-            </section>
-
-          </article>
-        </div>
-      </main>
-
-      <div id="footer" className="w-full bg-gradient-to-b from-miquel-background to-black flex justify-center ">
-        <Footer />
-      </div>
-    </>
-  )
-}
 
 
-
-// =============================================
-//              IMAGE CARROUSEL 
-// =============================================
-
-function CarrouselItem({ screenShoot }: { screenShoot: string}) {
-  return (
-    <figure className="relative h-full aspect-video" aria-label={screenShoot}>
-      <Image
-        src={`/assets/projects/${screenShoot}.webp`}
-        alt={screenShoot}
-        fill
-        loading="eager"
-        className="rounded-xl"
-      />
-    </figure>
-  );
-}

@@ -14,7 +14,7 @@ export const getExperiences = (t: TFunction): CardType[] => {
     silly: ":D"
   }
   const Vidext: CardType = {
-    title: t("vidext.tittle"), 
+    title: t("vidext.title"), 
     company: "Vidext", 
     place: "Valencia, España",
     date: t("vidext.date"), 
@@ -25,7 +25,7 @@ export const getExperiences = (t: TFunction): CardType[] => {
     silly: ". _."
   }
   const Laberit: CardType = {
-    title: t("laberit.tittle"), 
+    title: t("laberit.title"), 
     company: "Lãberit Sistemas", 
     place: "Valencia, España",
     date: t("laberit.date"), //
@@ -36,7 +36,7 @@ export const getExperiences = (t: TFunction): CardType[] => {
     silly: "D:" 
   }
   const Fiverr: CardType = {
-    title: t("fiverr.tittle"),
+    title: t("fiverr.title"),
     company: "Fiverr", 
     date: t("fiverr.date"), 
     place: "Almenara, Castellón",
@@ -47,7 +47,7 @@ export const getExperiences = (t: TFunction): CardType[] => {
     silly: ": /" 
   }
   const PuntISeguit: CardType = {
-    title: t("puntiseguit.tittle"), 
+    title: t("puntiseguit.title"), 
     company: "Punt I Seguit", 
     place: "Almenara, Castellón",
     date: t("puntiseguit.date"), 
@@ -58,7 +58,7 @@ export const getExperiences = (t: TFunction): CardType[] => {
     silly: "^_^" 
   }
   const Karting: CardType = {
-    title: t("karting.tittle"), 
+    title: t("karting.title"), 
     company: "Karting ERK", 
     date: t("karting.date"), 
     place: "Almenara, Castellón",
@@ -69,7 +69,7 @@ export const getExperiences = (t: TFunction): CardType[] => {
     silly: ":)" 
   }
   const PapiBeach: CardType = {
-    title: t("papibeach.tittle"),
+    title: t("papibeach.title"),
     company: "Papi Beach", 
     date: t("papibeach.date"), 
     place: "Almenara, Castellón",

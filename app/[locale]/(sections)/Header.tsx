@@ -3,6 +3,7 @@
 import cn from 'classnames';
 import Link from "next/link";
 import { useState } from "react";
+import { useTranslation } from 'react-i18next';
 import { HeaderButton, HeaderButtonLink } from "@/app/[locale]/(utils)/(components)/HeaderButton";
 import { DownloadCV } from "@/app/[locale]/(utils)/(components)/Utils";
 import { Icon } from "@/app/[locale]/(utils)/(components)/IconsButtons";
@@ -11,6 +12,7 @@ import { GoBackButton } from '@/app/[locale]/(utils)/(components)/GoBackButton';
 import LanguageChanger from '@/app/[locale]/(utils)/(components)/LanguageChangert';
 
 export default function Header() {
+  const {t} = useTranslation("header");
   const [ showMenu, setshowMenu ] = useState(false)
 
   return (
@@ -26,15 +28,15 @@ export default function Header() {
         </nav>
 
         <nav className='gap-4 flex'>
-          <HeaderButtonLink link="/">Sobre mí</HeaderButtonLink>
-          <HeaderButtonLink link="/projects">Proyectos</HeaderButtonLink>
-          <HeaderButtonLink link="/#experiences" notAddToStack>Experiencias</HeaderButtonLink>
-          <HeaderButtonLink link="/#studies" notAddToStack>Estudios</HeaderButtonLink>
+          <HeaderButtonLink link="/">{t("about_me")}</HeaderButtonLink>
+          <HeaderButtonLink link="/projects">{t("projects")}</HeaderButtonLink>
+          <HeaderButtonLink link="/#experiences" notAddToStack>{t("experience")}</HeaderButtonLink>
+          <HeaderButtonLink link="/#studies" notAddToStack>{t("studies")}</HeaderButtonLink>
           {/* <HeaderButtonLink link="/#skills">Habilidades</HeaderButtonLink> */}
           <DownloadCV>
-            <HeaderButton>CV</HeaderButton>
+            <HeaderButton>{t("cv")}</HeaderButton>
           </DownloadCV>
-          <HeaderButtonLink link="#footer" notAddToStack stayPage>Contacto</HeaderButtonLink>
+          <HeaderButtonLink link="#footer" notAddToStack stayPage>{t("contact")}</HeaderButtonLink>
           <LanguageChanger/>
         </nav>
       </header>
@@ -59,27 +61,25 @@ export default function Header() {
 
         <nav className="flex flex-col gap-4 pl-4">
           <HeaderButtonLink link="/" onClick={()=>setshowMenu(false)}>
-            Sobre mí
+            {t("about-me")}
           </HeaderButtonLink>
           <HeaderButtonLink link="/projects" onClick={()=>setshowMenu(false)}>
-            Proyectos
+            {t("projects")}
           </HeaderButtonLink>
           <HeaderButtonLink link="/#experiences" notAddToStack onClick={()=>setshowMenu(false)}>
-            Experiencias
+            {t("experience")}
           </HeaderButtonLink>
           <HeaderButtonLink link="/#studies" notAddToStack onClick={()=>setshowMenu(false)}>
-            Estudios
+            {t("studies")}
           </HeaderButtonLink>
           {/* <HeaderButtonLink link="/#skills" onClick={()=>setshowMenu(false)}>Habilidades</HeaderButtonLink> */}
           <DownloadCV>
-            <HeaderButton>CV</HeaderButton>
+            <HeaderButton>{t("cv")}</HeaderButton>
           </DownloadCV>
           <HeaderButtonLink link="#footer" notAddToStack stayPage onClick={()=>setshowMenu(false)}>
-            Contacto
+            {t("contact")}
           </HeaderButtonLink>
-          <HeaderButtonLink link="" onClick={()=>setshowMenu(false)}>
-              ES ^
-          </HeaderButtonLink>
+          <LanguageChanger/>
         </nav>
       </header>
 

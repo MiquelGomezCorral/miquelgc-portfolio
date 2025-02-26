@@ -1,8 +1,11 @@
-import { AutoImageToAscii } from "@/app/[locale]/(utils)/(constants)/project.text.d"
-import { ProjectPageTemplate } from "../elements"
+import { getProjects } from "@/app/[locale]/(utils)/(constants)/project.text.d"
+import { ProjectPageTemplate } from "@/app/[locale]/projects/page"
+import { getFixedT } from 'i18next';
 
-export default function Portfolio() {
+export default async function ProjectsPage({ params }: { params: { locale: string } }) {
+  const t = getFixedT(params.locale, "experiences")
+  const [AutoImageToAscii] = getProjects(t)
   return (
-    <ProjectPageTemplate object={AutoImageToAscii} />
+    <ProjectPageTemplate params={params} object={AutoImageToAscii} />
   )
 }
