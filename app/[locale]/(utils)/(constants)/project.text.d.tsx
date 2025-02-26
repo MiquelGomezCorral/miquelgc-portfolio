@@ -152,7 +152,7 @@ export const getProjects = (t: TFunction):  ProjectsObject => {
     technologies: ["c++"],
     logo: "Orbits (1)",
     screenShoots: Array.from({ length: 8 }, (_, i) => `Orbits (${i+1})`),
-    link: ProjectsFolder+"portfolio",
+    link: ProjectsFolder+"orbits",
     youtube: YouTubeEmbed+"UPl4bBSgKtM", //video id
     github:  GithubLink+"Orbits-Simulator",
   }

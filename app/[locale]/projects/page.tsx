@@ -11,7 +11,7 @@ const i18nNamespaces = ['header', 'projects']
 export default async function ProjectsPage({ params }: { params: { locale: string } }) {
   const { locale } = params;
   const { t, resources } = await initTranslations(locale, i18nNamespaces);
-  const ProjectS = Object.values(getProjects(t))
+  const Projects = Object.values(getProjects(t))
   return (
     <TranslationsProvider
       namespaces={i18nNamespaces}
@@ -26,7 +26,7 @@ export default async function ProjectsPage({ params }: { params: { locale: strin
           </header>
 
           <main className="flex flex-col justify-center gap-6">
-            {ProjectS.map((object, idx) =>
+            {Projects.map((object, idx) =>
               <Project object={object} key={idx}/>
             )}
           </main>
