@@ -158,8 +158,8 @@ export const getProjects = (t: TFunction):  ProjectsObject => {
   }
 
   return {
-    DoublePendulum,
     ProceduralAnimations,
+    DoublePendulum,
     BoidsSimulator,
     TheCubeElJueguito,
     MazeGeneratorSolver,
