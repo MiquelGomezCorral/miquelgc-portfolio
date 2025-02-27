@@ -24,7 +24,7 @@ export default async function Projects({ params }: { params: { locale: string } 
               title={'Projects'}
             />
           </GlowingText>
-            {"Proyectos"}
+          {"Proyectos"}
         </HeaderButtonLink>
       </header>
 

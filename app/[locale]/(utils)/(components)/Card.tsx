@@ -83,7 +83,7 @@ export function Card({ object }: { object: CardType }) {
               >
               {object.silly}
             </div>
-            <div className="h-1 w-full -translate-x-2 rounded-md bg-miquel-white-100 border-miquel-blue-400 border-[2.5px] z-10" />
+            <div className="h-1 w-full -ml-1 rounded-md bg-miquel-white-100 border-miquel-blue-400 border-[2.5px] z-10" />
           </figure>
         </footer>
   
