@@ -10,7 +10,7 @@ import Footer from "@/app/[locale]/(sections)/Footer";
 import initTranslations from "@/app/i18n"
 import TranslationsProvider from "@/app/[locale]/(utils)/TranslationsProvider"
 
-const i18nNamespaces = ['header', 'info-section', 'experiences', 'studies'];
+const i18nNamespaces = ['header', 'info-section', 'experiences', 'studies', 'projects'];
 export default async function App({ params }: { params: { locale: string } }) {
   const { locale } = params;
   const { resources } = await initTranslations(locale, i18nNamespaces);

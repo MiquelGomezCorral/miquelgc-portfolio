@@ -1,12 +1,21 @@
+
 import { getProjects } from "@/app/[locale]/(utils)/(constants)/project.text.d"
-import { ProjectPageTemplate } from "@/app/[locale]/projects/elements"
+import { ProjectPageTemplate } from "@/app/[locale]/projects/project_template"
+import initTranslations from "@/app/i18n"
+import TranslationsProvider from "@/app/[locale]/(utils)/TranslationsProvider"
 
-import { getFixedT } from 'i18next';
-
-export default async function ProjectsPage({ params }: { params: { locale: string } }) {
-  const t = getFixedT(params.locale, "projects")
+const i18nNamespaces = ['projects', 'header']
+export default async function ProjectPage({ params }: { params: { locale: string } }) {
+  const { locale } = params;
+  const { t, resources } = await initTranslations(locale, i18nNamespaces);
   const {MazeGeneratorSolver} = getProjects(t)
   return (
-    <ProjectPageTemplate params={params} object={MazeGeneratorSolver} />
+    <TranslationsProvider
+      namespaces={i18nNamespaces}
+      locale={locale}
+      resources={resources}
+    >
+      <ProjectPageTemplate object={MazeGeneratorSolver} t={t}/>
+    </TranslationsProvider>
   )
 }

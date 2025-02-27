@@ -5,7 +5,7 @@ import { TechnologyString } from "./technologies.d"
 export const ProjectsFolder = "/projects/"
 export type ProjectType = { 
   title: string, 
-  finished: boolean, 
+  finished: string, 
   descriptionShort: string, 
   descriptionLong: string, 
   technologies: TechnologyString[], 
@@ -28,10 +28,10 @@ type ProjectsObject = {
 };
 export const getProjects = (t: TFunction):  ProjectsObject => {
   const Porfolio: ProjectType = {
-    title: "Porfolio web personal",
-    finished: false,
-    descriptionShort: "Desarrollado desde cero, este portafolio personal destaca mis habilidades y experiencia en programación. Incluye una descripción sobre mí, un currículum en línea, información de contacto, una sección de projectos destacados y las tecnologías que uso y con las que estoy familiarizado. Con un diseño responsivo y una experiencia de usuario optimizada, ofrece una presentación profesional y accesible de mi trabajo y logros.",
-    descriptionLong: "Desarrollado desde cero, este portafolio personal destaca mis habilidades y experiencia en programación. Incluye una descripción sobre mí, un currículum en línea, información de contacto, una sección de projectos destacados y las tecnologías que uso y con las que estoy familiarizado. Con un diseño responsivo y una experiencia de usuario optimizada, ofrece una presentación profesional y accesible de mi trabajo y logros.",
+    title: t("portfolio.title"),
+    finished: t("progress"),
+    descriptionShort: t("portfolio.description_short"),
+    descriptionLong:t("portfolio.description_long"),
     technologies: ["html", "css", "react", "typescript", "next", "tailwind", "github"],
     logo: "portfolio-miniatura",
     screenShoots: ["Portfolio-miniatura","Portfolio-miniatura","Portfolio-miniatura","Portfolio-miniatura"],
@@ -41,24 +41,24 @@ export const getProjects = (t: TFunction):  ProjectsObject => {
   }
 
   const ProceduralAnimations: ProjectType = {
-    title: "Procedural Animations",
-    finished: true,
-    descriptionShort: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    descriptionLong: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    technologies: ["python", "pygame"],
+    title: t("procedural.title"),
+    finished: t("finished"),
+    descriptionShort: t("procedural.description_short"),
+    descriptionLong:t("procedural.description_long"),
+    technologies: ["python", "pygame", "numpy"],
     screenShoots: Array.from({ length: 10 }, (_, i) => `Procedural (${i+1})`),
-    logo: "Procedural (9)",
+    logo: "Procedural (6)",
     link: ProjectsFolder+"procedural_animations",
     youtube: YouTubeEmbed+"DXGSoyjN9PA", //video id
     github: GithubLink+"Procedural_Animations",
   }
 
   const InverseKinematics: ProjectType = {
-    title: "Inverse Kinematics",
-    finished: true,
-    descriptionShort: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    descriptionLong: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    technologies: ["python", "pygame"],
+    title: t("kinematics.title"),
+    finished: t("finished"),
+    descriptionShort: t("kinematics.description_short"),
+    descriptionLong:t("kinematics.description_long"),
+    technologies: ["python", "pygame", "numpy"],
     logo: "Kinematics (4)",
     screenShoots: Array.from({ length: 6 }, (_, i) => `Kinematics (${i+1})`),
     link: ProjectsFolder+"incerse_kinematics",
@@ -67,11 +67,11 @@ export const getProjects = (t: TFunction):  ProjectsObject => {
   }
 
   const DoublePendulum: ProjectType = {
-    title: "Double Pendulum",
-    finished: true,
-    descriptionShort: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    descriptionLong: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    technologies: ["python", "pygame"],
+    title: t("pendulum.title"),
+    finished: t("finished"),
+    descriptionShort: t("pendulum.description_short"),
+    descriptionLong:t("pendulum.description_long"),
+    technologies: ["python", "pygame", "numpy"],
     logo: "Pendulum (2)",
     screenShoots: Array.from({ length: 7 }, (_, i) => `Pendulum (${i+1})`),
     link: ProjectsFolder+"double_pendulum",
@@ -80,10 +80,10 @@ export const getProjects = (t: TFunction):  ProjectsObject => {
   }
 
   const BoidsSimulator: ProjectType = {
-    title: "Boids Simulator",
-    finished: true,
-    descriptionShort: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    descriptionLong: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    title: t("boids.title"),
+    finished: t("finished"),
+    descriptionShort: t("boids.description_short"),
+    descriptionLong:t("boids.description_long"),
     technologies: ["python", "pygame"],
     logo: "Boids (4)",
     screenShoots: Array.from({ length: 9 }, (_, i) => `Boids (${i+1})`),
@@ -93,10 +93,10 @@ export const getProjects = (t: TFunction):  ProjectsObject => {
   }
 
   const MazeGeneratorSolver: ProjectType = {
-    title: "Maze Generator Solver",
-    finished: true,
-    descriptionShort: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    descriptionLong: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    title: t("maze.title"),
+    finished: t("finished"),
+    descriptionShort: t("maze.description_short"),
+    descriptionLong:t("maze.description_long"),
     technologies: ["python", "pygame"],
     logo: "MazeSolver (3)",
     screenShoots: Array.from({ length: 8 }, (_, i) => `MazeSolver (${i+1})`),
@@ -106,10 +106,10 @@ export const getProjects = (t: TFunction):  ProjectsObject => {
   }
 
   const TheCubeElJueguito: ProjectType = {
-    title: "The Cube El Jueguito",
-    finished: true,
-    descriptionShort: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    descriptionLong: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    title: t("the_cube.title"),
+    finished: t("finished"),
+    descriptionShort: t("the_cube.description_short"),
+    descriptionLong:t("the_cube.description_long"),
     technologies: ["c-sharp", "unity"],
     logo: "El jueguito (1)",
     screenShoots: Array.from({ length: 7 }, (_, i) => `El jueguito (${i+1})`),
@@ -119,10 +119,10 @@ export const getProjects = (t: TFunction):  ProjectsObject => {
   }
 
   const AutoImageToAscii: ProjectType = {
-    title: "Auto Image To Ascii",
-    finished: true,
-    descriptionShort: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    descriptionLong: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    title: t("ascii.title"),
+    finished: t("finished"),
+    descriptionShort: t("ascii.description_short"),
+    descriptionLong:t("ascii.description_long"),
     technologies: ["python"],
     logo: "Ascci Converter (1)",
     screenShoots: Array.from({ length: 3 }, (_, i) => `Ascci Converter (${i+1})`),
@@ -132,10 +132,10 @@ export const getProjects = (t: TFunction):  ProjectsObject => {
   }
 
   const TetrisJavaFX: ProjectType = {
-    title: "Tetris JavaFX",
-    finished: true,
-    descriptionShort: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    descriptionLong: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    title: t("portfolio.title"),
+    finished: t("finished"),
+    descriptionShort: t("portfolio.description_short"),
+    descriptionLong:t("portfolio.description_long"),
     technologies: ["c++"],
     logo: "Captura",
     screenShoots: Array.from({ length: 9 }, (_, i) => `Boids (${i+1})`),
@@ -145,10 +145,10 @@ export const getProjects = (t: TFunction):  ProjectsObject => {
   }
 
   const OrbitsSimulator: ProjectType = {
-    title: "Orbits Simulator",
-    finished: true,
-    descriptionShort: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    descriptionLong: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    title: t("orbits.title"),
+    finished: t("finished"),
+    descriptionShort: t("orbits.description_short"),
+    descriptionLong:t("orbits.description_long"),
     technologies: ["c++"],
     logo: "Orbits (1)",
     screenShoots: Array.from({ length: 8 }, (_, i) => `Orbits (${i+1})`),
