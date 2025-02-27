@@ -1,0 +1,18 @@
+{
+    "title": "Experiencias",
+    "erasmus": {
+        "title": "Erasmus: 4º año del Grado",
+        "date": "Sep 2024 – Ene 2025",
+        "description": "Durante mi intercambio académico en Suiza, aprendí cómo crear modelos de IA, algoritmos avanzados y análisis de datos. Todo con un enfoque tanto práctico como teórico. A la vez, he podido practicar y mejorar mi inglés interactuando con gente de todas partes del mundo."
+    },
+    "upv": {
+        "title": "Grado en Ingeniería informática",
+        "date": "Sep 2021 – Actualmente",
+        "description": "En la UPV he aprendido desde los conceptos básicos de la informática hasta cómo desarrollar aplicaciones y usar inteligencia artificial. Todo ello, obteniendo excelentes calificaciones y reconocimientos por ellas. Durante este proceso, he participado en diferentes actividades universitarias, como campeonatos deportivos, delegación de alumnos o como tutor."
+    },
+    "eso_bach": {
+        "title": "ESO y Bachillerato",
+        "date": "Sep 2015 – Jun 2021",
+        "description": "Durante mi adolescencia estudié en el IES Almenara, el instituto de mi pueblo, realicé la enseñanza secundaria obligatoria (ESO) y el bachillerato científico con el objetivo de hacer las pruebas de acceso a la universidad."
+    }
+}

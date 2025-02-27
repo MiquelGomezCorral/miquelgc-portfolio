@@ -3,12 +3,15 @@
 import cn from 'classnames';
 
 import GlowingText from "@/app/[locale]/(utils)/(components)/GlowingText";
-import { Studies } from "@/app/[locale]/(utils)/(constants)/studies.text.d";
+import { getStudies } from "@/app/[locale]/(utils)/(constants)/studies.text.d";
 import { IconButtonArrow, Icon } from "@/app/[locale]/(utils)/(components)/IconsButtons";
 import { useCarrousel } from '@/app/[locale]/(utils)/(components)/Carrousel';
 import { Card } from '@/app/[locale]/(utils)/(components)/Card';
+import { useTranslation } from 'react-i18next';
 
 export default function StudiesSection() {
+  const {t} = useTranslation("studies")
+  const Studies = getStudies(t)
   const  { scrollContainerRef, scrollOn, scrollLeft, scrollRight, scrollSlider } = useCarrousel({list: Studies})
 
   return (
@@ -23,7 +26,7 @@ export default function StudiesSection() {
             title={'Studies'}
           />
         </GlowingText>
-        {"Estudios"}
+        {t("title")}
       </header>
 
       <main className="flex relative flex-col xl:flex-row items-center gap-4">

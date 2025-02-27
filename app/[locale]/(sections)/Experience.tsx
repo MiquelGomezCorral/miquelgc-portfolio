@@ -25,7 +25,7 @@ export default function Experience() {
             title={'experience'}
           />
         </GlowingText>
-        {"Experiencia"}
+        {t("title")}
       </header>
 
       <main className="flex relative flex-col xl:flex-row items-center gap-4">

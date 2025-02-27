@@ -9,9 +9,8 @@ import Footer from "@/app/[locale]/(sections)/Footer";
 // import { useTranslation } from "react-i18next"
 import initTranslations from "@/app/i18n"
 import TranslationsProvider from "@/app/[locale]/(utils)/TranslationsProvider"
-import { Icon } from "@/app/[locale]/(utils)/(components)/IconsButtons"
 
-const i18nNamespaces = ['header', 'experiences', 'info-section'];
+const i18nNamespaces = ['header', 'info-section', 'experiences', 'studies'];
 export default async function App({ params }: { params: { locale: string } }) {
   const { locale } = params;
   const { resources } = await initTranslations(locale, i18nNamespaces);
