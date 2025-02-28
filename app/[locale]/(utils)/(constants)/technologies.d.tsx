@@ -1,5 +1,5 @@
-import Image from "next/image"
 import { Icon } from "@/app/[locale]/(utils)/(components)/IconsButtons"
+import type { TFunction } from "i18next";
 
 export function Technology({ src }: { src: string }) {
     const Title = (src: string) => {
@@ -108,37 +108,39 @@ export type TechnologyCathegoryType = {
   startsDown: number,
 }
 
-export const TechnologyCathegories: TechnologyCathegoryType[] = [
+export function getTechnologyCathegories(t: TFunction): TechnologyCathegoryType[]{
+  return [
   {
-    title: "Lenguajes de Programación", 
-    description: "Lenguajes para desarrollo web, móvil y sistemas, abarcando paradigmas altos y funcionales",
+    title: t("languages.title"), 
+    description: t("languages.description"),
     techStars45: ["python", "typescript", "react", "css", "java"], 
     techStars34: ["c", "c++", "c-sharp", "risc-v", "haskell", "prolog"],
     startsUp: 5,
     startsDown: 3,
   },
   {
-    title: "Entornos y Herramientas de Desarrollo", 
-    description: "Herramientas modernas para desarrollo ágil, diseño e implementación, de Tailwind a Node.",
+    title: t("tools.title"), 
+    description: t("tools.description"),
     techStars45: ["tailwind", "pygame", "zustand", "node", "jupyter"], 
     techStars34: ["unity", "java-fx"],
     startsUp: 5,
     startsDown: 3,
   },
   {
-    title: "Análisis y Tratamiento de Datos", 
-    description: "Soluciones para manipular, analizar y visualizar datos con Python y frameworks backend.",
+    title: t("data.title"), 
+    description: t("data.description"),
     techStars45: ["pandas", "sklearn", "matplot", "plotly", "numpy"], 
     techStars34: ["sql", "fastapi", "mathematica"],
     startsUp: 5,
     startsDown: 3,
   },
   {
-    title: "Inteligencia Artificial y Modelos", 
-    description: "Frameworks para construir y entrenar modelos de IA, de ML tradicional a deep learning.",
+    title: t("ai.title"), 
+    description: t("ai.description"),
     techStars45: ["sklearn", "numpy"], 
     techStars34: ["pytorch", "xg-boost"],
     startsUp: 5,
     startsDown: 3,
   }
 ]
+}

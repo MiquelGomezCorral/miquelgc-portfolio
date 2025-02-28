@@ -9,7 +9,7 @@ import { Icon } from "./IconsButtons";
 import { localesType, getLanguages } from '@/app/[locale]/(utils)/(constants)/languages.text.d';
 import i18nConfig from '@/i18nConfig';
 
-export default function LanguageChanger({movile}: {movile: boolean}) {
+export default function LanguageChanger({movile}: {movile?: boolean}) {
   const {t, i18n } = useTranslation("languages");
   
   const currentLocale = i18n.language;

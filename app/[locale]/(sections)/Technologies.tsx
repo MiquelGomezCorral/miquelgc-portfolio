@@ -2,13 +2,15 @@
 import cn from 'classnames';
 import GlowingText from "@/app/[locale]/(utils)/(components)/GlowingText";
 import { Icon } from "@/app/[locale]/(utils)/(components)/IconsButtons";
-import { TechnologyCathegories, TechnologyCathegoryType } from '@/app/[locale]/(utils)/(constants)/technologies.d';
-import { TechnologyList, TechnologyMarquee } from '@/app/[locale]/(utils)/(components)/Technologies';
+import { getTechnologyCathegories, TechnologyCathegoryType } from '@/app/[locale]/(utils)/(constants)/technologies.d';
+import { TechnologyList } from '@/app/[locale]/(utils)/(components)/Technologies';
+import initTranslations from "@/app/i18n"
 
-
-
-export default function TechnologiesSection() {
-
+const i18nNamespaces = ['technologies']
+export default async function TechnologiesSection({ params }: { params: { locale: string } }) {
+  const {t} = await initTranslations(params.locale, i18nNamespaces)
+  const TechnologyCathegories = getTechnologyCathegories(t)
+  
   return (
     <section id="technologies" className="w-full flex flex-col gap-6 group">
       <header className="w-full py-4 border-b-2 border-b-miquel-white-200/50 text-5xl font-bold transform duration-300 flex gap-2">

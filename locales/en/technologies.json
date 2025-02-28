@@ -1,0 +1,19 @@
+{
+    "title": "Technologies",
+    "languages":{
+        "title": "Programming Languages",
+        "description":"Programming Languages for web, mobile and systems development. This ranges from functional to high-level languages"
+    },
+    "tools":{
+        "title": "Frameworks and development Tools",
+        "description":"Modern tools for rapid development, design and integration: Web, Apps and Games."
+    },
+    "data":{
+        "title": "Data Analisys and Processing ",
+        "description":"Solutions for manipulation, analisys, processing and visualization of data with Python and other backend frameworks."
+    },
+    "ai":{
+        "title": "Artificial Intelligence and Models",
+        "description":"Frameworks for building and training AI models, traditional machine learning and deep learning."
+    }
+}
