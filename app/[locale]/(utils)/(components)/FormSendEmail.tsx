@@ -5,12 +5,14 @@ import emailjs from '@emailjs/browser';
 import { useState } from 'react';
 import { Button } from './Button';
 import { useTranslation } from "react-i18next";
+import { ShakeHard } from 'reshake'
 
 export function FormSendEmail(){
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [message, setMessage] = useState("")
   const [errors, setErrors] = useState({ name: "", email: "", message: "" , general: ""});
+  const [shake, setShake] = useState(false);
   const {t} = useTranslation("footer")
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>)=>{
@@ -56,7 +58,11 @@ export function FormSendEmail(){
       general: errorGeneral,
     };
     setErrors(newErrors);
-    if (newErrors.name || newErrors.email || newErrors.message || newErrors.general) return;
+    if (newErrors.name || newErrors.email || newErrors.message || newErrors.general) {
+      setShake(true)
+      setTimeout(()=>setShake(false), 300)
+      return
+    }
 
     // ============================================
     //  ALL CHECK PASSED, SENDING THE EMAIL
@@ -103,66 +109,68 @@ export function FormSendEmail(){
 
   const formStyle = "p-2 rounded-md text-white bg-miquel-blue-500/20 border border-miquel-blue-400 broder-2"
   return(
-    <form onSubmit={handleSubmit} noValidate className='w-full flex flex-col p-4 border border-miquel-blue-400 rounded-md gap-2'>
-      <section className="w-full flex flex-col gap-1">
-        <input 
-          type="text" 
-          placeholder='Isabel Vallés Bertomeu'
-          value={name}
-          autoComplete="additional-name"
-          onChange={(e) => {
-            const newValue = e.target.value
-            setName(newValue)
-          }}
-          className={
-            cn(formStyle + '',
-            {'border-red-500 bg-red-500/30 placeholder-red-400/80': errors.name }
-          )}
-        />
-        <p className="text-red-500 min-h-[1rem] text-xs">{errors.name}</p>
-      </section>
+      <form onSubmit={handleSubmit} noValidate className='w-full flex flex-col p-4 border border-miquel-blue-400 rounded-md gap-2'>
+        <ShakeHard active={shake} fixed>
+        <section className="w-full flex flex-col gap-1">
+          <input 
+            type="text" 
+            placeholder='Isabel Vallés Bertomeu'
+            value={name}
+            autoComplete="additional-name"
+            onChange={(e) => {
+              const newValue = e.target.value
+              setName(newValue)
+            }}
+            className={
+              cn(formStyle + '',
+              {'border-red-500 bg-red-500/30 placeholder-red-400/80': errors.name }
+            )}
+          />
+          <p className="text-red-500 min-h-[1rem] text-xs">{errors.name}</p>
+        </section>
 
-      <section className="w-full flex flex-col gap-1">
-        <input 
-          type="email" 
-          placeholder='isabel_vb@eg.company.com'
-          value={email}
-          autoComplete="email"
-          onChange={(e) => {
-            const newValue = e.target.value;
-            setEmail(newValue);
-          }}
-          className={
-            cn(formStyle + '',
-            { 'border-red-500 bg-red-500/30 placeholder-red-400/80': errors.email }
-          )}
-        />
-        <p className="text-red-500 min-h-[1rem] text-xs">{errors.email}</p>
-      </section>
-        
-      <section className="w-full flex flex-col gap-1">
-        <textarea 
-          placeholder={t("placeholder")}
-          value={message}
-          onChange={(e) => {
-            const newValue = e.target.value
-            setMessage(newValue)
-          }}
-          className={
-            cn(formStyle + ' h-64 w-full',
-            { 'border-red-500 bg-red-500/30 placeholder-red-400/80': errors.message }
-          )}
-        />
-        <p className="text-red-500 min-h-[1rem] text-xs">{errors.message}</p>
-      </section>
+        <section className="w-full flex flex-col gap-1">
+          <input 
+            type="email" 
+            placeholder='isabel_vb@eg.company.com'
+            value={email}
+            autoComplete="email"
+            onChange={(e) => {
+              const newValue = e.target.value;
+              setEmail(newValue);
+            }}
+            className={
+              cn(formStyle + '',
+              { 'border-red-500 bg-red-500/30 placeholder-red-400/80': errors.email }
+            )}
+          />
+          <p className="text-red-500 min-h-[1rem] text-xs">{errors.email}</p>
+        </section>
+          
+        <section className="w-full flex flex-col gap-1">
+          <textarea 
+            placeholder={t("placeholder")}
+            value={message}
+            onChange={(e) => {
+              const newValue = e.target.value
+              setMessage(newValue)
+            }}
+            className={
+              cn(formStyle + ' h-64 w-full',
+              { 'border-red-500 bg-red-500/30 placeholder-red-400/80': errors.message }
+            )}
+          />
+          <p className="text-red-500 min-h-[1rem] text-xs">{errors.message}</p>
+        </section>
 
-      <section className="w-full flex flex-col gap-1">
-        <Button type='submit' disabled={ !name.trim() || !email.trim() ||  !message.trim()}>
-          {t("send")}
-        </Button>
-        <p className="text-red-500 min-h-[1rem] text-xs">{errors.general}</p>
-      </section>
+        <section className="w-full flex flex-col gap-1">
+          <Button type='submit' disabled={ !name.trim() || !email.trim() ||  !message.trim()}>
+            {t("send")}
+          </Button>
+          <p className="text-red-500 min-h-[1rem] text-xs">{errors.general}</p>
+        </section>
 
-    </form>
+      </ShakeHard>
+      </form>
   )
 }

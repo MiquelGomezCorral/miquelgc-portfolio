@@ -7,9 +7,9 @@
     "placeholder": "Hello!\n\nMy name is Isabel Vallés, from ...",
     "send": "Send email",
 
-    "errors":{
+    "error":{
         "name":"The name must be at least 3 letters",
-        "mail":"use a proper email format, e.g.: isabel_vb@eg.company.com",
+        "mail":"Use a proper email format, e.g.: isabel_vb@eg.comp.com",
         "message":"The message must be at least 3 words",
         "general":"You can only send one message every 5 minutes. Remaining"
     },
