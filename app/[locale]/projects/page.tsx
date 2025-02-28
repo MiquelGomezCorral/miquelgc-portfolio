@@ -7,7 +7,7 @@ import Footer from "@/app/[locale]/(sections)/Footer";
 import initTranslations from "@/app/i18n"
 import TranslationsProvider from "@/app/[locale]/(utils)/TranslationsProvider"
 
-const i18nNamespaces = ['projects', 'header']
+const i18nNamespaces = ['projects', 'header', 'footer']
 export default async function ProjectsPage({ params }: { params: { locale: string } }) {
   const { locale } = params;
   const { t, resources } = await initTranslations(locale, i18nNamespaces);
@@ -36,7 +36,7 @@ export default async function ProjectsPage({ params }: { params: { locale: strin
       </main>
 
       <div id="footer" className="w-full bg-gradient-to-b from-miquel-background to-black flex justify-center ">
-        <Footer />
+        <Footer params={{locale: locale}}/>
       </div>
     </TranslationsProvider>
   )

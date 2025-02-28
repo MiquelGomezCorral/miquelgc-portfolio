@@ -4,7 +4,7 @@ import { ProjectPageTemplate } from "@/app/[locale]/projects/project_template"
 import initTranslations from "@/app/i18n"
 import TranslationsProvider from "@/app/[locale]/(utils)/TranslationsProvider"
 
-const i18nNamespaces = ['projects', 'header']
+const i18nNamespaces = ['projects', 'header', 'footer']
 export default async function ProjectPage({ params }: { params: { locale: string } }) {
   const { locale } = params;
   const { t, resources } = await initTranslations(locale, i18nNamespaces);
@@ -15,7 +15,7 @@ export default async function ProjectPage({ params }: { params: { locale: string
       locale={locale}
       resources={resources}
     >
-      <ProjectPageTemplate object={Porfolio} t={t}/>
+      <ProjectPageTemplate object={Porfolio} t={t} params={{locale: locale}}/>
     </TranslationsProvider>
   )
 }

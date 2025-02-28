@@ -1,0 +1,20 @@
+{
+    "contact": "Ponte en contacto",
+    "shy": "No seas tímido y dime algo ;)",
+    "up": "¡Llevame arriba!",
+    "projects": "O... ¡Mira mis proyectos!",
+    "discover": "O... ¡Enterate bien de quién soy!",
+    "placeholder": "¡Hola!\n\nSoy Isabel Vallés, de la empresa ...",
+    "send": "Enviar email",
+
+    "errors":{
+        "name":"El nombre tiene que tener al menos 3 letras.",
+        "mail":"Use un formato de mail valido, p.ej.: isabel_vb@eg.company.com",
+        "message":"El mensaje tiene que tener al menos 3 palabras.",
+        "general":"Solo puedes mandar un mensaje cada 5 minutos. Restante"
+    },
+    "alerts":{
+        "success":"¡Email mandado con éxito! En cuanto pueda te contacto de vuelta ;)",
+        "failed":"🚫¡El mail no ha podido ser mandado por algún error!🚫 Lo siento pero te toca mandalor por email :("
+    }
+}

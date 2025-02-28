@@ -1,0 +1,20 @@
+{
+    "contact": "Contact with me",
+    "shy": "Do not be shy and tell me something ;)",
+    "up": "Take me up!",
+    "projects": "Or... See my projects!",
+    "discover": "Or... Get to know me better!",
+    "placeholder": "Hello!\n\nMy name is Isabel Vallés, from ...",
+    "send": "Send email",
+
+    "errors":{
+        "name":"The name must be at least 3 letters",
+        "mail":"use a proper email format, e.g.: isabel_vb@eg.company.com",
+        "message":"The message must be at least 3 words",
+        "general":"You can only send one message every 5 minutes. Remaining"
+    },
+    "alerts":{
+        "success":"Email sent successfully! I will email you back as soon as possible. ;)",
+        "failed":"🚫The email could no be sent due to an error!🚫 I am sorry but you will have to do it by normal email :("
+    }
+}

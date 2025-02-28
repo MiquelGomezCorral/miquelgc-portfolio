@@ -4,30 +4,32 @@ import cn from "classnames"
 import emailjs from '@emailjs/browser';
 import { useState } from 'react';
 import { Button } from './Button';
+import { useTranslation } from "react-i18next";
 
 export function FormSendEmail(){
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [message, setMessage] = useState("")
   const [errors, setErrors] = useState({ name: "", email: "", message: "" , general: ""});
+  const {t} = useTranslation("footer")
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault();
 
     let errorName = ""
     if (!name.trim() || name.trim().length < 3){
-      errorName = "El nombre tiene que tener al menos 3 letras."
+      errorName = t("error.name")
     }
 
     // Check email format
     let errorEmail = ""
     if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-      errorEmail = "Use un formato de mail valido: isabel_vb@eg.company.com"
+      errorEmail = t("error.mail")
     }
 
     let errorMessage = ""
     if (!message.trim() || message.split(" ").length < 3){
-      errorMessage = "El mensaje tiene que tener al menos 3 palabras."
+      errorMessage = t("error.message")
     }
     
 
@@ -44,7 +46,7 @@ export function FormSendEmail(){
       // Format minutes and seconds as 00:00
       const formattedTime = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
 
-      errorGeneral = `Solo puedes mandar un mensaje cada 5 minutos. Restante: ${formattedTime} min`
+      errorGeneral = `${t("error.name")}: ${formattedTime} min`
     }
 
     const newErrors = {
@@ -85,7 +87,7 @@ export function FormSendEmail(){
           // Save last time sent
           localStorage.setItem('lastSubmitTime', currentTime.toString());
 
-          alert("¡Email mandado con éxito! En cuanto pueda te contacto de vuelta ;)")
+          alert(t("alert.success"))
           console.log('SUCCESS!');
 
           setName("")
@@ -93,7 +95,7 @@ export function FormSendEmail(){
           setMessage("")
         },
         (error) => {
-          alert("🚫¡El mail no ha podido ser mandado por algún error!🚫 Lo siento pero te toca mandalor por email :(")
+          alert(t("alert.failed"))
           console.log('FAILED...', error.text);
         },
       );
@@ -140,7 +142,7 @@ export function FormSendEmail(){
         
       <section className="w-full flex flex-col gap-1">
         <textarea 
-          placeholder={'Hello!\n\nMy name is Isabel Vallés, from ...'}
+          placeholder={t("placeholder")}
           value={message}
           onChange={(e) => {
             const newValue = e.target.value
@@ -156,7 +158,7 @@ export function FormSendEmail(){
 
       <section className="w-full flex flex-col gap-1">
         <Button type='submit' disabled={ !name.trim() || !email.trim() ||  !message.trim()}>
-          Send email
+          {t("send")}
         </Button>
         <p className="text-red-500 min-h-[1rem] text-xs">{errors.general}</p>
       </section>

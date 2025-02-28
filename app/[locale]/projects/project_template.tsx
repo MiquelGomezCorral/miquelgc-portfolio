@@ -11,8 +11,7 @@ import Footer from "@/app/[locale]/(sections)/Footer";
 import type { TFunction } from "i18next";
 
 
-export function ProjectPageTemplate({object,  t }: {object: ProjectType, t: TFunction }) {
-  
+export function ProjectPageTemplate({object,  t , params }: {object: ProjectType, t: TFunction,  params:{locale: string}}) {
   return (
     <>
       <Header />
@@ -79,7 +78,7 @@ export function ProjectPageTemplate({object,  t }: {object: ProjectType, t: TFun
       </main>
 
       <div id="footer" className="w-full bg-gradient-to-b from-miquel-background to-black flex justify-center ">
-        <Footer />
+        <Footer params={{locale: params.locale}}/>
       </div>
     </>
   )

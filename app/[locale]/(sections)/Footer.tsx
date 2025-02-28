@@ -5,8 +5,11 @@ import { Curriculum, Email, Github, GithubLink, Linkedin, LinkedinLink } from "@
 import { FormSendEmail } from "@/app/[locale]/(utils)/(components)/FormSendEmail";
 import GlowingText from "@/app/[locale]/(utils)/(components)/GlowingText";
 import { ArrowUp } from "@/app/[locale]/(utils)/(components)/ArrowUp";
+import initTranslations from "@/app/i18n";
 
-export default function Footer() {
+const i18nNamespaces = ["footer"]
+export default async function Footer({ params }: { params: { locale: string } }) {
+  const {t} = await initTranslations(params.locale, i18nNamespaces)
   return (
     <footer id="footer" className={
       "pt-10 pb-20 w-full grid md:grid-rows-1 md:grid-cols-11 grid-cols-1 place-items-center md:gap-0 gap-4 max-w-[120rem] px-4 md:px-10 xl:px-48 2xl:px-64"
@@ -15,8 +18,10 @@ export default function Footer() {
       <section className="md:col-span-4 flex md:justify-start justify-center items-center">
         <div className="flex flex-col items-center justify-center gap-6 p-4">
           <header className="flex flex-col md:items-start items-center gap-2"> 
-            <h1 className="flex gap-1 text-4xl font-bold text-nowrap">Ponte en contacto<GlowingText bold>!</GlowingText></h1>
-            <p className="opacity-70">{"No seas tímido y dime algo ;)"}</p>
+            <h1 className="flex gap-1 text-4xl font-bold text-nowrap">
+              {t("contact")}<GlowingText bold>!</GlowingText>
+            </h1>
+            <p className="opacity-70">{t("shy")}</p>
           </header>
           
           <nav className="flex flex-col gap-4  md:items-start items-center w-full">

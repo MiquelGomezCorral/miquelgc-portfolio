@@ -3,10 +3,11 @@
 import { HeaderButtonLink } from "@/app/[locale]/(utils)/(components)/HeaderButton";
 import { IconLink } from "./IconsButtons";
 import { usePageStackStore } from "@/app/[locale]/(global_state)/state"
+import { useTranslation } from "react-i18next";
 
 export function ArrowUp() {
   const { currentPage } = usePageStackStore()
-
+  const {t} = useTranslation("footer")
   return(
     <>
       <div className="group/arrow">
@@ -23,17 +24,17 @@ export function ArrowUp() {
           />
         </figure>
         <HeaderButtonLink link="" notAddToStack stayPage className="group-hover/arrow:opacity-100">
-          ¡Llevame arriba!
+          {t("up")}
         </HeaderButtonLink>
       </div>
 
       { (currentPage === "/projects") ?
         <HeaderButtonLink link="/">
-          O... ¡Enterate bien de quién soy!
+          {t("discover")}
         </HeaderButtonLink>
         :
         <HeaderButtonLink link="/projects">
-          O... ¡Mira mis proyectos!
+          {t("projects")}
         </HeaderButtonLink>
       }
     </>
