@@ -8,7 +8,7 @@ export const getExperiences = (t: TFunction): CardType[] => {
     date: t("solver.date"),
     place: "Valencia, España",
     description: t("solver.description"),
-    technologies: ["python", "ai", "github", "pandas", "numpy", "fastapi", "jupyter", "pytorch", "sklearn", "xg-boost" ,"plotly", "matplot"], 
+    technologies: ["python", "ai", "github", "pandas", "numpy", "fastapi", "jupyter", "pytorch", "sklearn", "xg-boost" ,"plotly", "matplot", "docker"], 
     logo: "experience/Solver",
     link: "https://www.iasolver.es/",
     silly: ":D"

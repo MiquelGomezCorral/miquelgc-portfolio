@@ -23,6 +23,7 @@ export function Technology({ src }: { src: string }) {
         case "unity": return "Unity"
         case "java": return "Java"
         case "java-fx": return "Java"
+        case "docker": return "Docker"
         case "haskell": return "Haskell"
         case "mathematica": return "Mathematica"
         case "haskell": return "Haskell"
@@ -77,6 +78,7 @@ export type TechnologyString = (
   "c++" | "c-sharp" | "c" |
   "unity" | 
   "java" | "java-fx" |
+  "docker" |
   "haskell" |
   "mathematica" |
   "prolog" |
@@ -121,7 +123,7 @@ export function getTechnologyCathegories(t: TFunction): TechnologyCathegoryType[
   {
     title: t("tools.title"), 
     description: t("tools.description"),
-    techStars45: ["tailwind", "pygame", "zustand", "node", "jupyter"], 
+    techStars45: ["tailwind", "pygame", "zustand", "node", "jupyter", "docker"], 
     techStars34: ["unity", "java-fx"],
     startsUp: 5,
     startsDown: 3,

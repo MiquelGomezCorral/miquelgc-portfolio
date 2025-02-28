@@ -21,7 +21,7 @@ export const getStudies = (t: TFunction): CardType[] => {
     place: "Valencia, España",
     date: t("upv.date"), 
     description:  t("upv.description"), 
-    technologies: ["ai", "java", "sql" , "c", "sklearn", "jupyter" ,"mathematica",  "risc-v" , "java-fx", "haskell", "prolog"], 
+    technologies: ["ai", "java", "sql" , "c", "sklearn", "jupyter" ,"mathematica",  "risc-v" , "java-fx", "haskell", "prolog", "docker"], 
     logo: "studies/UPV",
     link: "https://www.upv.es/",
     silly: ":O"
