@@ -9,7 +9,7 @@ import { Icon } from "./IconsButtons";
 import { localesType, getLanguages } from '@/app/[locale]/(utils)/(constants)/languages.text.d';
 import i18nConfig from '@/i18nConfig';
 
-export default function LanguageChanger({movile}: {movile?: boolean}) {
+export default function LanguageChanger({mobile}: {mobile?: boolean}) {
   const {t, i18n } = useTranslation("languages");
   
   const currentLocale = i18n.language;
@@ -62,9 +62,9 @@ export default function LanguageChanger({movile}: {movile?: boolean}) {
       <button
         onClick={() => setOpen(!open)}
         className={
-          cn("flex items-center px-5 gap-2 opacity-70 hover:opacity-100 transform duration-300",
-            {"px-0":movile}
-      )}>
+          cn("flex items-center lg:px-5 gap-2 opacity-70 hover:opacity-100 transform duration-300 ",
+            {"px-0": mobile}
+        )}>
         <Icon 
           src={currentLang.iconSrc} 
           width={15} height={15} 
@@ -75,7 +75,7 @@ export default function LanguageChanger({movile}: {movile?: boolean}) {
       {open && (
         <div className={
           cn("absolute mt-2 bg-miquel-background shadow-md z-10 w-full border border-b-2 border-b-miquel-white-200/50 border-t-0 rounded-md rounder-t rounded-t-none",
-          {"bg-transparent -translate-x-5":movile}
+          {"bg-transparent -translate-x-5":mobile}
         )}>
           {languages.map(lang => (
             <div
@@ -83,7 +83,7 @@ export default function LanguageChanger({movile}: {movile?: boolean}) {
               onClick={() => handleChange(lang.locale)}
               className={
               cn("flex items-center cursor-pointer px-4 py-2 gap-2 hover:bg-miquel-black-100 w-full",
-              {"hover:bg-miquel-black-100/40 opacity-70 hover:opacity-100":movile}
+              {"hover:bg-miquel-black-100/40 opacity-70 hover:opacity-100":mobile}
             )}>
               <Icon src={lang.iconSrc} 
                 width={15} height={15} 

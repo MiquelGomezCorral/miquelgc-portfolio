@@ -6,21 +6,56 @@ import "@/styles/globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Gómez Corral, Miquel Porfolio web",
-  description: "Personal web portfolio",
+  title: "Miquel Gómez Corral | Portfolio",
+  description:
+    "Personal web portfolio of Miquel Gómez Corral showcasing projects, skills, and experience.",
+  keywords: [
+    "Portfolio",
+    "CV",
+    "Miquel Gómez Corral",
+    "Miquel",
+    "Miquel Gómez",
+    "Web Developer",
+    "Software Engineer",
+    "Aritficial intelligence",
+    "Machine learning",
+  ],
+  authors: [{ name: "Miquel Gómez Corral" }],
+  openGraph: {
+    title: "Miquel Gómez Corral | Portfolio",
+    description:
+      "Personal web portfolio of Miquel Gómez Corral showcasing projects, skills, and experience.",
+    url: "https://miquelgc-portfolio.vercel.app/", // Replace with your actual URL
+    siteName: "Miquel Gómez Corral Portfolio",
+    type: "website",
+    images: [
+      {
+        url: "https://miquelgc-portfolio.vercel.app/assets/projects/Portfolio (6).webp", // Replace with your actual image URL
+        width: 1200,
+        height: 630,
+        alt: "Miquel Gómez Corral Portfolio",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Miquel Gómez Corral | Portfolio",
+    description:
+      "Personal web portfolio of Miquel Gómez Corral showcasing projects, skills, and experience.",
+    images: ["https://miquelgc-portfolio.vercel.app/assets/projects/Portfolio (6).webp"],
+  },
+  icons: {
+    icon: "/assets/Tortuga_durisima_logo.ico",
+    shortcut: "/assets/Tortuga_durisima_logo.ico",
+  },
 };
 
-export default function RootLayout({ children, }: Readonly<{ children: React.ReactNode; }>) {
-  
+export default function RootLayout({children,}: {children: React.ReactNode;}) {
   return (
     <html lang="en">
-      <link rel="icon" type="image/ico" href="/assets/Tortuga_durisima_logo.ico" />
-      <meta name="descripcion" content="Desripción de la página " />
-      <title>Miquel Gómez Corral</title>
-      <body className={inter.className +
-        `h-screen w-full pt-32 gap-20 flex flex-col justify-center items-center 
-      bg-miquel-background text-miquel-white-200`
-      }>
+      <body
+        className={`${inter.className} w-full pt-32 gap-20 flex flex-col justify-center items-center bg-miquel-background text-miquel-white-200`}
+      >
         {children}
       </body>
     </html>

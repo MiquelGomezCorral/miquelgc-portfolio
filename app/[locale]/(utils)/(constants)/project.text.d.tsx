@@ -33,10 +33,10 @@ export const getProjects = (t: TFunction):  ProjectsObject => {
     descriptionShort: t("portfolio.description_short"),
     descriptionLong:t("portfolio.description_long"),
     technologies: ["html", "css", "react", "typescript", "next", "tailwind", "github"],
-    logo: "portfolio-miniatura",
-    screenShoots: ["Portfolio-miniatura","Portfolio-miniatura","Portfolio-miniatura","Portfolio-miniatura"],
+    screenShoots:Array.from({ length: 6 }, (_, i) => `Portfolio (${i+1})`),
+    logo: "Portfolio (6)",
     link: ProjectsFolder+"portfolio",
-    youtube: YouTubeEmbed+"", //video id
+    youtube: "", //video id
     github: GithubLink+"miquelgc-portfolio",
   }
 

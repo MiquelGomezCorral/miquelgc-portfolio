@@ -107,9 +107,9 @@ export function FormSendEmail(){
       );
   }
 
-  const formStyle = "p-2 rounded-md text-white bg-miquel-blue-500/20 border border-miquel-blue-400 broder-2"
+  const formStyle = "p-2 rounded-md text-white bg-miquel-blue-500/20 border border-miquel-blue-400"
   return(
-      <form onSubmit={handleSubmit} noValidate className='w-full flex flex-col p-4 border border-miquel-blue-400 rounded-md gap-2'>
+      <form onSubmit={handleSubmit} noValidate className='w-full flex flex-col p-4 border-2 border-miquel-blue-400 rounded-md gap-2'>
         <ShakeHard active={shake} fixed>
         <section className="w-full flex flex-col gap-1">
           <input 
@@ -171,6 +171,6 @@ export function FormSendEmail(){
         </section>
 
       </ShakeHard>
-      </form>
+    </form>
   )
 }

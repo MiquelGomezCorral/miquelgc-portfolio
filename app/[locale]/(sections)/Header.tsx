@@ -16,23 +16,23 @@ export default function Header() {
   const [ showMenu, setshowMenu ] = useState(false)
 
   return (
-    <>
-      <header className='fixed hidden sm:flex justify-between z-40 px-10 md:px-16 lg:px-20 py-4 w-full h-full sm:h-auto gap-10 top-0
+    <div className='flex w-full'>
+      <header className='fixed hidden lg:flex justify-between z-40 px-10 md:px-16 lg:px-20 py-4 w-full h-full sm:h-auto gap-10 top-0
       backdrop-blur-md border-b-2 border-b-miquel-white-200/50'>
         <nav className='w-max flex justify-between gap-4'>
           <GoBackButton />
           
-          <Link href="/" className="opacity-70 hover:opacity-100 transform duration-300">
+          <Link href="/" scroll={false} className="opacity-70 hover:opacity-100 transform duration-300">
             Miquel Gómez
           </Link>
         </nav>
 
         <nav className='gap-4 flex'>
           <HeaderButtonLink link="/">{t("about_me")}</HeaderButtonLink>
-          <HeaderButtonLink link="#experiences" notAddToStack>{t("experience")}</HeaderButtonLink>
-          <HeaderButtonLink link="#studies" notAddToStack>{t("studies")}</HeaderButtonLink>
+          <HeaderButtonLink link="/#experiences" notAddToStack>{t("experience")}</HeaderButtonLink>
+          <HeaderButtonLink link="/#studies" notAddToStack>{t("studies")}</HeaderButtonLink>
           <HeaderButtonLink link="/projects">{t("projects")}</HeaderButtonLink>
-          <HeaderButtonLink link="#technologies">{t("technologies")}</HeaderButtonLink>
+          <HeaderButtonLink link="/#technologies">{t("technologies")}</HeaderButtonLink>
           <HeaderButtonLink link="#footer" notAddToStack stayPage>{t("contact")}</HeaderButtonLink>
           <DownloadCV>
             <HeaderButton>{t("cv")}</HeaderButton>
@@ -43,7 +43,7 @@ export default function Header() {
 
 
       <div
-        className="fixed sm:hidden z-50 top-4 right-6 rounded-full p-2 w-9 border hover:bg-miquel-black-300 backdrop-blur-md"
+        className="fixed lg:hidden z-50 top-4 right-6 rounded-full p-2 w-9 border hover:bg-miquel-black-300 backdrop-blur-md"
         onClick={() => setshowMenu(!showMenu)}
       >
         <Icon
@@ -52,7 +52,7 @@ export default function Header() {
         />
       </div>
 
-      <header className={cn('z-40 fixed gap-4 sm:hidden flex flex-col w-full h-full top-0 left-0 py-4 backdrop-blur-md text-miquel-white-200', { "hidden": !showMenu })}>
+      <header className={cn('z-40 fixed gap-4 lg:hidden flex flex-col w-full h-full top-0 left-0 py-4 backdrop-blur-md text-miquel-white-200', { "hidden": !showMenu })}>
         <Link href="/" className="pl-4 opacity-70 hover:opacity-100 transform duration-300 text-2xl font-semibold">
           <h3>Miquel Gómez</h3>
         </Link>
@@ -63,16 +63,16 @@ export default function Header() {
           <HeaderButtonLink link="/" onClick={()=>setshowMenu(false)}>
             {t("about-me")}
           </HeaderButtonLink>
-          <HeaderButtonLink link="#experiences" notAddToStack onClick={()=>setshowMenu(false)}>
+          <HeaderButtonLink link="/#experiences" notAddToStack onClick={()=>setshowMenu(false)}>
             {t("experience")}
           </HeaderButtonLink>
-          <HeaderButtonLink link="#studies" notAddToStack onClick={()=>setshowMenu(false)}>
+          <HeaderButtonLink link="/#studies" notAddToStack onClick={()=>setshowMenu(false)}>
             {t("studies")}
           </HeaderButtonLink>
           <HeaderButtonLink link="/projects" onClick={()=>setshowMenu(false)}>
             {t("projects")}
           </HeaderButtonLink>
-          <HeaderButtonLink link="#technologies" notAddToStack stayPage onClick={()=>setshowMenu(false)}>
+          <HeaderButtonLink link="/#technologies" notAddToStack stayPage onClick={()=>setshowMenu(false)}>
             {t("technologies")}
           </HeaderButtonLink>
           <HeaderButtonLink link="#footer" notAddToStack stayPage onClick={()=>setshowMenu(false)}>
@@ -81,10 +81,10 @@ export default function Header() {
           <DownloadCV>
             <HeaderButton>{t("cv")}</HeaderButton>
           </DownloadCV>
-          <LanguageChanger movile/>
+          <LanguageChanger mobile/>
         </nav>
       </header>
 
-    </>
+    </div>
   )
 }
