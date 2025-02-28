@@ -45,8 +45,8 @@ export const metadata: Metadata = {
     images: ["https://miquelgc-portfolio.vercel.app/assets/projects/Portfolio (6).webp"],
   },
   icons: {
-    icon: "/assets/Tortuga_durisima_logo.ico",
-    shortcut: "/assets/Tortuga_durisima_logo.ico",
+    icon: "assets/projects/Portfolio (6).webp",
+    shortcut: "assets/projects/Portfolio (6).webp",
   },
 };
 
