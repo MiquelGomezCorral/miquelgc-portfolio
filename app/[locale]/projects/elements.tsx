@@ -8,11 +8,6 @@ import { ProjectType } from "@/app/[locale]/(utils)/(constants)/project.text.d";
 import { usePageStackStore } from "@/app/[locale]/(global_state)/state";
 import GlowingText from "@/app/[locale]/(utils)/(components)/GlowingText";
 import { TechnologyMarquee } from "@/app/[locale]/(utils)/(components)/Technologies";
-import initTranslations from "@/app/i18n"
-import TranslationsProvider from "@/app/[locale]/(utils)/TranslationsProvider"
-import { Marquee } from "@/app/[locale]/(utils)/(components)/Marquee";
-import Header from "@/app/[locale]/(sections)/Header";
-import Footer from "@/app/[locale]/(sections)/Footer";
 
 export function Project({ object, disabled }: { object: ProjectType, disabled?: boolean }) {
   const { goToPageFrom } = usePageStackStore()
@@ -44,7 +39,7 @@ export function Project({ object, disabled }: { object: ProjectType, disabled?: 
             <IconLink
               src="external-link" title={object.title}
               width={25} height={25}
-              link={object.link}
+              link={object.github}
               className="opacity-0 group-hover:opacity-100 transform duration-300"
             />
           </header>

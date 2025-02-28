@@ -29,14 +29,14 @@ export default function Header() {
 
         <nav className='gap-4 flex'>
           <HeaderButtonLink link="/">{t("about_me")}</HeaderButtonLink>
-          <HeaderButtonLink link="/projects">{t("projects")}</HeaderButtonLink>
           <HeaderButtonLink link="/#experiences" notAddToStack>{t("experience")}</HeaderButtonLink>
           <HeaderButtonLink link="/#studies" notAddToStack>{t("studies")}</HeaderButtonLink>
+          <HeaderButtonLink link="/projects">{t("projects")}</HeaderButtonLink>
           {/* <HeaderButtonLink link="/#skills">Habilidades</HeaderButtonLink> */}
+          <HeaderButtonLink link="#footer" notAddToStack stayPage>{t("contact")}</HeaderButtonLink>
           <DownloadCV>
             <HeaderButton>{t("cv")}</HeaderButton>
           </DownloadCV>
-          <HeaderButtonLink link="#footer" notAddToStack stayPage>{t("contact")}</HeaderButtonLink>
           <LanguageChanger/>
         </nav>
       </header>
@@ -63,23 +63,23 @@ export default function Header() {
           <HeaderButtonLink link="/" onClick={()=>setshowMenu(false)}>
             {t("about-me")}
           </HeaderButtonLink>
-          <HeaderButtonLink link="/projects" onClick={()=>setshowMenu(false)}>
-            {t("projects")}
-          </HeaderButtonLink>
           <HeaderButtonLink link="/#experiences" notAddToStack onClick={()=>setshowMenu(false)}>
             {t("experience")}
           </HeaderButtonLink>
           <HeaderButtonLink link="/#studies" notAddToStack onClick={()=>setshowMenu(false)}>
             {t("studies")}
           </HeaderButtonLink>
+          <HeaderButtonLink link="/projects" onClick={()=>setshowMenu(false)}>
+            {t("projects")}
+          </HeaderButtonLink>
           {/* <HeaderButtonLink link="/#skills" onClick={()=>setshowMenu(false)}>Habilidades</HeaderButtonLink> */}
-          <DownloadCV>
-            <HeaderButton>{t("cv")}</HeaderButton>
-          </DownloadCV>
           <HeaderButtonLink link="#footer" notAddToStack stayPage onClick={()=>setshowMenu(false)}>
             {t("contact")}
           </HeaderButtonLink>
-          <LanguageChanger/>
+          <DownloadCV>
+            <HeaderButton>{t("cv")}</HeaderButton>
+          </DownloadCV>
+          <LanguageChanger movile/>
         </nav>
       </header>
 
