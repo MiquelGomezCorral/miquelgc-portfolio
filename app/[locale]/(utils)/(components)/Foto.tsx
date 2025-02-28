@@ -29,7 +29,7 @@ export function Foto() {
     >
       <div className="absolute bg-miquel-blue-400 rounded-full blur-md w-full h-full" />
       <Image
-        src="/miquel/DNI-png@0.75x.webp"
+        src="/assets/miquel/DNI-png@0.75x.webp"
         alt="Miquel Gómez Corral"
         fill
         sizes="(max-width: 768px) 100vw, 50vw"
