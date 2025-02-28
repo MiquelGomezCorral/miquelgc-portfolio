@@ -18,7 +18,9 @@
 .hide-scrollbar {
     overflow: -moz-scrollbars-none; /* Old Firefox 
 } */
-
+html {
+    scroll-behavior: smooth;
+}
 /* Vertical scrollbar */
 ::-webkit-scrollbar {
     width: 8px; /* Vertical scrollbar width */
