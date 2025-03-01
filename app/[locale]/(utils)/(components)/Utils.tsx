@@ -8,8 +8,8 @@ export function DownloadCV({ className, ...props }: { className?: string, childr
   
   return (
     <a
-      href={`assets/miquel/curriculum-${locale}-2025-02-19.pdf`}
-      download={`assets/miquel/curriculum-${locale}-2025-02-19.pdf`}
+      href={`assets/miquel/curriculum-${locale}-2025-03-01.pdf`}
+      download={`assets/miquel/curriculum-${locale}-2025-03-01.pdf`}
       className={cn("", className)}
     >
       {props.children}
