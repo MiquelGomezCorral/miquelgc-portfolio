@@ -39,7 +39,7 @@ export function Project({ object, disabled }: { object: ProjectType, disabled?: 
             <IconLink
               src="external-link" title={object.title}
               width={25} height={25}
-              link={object.github}
+              link={object.github} blank
               className="opacity-0 group-hover:opacity-100 transform duration-300"
             />
           </header>

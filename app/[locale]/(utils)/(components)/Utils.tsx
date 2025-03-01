@@ -1,10 +1,15 @@
+"use client"
 import cn from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 export function DownloadCV({ className, ...props }: { className?: string, children: React.ReactNode}) {
+  const { i18n } = useTranslation("header")
+  const locale = i18n.language
+  
   return (
     <a
-      href="assets/miquel/curriculum-01-06-24.pdf"
-      download="assets/miquel/curriculum-01-06-24.pdf"
+      href={`assets/miquel/curriculum-${locale}-2025-02-19.pdf`}
+      download={`assets/miquel/curriculum-${locale}-2025-02-19.pdf`}
       className={cn("", className)}
     >
       {props.children}

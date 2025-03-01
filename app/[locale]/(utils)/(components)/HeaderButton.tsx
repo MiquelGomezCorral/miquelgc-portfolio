@@ -31,7 +31,7 @@ export function HeaderButtonLink({link, blank, notAddToStack, stayPage, onClick,
           onClick()
       }}
     >
-      <button className={cn("text-miquel-white opacity-70 group-hover:opacity-100 transform duration-300", className)}>
+      <button className={cn("text-miquel-white opacity-70 group-hover:opacity-100 transform duration-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)]", className)}>
         {props.children}
       </button>
     </Link>

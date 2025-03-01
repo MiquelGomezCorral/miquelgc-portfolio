@@ -9,11 +9,13 @@ import { DownloadCV } from "@/app/[locale]/(utils)/(components)/Utils";
 import { Icon } from "@/app/[locale]/(utils)/(components)/IconsButtons";
 import { CloseMenu, OpenMenu } from "@/app/[locale]/(utils)/(constants)/constants.text.d";
 import { GoBackButton } from '@/app/[locale]/(utils)/(components)/GoBackButton';
+import { usePageStackStore } from '@/app/[locale]/(global_state)/state';
 import LanguageChanger from '@/app/[locale]/(utils)/(components)/LanguageChangert';
 
 export default function Header() {
   const {t} = useTranslation("header");
   const [ showMenu, setshowMenu ] = useState(false)
+  const { currentPage } = usePageStackStore()
 
   return (
     <div className='flex w-full'>
@@ -41,9 +43,14 @@ export default function Header() {
         </nav>
       </header>
 
+      <div
+        className={cn("fixed flex justify-center items-center lg:hidden z-50 top-4 left-6 rounded-full p-2 1 w-9 border hover:bg-miquel-black-300 backdrop-blur-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)]", {"hidden": showMenu || currentPage === "/" || currentPage === "/es" })}
+      >
+        <GoBackButton />
+      </div>
 
       <div
-        className="fixed lg:hidden z-50 top-4 right-6 rounded-full p-2 w-9 border hover:bg-miquel-black-300 backdrop-blur-md"
+        className="fixed lg:hidden z-50 top-4 right-6 rounded-full p-2 w-9 border hover:bg-miquel-black-300 backdrop-blur-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)]"
         onClick={() => setshowMenu(!showMenu)}
       >
         <Icon
@@ -51,6 +58,8 @@ export default function Header() {
           width={20} height={20} 
         />
       </div>
+
+
 
       <header className={cn('z-40 fixed gap-4 lg:hidden flex flex-col w-full h-full top-0 left-0 py-4 backdrop-blur-md text-miquel-white-200', { "hidden": !showMenu })}>
         <Link href="/" className="pl-4 opacity-70 hover:opacity-100 transform duration-300 text-2xl font-semibold">
@@ -60,8 +69,8 @@ export default function Header() {
         <div className="border-b-2 border-b-miquel-white-200/50" />
 
         <nav className="flex flex-col gap-4 pl-4">
-          <HeaderButtonLink link="/" onClick={()=>setshowMenu(false)}>
-            {t("about-me")}
+          <HeaderButtonLink link="/" onClick={()=>setshowMenu(false)} >
+            {t("about_me")}
           </HeaderButtonLink>
           <HeaderButtonLink link="/#experiences" notAddToStack onClick={()=>setshowMenu(false)}>
             {t("experience")}
