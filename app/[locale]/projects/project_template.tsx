@@ -88,7 +88,7 @@ export function ProjectPageTemplate({object,  t , params }: {object: ProjectType
 //              IMAGE CARROUSEL 
 // =============================================
 
-function CarrouselItem({ screenShoot }: { screenShoot: string}) {
+export function CarrouselItem({ screenShoot }: { screenShoot: string}) {
   return (
     <figure className="relative h-full aspect-video" aria-label={screenShoot}>
       <Image

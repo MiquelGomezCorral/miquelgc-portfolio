@@ -25,6 +25,7 @@ type ProjectsObject = {
   Porfolio: ProjectType;
   OrbitsSimulator: ProjectType;
   AutoImageToAscii: ProjectType;
+  StringArt: ProjectType;
 };
 export const getProjects = (t: TFunction):  ProjectsObject => {
   const Porfolio: ProjectType = {
@@ -157,6 +158,19 @@ export const getProjects = (t: TFunction):  ProjectsObject => {
     github:  GithubLink+"Orbits-Simulator",
   }
 
+  const StringArt: ProjectType = {
+    title: t("string.title"),
+    finished: t("progress"),
+    descriptionShort: t("string.description_short"),
+    descriptionLong:t("string.description_long"),
+    technologies: ["html", "css", "react", "typescript", "next", "tailwind", "github"],
+    logo: "Orbits (1)",
+    screenShoots: [], //Array.from({ length: 8 }, (_, i) => `StringArt (${i+1})`),
+    link: ProjectsFolder+"string_art",
+    youtube: YouTubeEmbed+"", //video id
+    github:  GithubLink+"",
+  }
+
   return {
     ProceduralAnimations,
     DoublePendulum,
@@ -168,5 +182,6 @@ export const getProjects = (t: TFunction):  ProjectsObject => {
     // TetrisJavaFX,
     OrbitsSimulator,
     AutoImageToAscii,
+    StringArt,
   }
 }
