@@ -1,14 +1,17 @@
 "use client"
 
 import Cropper from 'react-easy-crop';
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import NextImage from "next/image";
 import { Icon } from '@/app/[locale]/(utils)/(components)/IconsButtons';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/app/[locale]/(utils)/(components)/Button';
 
 
-
+type point = {
+  x: number,
+  y: number,
+}
 
 export function StringArtComponent(){
   const {t} = useTranslation("projects")
@@ -16,12 +19,33 @@ export function StringArtComponent(){
   const [selectedImage, setSelectedImage] = useState("/assets/projects/Einstein.webp");
   const fileUploadRef = useRef<HTMLInputElement>(null);
 
+  const [creatingImage, setCreatingImage] = useState(true);
   const [croppingCompleted, setCroppingCompleted] = useState(true);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<{ x: number; y: number; width: number; height: number } | null>(null);
 
   const [imageMatrix, setImageMatrix] = useState<number[][]>()
+  const [numNails, setNumNails] = useState(300)
+  const [nailVector, setNailVector] = useState<point[]>([])
+  const [maxLines, setMaxLines] = useState(5000) 
+  const [linesDrawn, setLinesDrawn] = useState(0) 
+  const [linesVector, setLinesVector] = useState<number[]>([]) 
+  
+  const margin = 10
+  const radius = 300 - margin
+  useEffect(() => {
+    const d = (360 / numNails) * (Math.PI / 180) // convert to radians
+    const nails: point[] = []
+    for(let i = 0; i < numNails; i++){
+      nails.push({
+        x: Math.cos(d*i) * radius + radius + margin,
+        y: Math.sin(d*i) * radius + radius + margin,
+      })
+    }
+    setNailVector(nails)
+  },[numNails, radius, margin])
+
 
 
   const handleImageUpload = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -39,10 +63,26 @@ export function StringArtComponent(){
     setCroppingCompleted(false)
   }
 
+  const createImage = () =>{
+    let count = 0;
+    const interval = setInterval(() => {
+      const nextNail = Math.floor(Math.random() * numNails)
+      
+      setLinesVector((prev) => [...prev, nextNail])
+      setLinesDrawn((prevLinesDrawn) => prevLinesDrawn + 1)
+      count++;
+  
+      if (count >= maxLines) clearInterval(interval); // Stop after maxLines
+    }, 0);
+  }
 
   return(
     <section className='w-full flex gap-10 flex-col items-center'>
-      <figure className='relative flex justify-center w-full max-w-[500px] lg:min-w-[300px] aspect-square rounded-full'>
+      <p className='flex w-full'>
+        {linesDrawn}/{maxLines} <br/>
+        {linesDrawn*100/maxLines}%
+      </p>
+      <figure className='relative flex justify-center w-full max-w-[600px] lg:min-w-[300px] aspect-square rounded-full'>
         {!croppingCompleted ? 
           <Cropper
             image={selectedImage}
@@ -53,13 +93,28 @@ export function StringArtComponent(){
             onZoomChange={setZoom}
             onCropComplete={(_, croppedArea) => setCroppedAreaPixels(croppedArea)}
           />
-          :
+          : (!creatingImage ?
           <NextImage
             src={selectedImage}
             fill
             alt={selectedImage}
             className='rounded-full'
           />
+          :
+          <svg width={(radius+margin)*2} height={(radius+margin)*2} className="bg-white/80">
+            {nailVector.map((nail, idx) => (
+              <circle key={idx} cx={nail.x} cy={nail.y} r={1.5} fill="#000" />
+            ))}
+            {linesVector.slice(1).map((nextNail, idx) => (
+              <line key={idx} stroke="black" strokeWidth={0.1}
+                x1={nailVector[linesVector[idx]].x} 
+                y1={nailVector[linesVector[idx]].y} 
+                x2={nailVector[nextNail].x} 
+                y2={nailVector[nextNail].y} 
+              />
+            ))}
+          </svg>
+          )
         }
       </figure>
       <nav className='flex flex-col items-center gap-4 w-'>
@@ -86,9 +141,7 @@ export function StringArtComponent(){
 
         <Button
           disabled={!croppingCompleted}
-          onClick={() => {
-            
-          }}
+          onClick={createImage}
         > 
           <Icon 
             src={"star"}
