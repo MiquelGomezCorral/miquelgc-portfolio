@@ -31,14 +31,17 @@ export function StringArtComponent(){
   const [imageSize, setImazeSize] = useState(1900)
 
   const [imageMatrix, setImageMatrix] = useState<number[][]>([[]])
-  const [computedImageMatrix, setComputedImageMatrix] = useState<number[][]>([[]])
+  const [errorMatrix, setErrorMatrix] = useState<number[][]>([[]])
   const [lineWidth, setLineWidth] = useState(0.25)
   const [numNails, setNumNails] = useState(300)
   const [nailVector, setNailVector] = useState<nail[]>([])
-  const [maxLines, setMaxLines] = useState(10000) 
+  const [maxLines, setMaxLines] = useState(3000) 
   const [linesDrawn, setLinesDrawn] = useState(0) 
   const [linesVector, setLinesVector] = useState<number[]>([Math.floor(Math.random() * numNails)]) 
+  // const [totalError, setTotalError] = useState(0)
   
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
   const precomputedLines = useRef(new Map());
   const margin = 10
   const radius = 300 
@@ -58,27 +61,23 @@ export function StringArtComponent(){
     
   },[numNails, radius, margin])
 
-  // useEffect(()=>{
-  //   if (nailVector.length !== numNails) return
-
-  //   const newPrecomputedLines = new Map();
-
-  //   for (let i = 0; i < numNails; i++) {
-  //     for (let j = i + 1; j < numNails; j++) {
-  //       const pixels = computeLinePixels(nailVector[i], nailVector[j], imageSize, radius*2);
-  //       newPrecomputedLines.set(`${i}-${j}`, pixels);
-  //     }
-  //   }
-  
-  //   precomputedLines.current = newPrecomputedLines;
-  // },[imageSize, nailVector])
+  useEffect(() => {
+    return () => {
+      setCreatingImage((prevCreatingImage)=>{
+        if (intervalRef.current && !prevCreatingImage) 
+          clearInterval(intervalRef.current);
+        
+        setLinesDrawn(0)
+        return prevCreatingImage
+      })
+    };
+  }, [creatingImage]);
 
 
   const handleImageUpload = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
     fileUploadRef.current?.click()
   }
-
   const uploadIMageDisplay = () => {
     if (!(fileUploadRef.current && fileUploadRef.current.files)) return // No selected file
 
@@ -87,7 +86,6 @@ export function StringArtComponent(){
     setSelectedImage(cacheURL)
     setCroppingCompleted(false)  
     setCreatingImage(false)
-
   }
   const handleCropImage = async () => {
     if (croppedAreaPixels) {
@@ -95,37 +93,37 @@ export function StringArtComponent(){
       setSelectedImage(image);
       setCroppingCompleted(true);
       setImageMatrix(matrix)
-      setComputedImageMatrix(blankMatrix)    
+      setErrorMatrix(blankMatrix)    
 
       setImazeSize(matrix.length)
 
       setLinesVector([Math.floor(Math.random() * numNails)]) 
       setLinesDrawn(0)     
-           
     }
   }
 
   const createImage = () =>{
     setCreatingImage(true)
-    
-    // First nail at random
-    // setLinesVector([Math.floor(Math.random() * numNails)])
 
     let count = 0;
-    const interval = setInterval(() => {
+    let computedErrorMatrix = errorMatrix.map((row) => [...row]);
+    intervalRef.current = setInterval(() => {
+      if (count >= maxLines - 1 && intervalRef.current){
+        clearInterval(intervalRef.current)
+      }
       // CHOOSE NEXT NAIL
-      setLinesVector((prev) => {
-        const prevNail = prev[prev.length-1]
+      setLinesVector((prevNailsVector) => {
+        const prevNail = prevNailsVector[prevNailsVector.length-1]
         let nextNail = Math.floor(Math.random() * numNails)
-        let highestScore = computeLoss(prevNail, nextNail)
+        let highestScore = computeError(computedErrorMatrix, prevNail, nextNail)
 
         for(let i = 0; i < numNails; i++){
           // MAKE THAT ONLY TAKES INTO ACOUNT LINE FURHTER THAN 10 POSTIONS %
           const up = (i + neighbourtNailMargin) % numNails
-          const down = (i - neighbourtNailMargin) % numNails
-          if ((prevNail <= up && prevNail >= down) || nailVector[prevNail].usedWith.has(i)) continue //Avoid using nails close to the acutal
+          const down = (i - neighbourtNailMargin + numNails) % numNails
+          if ((prevNail <= up && prevNail >= down) || nailVector[prevNail].usedWith.has(i) || prevNailsVector.slice(-10).includes(i)) continue //Avoid using nails close to the acutal
 
-          const auxScore = computeLoss(prevNail, i)
+          const auxScore = computeError(computedErrorMatrix, prevNail, i)
 
           if(highestScore < auxScore){
             highestScore = auxScore
@@ -134,37 +132,32 @@ export function StringArtComponent(){
         }
 
         // UPDATE DRAWN MATRIX
-        updateComputeImageMatrix(prevNail, nextNail)
+        computedErrorMatrix = updateComputeImageMatrix(computedErrorMatrix, prevNail, nextNail)
         nailVector[prevNail].usedWith.add(nextNail)
         nailVector[nextNail].usedWith.add(prevNail)
 
-        return [...prev, nextNail]
+        return [...prevNailsVector, nextNail]
       })
       
       // UPDATE VALUES
       setLinesDrawn((prevLinesDrawn) => prevLinesDrawn + 1)
       count++;
-      if (count >= maxLines) clearInterval(interval); // Stop after maxLines
+      // setErrorMatrix(computedErrorMatrix)
     }, 0);
   }
-  const computeLoss = (nail1Idx: number, nail2Idx: number) => {
-    let score = 0
+  const computeError = (computedErrorMatrix: number[][], nail1Idx: number, nail2Idx: number) => {
+    let error = 0
+    let affectedPixels = 0 
     
     let {x1, y1, x2, y2, dx, dy, sx, sy} = getVariableForPixelSearch(nailVector[nail1Idx].x, nailVector[nail1Idx].y, nailVector[nail2Idx].x, nailVector[nail2Idx].y, imageSize, radius*2)
     const actual: point = {x: x1, y: y1}
     let err = dx - dy
 
-    let affectedPixels = 0 
     do{ //at least one pixel is going to be affected
       affectedPixels++
-      // const target = imageMatrix[actual.y][actual.x];
-      const actualComputed = computedImageMatrix[actual.y][actual.x]
-      // const coverage = getLineCoverage(x1, y1, x2, y2, lineWidth, actual.x, actual.y)
-      // const newPixelValue = Math.max(actualComputed - (coverage * 255), 0) // 
+      const actualError = computedErrorMatrix[actual.y][actual.x]
 
-      // // METRIC
-      // const weight = 1 - (255 - target) / 510;
-      score +=  255 - actualComputed // 255 / Math.abs(Math.abs(actualComputed - target) - Math.abs(newPixelValue - target)) // (255 - actualComputed)//
+      error +=  actualError 
 
       // Calculate error and adjust coordinates
       let e2 = err * 2
@@ -178,43 +171,34 @@ export function StringArtComponent(){
       }
     } while (actual.x !== x2 || actual.y !== y2)
     
-    return score / affectedPixels //pixels.length
+    return error / affectedPixels 
   }
 
-  const updateComputeImageMatrix = (nail1Idx: number, nail2Idx: number) => {
-    setComputedImageMatrix((prev)=> {
-      let {x1, y1, x2, y2, dx, dy, sx, sy} = getVariableForPixelSearch(nailVector[nail1Idx].x, nailVector[nail1Idx].y, nailVector[nail2Idx].x, nailVector[nail2Idx].y, imageSize, radius*2)
-      // const newMatrix: number[][] = []
-      // for (let i = 0; i < prev.length; i++) {
-      //   newMatrix[i] = [...prev[i]];
-      // }
-      const newMatrix = prev.map((row) => [...row]);
+  const updateComputeImageMatrix = (prevErrorMatrix:number[][], nail1Idx: number, nail2Idx: number) => {
+    let {x1, y1, x2, y2, dx, dy, sx, sy} = getVariableForPixelSearch(nailVector[nail1Idx].x, nailVector[nail1Idx].y, nailVector[nail2Idx].x, nailVector[nail2Idx].y, imageSize, radius*2)
+    const newMatrix = prevErrorMatrix.map((row) => [...row]);
 
-      let coverage
-      let newPixelValue
-      
-      const actual: point = {x: x1, y: y1}
-      let err = dx - dy    
+    const actual: point = {x: x1, y: y1}
+    let err = dx - dy    
 
-      do{
-        // coverage = getLineCoverage(x1, y1, x2, y2, lineWidth, actual.x, actual.y)
-        newPixelValue = Math.min(prev[actual.y][actual.x] + 10, 255) // (coverage * 255)
-        newMatrix[actual.y][actual.x] = newPixelValue
+    do{
+      const newPixelValue = Math.max(prevErrorMatrix[actual.y][actual.x] - 255*lineWidth, 0) 
+      newMatrix[actual.y][actual.x] = newPixelValue
 
-        // Calculate error and adjust coordinates
-        let e2 = err * 2
-        if (e2 > -dy) {
-            err -= dy
-            actual.x += sx
-        }
-        if (e2 < dx) {
-            err += dx
-            actual.y += sy
-        }
-      } while (actual.x !== x2 || actual.y !== y2)
-      
-      return newMatrix
-  })}
+      // Calculate error and adjust coordinates
+      let e2 = err * 2
+      if (e2 > -dy) {
+          err -= dy
+          actual.x += sx
+      }
+      if (e2 < dx) {
+          err += dx
+          actual.y += sy
+      }
+    } while (actual.x !== x2 || actual.y !== y2)
+    
+    return newMatrix
+}
 
   return(
     <section className='w-full flex gap-10 flex-col items-center'>
@@ -222,7 +206,7 @@ export function StringArtComponent(){
 
         <p className='flex w-full'>
           {linesDrawn}/{maxLines} <br/>
-          {Math.round(linesDrawn*100*100/maxLines) / 100}%
+          {Math.round(linesDrawn*100*100/maxLines) / 100}%  <br/>
         </p>
         <figure className='relative flex justify-center w-full max-w-[600px] lg:min-w-[300px] aspect-square rounded-full'>
           {!croppingCompleted ? 
@@ -259,22 +243,10 @@ export function StringArtComponent(){
             )
           }
         </figure>
-        
-        
-        <figure className='relative flex justify-center w-full max-w-[600px] lg:min-w-[300px] aspect-square rounded-full'>
-          {creatingImage && updateImage && <MatrixImage matrix={computedImageMatrix} />}
-        </figure>
+              
         </div>
 
       <nav className='flex flex-col items-center gap-4 w-'>
-        <Button
-          disabled={!creatingImage}
-          onClick={() => {
-            setUpdateImage((prev) => !prev)
-          }}
-        > 
-          Update matrix
-        </Button>
         <Button
           disabled={croppingCompleted}
           onClick={handleCropImage}
@@ -371,7 +343,7 @@ async function getCroppedImg(imageSrc: string, pixelCrop: { x: number; y: number
     // Create a new matrix with the same dimensions
   const blankMatrix: number[][] = matrix.map(row => 
     row.map(value => {
-      return value; 
+      return 255 - value; 
     })
   );
 
@@ -379,27 +351,6 @@ async function getCroppedImg(imageSrc: string, pixelCrop: { x: number; y: number
   return {image: canvas.toDataURL("image/webp"), matrix, blankMatrix};
 }
 
-function getLineCoverage(
-  x1: number, y1: number, x2: number, y2: number, 
-  strokeWidth: number, pixelX: number, pixelY: number
-): number {
-  
-  // Calculate the perpendicular distance from the pixel center (pixelX, pixelY) to the line (x1, y1) to (x2, y2)
-  const dx = x2 - x1;
-  const dy = y2 - y1;
-  const numerator = Math.abs(dy * pixelX - dx * pixelY + x2 * y1 - y2 * x1);
-  const denominator = Math.sqrt(dy * dy + dx * dx);
-  
-  const distance = numerator / denominator;
-
-  // If the distance is smaller than or equal to half the stroke width, the pixel is affected
-  if (distance <= strokeWidth / 2) {
-    // Calculate the coverage as the ratio of distance to stroke width
-    return 1 - (distance / (strokeWidth / 2));
-  }
-
-  return 0;
-}
 
 function getVariableForPixelSearch(nailx1: number, naily1: number, nailx2: number, naily2: number, imageSize: number, canvasSize: number){
   const {x: x1, y: y1} = {x: Math.floor(nailx1*imageSize/canvasSize), y: Math.floor(naily1*imageSize/canvasSize)}
@@ -415,86 +366,82 @@ function getVariableForPixelSearch(nailx1: number, naily1: number, nailx2: numbe
   return {x1, y1, x2, y2, dx, dy, sx, sy}
 }
 
+//   const height = matrix.length;
+//   const width = matrix[0].length;
 
+//   const canvas = document.createElement("canvas");
+//   canvas.width = width;
+//   canvas.height = height;
+//   const ctx = canvas.getContext("2d")!;
 
+//   const imageData = ctx.createImageData(width, height);
+//   const data = imageData.data;
 
-const matrixToImage = (matrix: number[][]): string => {
-  const height = matrix.length;
-  const width = matrix[0].length;
+//   for (let y = 0; y < height; y++) {
+//     for (let x = 0; x < width; x++) {
+//       const gray = matrix[y][x]; // Value between 0-255
+//       const index = (y * width + x) * 4; // RGBA format
 
-  const canvas = document.createElement("canvas");
-  canvas.width = width;
-  canvas.height = height;
-  const ctx = canvas.getContext("2d")!;
+//       data[index] = gray;     // Red
+//       data[index + 1] = gray; // Green
+//       data[index + 2] = gray; // Blue
+//       data[index + 3] = 255;  // Alpha (fully opaque)
+//     }
+//   }
 
-  const imageData = ctx.createImageData(width, height);
-  const data = imageData.data;
+//   ctx.putImageData(imageData, 0, 0);
 
-  for (let y = 0; y < height; y++) {
-    for (let x = 0; x < width; x++) {
-      const gray = matrix[y][x]; // Value between 0-255
-      const index = (y * width + x) * 4; // RGBA format
+//   return canvas.toDataURL(); // Convert to base64 URL
+// };
 
-      data[index] = gray;     // Red
-      data[index + 1] = gray; // Green
-      data[index + 2] = gray; // Blue
-      data[index + 3] = 255;  // Alpha (fully opaque)
-    }
-  }
+// export default function MatrixImage({ matrix }: { matrix: number[][] }) {
+//   const [imageSrc, setImageSrc] = useState<string | null>(null);
 
-  ctx.putImageData(imageData, 0, 0);
+//   useEffect(() => {
+//     if (matrix.length > 0) {
+//       setImageSrc(matrixToImage(matrix));
+//     }
+//   }, [matrix]);
 
-  return canvas.toDataURL(); // Convert to base64 URL
-};
+//   return (
+//     <div>
+//       {imageSrc ? (
+//         <img src={imageSrc} alt="Grayscale Matrix" />
+//       ) : (
+//         <p>Generating image...</p>
+//       )}
+//     </div>
+//   );
+// }
 
-export default function MatrixImage({ matrix }: { matrix: number[][] }) {
-  const [imageSrc, setImageSrc] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (matrix.length > 0) {
-      setImageSrc(matrixToImage(matrix));
-    }
-  }, [matrix]);
-
-  return (
-    <div>
-      {imageSrc ? (
-        <img src={imageSrc} alt="Grayscale Matrix" />
-      ) : (
-        <p>Generating image...</p>
-      )}
-    </div>
-  );
-}
-
-const computeLinePixels = (nail1: nail, nail2: nail, imageSize: number, canvasSize: number) => {
-  let pixels = [];
+// const computeLinePixels = (nail1: nail, nail2: nail, imageSize: number, canvasSize: number) => {
+//   let pixels = [];
   
-  let {x: x1, y: y1} = {x: Math.floor(nail1.x*imageSize/canvasSize), y: Math.floor(nail1.y*imageSize/canvasSize)}
-  let {x: x2, y: y2} = {x: Math.floor(nail2.x*imageSize/canvasSize), y: Math.floor(nail2.y*imageSize/canvasSize)}
+//   let {x: x1, y: y1} = {x: Math.floor(nail1.x*imageSize/canvasSize), y: Math.floor(nail1.y*imageSize/canvasSize)}
+//   let {x: x2, y: y2} = {x: Math.floor(nail2.x*imageSize/canvasSize), y: Math.floor(nail2.y*imageSize/canvasSize)}
   
 
-  let dx = Math.abs(x2 - x1);
-  let dy = Math.abs(y2 - y1);
-  let sx = x1 < x2 ? 1 : -1;
-  let sy = y1 < y2 ? 1 : -1;
-  let err = dx - dy;
+//   let dx = Math.abs(x2 - x1);
+//   let dy = Math.abs(y2 - y1);
+//   let sx = x1 < x2 ? 1 : -1;
+//   let sy = y1 < y2 ? 1 : -1;
+//   let err = dx - dy;
 
-  while (true) {
-    pixels.push({ x: x1, y: y1 });
+//   while (true) {
+//     pixels.push({ x: x1, y: y1 });
 
-    if (x1 === x2 && y1 === y2) break;
+//     if (x1 === x2 && y1 === y2) break;
 
-    let e2 = err * 2;
-    if (e2 > -dy) {
-      err -= dy;
-      x1 += sx;
-    }
-    if (e2 < dx) {
-      err += dx;
-      y1 += sy;
-    }
-  }
+//     let e2 = err * 2;
+//     if (e2 > -dy) {
+//       err -= dy;
+//       x1 += sx;
+//     }
+//     if (e2 < dx) {
+//       err += dx;
+//       y1 += sy;
+//     }
+//   }
 
-  return pixels;
-};
+//   return pixels;
+// };
