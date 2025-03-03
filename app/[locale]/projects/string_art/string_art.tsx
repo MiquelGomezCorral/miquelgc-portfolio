@@ -1,5 +1,6 @@
 "use client"
 
+import cn from "classnames"
 import Cropper from 'react-easy-crop';
 import { useState, useRef, useEffect } from "react";
 import NextImage from "next/image";
@@ -32,20 +33,21 @@ export function StringArtComponent(){
 
   const [imageMatrix, setImageMatrix] = useState<number[][]>([[]])
   const [errorMatrix, setErrorMatrix] = useState<number[][]>([[]])
-  const [lineWidth, setLineWidth] = useState(0.25)
-  const [numNails, setNumNails] = useState(300)
+  const [lineWidth, setLineWidth] = useState(0.20)
+  const [numNails, setNumNails] = useState(288)
   const [nailVector, setNailVector] = useState<nail[]>([])
-  const [maxLines, setMaxLines] = useState(3000) 
+  const [maxLines, setMaxLines] = useState(3500) 
   const [linesDrawn, setLinesDrawn] = useState(0) 
   const [linesVector, setLinesVector] = useState<number[]>([Math.floor(Math.random() * numNails)]) 
-  // const [totalError, setTotalError] = useState(0)
+  const [totalTime, setTotalTime] = useState(0)
+  const [stimatedTime, setStimatedTime] = useState(0)
   
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const precomputedLines = useRef(new Map());
   const margin = 10
-  const radius = 300 
-  const neighbourtNailMargin = Math.ceil(numNails*0.03)
+  const radius = 350 
+  const neighbourtNailMargin = Math.ceil(numNails*0.035)
   useEffect(() => {
     // GET NAILS
     const d = (360 / numNails) * (Math.PI / 180) // convert to radians
@@ -105,6 +107,7 @@ export function StringArtComponent(){
   const createImage = () =>{
     setCreatingImage(true)
 
+    const t1 = performance.now()
     let count = 0;
     let computedErrorMatrix = errorMatrix.map((row) => [...row]);
     intervalRef.current = setInterval(() => {
@@ -141,6 +144,11 @@ export function StringArtComponent(){
       
       // UPDATE VALUES
       setLinesDrawn((prevLinesDrawn) => prevLinesDrawn + 1)
+      if(count % 10 == 0 || count == 2) {
+        const computedTime = Math.round((performance.now() - t1)/100)/10
+        setTotalTime(computedTime) // 2 digits precision
+        setStimatedTime(Math.round((computedTime / count) * (maxLines - count) * 100) / 100)
+      }
       count++;
       // setErrorMatrix(computedErrorMatrix)
     }, 0);
@@ -202,13 +210,18 @@ export function StringArtComponent(){
 
   return(
     <section className='w-full flex gap-10 flex-col items-center'>
-      <div className='flex flex-col gap-10'>
-
-        <p className='flex w-full'>
-          {linesDrawn}/{maxLines} <br/>
-          {Math.round(linesDrawn*100*100/maxLines) / 100}%  <br/>
-        </p>
-        <figure className='relative flex justify-center w-full max-w-[600px] lg:min-w-[300px] aspect-square rounded-full'>
+      <div className='flex flex-col items-center gap-2'>
+        <header className={cn("flex w-full flex-col", {"opacity-0": !creatingImage})}>
+          <span className="flex w-full justify-between"> 
+            <p>{linesDrawn}/{maxLines} </p>
+            <p>{Math.round(linesDrawn*100*100/maxLines) / 100}% </p>
+          </span>
+          <span className="flex w-full justify-between">
+            <p>Total time: {secondsToTime(totalTime)}</p>
+            <p>Stimated time:  {secondsToTime(stimatedTime)}</p>
+          </span>
+        </header>
+        <figure className='relative flex justify-center w-[700px] lg:min-w-[300px] aspect-square rounded-full'>
           {!croppingCompleted ? 
             <Cropper
               image={selectedImage}
@@ -244,9 +257,9 @@ export function StringArtComponent(){
           }
         </figure>
               
-        </div>
+      </div>
 
-      <nav className='flex flex-col items-center gap-4 w-'>
+      <nav className='flex flex-col items-center gap-4'>
         <Button
           disabled={croppingCompleted}
           onClick={handleCropImage}
@@ -365,6 +378,19 @@ function getVariableForPixelSearch(nailx1: number, naily1: number, nailx2: numbe
 
   return {x1, y1, x2, y2, dx, dy, sx, sy}
 }
+
+
+function secondsToTime(sec: number): string{
+  const minutes = Math.floor(sec/60)
+  const seconds = Math.floor(sec%60)
+  
+  // Pad minutes and seconds with leading zeros
+  const formattedMinutes = String(minutes).padStart(2, "0");
+  const formattedSeconds = String(seconds).padStart(2, "0");
+
+  return `${formattedMinutes}min ${formattedSeconds}sec`;
+}
+
 
 //   const height = matrix.length;
 //   const width = matrix[0].length;
