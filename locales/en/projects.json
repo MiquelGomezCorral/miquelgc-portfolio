@@ -55,6 +55,9 @@
         "description_long": "The Three-Body Problem, a good Netflix series, shows what can happen in the universe when physics are involved with large objects (planets and stars). Here, I simulate the interaction of some objects using simple Newton's equations implemented in C++. We can enable collisions and make the objects behave like bouncing balls. Super fun.",
         "upload": "Upload image",
         "crop": "Crop image",
-        "start": "Start"
+        "start": "Start",
+        "stop": "Stop",
+        "continue": "Continue",
+        "restart": "Restart"
     }
 }

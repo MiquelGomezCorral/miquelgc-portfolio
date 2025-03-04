@@ -3,7 +3,7 @@
 import cn from "classnames"
 import emailjs from '@emailjs/browser';
 import { useState } from 'react';
-import { Button } from './Button';
+import { Button } from './FormComponents';
 import { useTranslation } from "react-i18next";
 import { ShakeHard } from 'reshake'
 
@@ -107,7 +107,7 @@ export function FormSendEmail(){
       );
   }
 
-  const formStyle = "p-2 rounded-md text-white bg-miquel-blue-500/20 border border-miquel-blue-400"
+  const formStyle = "p-2 rounded-md text-white bg-miquel-blue-500/20 border border-miquel-blue-400 transform duration-300"
   return(
       <form onSubmit={handleSubmit} noValidate className='w-full flex flex-col p-4 border-2 border-miquel-blue-400 rounded-md gap-2'>
         <ShakeHard active={shake} fixed>

@@ -6,7 +6,7 @@ import { useState, useRef, useEffect } from "react";
 import NextImage from "next/image";
 import { Icon } from '@/app/[locale]/(utils)/(components)/IconsButtons';
 import { useTranslation } from 'react-i18next';
-import { Button } from '@/app/[locale]/(utils)/(components)/Button';
+import { Button, Input } from '@/app/[locale]/(utils)/(components)/FormComponents';
 
 
 type point = {
@@ -31,14 +31,15 @@ export function StringArtComponent(){
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<{ x: number; y: number; width: number; height: number } | null>(null);
   const [imageSize, setImazeSize] = useState(1900)
 
-  const [imageMatrix, setImageMatrix] = useState<number[][]>([[]])
   const [errorMatrix, setErrorMatrix] = useState<number[][]>([[]])
+  const [inUseErrorMatrix, setInUseErrorMatrix] = useState<number[][]>([[]])
   const [lineWidth, setLineWidth] = useState(0.20)
-  const [numNails, setNumNails] = useState(288)
+  const [numPins, setNumPins] = useState(288)
   const [nailVector, setNailVector] = useState<nail[]>([])
   const [maxLines, setMaxLines] = useState(3500) 
   const [linesDrawn, setLinesDrawn] = useState(0) 
-  const [linesVector, setLinesVector] = useState<number[]>([Math.floor(Math.random() * numNails)]) 
+  const [linesVector, setLinesVector] = useState<number[]>([Math.floor(Math.random() * numPins)]) 
+  const [initialTime, setInitialTime] = useState(0)
   const [totalTime, setTotalTime] = useState(0)
   const [stimatedTime, setStimatedTime] = useState(0)
   
@@ -47,21 +48,21 @@ export function StringArtComponent(){
   const precomputedLines = useRef(new Map());
   const margin = 10
   const radius = 350 
-  const neighbourtNailMargin = Math.ceil(numNails*0.035)
+  const neighbourtNailMargin = Math.ceil(numPins*0.035)
   useEffect(() => {
     // GET NAILS
-    const d = (360 / numNails) * (Math.PI / 180) // convert to radians
-    const nails: nail[] = []
-    for(let i = 0; i < numNails; i++){
-      nails.push({
+    const d = (360 / numPins) * (Math.PI / 180) // convert to radians
+    const pins: nail[] = []
+    for(let i = 0; i < numPins; i++){
+      pins.push({
         x: Math.cos(d*i) * (radius - margin) + radius,
         y: Math.sin(d*i) * (radius - margin) + radius,
         usedWith: new Set<number>(),
       })
     }
-    setNailVector(nails)
+    setNailVector(pins)
     
-  },[numNails, radius, margin])
+  },[numPins, radius, margin])
 
   useEffect(() => {
     return () => {
@@ -69,7 +70,6 @@ export function StringArtComponent(){
         if (intervalRef.current && !prevCreatingImage) 
           clearInterval(intervalRef.current);
         
-        setLinesDrawn(0)
         return prevCreatingImage
       })
     };
@@ -91,40 +91,49 @@ export function StringArtComponent(){
   }
   const handleCropImage = async () => {
     if (croppedAreaPixels) {
-      const {image, matrix, blankMatrix} = await getCroppedImg(selectedImage, croppedAreaPixels);
+      const {image, errorMatrix} = await getCroppedImg(selectedImage, croppedAreaPixels);
       setSelectedImage(image);
       setCroppingCompleted(true);
-      setImageMatrix(matrix)
-      setErrorMatrix(blankMatrix)    
+      setErrorMatrix(errorMatrix)    
+      setInUseErrorMatrix(errorMatrix)    
 
-      setImazeSize(matrix.length)
-
-      setLinesVector([Math.floor(Math.random() * numNails)]) 
+      setImazeSize(errorMatrix.length)
       setLinesDrawn(0)     
     }
   }
 
-  const createImage = () =>{
-    setCreatingImage(true)
 
-    const t1 = performance.now()
-    let count = 0;
-    let computedErrorMatrix = errorMatrix.map((row) => [...row]);
-    intervalRef.current = setInterval(() => {
+  const createImage = (reset: boolean) => {
+    let newLinesVector = linesVector
+    let t1 = initialTime
+    let count = linesDrawn
+    let computedErrorMatrix = inUseErrorMatrix
+    if(reset){
+      newLinesVector = [Math.floor(Math.random() * numPins)]
+      t1 = performance.now()
+      count = 0
+      computedErrorMatrix = errorMatrix.map((row) => [...row]);
+    }
+
+    setLinesVector(newLinesVector) 
+    setInitialTime(t1)
+    setInUseErrorMatrix(computedErrorMatrix)
+
+    intervalRef.current = setInterval(() =>{
       if (count >= maxLines - 1 && intervalRef.current){
         clearInterval(intervalRef.current)
       }
       // CHOOSE NEXT NAIL
-      setLinesVector((prevNailsVector) => {
-        const prevNail = prevNailsVector[prevNailsVector.length-1]
-        let nextNail = Math.floor(Math.random() * numNails)
+      setLinesVector((prevPinsVector) => {
+        const prevNail = prevPinsVector[prevPinsVector.length-1]
+        let nextNail = Math.floor(Math.random() * numPins)
         let highestScore = computeError(computedErrorMatrix, prevNail, nextNail)
 
-        for(let i = 0; i < numNails; i++){
+        for(let i = 0; i < numPins; i++){
           // MAKE THAT ONLY TAKES INTO ACOUNT LINE FURHTER THAN 10 POSTIONS %
-          const up = (i + neighbourtNailMargin) % numNails
-          const down = (i - neighbourtNailMargin + numNails) % numNails
-          if ((prevNail <= up && prevNail >= down) || nailVector[prevNail].usedWith.has(i) || prevNailsVector.slice(-10).includes(i)) continue //Avoid using nails close to the acutal
+          const up = (i + neighbourtNailMargin) % numPins
+          const down = (i - neighbourtNailMargin + numPins) % numPins
+          if ((prevNail <= up && prevNail >= down) || nailVector[prevNail].usedWith.has(i) || prevPinsVector.slice(-10).includes(i)) continue //Avoid using pins close to the acutal
 
           const auxScore = computeError(computedErrorMatrix, prevNail, i)
 
@@ -139,7 +148,7 @@ export function StringArtComponent(){
         nailVector[prevNail].usedWith.add(nextNail)
         nailVector[nextNail].usedWith.add(prevNail)
 
-        return [...prevNailsVector, nextNail]
+        return [...prevPinsVector, nextNail]
       })
       
       // UPDATE VALUES
@@ -209,7 +218,7 @@ export function StringArtComponent(){
 }
 
   return(
-    <section className='w-full flex gap-10 flex-col items-center'>
+    <section className='w-full flex gap-4 flex-col items-center'>
       <div className='flex flex-col items-center gap-2'>
         <header className={cn("flex w-full flex-col", {"opacity-0": !creatingImage})}>
           <span className="flex w-full justify-between"> 
@@ -232,7 +241,7 @@ export function StringArtComponent(){
               onZoomChange={setZoom}
               onCropComplete={(_, croppedArea) => setCroppedAreaPixels(croppedArea)}
             />
-            : (!creatingImage ?
+            : ((!creatingImage && !intervalRef.current) ?
             <NextImage
               src={selectedImage}
               fill
@@ -259,52 +268,86 @@ export function StringArtComponent(){
               
       </div>
 
-      <nav className='flex flex-col items-center gap-4'>
-        <Button
-          disabled={croppingCompleted}
-          onClick={handleCropImage}
-        > 
-          <Icon 
-            src={"crop"}
-            height={20}
-            width={20}
-            title={"crop"}
-          />
-          {t("string.crop")}
-        </Button>
-
-        <Button
-          disabled={!croppingCompleted || creatingImage}
-          onClick={createImage}
-        > 
-          <Icon 
-            src={"star"}
-            height={20}
-            width={20}
-            title={"star"}
-          />
-          {t("string.start")}
-        </Button>
-
-        <form id='form' encType='multipart/form-data' action="">
-          <Button type='submit' className=''
-            onClick={handleImageUpload}
-          >
+      <nav className='flex items-center gap-4 w-full'>
+        <aside className="w-full flex gap-4">
+          <Button
+            disabled={croppingCompleted}
+            onClick={handleCropImage}
+          > 
             <Icon 
-              src={"upload"}
+              src={"crop"}
               height={20}
               width={20}
-              title={"upload"}
+              title={"crop"}
             />
-            {t("string.upload")}
+            {t("string.crop")}
           </Button>
 
-          <input 
-            type='file' id='file' 
-            ref={fileUploadRef} 
-            className='hidden'
-            onChange={uploadIMageDisplay}
-          />
+          <Button
+            disabled={!croppingCompleted}
+            onClick={()=>{
+              if(intervalRef.current)
+                clearInterval(intervalRef.current)
+
+              createImage(linesVector.length <= 1)
+
+              setCreatingImage(!creatingImage)
+            }}
+          > 
+            <Icon 
+              src={"star"}
+              height={20}
+              width={20}
+              title={"star"}
+            />
+            {creatingImage ? t("string.stop") : (linesVector.length <= 1) ? t("string.start") : t("string.continue")}
+          </Button>
+          <Button
+            disabled={!croppingCompleted || linesVector.length <= 1}
+            onClick={()=>{
+              if(intervalRef.current)
+                clearInterval(intervalRef.current)
+              setLinesVector([]) 
+              setInitialTime(0)
+              setCreatingImage(false)
+            }}
+          > 
+            <Icon 
+              src={"delete"}
+              height={20}
+              width={20}
+              title={"delete"}
+            />
+            {t("string.restart")}
+          </Button>
+        </aside>
+
+
+        <form id='form' encType='multipart/form-data' action="" className="w-full flex justify-between">
+          <aside className="flex gap-4">
+            <Button type='submit' className='text-nowrap '
+              onClick={handleImageUpload}
+              disabled={creatingImage}
+            >
+              <Icon 
+                src={"upload"}
+                height={20}
+                width={20}
+                title={"upload"}
+              />
+              {t("string.upload")}
+            </Button>
+            <input type='file' id='file' 
+              ref={fileUploadRef} 
+              className='hidden'
+              onChange={uploadIMageDisplay}
+            />
+          </aside>
+          <aside className="flex gap-4">
+            <Input type="text" className="w-20" value={numPins} onChange={(e)=>{e.preventDefault(); setNumPins(e.target.value)}} disabled={creatingImage || (linesVector.length > 1)}/>
+            <Input type="text" className="w-20" value={maxLines} onChange={(e)=>{e.preventDefault(); setMaxLines(e.target.value)}} disabled={creatingImage || (linesVector.length > 1)}/>
+            <Input type="text" className="w-20" value={lineWidth} onChange={(e)=>{e.preventDefault(); setLineWidth(e.target.value)}} disabled={creatingImage || (linesVector.length > 1)}/>
+          </aside>
 
         </form>
       </nav>
@@ -354,14 +397,14 @@ async function getCroppedImg(imageSrc: string, pixelCrop: { x: number; y: number
   }
 
     // Create a new matrix with the same dimensions
-  const blankMatrix: number[][] = matrix.map(row => 
+  const errorMatrix: number[][] = matrix.map(row => 
     row.map(value => {
       return 255 - value; 
     })
   );
 
 
-  return {image: canvas.toDataURL("image/webp"), matrix, blankMatrix};
+  return {image: canvas.toDataURL("image/webp"), errorMatrix};
 }
 
 
