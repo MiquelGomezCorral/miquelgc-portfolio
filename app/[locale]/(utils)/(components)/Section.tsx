@@ -12,48 +12,37 @@ export function Section({id, title, iconName, link, classname, ...props}:{id: st
       {
         link ? 
         <HeaderButtonLink link={link} className="w-full">
-          <SectionHeader title={title} iconName={iconName}/>
+          <SectionHeader title={title} iconName={iconName} adjustIcon/>
         </HeaderButtonLink>
         :
         <SectionHeader title={title} iconName={iconName}/>
       }
-
       {props.children}
     </section>
-
-
   )
 }
 
-// <section id="projects" className="w-full flex flex-col gap-6 group/proyects">
-
-//   <header className="w-full py-4 border-b-2 border-b-miquel-white-200/50">
-//     <HeaderButtonLink link="/projects" className="text-5xl font-bold opacity-70 group-hover/proyects:opacity-100 transform duration-300 flex gap-2">
-//         <GlowingText className="flex">
-//           <Icon 
-//             src={`html`}
-//             width={50}
-//             height={50}
-//             type="color"
-//             title={'Projects'}
-//             />
-//         </GlowingText>
-//       {t("title")}
-//     </HeaderButtonLink>
-//   </header>
-export function SectionHeader({title, iconName}:{title: string, iconName: string}){
+export function SectionHeader({title, iconName, adjustIcon}:{title: string, iconName: string, adjustIcon?: boolean}){
   return(
-    <header className="w-full py-4 border-b-2 border-b-miquel-white-200/50 text-5xl font-bold transform duration-300 flex gap-4">
-      <GlowingText>
-        <Icon 
-          src={iconName}
-          width={50}
-          height={50}
-          type="color"
-          title={title}
-        />
-      </GlowingText>
-      {title}
+    <header className="w-full text-5xl font-bold transform duration-300 flex-col gap-4">{/*  border-b-2 border-b-miquel-white-200/50 */}
+      <section className="flex w-full gap-4">
+        <GlowingText className="relative inline-block" adjust={adjustIcon}>
+          <Icon 
+            src={iconName}
+            width={50}
+            height={50}
+            type="color"
+            title={title}
+          />
+        </GlowingText>
+        {title}
+      </section>
+
+      <figure className="my-4 flex gap-2">
+        <div className="h-2 w-2 bg-indigo-300/40 rounded-full"/>
+        <div className="h-2 w-2 bg-indigo-300/40 rounded-full"/>
+        <div className="h-2 w-full bg-indigo-300/40 rounded-full"/>
+      </figure>
     </header>
   )
 }
