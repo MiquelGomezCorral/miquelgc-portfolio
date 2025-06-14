@@ -1,0 +1,29 @@
+<svg viewBox="0 0 576 512" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#fff" stroke-width="24" stroke-linecap="round">
+  <!-- Card with rounded corners -->
+  <g transform="translate(-30,-60) scale(26.7, 25.7)">
+  <path d="M22 12C22 15.7712 22 17.6569 20.8284 18.8284C19.6569 20 17.7712 20 14 20H10C6.22876 20 4.34315 20 3.17157 18.8284C2 17.6569 2 15.7712 2 12C2 8.22876 2 6.34315 3.17157 5.17157C4.34315 4 6.22876 4 10 4H14C17.7712 4 19.6569 4 20.8284 5.17157C21.298 5.64118 21.5794 6.2255 21.748 7" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round"></path>
+  </g>
+
+  <!-- Filled user icon (head + body) -->
+  <circle cx="220" cy="160" r="55" fill="#fff"/>
+  <path d="
+    M109 336
+    c0-30 30-54 67-54
+    h5
+    c12 5 26 8 40 8
+    s28-3 40-8
+    h5
+    c37 0 67 24 67 54
+    v20
+    c0 10-10 18-22 18
+    H131
+    c-12 0-22-8-22-18
+    v-20
+  " fill="#fff"/>
+
+  <!-- Rounded horizontal lines -->
+  <line x1="400" y1="184" x2="500" y2="184" stroke="#fff"/>
+  <line x1="400" y1="248" x2="500" y2="248" stroke="#fff"/>
+  <line x1="400" y1="312" x2="500" y2="312" stroke="#fff"/> 
+</svg>
+

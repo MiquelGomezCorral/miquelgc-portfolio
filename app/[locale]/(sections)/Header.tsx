@@ -4,7 +4,7 @@ import cn from 'classnames';
 import Link from "next/link";
 import { useState } from "react";
 import { useTranslation } from 'react-i18next';
-import { HeaderButton, ButtonLink } from "@/app/[locale]/(utils)/(components)/ButtonLink";
+import { HeaderButton, ButtonLink, HeaderButtonIcon} from "@/app/[locale]/(utils)/(components)/ButtonLink";
 import { DownloadCV } from "@/app/[locale]/(utils)/(components)/Utils";
 import { Icon } from "@/app/[locale]/(utils)/(components)/IconsButtons";
 import { CloseMenu, OpenMenu } from "@/app/[locale]/(utils)/(constants)/constants.text.d";
@@ -30,14 +30,14 @@ export default function Header() {
         </nav>
 
         <nav className='gap-4 flex'>
-          <ButtonLink link="/">{t("about_me")}</ButtonLink>
-          <ButtonLink link="/#experiences" notAddToStack>{t("experience")}</ButtonLink>
-          <ButtonLink link="/#studies" notAddToStack>{t("studies")}</ButtonLink>
-          <ButtonLink link="/projects">{t("projects")}</ButtonLink>
-          <ButtonLink link="/#technologies" notAddToStack>{t("technologies")}</ButtonLink>
-          <ButtonLink link="#footer" notAddToStack stayPage>{t("contact")}</ButtonLink>
+          <ButtonLink icon="user"       link="/#header" >                               {t("about_me")}     </ButtonLink>
+          <ButtonLink icon="card-thick" link="/#experiences"   notAddToStack >          {t("experience")}   </ButtonLink>
+          <ButtonLink icon="hat-thick" link="/#studies"       notAddToStack >          {t("studies")}      </ButtonLink>
+          <ButtonLink icon="code-tag"   link="/projects" >                              {t("projects")}     </ButtonLink>
+          <ButtonLink icon="terminal-thick"   link="/#technologies"  notAddToStack >          {t("technologies")} </ButtonLink>
+          <ButtonLink icon="contact"    link="#footer"         notAddToStack stayPage > {t("contact")}      </ButtonLink>
           <DownloadCV>
-            <HeaderButton>{t("cv")}</HeaderButton>
+            <HeaderButtonIcon icon='download-document'> {t("cv")} </HeaderButtonIcon>
           </DownloadCV>
           <LanguageChanger/>
         </nav>
