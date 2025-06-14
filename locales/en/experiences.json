@@ -1,4 +1,6 @@
 {
+    "id":"experiences",
+    "icon":"experience",
     "title": "Experiences",
 
     "solver": {

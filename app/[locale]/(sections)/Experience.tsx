@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { Card } from '@/app/[locale]//(utils)/(components)/Card';
 import GlowingText from "@/app/[locale]/(utils)/(components)/GlowingText";
 import { useCarrousel } from '@/app/[locale]/(utils)/(components)/Carrousel';
-import { SectionHeader } from '@/app/[locale]/(utils)/(components)/SectionHeader';
+import { Section } from '@/app/[locale]/(utils)/(components)/Section';
 import { getExperiences } from "@/app/[locale]/(utils)/(constants)/experience.text.d";
 import { IconButtonArrow, Icon } from "@/app/[locale]/(utils)/(components)/IconsButtons";
 
@@ -17,9 +17,7 @@ export default function Experience() {
   const  { scrollContainerRef, scrollOn, scrollLeft, scrollRight, scrollSlider } = useCarrousel({list: Experiences})
  
   return (
-    <section id="experiences" className="w-full flex flex-col gap-6 group">
-      
-      <SectionHeader title={t("title")} iconName='experience'/>
+    <Section id={t("id")} title={t("title")} iconName={t("icon")}>
 
       <main className="flex relative flex-col xl:flex-row items-center gap-4">
         <div 
@@ -57,6 +55,6 @@ export default function Experience() {
 
       </main>
     
-    </section>
+    </Section>
   )
 }

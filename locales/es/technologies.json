@@ -1,5 +1,8 @@
 {
+    "id":"technologies",
+    "icon":"terminal",
     "title": "Tecnologías",
+    
     "languages":{
         "title": "Lenguajes de Programación",
         "description":"Lenguajes para desarrollo web, móvil y sistemas, abarcando paradigmas altos y funcionales."

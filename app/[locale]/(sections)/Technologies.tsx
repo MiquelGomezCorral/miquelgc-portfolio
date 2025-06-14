@@ -6,7 +6,7 @@ import initTranslations from "@/app/i18n"
 
 import { Icon } from "@/app/[locale]/(utils)/(components)/IconsButtons";
 import { TechnologyList } from '@/app/[locale]/(utils)/(components)/Technologies';
-import { SectionHeader } from '@/app/[locale]/(utils)/(components)/SectionHeader';
+import { Section } from '@/app/[locale]/(utils)/(components)/Section';
 import { getTechnologyCathegories, TechnologyCathegoryType } from '@/app/[locale]/(utils)/(constants)/technologies.d';
 
 const i18nNamespaces = ['technologies']
@@ -15,16 +15,14 @@ export default async function TechnologiesSection({ params }: { params: { locale
   const TechnologyCathegories = getTechnologyCathegories(t)
   
   return (
-    <section id="technologies" className="w-full flex flex-col gap-6 group">
-      <SectionHeader title={t("title")} iconName='terminal'/>
-
+    <Section id={t("id")} title={t("title")} iconName={t("icon")}>
       <main className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {TechnologyCathegories.map((object, idx) => 
           <TechnologyCard key={idx} object={object} />
         )}
       </main>
     
-    </section>
+    </Section>
   )
 }
 

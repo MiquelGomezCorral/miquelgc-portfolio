@@ -9,7 +9,7 @@ import { Card } from '@/app/[locale]/(utils)/(components)/Card';
 import GlowingText from "@/app/[locale]/(utils)/(components)/GlowingText";
 import { useCarrousel } from '@/app/[locale]/(utils)/(components)/Carrousel';
 import { getStudies } from "@/app/[locale]/(utils)/(constants)/studies.text.d";
-import { SectionHeader } from '@/app/[locale]/(utils)/(components)/SectionHeader';
+import { Section } from '@/app/[locale]/(utils)/(components)/Section';
 import { IconButtonArrow, Icon } from "@/app/[locale]/(utils)/(components)/IconsButtons";
 
 export default function StudiesSection() {
@@ -18,10 +18,8 @@ export default function StudiesSection() {
   const  { scrollContainerRef, scrollOn, scrollLeft, scrollRight, scrollSlider } = useCarrousel({list: Studies})
 
   return (
-    <section id="studies" className="w-full flex flex-col gap-6 group">
-      
-      <SectionHeader title={t("title")} iconName='miscelanea'/>
-
+    <Section id={t("id")} title={t("title")} iconName={t("icon")}>
+    
       <main className="flex relative flex-col xl:flex-row items-center gap-4">
         <div 
           className="grid grid-flow-col md:auto-cols-[minmax(45rem,1fr)] auto-cols-[minmax(25rem,1fr)] gap-2 w-full h-full overflow-x-scroll"
@@ -58,6 +56,6 @@ export default function StudiesSection() {
 
       </main>
     
-    </section>
+    </Section>
   )
 }

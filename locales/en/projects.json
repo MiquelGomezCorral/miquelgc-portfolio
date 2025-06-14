@@ -1,5 +1,8 @@
 {
+    "id":"projects",
+    "icon":"html",
     "title": "Projects",
+
     "progress": "In progress",
     "finished": "Finished",
     "technologies": "Technologies",

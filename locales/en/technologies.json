@@ -1,4 +1,6 @@
 {
+    "id":"technologies",
+    "icon":"terminal",
     "title": "Technologies",
     "languages":{
         "title": "Programming Languages",
