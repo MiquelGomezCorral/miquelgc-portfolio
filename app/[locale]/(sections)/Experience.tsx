@@ -1,12 +1,15 @@
 "use client"
 
 import cn from 'classnames';
+
+import { useTranslation } from 'react-i18next';
+
+import { Card } from '@/app/[locale]//(utils)/(components)/Card';
 import GlowingText from "@/app/[locale]/(utils)/(components)/GlowingText";
+import { useCarrousel } from '@/app/[locale]/(utils)/(components)/Carrousel';
+import { SectionHeader } from '@/app/[locale]/(utils)/(components)/SectionHeader';
 import { getExperiences } from "@/app/[locale]/(utils)/(constants)/experience.text.d";
 import { IconButtonArrow, Icon } from "@/app/[locale]/(utils)/(components)/IconsButtons";
-import { useCarrousel } from '@/app/[locale]/(utils)/(components)/Carrousel';
-import { Card } from '@/app/[locale]//(utils)/(components)/Card';
-import { useTranslation } from 'react-i18next';
 
 export default function Experience() {
   const {t} = useTranslation("experiences")
@@ -15,18 +18,8 @@ export default function Experience() {
  
   return (
     <section id="experiences" className="w-full flex flex-col gap-6 group">
-      <header className="w-full py-4 border-b-2 border-b-miquel-white-200/50 text-5xl font-bold transform duration-300 flex gap-4">
-        <GlowingText>
-          <Icon 
-            src={`experience`}
-            width={50}
-            height={50}
-            type="color"
-            title={'experience'}
-          />
-        </GlowingText>
-        {t("title")}
-      </header>
+      
+      <SectionHeader title={t("title")} iconName='experience'/>
 
       <main className="flex relative flex-col xl:flex-row items-center gap-4">
         <div 

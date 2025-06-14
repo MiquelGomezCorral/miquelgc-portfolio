@@ -1,10 +1,13 @@
 
 import cn from 'classnames';
 import GlowingText from "@/app/[locale]/(utils)/(components)/GlowingText";
-import { Icon } from "@/app/[locale]/(utils)/(components)/IconsButtons";
-import { getTechnologyCathegories, TechnologyCathegoryType } from '@/app/[locale]/(utils)/(constants)/technologies.d';
-import { TechnologyList } from '@/app/[locale]/(utils)/(components)/Technologies';
+
 import initTranslations from "@/app/i18n"
+
+import { Icon } from "@/app/[locale]/(utils)/(components)/IconsButtons";
+import { TechnologyList } from '@/app/[locale]/(utils)/(components)/Technologies';
+import { SectionHeader } from '@/app/[locale]/(utils)/(components)/SectionHeader';
+import { getTechnologyCathegories, TechnologyCathegoryType } from '@/app/[locale]/(utils)/(constants)/technologies.d';
 
 const i18nNamespaces = ['technologies']
 export default async function TechnologiesSection({ params }: { params: { locale: string } }) {
@@ -13,18 +16,7 @@ export default async function TechnologiesSection({ params }: { params: { locale
   
   return (
     <section id="technologies" className="w-full flex flex-col gap-6 group">
-      <header className="w-full py-4 border-b-2 border-b-miquel-white-200/50 text-5xl font-bold transform duration-300 flex gap-4">
-        <GlowingText>
-          <Icon 
-            src={`terminal`}
-            width={50}
-            height={50}
-            type={"color"}
-            title={'technologies'}
-          />
-        </GlowingText>
-        {"Tecnologías"}
-      </header>
+      <SectionHeader title={t("title")} iconName='terminal'/>
 
       <main className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {TechnologyCathegories.map((object, idx) => 
