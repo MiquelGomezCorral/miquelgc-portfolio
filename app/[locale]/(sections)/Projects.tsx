@@ -5,7 +5,7 @@ import { Icon } from "@/app/[locale]/(utils)/(components)/IconsButtons";
 import GlowingText from "@/app/[locale]/(utils)/(components)/GlowingText";
 import { SeeMoreProject, Project } from "@/app/[locale]/projects/elements";
 import { getProjects } from "@/app/[locale]/(utils)/(constants)/project.text.d";
-import { HeaderButtonLink } from "@/app/[locale]/(utils)/(components)/HeaderButton";
+import { ButtonLink } from "@/app/[locale]/(utils)/(components)/ButtonLink";
 
 const i18nNamespaces = ["projects"]
 export default async function Projects({ params }: { params: { locale: string } }) {

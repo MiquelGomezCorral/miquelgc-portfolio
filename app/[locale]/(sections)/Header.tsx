@@ -4,7 +4,7 @@ import cn from 'classnames';
 import Link from "next/link";
 import { useState } from "react";
 import { useTranslation } from 'react-i18next';
-import { HeaderButton, HeaderButtonLink } from "@/app/[locale]/(utils)/(components)/HeaderButton";
+import { HeaderButton, ButtonLink } from "@/app/[locale]/(utils)/(components)/ButtonLink";
 import { DownloadCV } from "@/app/[locale]/(utils)/(components)/Utils";
 import { Icon } from "@/app/[locale]/(utils)/(components)/IconsButtons";
 import { CloseMenu, OpenMenu } from "@/app/[locale]/(utils)/(constants)/constants.text.d";
@@ -30,12 +30,12 @@ export default function Header() {
         </nav>
 
         <nav className='gap-4 flex'>
-          <HeaderButtonLink link="/">{t("about_me")}</HeaderButtonLink>
-          <HeaderButtonLink link="/#experiences" notAddToStack>{t("experience")}</HeaderButtonLink>
-          <HeaderButtonLink link="/#studies" notAddToStack>{t("studies")}</HeaderButtonLink>
-          <HeaderButtonLink link="/projects">{t("projects")}</HeaderButtonLink>
-          <HeaderButtonLink link="/#technologies" notAddToStack>{t("technologies")}</HeaderButtonLink>
-          <HeaderButtonLink link="#footer" notAddToStack stayPage>{t("contact")}</HeaderButtonLink>
+          <ButtonLink link="/">{t("about_me")}</ButtonLink>
+          <ButtonLink link="/#experiences" notAddToStack>{t("experience")}</ButtonLink>
+          <ButtonLink link="/#studies" notAddToStack>{t("studies")}</ButtonLink>
+          <ButtonLink link="/projects">{t("projects")}</ButtonLink>
+          <ButtonLink link="/#technologies" notAddToStack>{t("technologies")}</ButtonLink>
+          <ButtonLink link="#footer" notAddToStack stayPage>{t("contact")}</ButtonLink>
           <DownloadCV>
             <HeaderButton>{t("cv")}</HeaderButton>
           </DownloadCV>
@@ -69,24 +69,24 @@ export default function Header() {
         <div className="border-b-2 border-b-miquel-white-200/50" />
 
         <nav className="flex flex-col gap-4 pl-4">
-          <HeaderButtonLink link="/" onClick={()=>setshowMenu(false)} >
+          <ButtonLink link="/" onClick={()=>setshowMenu(false)} >
             {t("about_me")}
-          </HeaderButtonLink>
-          <HeaderButtonLink link="/#experiences" notAddToStack onClick={()=>setshowMenu(false)}>
+          </ButtonLink>
+          <ButtonLink link="/#experiences" notAddToStack onClick={()=>setshowMenu(false)}>
             {t("experience")}
-          </HeaderButtonLink>
-          <HeaderButtonLink link="/#studies" notAddToStack onClick={()=>setshowMenu(false)}>
+          </ButtonLink>
+          <ButtonLink link="/#studies" notAddToStack onClick={()=>setshowMenu(false)}>
             {t("studies")}
-          </HeaderButtonLink>
-          <HeaderButtonLink link="/projects" onClick={()=>setshowMenu(false)}>
+          </ButtonLink>
+          <ButtonLink link="/projects" onClick={()=>setshowMenu(false)}>
             {t("projects")}
-          </HeaderButtonLink>
-          <HeaderButtonLink link="/#technologies" notAddToStack onClick={()=>setshowMenu(false)}>
+          </ButtonLink>
+          <ButtonLink link="/#technologies" notAddToStack onClick={()=>setshowMenu(false)}>
             {t("technologies")}
-          </HeaderButtonLink>
-          <HeaderButtonLink link="#footer" notAddToStack stayPage onClick={()=>setshowMenu(false)}>
+          </ButtonLink>
+          <ButtonLink link="#footer" notAddToStack stayPage onClick={()=>setshowMenu(false)}>
             {t("contact")}
-          </HeaderButtonLink>
+          </ButtonLink>
           <DownloadCV>
             <HeaderButton>{t("cv")}</HeaderButton>
           </DownloadCV>

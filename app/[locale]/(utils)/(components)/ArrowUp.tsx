@@ -1,6 +1,6 @@
 "use client"
 
-import { HeaderButtonLink } from "@/app/[locale]/(utils)/(components)/HeaderButton";
+import { ButtonLink } from "@/app/[locale]/(utils)/(components)/ButtonLink";
 import { IconLink } from "./IconsButtons";
 import { usePageStackStore } from "@/app/[locale]/(global_state)/state"
 import { useTranslation } from "react-i18next";
@@ -23,19 +23,19 @@ export function ArrowUp() {
             className="group-hover/arrow:opacity-100"
           />
         </figure>
-        <HeaderButtonLink link="#header" notAddToStack stayPage className="group-hover/arrow:opacity-100">
+        <ButtonLink link="#header" notAddToStack stayPage className="group-hover/arrow:opacity-100">
           {t("up")}
-        </HeaderButtonLink>
+        </ButtonLink>
       </div>
 
       { (currentPage === "/projects") ?
-        <HeaderButtonLink link="/">
+        <ButtonLink link="/">
           {t("discover")}
-        </HeaderButtonLink>
+        </ButtonLink>
         :
-        <HeaderButtonLink link="/projects">
+        <ButtonLink link="/projects">
           {t("projects")}
-        </HeaderButtonLink>
+        </ButtonLink>
       }
     </>
   )

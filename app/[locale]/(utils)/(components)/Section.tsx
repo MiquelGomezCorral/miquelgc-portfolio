@@ -1,7 +1,7 @@
 import cn from "classnames"
 import Link from "next/link"
 
-import { HeaderButtonLink } from "@/app/[locale]/(utils)/(components)/HeaderButton";
+import { ButtonLink } from "@/app/[locale]/(utils)/(components)/ButtonLink";
 import GlowingText from "@/app/[locale]/(utils)/(components)/GlowingText";
 import { Icon } from "@/app/[locale]/(utils)/(components)/IconsButtons";
 
@@ -11,9 +11,9 @@ export function Section({id, title, iconName, link, classname, ...props}:{id: st
     <section id={id} className={cn("w-full flex flex-col gap-6 group", classname)}>
       {
         link ? 
-        <HeaderButtonLink link={link} className="w-full">
+        <ButtonLink link={link} className="w-full">
           <SectionHeader title={title} iconName={iconName} adjustIcon/>
-        </HeaderButtonLink>
+        </ButtonLink>
         :
         <SectionHeader title={title} iconName={iconName}/>
       }

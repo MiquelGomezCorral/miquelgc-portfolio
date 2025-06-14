@@ -14,7 +14,7 @@ interface HeaderButtonProps  {
   onClick?: ()=>void 
 }
 
-export function HeaderButtonLink({link, blank, notAddToStack, stayPage, onClick, className, ...props }: HeaderButtonProps){
+export function ButtonLink({link, blank, notAddToStack, stayPage, onClick, className, ...props }: HeaderButtonProps){
   const { goToPageFrom, currentPage } = usePageStackStore()
 
   return (
