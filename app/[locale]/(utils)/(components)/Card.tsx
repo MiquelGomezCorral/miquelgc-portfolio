@@ -43,7 +43,9 @@ export function Card({ object }: { object: CardType }) {
             <aside className="flex flex-col justify-between"> 
               <header className="flex flex-col">
                 <h2 className="text-2xl flex items-end md:justify-start justify-center gap-3">
-                  <GlowingText bold>{object.title}</GlowingText>
+                  <Link href={object.link} target="_blank" className="opacity-90 hover:opacity-100 transform duration-300">
+                    <GlowingText bold>{object.title}</GlowingText>
+                  </Link>
                   <IconLink
                     src="external-link" title={object.title}
                     width={25} height={25}
@@ -52,7 +54,7 @@ export function Card({ object }: { object: CardType }) {
                     className="opacity-0 group-hover/li:opacity-100 transform duration-300 md:block hidden"
                   />
                 </h2>
-                <i className="text-2xl flex md:justify-start justify-center">{object.company}</i>
+                <i className="text-xl flex md:justify-start justify-center">{object.company}</i>
               </header>
               <span className="flex w-full gap-4">
                 <p className="opacity-50">{object.date} </p>
