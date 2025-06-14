@@ -19,7 +19,6 @@ export default function StudiesSection() {
 
   return (
     <Section id={t("id")} title={t("title")} iconName={t("icon")}>
-    
       <main className="flex relative flex-col xl:flex-row items-center gap-4">
         <div 
           className="grid grid-flow-col md:auto-cols-[minmax(45rem,1fr)] auto-cols-[minmax(25rem,1fr)] gap-2 w-full h-full overflow-x-scroll"
@@ -53,9 +52,7 @@ export default function StudiesSection() {
             )}
           />
         </div>
-
       </main>
-    
     </Section>
   )
 }

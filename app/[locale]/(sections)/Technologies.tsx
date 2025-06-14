@@ -21,7 +21,6 @@ export default async function TechnologiesSection({ params }: { params: { locale
           <TechnologyCard key={idx} object={object} />
         )}
       </main>
-    
     </Section>
   )
 }

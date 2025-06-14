@@ -14,7 +14,7 @@ export function Project({ object, disabled }: { object: ProjectType, disabled?: 
 
   return (
     <li
-      className={cn("relative grid gird-cols-1 lg:max-h-64 lg:grid-cols-12 gap-4 p-4 rounded-xl transform duration-300 group", { "hover:bg-miquel-black-400/40": !disabled })} // hover:scale-105
+      className={cn("relative grid gird-cols-1 lg:max-h-64 lg:grid-cols-12 gap-4 p-4 rounded-xl transform duration-300 group/proyect", { "hover:bg-miquel-black-400/40": !disabled })} // hover:scale-105
     >
       <Link href={object.link} className={
         "group/img relative w-full rounded-xl aspect-video col-span-1 flex justify-end items-center overflow-hidden " +
@@ -45,7 +45,7 @@ export function Project({ object, disabled }: { object: ProjectType, disabled?: 
               src="external-link" title={object.title}
               width={25} height={25}
               link={object.github} blank
-              className="opacity-0 group-hover:opacity-100 transform duration-300"
+              className="opacity-0 group-hover/proyect:opacity-100 transform duration-300"
             />
           </header>
           <p className="opacity-50">{object.finished}</p>
