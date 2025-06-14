@@ -10,7 +10,7 @@ import { Icon } from "@/app/[locale]/(utils)/(components)/IconsButtons";
 import { CloseMenu, OpenMenu } from "@/app/[locale]/(utils)/(constants)/constants.text.d";
 import { GoBackButton } from '@/app/[locale]/(utils)/(components)/GoBackButton';
 import { usePageStackStore } from '@/app/[locale]/(global_state)/state';
-import LanguageChanger from '@/app/[locale]/(utils)/(components)/LanguageChangert';
+import LanguageChanger from '@/app/[locale]/(utils)/(components)/LanguageChanger';
 
 export default function Header() {
   const {t} = useTranslation("header");
