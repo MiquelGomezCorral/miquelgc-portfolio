@@ -1,13 +1,19 @@
-> PS C:\Users\mique\OneDrive - UPV\.Importantes\.Code\VS Code\React\packages\miquelgc-portfolio> Remove-Item -Recurse -Force .next
+# MAKE APP RUN
+For somereason sometimes when you restart the proyect it won't run, '.next' gets glichi and won't work. You have to execute these command
+>  Remove-Item -Recurse -Force .next
 
-
+# PORTFOLIO
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
 
 First, run the development server:
-
+```
+ Remove-Item -Recurse -Force .next
+```
 ```bash
+
+
 npm run dev
 # or
 yarn dev
