@@ -21,6 +21,7 @@ export default async function App({ params }: { params: { locale: string } }) {
       resources={resources}
     >
       <Header />
+
       <main className="max-w-[110rem] w-full flex flex-col gap-16 px-4 md:px-10 xl:px-48 2xl:px-64">
         <InfoSection params={{locale: locale}}/>
         <Experience/> 
@@ -28,6 +29,7 @@ export default async function App({ params }: { params: { locale: string } }) {
         <Projects params={{locale: locale}}/>
         <TechnologiesSection params={{locale: locale}}/>
       </main>
+      
       <div id="footer" className="w-full bg-gradient-to-b from-miquel-background to-black flex justify-center ">
         <Footer params={{locale: locale}}/>
       </div>

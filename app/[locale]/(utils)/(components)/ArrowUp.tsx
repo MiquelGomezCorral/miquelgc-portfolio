@@ -14,8 +14,8 @@ export function ArrowUp() {
 
         <figure className="w-full flex items-end justify-center animate-bounce transform duration-700">
           <IconLink
-            link=""
-            src="arrow-up" title={"Go up" }
+            link="#header"
+            src="arrow-up" title={"Go up"}
             width={100} height={100}  
             notAddToStack
             stayPage
@@ -23,7 +23,7 @@ export function ArrowUp() {
             className="group-hover/arrow:opacity-100"
           />
         </figure>
-        <HeaderButtonLink link="" notAddToStack stayPage className="group-hover/arrow:opacity-100">
+        <HeaderButtonLink link="#header" notAddToStack stayPage className="group-hover/arrow:opacity-100">
           {t("up")}
         </HeaderButtonLink>
       </div>

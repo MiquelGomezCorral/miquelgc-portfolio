@@ -18,7 +18,7 @@ export default function Header() {
   const { currentPage } = usePageStackStore()
 
   return (
-    <div className='flex w-full'>
+    <div className='flex w-full' id="header">
       <header className='fixed hidden lg:flex justify-between z-40 px-10 md:px-16 lg:px-20 py-4 w-full h-full sm:h-auto gap-10 top-0
       backdrop-blur-md border-b-2 border-b-miquel-white-200/50'>
         <nav className='w-max flex justify-between gap-4'>
@@ -34,7 +34,7 @@ export default function Header() {
           <HeaderButtonLink link="/#experiences" notAddToStack>{t("experience")}</HeaderButtonLink>
           <HeaderButtonLink link="/#studies" notAddToStack>{t("studies")}</HeaderButtonLink>
           <HeaderButtonLink link="/projects">{t("projects")}</HeaderButtonLink>
-          <HeaderButtonLink link="/#technologies">{t("technologies")}</HeaderButtonLink>
+          <HeaderButtonLink link="/#technologies" notAddToStack>{t("technologies")}</HeaderButtonLink>
           <HeaderButtonLink link="#footer" notAddToStack stayPage>{t("contact")}</HeaderButtonLink>
           <DownloadCV>
             <HeaderButton>{t("cv")}</HeaderButton>
@@ -81,7 +81,7 @@ export default function Header() {
           <HeaderButtonLink link="/projects" onClick={()=>setshowMenu(false)}>
             {t("projects")}
           </HeaderButtonLink>
-          <HeaderButtonLink link="/#technologies" notAddToStack stayPage onClick={()=>setshowMenu(false)}>
+          <HeaderButtonLink link="/#technologies" notAddToStack onClick={()=>setshowMenu(false)}>
             {t("technologies")}
           </HeaderButtonLink>
           <HeaderButtonLink link="#footer" notAddToStack stayPage onClick={()=>setshowMenu(false)}>
