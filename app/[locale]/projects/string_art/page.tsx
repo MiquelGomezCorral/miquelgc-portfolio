@@ -52,7 +52,7 @@ export default async function ProjectPage({ params }: { params: { locale: string
               </div> */
               }
 
-            <StringArtComponent/>
+              <StringArtComponent/>
             </header>
   
             <article className="flex flex-col gap-10">

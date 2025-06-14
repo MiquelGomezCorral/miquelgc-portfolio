@@ -35,7 +35,12 @@ export function Project({ object, disabled }: { object: ProjectType, disabled?: 
       <article className="flex flex-col gap-2 justify-between col-span-1 lg:col-start-5 lg:col-span-8">
         <span>
           <header className="flex items-end gap-3">
-            <GlowingText bold className="text-2xl">{object.title}</GlowingText>
+            <Link
+              href={object.link} onClick={() => goToPageFrom(window.location.pathname, object.link)} 
+              className="opacity-90 hover:opacity-100 transform duration-300"  
+            >
+              <GlowingText bold className="text-2xl">{object.title}</GlowingText>
+            </Link>
             <IconLink
               src="external-link" title={object.title}
               width={25} height={25}
