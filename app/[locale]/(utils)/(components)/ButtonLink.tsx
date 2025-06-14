@@ -37,6 +37,16 @@ export function ButtonLink({link, blank, notAddToStack, stayPage, onClick, class
     </Link>
   )
 }
+
+
+export function HeaderButtonLink({...props }: {children: React.ReactNode }) {
+  return (
+    <button className="w-full text-start text-miquel-white opacity-70 hover:opacity-100 transform duration-300">
+      {props.children}
+    </button>
+  )
+}
+
 export function HeaderButton({...props }: {children: React.ReactNode }) {
   return (
     <button className="w-full text-start text-miquel-white opacity-70 hover:opacity-100 transform duration-300">

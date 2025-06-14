@@ -1,5 +1,5 @@
 
-import { IconLGlowingLink, IconCopy, IconGlowingCopy, IconGlowingButton } from "@/app/[locale]/(utils)/(components)/IconsButtons";
+import { IconGlowingLink, IconCopy, IconGlowingCopy, IconGlowingButton } from "@/app/[locale]/(utils)/(components)/IconsButtons";
 import { Location, Email, Github, GithubLink, Linkedin, LinkedinLink, Curriculum, CurriculumSiglas } from "@/app/[locale]/(utils)/(constants)/constants.text.d"
 import { DownloadCV } from "@/app/[locale]/(utils)/(components)/Utils";
 import { WritingText } from "@/app/[locale]/(utils)/(components)/TypingText";
@@ -28,7 +28,7 @@ export default async function InfoSection({ params }: { params: { locale: string
           </GlowingText>
         </h2>
         <p className="text-sm sm:text-base text-miquel-white-500 flex flex-col gap-2">
-          <span >
+          <span>
             <IconCopy
               src="location-pin" title={Location}
               width={20} height={20}
@@ -56,13 +56,13 @@ export default async function InfoSection({ params }: { params: { locale: string
             copyText={Email}
             text={Email}
           />
-          <IconLGlowingLink
+          <IconGlowingLink
             src="linkedin" title={Linkedin}
             width={20} height={20}
             link={LinkedinLink}
             blank
           />
-          <IconLGlowingLink
+          <IconGlowingLink
             src="github" title={Github}
             width={20} height={20}
             link={GithubLink}

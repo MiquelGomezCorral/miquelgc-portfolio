@@ -65,7 +65,7 @@ interface IconLinkGlowingProps extends IconProps{
   blank?: boolean
   solid?: boolean
 }
-export function IconLGlowingLink({ link, blank, text, solid, ...props}: IconLinkGlowingProps) {
+export function IconGlowingLink({ link, blank, text, solid, ...props}: IconLinkGlowingProps) {
   return (
     <Link 
       className="relative"

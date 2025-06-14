@@ -1,5 +1,4 @@
 import cn from "classnames"
-import Link from "next/link"
 
 import { ButtonLink } from "@/app/[locale]/(utils)/(components)/ButtonLink";
 import GlowingText from "@/app/[locale]/(utils)/(components)/GlowingText";
