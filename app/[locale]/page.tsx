@@ -12,7 +12,7 @@ import TranslationsProvider from "@/app/[locale]/(utils)/TranslationsProvider"
 
 const i18nNamespaces = ['header', 'footer', 'info-section', 'experiences', 'studies', 'projects', 'technologies'];
 export default async function App({ params }: { params: { locale: string } }) {
-  const { locale } = params;
+  const { locale } = await params;
   const { resources } = await initTranslations(locale, i18nNamespaces);
   return (
     <TranslationsProvider

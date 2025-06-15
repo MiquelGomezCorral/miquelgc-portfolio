@@ -20,7 +20,7 @@ export default function Header() {
   return (
     <div className='flex w-full' id="header">
       {/* ================== HORIZONTAL VIEW MENU ==================*/}
-      <header className='fixed hidden lg:flex justify-between z-40 px-10 md:px-16 lg:px-20 py-4 w-full h-full sm:h-auto gap-10 top-0
+      <header className='fixed hidden lg:flex justify-between z-40 text-xs xl:text-sm px-10 md:px-16 lg:px-20 py-4 w-full h-full sm:h-auto xl:gap-10 top-0
       backdrop-blur-md border-b-2 border-b-miquel-white-200/50'>
         <nav className='w-max flex justify-between gap-4'>
           <GoBackButton />

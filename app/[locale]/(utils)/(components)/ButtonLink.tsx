@@ -12,7 +12,7 @@ interface HeaderButtonProps  {
 }
 export function HeaderButton({className, ...props}: HeaderButtonProps) {
   return (
-    <button className={cn("w-full text-miquel-white text-start text-nowrap opacity-70 hover:opacity-100 transform duration-300  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)]", className)}>
+    <button className={cn("w-full text-miquel-white text-start text-nowrap opacity-70 hover:opacity-100 transform duration-300 flex items-center drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)]", className)}>
       {props.children}
     </button>
   )
