@@ -12,7 +12,7 @@ export default async function Footer({ params }: { params: { locale: string } })
   const {t} = await initTranslations(params.locale, i18nNamespaces)
   return (
     <footer id="footer" className={
-      "pt-10 pb-20 w-full grid md:grid-rows-1 md:grid-cols-11 grid-cols-1 place-items-center md:gap-0 gap-4 max-w-[120rem] px-4 md:px-10 xl:px-48 2xl:px-64"
+      "pt-10 pb-20 w-full grid md:grid-rows-1 md:grid-cols-11 grid-cols-1 place-items-center gap-4 max-w-[120rem] px-4 md:px-10 xl:px-48 2xl:px-64"
     }>
       
       <section className="md:col-span-4 flex md:justify-start justify-center items-center">
