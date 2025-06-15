@@ -25,7 +25,7 @@ export default async function ProjectsPage({ params }: { params: any }) {
           <header className="w-full pb-20 flex justify-center">
             <h1 
               className="text-6xl sm:text-8xl font-bold 
-              bg-[length:200%_100%] bg-gradient-to-r from-cyan-400 via-blue-600 to-cyan-400 
+              bg-[length:200%_100%] bg-gradient-to-r from-miquel-blue-400 via-indigo-700 to-miquel-blue-400 
               bg-clip-text text-transparent animate-shimmer pb-2"
             > 
               {t("title")}
