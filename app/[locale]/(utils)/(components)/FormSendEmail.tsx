@@ -16,7 +16,8 @@ export function FormSendEmail(){
   const [shake, setShake] = useState(false)
   const t0 = useRef<number>(Date.now()-1000); // set a difference of 1 second before actually mesuring
   const t1 = useRef<number>(Date.now());
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const timeoutShakeRef = useRef<NodeJS.Timeout | null>(null);
+  const timeoutScreamRef = useRef<NodeJS.Timeout | null>(null);
   const [shakedTooMuch, setShakedTooMuch] = useState(false)
 
   const {t} = useTranslation("footer")
@@ -29,10 +30,10 @@ export function FormSendEmail(){
 
     if (diff12 < 300 && diff01 < 300){
       setShakedTooMuch(true)
-      if (timeoutRef.current) clearTimeout(timeoutRef.current)
-      timeoutRef.current = setTimeout(()=>{
+      if (timeoutScreamRef.current) clearTimeout(timeoutScreamRef.current)
+      timeoutScreamRef.current = setTimeout(()=>{
         setShakedTooMuch(false)
-        timeoutRef.current = null
+        timeoutScreamRef.current = null
       }, 1000)
     }
 
@@ -86,7 +87,11 @@ export function FormSendEmail(){
     setErrors(newErrors);
     if (newErrors.name || newErrors.email || newErrors.message || newErrors.general) {
       setShake(true)
-      setTimeout(()=>setShake(false), 300)
+      if (timeoutShakeRef.current) clearTimeout(timeoutShakeRef.current)
+      setTimeout(()=>{
+        setShake(false)
+        timeoutShakeRef.current = null
+      }, 300)
       return
     }
 
@@ -137,9 +142,9 @@ export function FormSendEmail(){
   // ================== Return ==================
   const formStyle = "p-2 rounded-md text-white bg-miquel-blue-500/20 border border-miquel-blue-400 transform duration-300"
   return(
-    <form onSubmit={handleSubmit} noValidate className='w-full flex flex-col p-4 border-2 border-miquel-blue-400 rounded-md gap-2'>
+    <form onSubmit={handleSubmit} noValidate className='w-full flex flex-col p-4 border-2 border-miquel-blue-400 rounded-md gap-2 relative'>
       <ShakeHard key={shakedTooMuch ? 'shake' : 'no-shake'} active={shake} fixed onClick={checkShaking}>
-        {shakedTooMuch && <p className="w-full text-center mb-4 text-red-500 absolute -top-10">
+        {shakedTooMuch && <p className="w-full mb-4 text-red-500 absolute -top-12 flex justify-center">
           AAAAAAAAAAAAAAAAHHHHHHHH!!!!!!
         </p>}
         
