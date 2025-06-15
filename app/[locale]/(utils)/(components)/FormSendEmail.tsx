@@ -19,7 +19,7 @@ export function FormSendEmail(){
   const timeoutShakeRef = useRef<NodeJS.Timeout | null>(null);
   const timeoutScreamRef = useRef<NodeJS.Timeout | null>(null);
   const [shakedTooMuch, setShakedTooMuch] = useState(false)
-  const shakingTime = 500 //ms
+  const shakingTime = 300 //ms
 
   const {t} = useTranslation("footer")
 
