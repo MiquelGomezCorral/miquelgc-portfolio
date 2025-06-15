@@ -12,8 +12,8 @@ import { CarrouselItem } from "../project_template";
 import { StringArtComponent } from "./string_art";
 
 const i18nNamespaces = ['projects', 'header', 'footer']
-export default async function ProjectPage({ params }: { params: { locale: string } }) {
-  const { locale } = params;
+export default async function ProjectPage({ params }: { params: any }) {
+  const { locale } = await params;
   const { t, resources } = await initTranslations(locale, i18nNamespaces);
   const {StringArt} = getProjects(t)
 

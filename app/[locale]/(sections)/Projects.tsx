@@ -5,8 +5,8 @@ import { SeeMoreProject, Project } from "@/app/[locale]/projects/elements";
 import { getProjects } from "@/app/[locale]/(utils)/(constants)/project.text.d";
 
 const i18nNamespaces = ["projects"]
-export default async function Projects({ params }: { params: { locale: string } }) {
-  const { locale } = params;
+export default async function Projects({ params }: { params: any }) {
+  const { locale } = await params;
   const { t } = await initTranslations(locale, i18nNamespaces);
   const ProjectS = Object.values(getProjects(t))
 

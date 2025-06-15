@@ -8,8 +8,8 @@ import initTranslations from "@/app/i18n"
 import TranslationsProvider from "@/app/[locale]/(utils)/TranslationsProvider"
 
 const i18nNamespaces = ['projects', 'header', 'footer']
-export default async function ProjectsPage({ params }: { params: { locale: string } }) {
-  const { locale } = params;
+export default async function ProjectsPage({ params }: { params: any }) {
+  const { locale } = await params;
   const { t, resources } = await initTranslations(locale, i18nNamespaces);
   const Projects = Object.values(getProjects(t))
   return (
