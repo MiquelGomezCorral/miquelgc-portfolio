@@ -1,4 +1,4 @@
-import { Icon } from "@/app/[locale]/(utils)/(components)/IconsButtons"
+import { Icon } from "@/app/[locale]/(utils)/(components)/Icons"
 import type { TFunction } from "i18next";
 
 export function Technology({ src }: { src: string }) {
@@ -59,6 +59,7 @@ export function Technology({ src }: { src: string }) {
           width={20}
           height={20}
           title={Title(src)}
+          type="tec-white"
         />
         <p className="opacity-80 text-nowrap">{Title(src)}</p>
       </section>

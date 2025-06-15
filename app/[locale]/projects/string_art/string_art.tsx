@@ -4,7 +4,7 @@ import cn from "classnames"
 import Cropper from 'react-easy-crop';
 import { useState, useRef, useEffect } from "react";
 import NextImage from "next/image";
-import { Icon } from '@/app/[locale]/(utils)/(components)/IconsButtons';
+import { Icon } from '@/app/[locale]/(utils)/(components)/Icons';
 import { useTranslation } from 'react-i18next';
 import { Button, Input } from '@/app/[locale]/(utils)/(components)/FormComponents';
 

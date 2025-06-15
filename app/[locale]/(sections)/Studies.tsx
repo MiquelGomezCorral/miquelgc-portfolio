@@ -10,7 +10,7 @@ import GlowingText from "@/app/[locale]/(utils)/(components)/GlowingText";
 import { useCarrousel } from '@/app/[locale]/(utils)/(components)/Carrousel';
 import { getStudies } from "@/app/[locale]/(utils)/(constants)/studies.text.d";
 import { Section } from '@/app/[locale]/(utils)/(components)/Section';
-import { IconButtonArrow, Icon } from "@/app/[locale]/(utils)/(components)/IconsButtons";
+import { IconButtonArrow, Icon } from "@/app/[locale]/(utils)/(components)/Icons";
 
 export default function StudiesSection() {
   const {t} = useTranslation("studies")

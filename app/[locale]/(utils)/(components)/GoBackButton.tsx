@@ -2,7 +2,7 @@
 import cn from 'classnames';
 import { usePageStackStore } from '@/app/[locale]/(global_state)/state';
 import { useRouter } from "next/navigation"; 
-import { Icon } from '@/app/[locale]/(utils)/(components)/IconsButtons';
+import { Icon } from '@/app/[locale]/(utils)/(components)/Icons';
 
 export function GoBackButton(){
 	const { backToPage, currentPage, pageStack } = usePageStackStore()

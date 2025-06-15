@@ -1,5 +1,5 @@
 
-import { IconLink, IconCopy, Icon} from "@/app/[locale]/(utils)/(components)/IconsButtons";
+import { IconLink, IconCopy, Icon} from "@/app/[locale]/(utils)/(components)/Icons";
 import { DownloadCV } from "@/app/[locale]/(utils)/(components)/Utils";
 import { Curriculum, Email, Github, GithubLink, Linkedin, LinkedinLink } from "@/app/[locale]/(utils)/(constants)/constants.text.d";
 import { FormSendEmail } from "@/app/[locale]/(utils)/(components)/FormSendEmail";

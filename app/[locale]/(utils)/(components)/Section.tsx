@@ -2,7 +2,7 @@ import cn from "classnames"
 
 import { ButtonLink } from "@/app/[locale]/(utils)/(components)/ButtonLink";
 import GlowingText from "@/app/[locale]/(utils)/(components)/GlowingText";
-import { Icon } from "@/app/[locale]/(utils)/(components)/IconsButtons";
+import { Icon } from "@/app/[locale]/(utils)/(components)/Icons";
 
 
 export function Section({id, title, iconName, link, classname, ...props}:{id: string, title: string, iconName: string, link?: string, classname?: string, children: React.ReactNode}){

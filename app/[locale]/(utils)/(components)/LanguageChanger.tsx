@@ -5,7 +5,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
-import { Icon } from "./IconsButtons";
+import { Icon } from "./Icons";
 import { localesType, getLanguages } from '@/app/[locale]/(utils)/(constants)/languages.text.d';
 import i18nConfig from '@/i18nConfig';
 

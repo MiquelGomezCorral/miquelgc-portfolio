@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { TechnologyMarquee } from '@/app/[locale]/(utils)/(components)/Technologies';
 import GlowingText from "./GlowingText";
-import { IconCopy, IconLink } from "./IconsButtons";
+import { IconCopy, IconLink } from "./Icons";
 import { TechnologyString } from "@/app/[locale]/(utils)/(constants)/technologies.d";
 
 export type CardType = { 

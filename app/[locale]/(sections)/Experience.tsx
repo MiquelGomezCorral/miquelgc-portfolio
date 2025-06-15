@@ -9,7 +9,7 @@ import GlowingText from "@/app/[locale]/(utils)/(components)/GlowingText";
 import { useCarrousel } from '@/app/[locale]/(utils)/(components)/Carrousel';
 import { Section } from '@/app/[locale]/(utils)/(components)/Section';
 import { getExperiences } from "@/app/[locale]/(utils)/(constants)/experience.text.d";
-import { IconButtonArrow, Icon } from "@/app/[locale]/(utils)/(components)/IconsButtons";
+import { IconButtonArrow, Icon } from "@/app/[locale]/(utils)/(components)/Icons";
 
 export default function Experience() {
   const {t} = useTranslation("experiences")

@@ -4,7 +4,7 @@ import GlowingText from "@/app/[locale]/(utils)/(components)/GlowingText";
 
 import initTranslations from "@/app/i18n"
 
-import { Icon } from "@/app/[locale]/(utils)/(components)/IconsButtons";
+import { Icon } from "@/app/[locale]/(utils)/(components)/Icons";
 import { TechnologyList } from '@/app/[locale]/(utils)/(components)/Technologies';
 import { Section } from '@/app/[locale]/(utils)/(components)/Section';
 import { getTechnologyCathegories, TechnologyCathegoryType } from '@/app/[locale]/(utils)/(constants)/technologies.d';

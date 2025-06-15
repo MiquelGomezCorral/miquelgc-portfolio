@@ -150,7 +150,7 @@ interface IconProps {
   text?: string,
   disable?: boolean
   hover?: boolean
-  type?: "white" | "color" | "country"
+  type?: "white" | "color" | "country" | "tec-white"
   glowing?: boolean
   className?: string,
 }

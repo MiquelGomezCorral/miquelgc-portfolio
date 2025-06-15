@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useTranslation } from 'react-i18next';
 import { HeaderButton, ButtonLink, HeaderButtonIcon} from "@/app/[locale]/(utils)/(components)/ButtonLink";
 import { DownloadCV } from "@/app/[locale]/(utils)/(components)/Utils";
-import { Icon } from "@/app/[locale]/(utils)/(components)/IconsButtons";
+import { Icon } from "@/app/[locale]/(utils)/(components)/Icons";
 import { CloseMenu, OpenMenu } from "@/app/[locale]/(utils)/(constants)/constants.text.d";
 import { GoBackButton } from '@/app/[locale]/(utils)/(components)/GoBackButton';
 import { usePageStackStore } from '@/app/[locale]/(global_state)/state';

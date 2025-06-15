@@ -4,7 +4,7 @@ import initTranslations from "@/app/i18n"
 import TranslationsProvider from "@/app/[locale]/(utils)/TranslationsProvider"
 import Header from "@/app/[locale]/(sections)/Header";
 import Footer from "@/app/[locale]/(sections)/Footer";
-import { IconLink } from "@/app/[locale]/(utils)/(components)/IconsButtons";
+import { IconLink } from "@/app/[locale]/(utils)/(components)/Icons";
 import GlowingText from "@/app/[locale]/(utils)/(components)/GlowingText";
 import { TechnologyMarquee } from "@/app/[locale]/(utils)/(components)/Technologies";
 import { Marquee } from "@/app/[locale]/(utils)/(components)/Marquee";

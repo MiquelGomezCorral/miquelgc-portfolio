@@ -2,7 +2,7 @@
 
 
 import GlowingText from "@/app/[locale]/(utils)/(components)/GlowingText";
-import { Icon } from "@/app/[locale]/(utils)/(components)/IconsButtons";
+import { Icon } from "@/app/[locale]/(utils)/(components)/Icons";
 
 export default function Skills() {
 

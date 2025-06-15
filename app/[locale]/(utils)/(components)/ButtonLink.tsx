@@ -3,7 +3,7 @@
 import cn from "classnames"
 import Link from "next/link"
 import { usePageStackStore } from "@/app/[locale]/(global_state)/state"
-import { Icon } from "@/app/[locale]/(utils)/(components)/IconsButtons"
+import { Icon } from "@/app/[locale]/(utils)/(components)/Icons"
 
 
 interface HeaderButtonProps  {

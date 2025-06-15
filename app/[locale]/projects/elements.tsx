@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import cn from 'classnames';
-import { IconLink } from "@/app/[locale]/(utils)/(components)/IconsButtons";
+import { IconLink } from "@/app/[locale]/(utils)/(components)/Icons";
 import { ProjectType } from "@/app/[locale]/(utils)/(constants)/project.text.d";
 import { usePageStackStore } from "@/app/[locale]/(global_state)/state";
 import GlowingText from "@/app/[locale]/(utils)/(components)/GlowingText";

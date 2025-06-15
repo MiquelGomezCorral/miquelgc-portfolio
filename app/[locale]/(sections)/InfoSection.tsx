@@ -1,12 +1,13 @@
 
-import { IconGlowingLink, IconCopy, IconGlowingCopy, IconGlowingButton } from "@/app/[locale]/(utils)/(components)/IconsButtons";
-import { Location, Email, Github, GithubLink, Linkedin, LinkedinLink, Curriculum, CurriculumSiglas } from "@/app/[locale]/(utils)/(constants)/constants.text.d"
-import { DownloadCV } from "@/app/[locale]/(utils)/(components)/Utils";
-import { WritingText } from "@/app/[locale]/(utils)/(components)/TypingText";
 import { Foto } from "@/app/[locale]/(utils)/(components)/Foto";
+import { DownloadCV } from "@/app/[locale]/(utils)/(components)/Utils";
 import GlowingText from "@/app/[locale]/(utils)/(components)/GlowingText";
-import initTranslations from "@/app/i18n"
+import { WritingText } from "@/app/[locale]/(utils)/(components)/TypingText";
 import { qualitiesEN, qualitiesES} from "@/app/[locale]/(utils)/(constants)/infosSection.text"
+import { IconGlowingLink, IconCopy, IconGlowingCopy, IconGlowingButton } from "@/app/[locale]/(utils)/(components)/Icons";
+import { Location, Email, Github, GithubLink, Linkedin, LinkedinLink, Curriculum, CurriculumSiglas } from "@/app/[locale]/(utils)/(constants)/constants.text.d"
+
+import initTranslations from "@/app/i18n"
 
 const i18nNamespaces = ["info-section"]
 
@@ -66,7 +67,7 @@ export default async function InfoSection({ params }: { params: { locale: string
             src="github" title={Github}
             width={20} height={20}
             link={GithubLink}
-            blank
+            blank type="tec-white"
           />
         </footer>
       </aside>

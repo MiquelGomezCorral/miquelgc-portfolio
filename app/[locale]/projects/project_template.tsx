@@ -1,6 +1,6 @@
 
 import Image from "next/image";
-import { IconLink } from "@/app/[locale]/(utils)/(components)/IconsButtons";
+import { IconLink } from "@/app/[locale]/(utils)/(components)/Icons";
 import { ProjectType } from "@/app/[locale]/(utils)/(constants)/project.text.d";
 import GlowingText from "@/app/[locale]/(utils)/(components)/GlowingText";
 import { TechnologyMarquee } from "@/app/[locale]/(utils)/(components)/Technologies";
