@@ -1,0 +1,4 @@
+[ZoneTransfer]
+ZoneId=3
+ReferrerUrl=https://cloudconvert.com/
+HostUrl=https://eu-central.storage.cloudconvert.com/tasks/73937d33-1bf8-444e-b192-13378cd0bdca/Kinematics%20%283%29.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=cloudconvert-production%2F20250204%2Ffra%2Fs3%2Faws4_request&X-Amz-Date=20250204T182824Z&X-Amz-Expires=86400&X-Amz-Signature=0208fddfd721220c7b8fb9a56856f07233bf74faf41d6bf00113ffd3e2b80339&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3D%22Kinematics%20%283%29.webp%22&response-content-type=image%2Fwebp&x-id=GetObject

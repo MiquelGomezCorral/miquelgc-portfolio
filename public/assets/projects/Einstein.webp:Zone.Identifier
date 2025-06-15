@@ -1,0 +1,4 @@
+[ZoneTransfer]
+ZoneId=3
+ReferrerUrl=https://cloudconvert.com/
+HostUrl=https://eu-central.storage.cloudconvert.com/tasks/e80255d5-1b3d-475e-8c95-83333fac3057/Einstein.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=cloudconvert-production%2F20250301%2Ffra%2Fs3%2Faws4_request&X-Amz-Date=20250301T200708Z&X-Amz-Expires=86400&X-Amz-Signature=ec364015641d3ae69bf3d3d2c373d07ed277cf4f6818b86b7e4f74047db07173&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3D%22Einstein.webp%22&response-content-type=image%2Fwebp&x-id=GetObject

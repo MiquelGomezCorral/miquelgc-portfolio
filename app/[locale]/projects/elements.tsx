@@ -59,17 +59,17 @@ export function Project({ object, disabled }: { object: ProjectType, disabled?: 
   )
 }
 
-export function SeeMoreProject({ object }: { object: ProjectType }) {
+export function SeeMoreProject({ object, text }: { object: ProjectType, text: string }) {
   const { goToPageFrom } = usePageStackStore()
 
   return (
     <Link 
       onClick={() => goToPageFrom(window.location.pathname, object.link)}
-
       href="/projects"
-      className="relative rounded-xl opacity-70 hover:opacity-100 hover:bg-miquel-black-400/20 transform duration-300 cursor-pointer">
-      <span className="absolute left-1/2 transform -translate-x-1/2 top-6 text-2xl">
-        Ver más
+      className="relative rounded-xl opacity-70 hover:opacity-100 hover:bg-miquel-black-400/20 transform duration-300 cursor-pointer"
+    >
+      <span className="z-10 absolute left-1/2 transform -translate-x-1/2 top-6 text-2xl">
+        {text}
       </span>
 
       <figure className="pt-1 h-20 overflow-hidden blur-sm">

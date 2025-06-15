@@ -10,16 +10,17 @@ export default async function Projects({ params }: { params: { locale: string } 
   const { t } = await initTranslations(locale, i18nNamespaces);
   const ProjectS = Object.values(getProjects(t))
 
+  const num_project = 4
   return (
     <Section id={t("id")} title={t("title")} iconName={t("icon")} link="/projects" classname="group/proyects">
     
       <main className="flex flex-col justify-center gap-6">
-        {ProjectS.slice(0,4).map((object, idx) =>
+        {ProjectS.slice(0,num_project).map((object, idx) =>
           <Project key={idx} object={object}/>
         )}
       </main>
       
-      <SeeMoreProject object={ProjectS[4]}/>
+      <SeeMoreProject object={ProjectS[num_project]} text={t("see-more")} />
 
     </Section>
   )
