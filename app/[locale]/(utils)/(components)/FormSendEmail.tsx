@@ -19,6 +19,7 @@ export function FormSendEmail(){
   const timeoutShakeRef = useRef<NodeJS.Timeout | null>(null);
   const timeoutScreamRef = useRef<NodeJS.Timeout | null>(null);
   const [shakedTooMuch, setShakedTooMuch] = useState(false)
+  const shakingTime = 500 //ms
 
   const {t} = useTranslation("footer")
 
@@ -28,7 +29,7 @@ export function FormSendEmail(){
     const diff12 = t2 - t1.current 
     const diff01 = t1.current - t0.current
 
-    if (diff12 < 300 && diff01 < 300){
+    if (diff12 < shakingTime && diff01 < shakingTime){
       setShakedTooMuch(true)
       if (timeoutScreamRef.current) clearTimeout(timeoutScreamRef.current)
       timeoutScreamRef.current = setTimeout(()=>{
@@ -91,7 +92,7 @@ export function FormSendEmail(){
       setTimeout(()=>{
         setShake(false)
         timeoutShakeRef.current = null
-      }, 300)
+      }, shakingTime)
       return
     }
 
