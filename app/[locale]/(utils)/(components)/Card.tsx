@@ -44,7 +44,7 @@ export function Card({ object }: { object: CardType }) {
               <header className="flex flex-col">
                 <h2 className="text-2xl flex items-end md:justify-start justify-center gap-3">
                   <Link href={object.link} target="_blank" className="opacity-90 hover:opacity-100 transform duration-300">
-                    <GlowingText bold>{object.title}</GlowingText>
+                    <GlowingText bold nowrap>{object.title}</GlowingText>
                   </Link>
                   <IconLink
                     src="external-link" title={object.title}
