@@ -12,7 +12,7 @@ interface HeaderButtonProps  {
 }
 export function HeaderButton({className, ...props}: HeaderButtonProps) {
   return (
-    <button className={cn("w-full text-miquel-white text-start text-miquel-white opacity-70 hover:opacity-100 transform duration-300  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)]", className)}>
+    <button className={cn("w-full text-miquel-white text-start text-nowrap opacity-70 hover:opacity-100 transform duration-300  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)]", className)}>
       {props.children}
     </button>
   )
@@ -60,18 +60,25 @@ export function ButtonLink({icon, link, blank, notAddToStack, stayPage, onClick,
       target={blank ? "_blank": ""}
       className="group"
       onClick={() => {        
+        console.log("link: " + link)
+        console.log("currentPage: " + currentPage)
         if(!notAddToStack)
-          goToPageFrom(window.location.pathname, link)
+          if(
+            ((currentPage === "/es" || currentPage === "/en" || currentPage === "/") && !link.startsWith("/#")) ||
+            ( currentPage !== "/es" && currentPage !== "/en" && currentPage !== "/") 
+          ){
+            goToPageFrom(window.location.pathname, link)
+          }
         if(onClick)
           onClick()
       }}
     >
       {icon ?
-        <HeaderButtonIcon icon={icon}>
+        <HeaderButtonIcon icon={icon} className={cn("",className)}>
           {props.children}
         </HeaderButtonIcon>
         :
-        <HeaderButton>
+        <HeaderButton className={cn("",className)}>
           {props.children}
         </HeaderButton>
       }

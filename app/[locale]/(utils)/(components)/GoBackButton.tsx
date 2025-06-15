@@ -5,11 +5,16 @@ import { useRouter } from "next/navigation";
 import { Icon } from '@/app/[locale]/(utils)/(components)/IconsButtons';
 
 export function GoBackButton(){
-	const { backToPage, currentPage } = usePageStackStore()
+	const { backToPage, currentPage, pageStack } = usePageStackStore()
 	const router = useRouter()
 	return(
     <button 
-			className={cn("opacity-70 hover:opacity-100 transform duration-300", {"hidden": currentPage === "/" || currentPage === "/es" })}
+			className={cn("opacity-70 hover:opacity-100 transform duration-300", 
+				{"hidden": (
+					pageStack.length === 0 ||  
+					(pageStack.length === 1 && pageStack[0] === "/" )
+				)}
+			)}
 			onClick={() => router.push(backToPage())}
 		>
 			<Icon 
