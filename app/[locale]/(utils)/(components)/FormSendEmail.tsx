@@ -2,7 +2,7 @@
 
 import cn from "classnames"
 import emailjs from '@emailjs/browser';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Button } from './FormComponents';
 import { useTranslation } from "react-i18next";
 import { ShakeHard } from 'reshake'
@@ -11,10 +11,36 @@ export function FormSendEmail(){
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [message, setMessage] = useState("")
-  const [errors, setErrors] = useState({ name: "", email: "", message: "" , general: ""});
-  const [shake, setShake] = useState(false);
+  const [errors, setErrors] = useState({ name: "", email: "", message: "" , general: ""})
+
+  const [shake, setShake] = useState(false)
+  const t0 = useRef<number>(Date.now()-1000); // set a difference of 1 second before actually mesuring
+  const t1 = useRef<number>(Date.now());
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [shakedTooMuch, setShakedTooMuch] = useState(false)
+
   const {t} = useTranslation("footer")
 
+  // ================== SHAKING ==================
+  const checkShaking = () => {
+    const t2 = Date.now()
+    const diff12 = t2 - t1.current 
+    const diff01 = t1.current - t0.current
+
+    if (diff12 < 300 && diff01 < 300){
+      setShakedTooMuch(true)
+      if (timeoutRef.current) clearTimeout(timeoutRef.current)
+      timeoutRef.current = setTimeout(()=>{
+        setShakedTooMuch(false)
+        timeoutRef.current = null
+      }, 1000)
+    }
+
+    t0.current = t1.current 
+    t1.current = t2 
+  }
+
+  // ================== handleSubmit ==================
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault();
 
@@ -105,12 +131,18 @@ export function FormSendEmail(){
           console.log('FAILED...', error.text);
         },
       );
+
   }
 
+  // ================== Return ==================
   const formStyle = "p-2 rounded-md text-white bg-miquel-blue-500/20 border border-miquel-blue-400 transform duration-300"
   return(
-      <form onSubmit={handleSubmit} noValidate className='w-full flex flex-col p-4 border-2 border-miquel-blue-400 rounded-md gap-2'>
-        <ShakeHard active={shake} fixed>
+    <form onSubmit={handleSubmit} noValidate className='w-full flex flex-col p-4 border-2 border-miquel-blue-400 rounded-md gap-2'>
+      <ShakeHard key={shakedTooMuch ? 'shake' : 'no-shake'} active={shake} fixed onClick={checkShaking}>
+        {shakedTooMuch && <p className="w-full text-center mb-4 text-red-500 absolute -top-10">
+          AAAAAAAAAAAAAAAAHHHHHHHH!!!!!!
+        </p>}
+        
         <section className="w-full flex flex-col gap-1">
           <input 
             type="text" 
