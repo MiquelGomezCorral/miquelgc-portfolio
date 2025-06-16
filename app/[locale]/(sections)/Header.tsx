@@ -66,7 +66,7 @@ export default function Header() {
       </div>
 
       <div
-        className="fixed lg:hidden z-50 top-4 right-6 rounded-full p-2 w-9 border hover:bg-miquel-black-300 backdrop-blur-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)]"
+        className="fixed lg:hidden z-50 top-4 right-6 rounded-full p-2 w-9 border hover:bg-miquel-white-200/25 backdrop-blur-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)] transform duration-300"
         onClick={() => setshowMenu(!showMenu)}
       >
         <Icon
