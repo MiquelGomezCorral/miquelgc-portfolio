@@ -57,12 +57,14 @@ export function useCarrousel({list}: {list: object[]}){
 	}
 
 
+	// Make the slider set to the righ so it is not sticked to the left
 	useEffect(() => {
 		if (scrollContainerRef.current) {
-			scrollContainerRef.current.scrollLeft = scrollContainerRef.current.scrollWidth/(Math.max(list.length-1, 1));
+			scrollContainerRef.current.scrollLeft = scrollContainerRef.current.scrollWidth/(Math.max(list.length-1, 1)) // If it is just in the righ it will go too fast
 		}
 	}, []);
 
+	// Observe the viewe of the user so we can animate the slider when it gets into the veiwe
 	useEffect(() => {
     if (!scrollContainerRef.current || hasScrolled.current) return;
 
