@@ -1,10 +1,11 @@
 "use client"
 
-import { LegacyRef, useRef, useState } from "react";
+import { LegacyRef, useRef, useState, useEffect } from "react";
 
 export function useCarrousel({list}: {list: object[]}){
 	const scrollContainerRef = useRef<HTMLDivElement>(null);
 	const [scrollOn, setScrollOn] = useState<number>(0) // 0 left, 1 middle, 2 right
+	const hasScrolled = useRef(false);
 	const cardSize = 724 // 720 px for the w-[45rem] + 8/2 for the gap-2
 	let timeout: NodeJS.Timeout;
 
@@ -18,7 +19,7 @@ export function useCarrousel({list}: {list: object[]}){
 
 			setScrollOn(Math.ceil(targetScroll / cardSize) === 0 ? 0 : 1)
 		}
-	};
+	}
 	
 	const scrollRight = () => {
 		if (scrollOn === 2) return
@@ -31,7 +32,7 @@ export function useCarrousel({list}: {list: object[]}){
 
 			setScrollOn(Math.ceil(targetScroll / cardSize) >= list.length - 1? 2 : 1)
 		}
-	};
+	}
 
 	const scrollSlider = () => {
 		if (scrollContainerRef.current) {
@@ -53,7 +54,33 @@ export function useCarrousel({list}: {list: object[]}){
 			}, 350);
 
 		}
-	};
+	}
+
+
+	useEffect(() => {
+		if (scrollContainerRef.current) {
+			scrollContainerRef.current.scrollLeft = scrollContainerRef.current.scrollWidth/(Math.max(list.length-1, 1));
+		}
+	}, []);
+
+	useEffect(() => {
+    if (!scrollContainerRef.current || hasScrolled.current) return;
+
+    const observer = new IntersectionObserver(([entry]) => {
+			setTimeout(() =>{
+					if (entry.isIntersecting && scrollContainerRef.current) {
+					scrollContainerRef.current.scrollTo({ left: 0, behavior: "smooth" });
+					hasScrolled.current = true;
+					observer.disconnect();
+				}
+			},100)
+    })
+
+    observer.observe(scrollContainerRef.current);
+
+    return () => observer.disconnect();
+  }, [scrollContainerRef])
+
 	return { scrollContainerRef, scrollOn, scrollLeft, scrollRight, scrollSlider }
 }
 

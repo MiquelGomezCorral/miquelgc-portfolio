@@ -5,14 +5,14 @@ import cn from 'classnames';
 import { useTranslation } from 'react-i18next';
 
 import { Card } from '@/app/[locale]//(utils)/(components)/Card';
-import GlowingText from "@/app/[locale]/(utils)/(components)/GlowingText";
-import { useCarrousel } from '@/app/[locale]/(utils)/(components)/Carrousel';
 import { Section } from '@/app/[locale]/(utils)/(components)/Section';
+import { IconButtonArrow } from "@/app/[locale]/(utils)/(components)/Icons";
+import { useCarrousel } from '@/app/[locale]/(utils)/(components)/Carrousel';
 import { getExperiences } from "@/app/[locale]/(utils)/(constants)/experience.text.d";
-import { IconButtonArrow, Icon } from "@/app/[locale]/(utils)/(components)/Icons";
 
 export default function Experience() {
   const {t} = useTranslation("experiences")
+  
   const Experiences = getExperiences(t)
   const  { scrollContainerRef, scrollOn, scrollLeft, scrollRight, scrollSlider } = useCarrousel({list: Experiences})
  
