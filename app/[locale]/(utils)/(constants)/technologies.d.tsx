@@ -53,7 +53,7 @@ export function Technology({ src }: { src: string }) {
     }
   
     return (
-      <section className="rounded-full bg-miquel-black-200 px-4 py-1 flex justify-center items-center gap-2 text-xs h-min">
+      <section className="rounded-full bg-miquel-black-300 px-4 py-1 flex justify-center items-center gap-2 text-xs h-min">
         <Icon 
           src={src}
           width={20}

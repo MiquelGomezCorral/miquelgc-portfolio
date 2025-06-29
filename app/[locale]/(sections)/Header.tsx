@@ -60,7 +60,7 @@ export default function Header() {
       {/* MENU BUTTON*/}
 
       <div
-        className={cn("fixed flex justify-center items-center lg:hidden z-50 top-4 left-6 rounded-full p-2 1 w-9 border hover:bg-miquel-black-300 backdrop-blur-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)]", {"hidden": showMenu || currentPage === "/" || currentPage === "/es" })}
+        className={cn("fixed flex justify-center items-center lg:hidden z-50 top-4 left-6 rounded-full p-2 1 w-9 border hover:bg-miquel-blue-300 backdrop-blur-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)]", {"hidden": showMenu || currentPage === "/" || currentPage === "/es" })}
       >
         <GoBackButton />
       </div>

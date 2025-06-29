@@ -29,7 +29,7 @@ function TechnologyCard({ object }: { object: TechnologyCathegoryType }) {
   return( 
     <li 
       className={
-        "h-full hover:bg-miquel-black-400/40 rounded-xl transform duration-300 group/li "+
+        "h-full hover:bg-miquel-black-300/40 rounded-xl transform duration-300 group/li "+
         "gap-4 p-4 flex flex-col justify-between list-none"
     }>
       <main className="flex flex-col h-full gap-4 justify-between">

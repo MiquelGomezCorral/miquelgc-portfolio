@@ -15,7 +15,7 @@ export function Project({ object, disabled, seeMore }: { object: ProjectType, di
   return (
     <li
       className={cn("relative grid gird-cols-1 lg:max-h-64 lg:grid-cols-12 gap-4 p-4 rounded-xl transform duration-300 group/proyect", 
-        { "hover:bg-miquel-black-400/40": !disabled, "pt-1 h-16 overflow-hidden blur-sm": seeMore})
+        { "hover:bg-miquel-black-300/40": !disabled, "pt-1 h-16 overflow-hidden blur-sm": seeMore})
       } // hover:scale-105
     >
       <Link href={object.link} className={
@@ -65,7 +65,7 @@ export function SeeMoreProject({ object, text }: { object: ProjectType, text: st
   const { goToPageFrom } = usePageStackStore()
 
   return (
-    <div className="relative rounded-xl opacity-70 hover:opacity-100 hover:bg-miquel-black-400/20 transform duration-300 cursor-pointer"> 
+    <div className="relative rounded-xl opacity-70 hover:opacity-100 hover:bg-miquel-black-300/20 transform duration-300 cursor-pointer"> 
       <Link 
         onClick={() => goToPageFrom(window.location.pathname, object.link)}
         href="/projects"

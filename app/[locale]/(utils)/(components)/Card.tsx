@@ -21,7 +21,7 @@ export function Card({ object }: { object: CardType }) {
     return( 
       <li 
         className={
-          "md:w-[45rem] w-[25rem] h-full hover:bg-miquel-black-400/40 rounded-xl transform duration-300 group/li "+
+          "md:w-[45rem] w-[25rem] h-full hover:bg-miquel-black-500 rounded-xl transform duration-300 group/li "+
           "gap-4 p-4 flex flex-col justify-between list-none"
       }>
         <main className="flex flex-col gap-4">
