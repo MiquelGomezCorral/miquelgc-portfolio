@@ -65,17 +65,19 @@ export function SeeMoreProject({ object, text }: { object: ProjectType, text: st
   const { goToPageFrom } = usePageStackStore()
 
   return (
-    <Link 
-      onClick={() => goToPageFrom(window.location.pathname, object.link)}
-      href="/projects"
-      className="relative rounded-xl opacity-70 hover:opacity-100 hover:bg-miquel-black-400/20 transform duration-300 cursor-pointer"
-    >
-      <span className="z-10 absolute left-1/2 transform -translate-x-1/2 top-1/2 -translate-y-1/2 text-2xl">
+    <div className="relative rounded-xl opacity-70 hover:opacity-100 hover:bg-miquel-black-400/20 transform duration-300 cursor-pointer"> 
+      <Link 
+        onClick={() => goToPageFrom(window.location.pathname, object.link)}
+        href="/projects"
+        className="absolute z-20 inset-0"
+      > {/* The link ocupies the whole space, so you DONT click the project. The link is not nesting the project so there are not links inside other links */}
+      </Link>
+      <span className="z-10 absolute left-1/2 transform -translate-x-1/2 top-1/2 -translate-y-1/2 text-2xl pointer-events-none">
         {text}
       </span>
       <Project object={object} seeMore/>
-    </Link>
-    
+    </div>
+
   )
 }
 
