@@ -141,9 +141,9 @@ export function FormSendEmail(){
   }
 
   // ================== Return ==================
-  const formStyle = "p-2 rounded-md text-white bg-miquel-blue-500/20 border border-miquel-blue-400 transform duration-300"
+  const formStyle = "p-2 rounded-md text-white bg-miquel-blue-500-a/20 border border-miquel-blue-400 transform duration-300"
   const focusStyle = "focus:border-miquel-blue-200 focus:outline-none focus:!duration-0 focus:!transform-none"
-  const errorStyle = "border-red-500 bg-red-500/30 placeholder-red-400/80 focus:border-red-300"
+  const errorStyle = "border-red-500 bg-red-500-a/30 placeholder-red-400/80 focus:border-red-300"
   return(
     <form onSubmit={handleSubmit} noValidate className='w-full flex flex-col p-4 border-2 border-miquel-blue-400 rounded-md gap-2 relative'>
       <ShakeHard key={shakedTooMuch ? 'shake' : 'no-shake'} active={shake} fixed onClick={checkShaking}>

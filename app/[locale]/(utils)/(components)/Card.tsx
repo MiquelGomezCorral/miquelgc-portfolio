@@ -21,8 +21,10 @@ export function Card({ object }: { object: CardType }) {
     return( 
       <li 
         className={
-          "md:w-[45rem] w-[25rem] h-full hover:bg-miquel-black-500 rounded-xl transform duration-300 group/li "+
-          "gap-4 p-4 flex flex-col justify-between list-none"
+          "group/li md:w-[45rem] w-[25rem] h-full rounded-xl gap-4 p-4 flex flex-col justify-between list-none " +
+          "duration-300 transition-all bg-[length:200%_200%] bg-[position:0%_100%] hover:bg-[position:0%_0%] "+
+          "bg-gradient-to-b from-miquel-blue-500-a/20 to-transparent" 
+          // "border-[1px] border-t-miquel-black-50 border-miquel-black-150"
       }>
         <main className="flex flex-col gap-4">
           <header className="w-full h-full flex md:flex-row flex-col md:justify-start justify-center md:items-start items-center gap-4">

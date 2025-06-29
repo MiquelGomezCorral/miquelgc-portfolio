@@ -14,9 +14,13 @@ export function Project({ object, disabled, seeMore }: { object: ProjectType, di
 
   return (
     <li
-      className={cn("relative grid gird-cols-1 lg:max-h-64 lg:grid-cols-12 gap-4 p-4 rounded-xl transform duration-300 group/proyect", 
-        { "hover:bg-miquel-black-300/40": !disabled, "pt-1 h-16 overflow-hidden blur-sm": seeMore})
-      } // hover:scale-105
+      className={cn(
+        "relative grid gird-cols-1 lg:max-h-64 lg:grid-cols-12 gap-4 p-4 rounded-xl transform duration-300 transition-all group/proyect",
+        // "border-[1px] border-t-miquel-black-50 border-miquel-black-150", 
+        {
+          "duration-300 transition-all bg-[length:500%_500%] bg-[position:0%_100%] hover:bg-[position:0%_200%] bg-gradient-to-b from-miquel-blue-500-a/20 to-transparent" : !disabled, 
+          "pt-1 h-16 overflow-hidden blur-sm": seeMore
+      })} // hover:scale-105
     >
       <Link href={object.link} className={
         "group/img relative w-full rounded-xl aspect-video col-span-1 flex justify-center lg:justify-end items-center overflow-hidden " +
@@ -30,7 +34,7 @@ export function Project({ object, disabled, seeMore }: { object: ProjectType, di
           // fill
           width={800}
           height={450}
-          className="rounded-xl w-[95%] lg:w-10/12 group-hover/img:lg:w-11/12 lg:translate-x-4 transform duration-500 aspect-video outline outline-miquel-white-500/40"
+          className="rounded-xl w-[95%] lg:w-10/12 group-hover/img:lg:w-11/12 lg:translate-x-4 transform duration-500 aspect-video outline outline-miquel-white-500-a/40"
         />
       </Link>
 
