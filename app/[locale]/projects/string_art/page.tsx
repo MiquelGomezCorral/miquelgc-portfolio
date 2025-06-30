@@ -93,7 +93,7 @@ export default async function ProjectPage({ params }: { params: any }) {
         </main>
   
         <div id="footer" className="w-full bg-gradient-to-b from-miquel-background to-black flex justify-center ">
-          <Footer params={{locale: params.locale}}/>
+          <Footer params={{locale: locale}}/>
         </div>
     </TranslationsProvider>
   )

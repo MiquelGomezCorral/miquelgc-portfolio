@@ -61,6 +61,7 @@
         "upload": "Subir imagen",
         "crop": "Recortar imagen",
         "start": "Empezar",
+        "stop": "Parar",
         "continue": "Continua",
         "restart": "Reiniciar"
     }

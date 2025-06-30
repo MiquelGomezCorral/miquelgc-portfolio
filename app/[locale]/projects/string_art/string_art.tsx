@@ -16,9 +16,12 @@ type point = {
 type nail = point & {
   usedWith: Set<number>,
 }
+
+
 export function StringArtComponent(){
   const {t} = useTranslation("projects")
 
+  // const [selectedImage, setSelectedImage] = useState("/assets/projects/Robot.webp");
   const [selectedImage, setSelectedImage] = useState("/assets/projects/Einstein.webp");
   const fileUploadRef = useRef<HTMLInputElement>(null);
 
@@ -38,14 +41,15 @@ export function StringArtComponent(){
   const [nailVector, setNailVector] = useState<nail[]>([])
   const [maxLines, setMaxLines] = useState(3500) 
   const [linesDrawn, setLinesDrawn] = useState(0) 
-  const [linesVector, setLinesVector] = useState<number[]>([Math.floor(Math.random() * numPins)]) 
+  const [linesVector, setLinesVector] = useState<number[]>([0]) //Math.floor(Math.random() * numPins)
   const [initialTime, setInitialTime] = useState(0)
   const [totalTime, setTotalTime] = useState(0)
   const [stimatedTime, setStimatedTime] = useState(0)
   
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const precomputedLines = useRef(new Map());
+  // ================================ NAILS ================================
+  const precomputedLinesRef = useRef<Map<string, point[]>>(new Map())
   const margin = 10
   const radius = 350 
   const neighbourtNailMargin = Math.ceil(numPins*0.035)
@@ -60,10 +64,18 @@ export function StringArtComponent(){
         usedWith: new Set<number>(),
       })
     }
+
+    // update state
     setNailVector(pins)
     
+
+    // Precompute lines immediately after
+    // NOTE: precomputeLinePoints needs nailVector synchronously,
+    // so call it here with pins, not nailVector (which updates async)
+    precomputedLinesRef.current = precomputeLinePoints(pins, imageSize, radius, numPins)
   },[numPins, radius, margin])
 
+  // ================================ MANAGE CREATING IMAGE ================================
   useEffect(() => {
     return () => {
       setCreatingImage((prevCreatingImage)=>{
@@ -76,6 +88,7 @@ export function StringArtComponent(){
   }, [creatingImage]);
 
 
+  // ================================ IMAGE UPDATE ================================
   const handleImageUpload = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
     fileUploadRef.current?.click()
@@ -92,8 +105,8 @@ export function StringArtComponent(){
   const handleCropImage = async () => {
     if (croppedAreaPixels) {
       const {image, errorMatrix} = await getCroppedImg(selectedImage, croppedAreaPixels);
-      setSelectedImage(image);
-      setCroppingCompleted(true);
+      setSelectedImage(image)
+      setCroppingCompleted(true)
       setErrorMatrix(errorMatrix)    
       setInUseErrorMatrix(errorMatrix)    
 
@@ -103,6 +116,7 @@ export function StringArtComponent(){
   }
 
 
+  // ================================ ALGORITH ================================
   const createImage = (reset: boolean) => {
     let newLinesVector = linesVector
     let t1 = initialTime
@@ -127,15 +141,17 @@ export function StringArtComponent(){
       setLinesVector((prevPinsVector) => {
         const prevNail = prevPinsVector[prevPinsVector.length-1]
         let nextNail = Math.floor(Math.random() * numPins)
-        let highestScore = computeError(computedErrorMatrix, prevNail, nextNail)
+        let highestScore = computeError(computedErrorMatrix, prevNail, nextNail, precomputedLinesRef.current)
+        const last10 = prevPinsVector.slice(-10)
 
         for(let i = 0; i < numPins; i++){
           // MAKE THAT ONLY TAKES INTO ACOUNT LINE FURHTER THAN 10 POSTIONS %
           const up = (i + neighbourtNailMargin) % numPins
           const down = (i - neighbourtNailMargin + numPins) % numPins
-          if ((prevNail <= up && prevNail >= down) || nailVector[prevNail].usedWith.has(i) || prevPinsVector.slice(-10).includes(i)) continue //Avoid using pins close to the acutal
+          if ((prevNail <= up && prevNail >= down) || nailVector[prevNail].usedWith.has(i) || last10.includes(i)) 
+            continue //Avoid using pins close to the acutal
 
-          const auxScore = computeError(computedErrorMatrix, prevNail, i)
+          const auxScore = computeError(computedErrorMatrix, prevNail, i, precomputedLinesRef.current)
 
           if(highestScore < auxScore){
             highestScore = auxScore
@@ -144,7 +160,7 @@ export function StringArtComponent(){
         }
 
         // UPDATE DRAWN MATRIX
-        computedErrorMatrix = updateComputeImageMatrix(computedErrorMatrix, prevNail, nextNail)
+        computedErrorMatrix = updateComputeImageMatrix(computedErrorMatrix, prevNail, nextNail, precomputedLinesRef.current)
         nailVector[prevNail].usedWith.add(nextNail)
         nailVector[nextNail].usedWith.add(prevNail)
 
@@ -153,77 +169,132 @@ export function StringArtComponent(){
       
       // UPDATE VALUES
       setLinesDrawn((prevLinesDrawn) => prevLinesDrawn + 1)
-      if(count % 10 == 0 || count == 2) {
+      if(count % 20 == 0) {
         const computedTime = Math.round((performance.now() - t1)/100)/10
         setTotalTime(computedTime) // 2 digits precision
-        setStimatedTime(Math.round((computedTime / count) * (maxLines - count) * 100) / 100)
+        setStimatedTime(((computedTime / count) * (maxLines - count)))
       }
       count++;
       // setErrorMatrix(computedErrorMatrix)
     }, 0);
   }
-  const computeError = (computedErrorMatrix: number[][], nail1Idx: number, nail2Idx: number) => {
-    let error = 0
-    let affectedPixels = 0 
+  // const computeError = (computedErrorMatrix: number[][], nail1Idx: number, nail2Idx: number) => {
+  //   let error = 0
+  //   let affectedPixels = 0 
     
-    let {x1, y1, x2, y2, dx, dy, sx, sy} = getVariableForPixelSearch(nailVector[nail1Idx].x, nailVector[nail1Idx].y, nailVector[nail2Idx].x, nailVector[nail2Idx].y, imageSize, radius*2)
-    const actual: point = {x: x1, y: y1}
-    let err = dx - dy
+  //   let {x1, y1, x2, y2, dx, dy, sx, sy} = getVariableForPixelSearch(nailVector[nail1Idx].x, nailVector[nail1Idx].y, nailVector[nail2Idx].x, nailVector[nail2Idx].y, imageSize, radius*2)
+  //   const actual: point = {x: x1, y: y1}
+  //   let err = dx - dy
 
-    do{ //at least one pixel is going to be affected
-      affectedPixels++
-      const actualError = computedErrorMatrix[actual.y][actual.x]
+  //   do{ //at least one pixel is going to be affected
+  //     affectedPixels++
+  //     const actualError = computedErrorMatrix[actual.y][actual.x]
 
-      error +=  actualError 
+  //     error +=  actualError 
 
-      // Calculate error and adjust coordinates
-      let e2 = err * 2
-      if (e2 > -dy) {
-          err -= dy
-          actual.x += sx
-      }
-      if (e2 < dx) {
-          err += dx
-          actual.y += sy
-      }
-    } while (actual.x !== x2 || actual.y !== y2)
+  //     // Calculate error and adjust coordinates
+  //     let e2 = err * 2
+  //     if (e2 > -dy) {
+  //         err -= dy
+  //         actual.x += sx
+  //     }
+  //     if (e2 < dx) {
+  //         err += dx
+  //         actual.y += sy
+  //     }
+  //   } while (actual.x !== x2 || actual.y !== y2)
     
-    return error / affectedPixels 
+  //   return error / affectedPixels 
+  // }
+
+  const precomputeLinePoints = (
+    nailVector: nail[],
+    imageSize: number,
+    radius: number,
+    numPins: number
+  ): Map<string, point[]> => {
+    const map = new Map<string, point[]>()
+
+    for (let i = 0; i < numPins; i++) {
+      for (let j = 0; j < numPins; j++) {
+        if (i === j) continue
+        const key = getLineKey(i, j)
+
+        const { x1, y1, x2, y2, dx, dy, sx, sy } = getVariableForPixelSearch(
+          nailVector[i].x, nailVector[i].y,
+          nailVector[j].x, nailVector[j].y,
+          imageSize, radius * 2
+        )
+
+        const actual: point = { x: x1, y: y1 }
+        let err = dx - dy
+        const line: point[] = []
+
+        do {
+          line.push({ x: actual.x, y: actual.y })
+          const e2 = err * 2
+          if (e2 > -dy) {
+            err -= dy
+            actual.x += sx
+          }
+          if (e2 < dx) {
+            err += dx
+            actual.y += sy
+          }
+        } while (actual.x !== x2 || actual.y !== y2)
+
+        map.set(key, line)
+      }
+    }
+
+    return map
   }
 
-  const updateComputeImageMatrix = (prevErrorMatrix:number[][], nail1Idx: number, nail2Idx: number) => {
-    let {x1, y1, x2, y2, dx, dy, sx, sy} = getVariableForPixelSearch(nailVector[nail1Idx].x, nailVector[nail1Idx].y, nailVector[nail2Idx].x, nailVector[nail2Idx].y, imageSize, radius*2)
-    const newMatrix = prevErrorMatrix.map((row) => [...row]);
+  const updateComputeImageMatrix = (prevErrorMatrix:number[][], nail1Idx: number, nail2Idx: number, precomputedLines: Map<string, point[]>) => {
+    // let {x1, y1, x2, y2, dx, dy, sx, sy} = getVariableForPixelSearch(nailVector[nail1Idx].x, nailVector[nail1Idx].y, nailVector[nail2Idx].x, nailVector[nail2Idx].y, imageSize, radius*2)
+    // const newMatrix = prevErrorMatrix.map((row) => [...row]);
 
-    const actual: point = {x: x1, y: y1}
-    let err = dx - dy    
+    // const actual: point = {x: x1, y: y1}
+    // let err = dx - dy    
 
-    do{
-      const newPixelValue = Math.max(prevErrorMatrix[actual.y][actual.x] - 255*lineWidth, 0) 
-      newMatrix[actual.y][actual.x] = newPixelValue
+    // do{
+    //   const newPixelValue = Math.max(prevErrorMatrix[actual.y][actual.x] - 255*lineWidth, 0) 
+    //   newMatrix[actual.y][actual.x] = newPixelValue
 
-      // Calculate error and adjust coordinates
-      let e2 = err * 2
-      if (e2 > -dy) {
-          err -= dy
-          actual.x += sx
-      }
-      if (e2 < dx) {
-          err += dx
-          actual.y += sy
-      }
-    } while (actual.x !== x2 || actual.y !== y2)
+    //   // Calculate error and adjust coordinates
+    //   let e2 = err * 2
+    //   if (e2 > -dy) {
+    //       err -= dy
+    //       actual.x += sx
+    //   }
+    //   if (e2 < dx) {
+    //       err += dx
+    //       actual.y += sy
+    //   }
+    // } while (actual.x !== x2 || actual.y !== y2)
     
+    // return newMatrix
+    
+    const newMatrix = prevErrorMatrix.map(row => [...row])
+    const key = getLineKey(nail1Idx, nail2Idx)
+    const line = precomputedLines.get(key)
+
+    if (!line) return newMatrix // fallback if no precomputed line
+
+    for (const { x, y } of line) {
+      newMatrix[y][x] = Math.max(newMatrix[y][x] - 255 * lineWidth, 0)
+    }
+
     return newMatrix
-}
+  }
 
   return(
     <section className='w-full flex gap-4 flex-col items-center'>
       <div className='flex flex-col items-center gap-2'>
-        <header className={cn("flex w-full flex-col", {"opacity-0": !creatingImage})}>
+        <header className={cn("flex w-full flex-col font-mono", {"opacity-0": !creatingImage})}>
           <span className="flex w-full justify-between"> 
             <p>{linesDrawn}/{maxLines} </p>
-            <p>{Math.round(linesDrawn*100*100/maxLines) / 100}% </p>
+            <p>{((linesDrawn * 100) / maxLines).toFixed(2)}% </p>
           </span>
           <span className="flex w-full justify-between">
             <p>Total time: {secondsToTime(totalTime)}</p>
@@ -309,6 +380,7 @@ export function StringArtComponent(){
                 clearInterval(intervalRef.current)
               setLinesVector([]) 
               setInitialTime(0)
+              setLinesDrawn(0)
               setCreatingImage(false)
             }}
           > 
@@ -356,6 +428,35 @@ export function StringArtComponent(){
   )
 }
 
+// =========================================================================
+//                              ALGORITHM FUNCTIONS
+// =========================================================================
+
+
+function getLineKey (a: number, b: number) {
+ return a < b ? `${a}-${b}` : `${b}-${a}` // consistent key regardless of order
+}
+
+function computeError ( 
+  computedErrorMatrix: number[][],  nail1Idx: number,  nail2Idx: number,  precomputedLines: Map<string, point[]>
+): number {
+  const key = getLineKey(nail1Idx, nail2Idx)
+  const line = precomputedLines.get(key)
+  if (!line) return Infinity
+
+  let error = 0
+  for (const { x, y } of line) {
+    error += computedErrorMatrix[y][x]
+  }
+
+  return error
+}
+
+
+// =========================================================================
+//                              IMAGE FUNCTIONS
+// =========================================================================
+
 async function getCroppedImg(imageSrc: string, pixelCrop: { x: number; y: number; width: number; height: number }) {
   const image = new Image();
   image.src = imageSrc;
@@ -368,14 +469,10 @@ async function getCroppedImg(imageSrc: string, pixelCrop: { x: number; y: number
 
   ctx.drawImage(
     image,
-    pixelCrop.x,
-    pixelCrop.y,
-    pixelCrop.width,
-    pixelCrop.height,
-    0,
-    0,
-    pixelCrop.width,
-    pixelCrop.height
+    pixelCrop.x, pixelCrop.y,
+    pixelCrop.width, pixelCrop.height,
+    0, 0,
+    pixelCrop.width, pixelCrop.height
   );
 
   // Black and white
@@ -423,6 +520,10 @@ function getVariableForPixelSearch(nailx1: number, naily1: number, nailx2: numbe
 }
 
 
+// =========================================================================
+//                              UTIL FUNCTIONS
+// =========================================================================
+
 function secondsToTime(sec: number): string{
   const minutes = Math.floor(sec/60)
   const seconds = Math.floor(sec%60)
@@ -433,84 +534,3 @@ function secondsToTime(sec: number): string{
 
   return `${formattedMinutes}min ${formattedSeconds}sec`;
 }
-
-
-//   const height = matrix.length;
-//   const width = matrix[0].length;
-
-//   const canvas = document.createElement("canvas");
-//   canvas.width = width;
-//   canvas.height = height;
-//   const ctx = canvas.getContext("2d")!;
-
-//   const imageData = ctx.createImageData(width, height);
-//   const data = imageData.data;
-
-//   for (let y = 0; y < height; y++) {
-//     for (let x = 0; x < width; x++) {
-//       const gray = matrix[y][x]; // Value between 0-255
-//       const index = (y * width + x) * 4; // RGBA format
-
-//       data[index] = gray;     // Red
-//       data[index + 1] = gray; // Green
-//       data[index + 2] = gray; // Blue
-//       data[index + 3] = 255;  // Alpha (fully opaque)
-//     }
-//   }
-
-//   ctx.putImageData(imageData, 0, 0);
-
-//   return canvas.toDataURL(); // Convert to base64 URL
-// };
-
-// export default function MatrixImage({ matrix }: { matrix: number[][] }) {
-//   const [imageSrc, setImageSrc] = useState<string | null>(null);
-
-//   useEffect(() => {
-//     if (matrix.length > 0) {
-//       setImageSrc(matrixToImage(matrix));
-//     }
-//   }, [matrix]);
-
-//   return (
-//     <div>
-//       {imageSrc ? (
-//         <img src={imageSrc} alt="Grayscale Matrix" />
-//       ) : (
-//         <p>Generating image...</p>
-//       )}
-//     </div>
-//   );
-// }
-
-// const computeLinePixels = (nail1: nail, nail2: nail, imageSize: number, canvasSize: number) => {
-//   let pixels = [];
-  
-//   let {x: x1, y: y1} = {x: Math.floor(nail1.x*imageSize/canvasSize), y: Math.floor(nail1.y*imageSize/canvasSize)}
-//   let {x: x2, y: y2} = {x: Math.floor(nail2.x*imageSize/canvasSize), y: Math.floor(nail2.y*imageSize/canvasSize)}
-  
-
-//   let dx = Math.abs(x2 - x1);
-//   let dy = Math.abs(y2 - y1);
-//   let sx = x1 < x2 ? 1 : -1;
-//   let sy = y1 < y2 ? 1 : -1;
-//   let err = dx - dy;
-
-//   while (true) {
-//     pixels.push({ x: x1, y: y1 });
-
-//     if (x1 === x2 && y1 === y2) break;
-
-//     let e2 = err * 2;
-//     if (e2 > -dy) {
-//       err -= dy;
-//       x1 += sx;
-//     }
-//     if (e2 < dx) {
-//       err += dx;
-//       y1 += sy;
-//     }
-//   }
-
-//   return pixels;
-// };
