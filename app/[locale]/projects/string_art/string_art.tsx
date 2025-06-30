@@ -143,7 +143,7 @@ export function StringArtComponent(){
         let nextNail = Math.floor(Math.random() * numPins)
         let highestScore = computeError(computedErrorMatrix, prevNail, nextNail, precomputedLinesRef.current)
         const last10 = prevPinsVector.slice(-10)
-
+        
         for(let i = 0; i < numPins; i++){
           // MAKE THAT ONLY TAKES INTO ACOUNT LINE FURHTER THAN 10 POSTIONS %
           const up = (i + neighbourtNailMargin) % numPins
