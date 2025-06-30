@@ -16,9 +16,8 @@ export function Project({ object, disabled, seeMore }: { object: ProjectType, di
     <li
       className={cn(
         "relative grid gird-cols-1 lg:max-h-64 lg:grid-cols-12 gap-4 p-4 rounded-xl transform duration-300 transition-all group/proyect",
-        // "border-[1px] border-t-miquel-black-50 border-miquel-black-150", 
         {
-          "duration-300 transition-all bg-[length:500%_500%] bg-[position:0%_100%] hover:bg-[position:0%_200%] bg-gradient-to-b from-miquel-blue-500-a/20 to-transparent" : !disabled, 
+          "bg-miquel-gradient" : !disabled, 
           "pt-1 h-16 overflow-hidden blur-sm": seeMore
       })} // hover:scale-105
     >

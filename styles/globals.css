@@ -43,3 +43,16 @@ html {
 ::-webkit-scrollbar-thumb:hover{
     background: #505160;
 }
+
+/* Gradient blackground with smooth transition*/
+@layer components {
+  .bg-miquel-gradient {
+    @apply duration-300 transition-all 
+           bg-[length:500%_500%] 
+           bg-[position:0%_100%] 
+           hover:bg-[position:0%_0%]
+           bg-gradient-to-b 
+           from-miquel-black-500 
+           to-transparent;
+  }
+}

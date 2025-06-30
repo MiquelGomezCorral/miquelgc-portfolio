@@ -19,20 +19,13 @@ export type CardType = {
 
 export function Card({ object }: { object: CardType }) {
     return( 
-      <li 
-        className={
-          "group/li md:w-[45rem] w-[25rem] h-full rounded-xl gap-4 p-4 flex flex-col justify-between list-none " +
-          "duration-300 transition-all bg-[length:200%_200%] bg-[position:0%_100%] hover:bg-[position:0%_0%] "+
-          "bg-gradient-to-b from-miquel-blue-500-a/20 to-transparent" 
-          // "border-[1px] border-t-miquel-black-50 border-miquel-black-150"
-      }>
+      <li className="group/li md:w-[45rem] w-[25rem] h-full rounded-xl gap-4 p-4 flex flex-col justify-between list-none bg-miquel-gradient" >
         <main className="flex flex-col gap-4">
           <header className="w-full h-full flex md:flex-row flex-col md:justify-start justify-center md:items-start items-center gap-4">
             <Link href={object.link} target="_blank" className={
               "group/img relative md:w-1/3 md:h-[6rem] w-full rounded-xl aspect-video col-span-1 flex justify-center items-center overflow-hidden p-6 py-10"
               +" lg:col-span-5 bg-gradient-to-r from-miquel-white-200 to-miquel-white-100 hover:outline hover:outline-miquel-black-100" 
-              }
-            >
+            }>
               <Image 
                 src={`/assets/${object.logo}.svg`} alt={object.logo}
                 width={200}

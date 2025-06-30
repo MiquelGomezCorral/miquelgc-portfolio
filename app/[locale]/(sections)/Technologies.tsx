@@ -30,7 +30,7 @@ function TechnologyCard({ object }: { object: TechnologyCathegoryType }) {
     <li 
       className={
         "h-full hover:bg-miquel-black-300/40 rounded-xl transform duration-300 group/li "+
-        "gap-4 p-4 flex flex-col justify-between list-none"
+        "gap-4 p-4 flex flex-col justify-between list-none bg-miquel-gradient"
     }>
       <main className="flex flex-col h-full gap-4 justify-between">
         <header className="w-full flex flex-col md:items-start items-center gap-4 ">
