@@ -178,34 +178,7 @@ export function StringArtComponent(){
       // setErrorMatrix(computedErrorMatrix)
     }, 0);
   }
-  // const computeError = (computedErrorMatrix: number[][], nail1Idx: number, nail2Idx: number) => {
-  //   let error = 0
-  //   let affectedPixels = 0 
-    
-  //   let {x1, y1, x2, y2, dx, dy, sx, sy} = getVariableForPixelSearch(nailVector[nail1Idx].x, nailVector[nail1Idx].y, nailVector[nail2Idx].x, nailVector[nail2Idx].y, imageSize, radius*2)
-  //   const actual: point = {x: x1, y: y1}
-  //   let err = dx - dy
 
-  //   do{ //at least one pixel is going to be affected
-  //     affectedPixels++
-  //     const actualError = computedErrorMatrix[actual.y][actual.x]
-
-  //     error +=  actualError 
-
-  //     // Calculate error and adjust coordinates
-  //     let e2 = err * 2
-  //     if (e2 > -dy) {
-  //         err -= dy
-  //         actual.x += sx
-  //     }
-  //     if (e2 < dx) {
-  //         err += dx
-  //         actual.y += sy
-  //     }
-  //   } while (actual.x !== x2 || actual.y !== y2)
-    
-  //   return error / affectedPixels 
-  // }
 
   const precomputeLinePoints = (
     nailVector: nail[],
@@ -251,30 +224,7 @@ export function StringArtComponent(){
   }
 
   const updateComputeImageMatrix = (prevErrorMatrix:number[][], nail1Idx: number, nail2Idx: number, precomputedLines: Map<string, point[]>) => {
-    // let {x1, y1, x2, y2, dx, dy, sx, sy} = getVariableForPixelSearch(nailVector[nail1Idx].x, nailVector[nail1Idx].y, nailVector[nail2Idx].x, nailVector[nail2Idx].y, imageSize, radius*2)
-    // const newMatrix = prevErrorMatrix.map((row) => [...row]);
 
-    // const actual: point = {x: x1, y: y1}
-    // let err = dx - dy    
-
-    // do{
-    //   const newPixelValue = Math.max(prevErrorMatrix[actual.y][actual.x] - 255*lineWidth, 0) 
-    //   newMatrix[actual.y][actual.x] = newPixelValue
-
-    //   // Calculate error and adjust coordinates
-    //   let e2 = err * 2
-    //   if (e2 > -dy) {
-    //       err -= dy
-    //       actual.x += sx
-    //   }
-    //   if (e2 < dx) {
-    //       err += dx
-    //       actual.y += sy
-    //   }
-    // } while (actual.x !== x2 || actual.y !== y2)
-    
-    // return newMatrix
-    
     const newMatrix = prevErrorMatrix.map(row => [...row])
     const key = getLineKey(nail1Idx, nail2Idx)
     const line = precomputedLines.get(key)
@@ -429,7 +379,7 @@ export function StringArtComponent(){
 }
 
 // =========================================================================
-//                              ALGORITHM FUNCTIONS
+//                        ALGORITHM EXTERNAL FUNCTIONS
 // =========================================================================
 
 
