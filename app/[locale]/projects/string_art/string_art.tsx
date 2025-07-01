@@ -21,11 +21,10 @@ type nail = point & {
 export function StringArtComponent(){
   const {t} = useTranslation("projects")
 
-  // const [selectedImage, setSelectedImage] = useState("/assets/projects/Robot.webp");
+  // ================================ IMAGE ================================
   const [selectedImage, setSelectedImage] = useState("/assets/projects/Einstein.webp");
+  // const [selectedImage, setSelectedImage] = useState("/assets/projects/Robot.webp");
   const fileUploadRef = useRef<HTMLInputElement>(null);
-
-  const [updateImage, setUpdateImage] = useState(false);
 
   const [creatingImage, setCreatingImage] = useState(false);
   const [croppingCompleted, setCroppingCompleted] = useState(false);
@@ -34,33 +33,41 @@ export function StringArtComponent(){
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<{ x: number; y: number; width: number; height: number } | null>(null);
   const [imageSize, setImazeSize] = useState(1900)
 
+  // ================================ MATRIX ================================
   const [errorMatrix, setErrorMatrix] = useState<number[][]>([[]])
   const [inUseErrorMatrix, setInUseErrorMatrix] = useState<number[][]>([[]])
+
+  // ================================ CONFIG ================================
   const [lineWidth, setLineWidth] = useState(0.20)
   const [numPins, setNumPins] = useState(288)
   const [nailVector, setNailVector] = useState<nail[]>([])
   const [maxLines, setMaxLines] = useState(3500) 
-  const [linesDrawn, setLinesDrawn] = useState(0) 
+
+  // ================================ LINES ================================
   const [linesVector, setLinesVector] = useState<number[]>([0]) //Math.floor(Math.random() * numPins)
+  const [linesDrawn, setLinesDrawn] = useState(0) 
+
+  // ================================ TIME ================================
   const [initialTime, setInitialTime] = useState(0)
   const [totalTime, setTotalTime] = useState(0)
   const [stimatedTime, setStimatedTime] = useState(0)
-  
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  
 
   // ================================ NAILS ================================
   const precomputedLinesRef = useRef<Map<string, point[]>>(new Map())
   const margin = 10
   const radius = 350 
   const neighbourtNailMargin = Math.ceil(numPins*0.035)
+
   useEffect(() => {
     // GET NAILS
     const d = (360 / numPins) * (Math.PI / 180) // convert to radians
     const pins: nail[] = []
     for(let i = 0; i < numPins; i++){
       pins.push({
-        x: Math.cos(d*i) * (radius - margin) + radius,
-        y: Math.sin(d*i) * (radius - margin) + radius,
+        x: Math.cos(d*i - Math.PI / 2) * (radius - margin) + radius, //  + Math.PI / 2 -> ofset by 90
+        y: Math.sin(d*i - Math.PI / 2) * (radius - margin) + radius,
         usedWith: new Set<number>(),
       })
     }
@@ -133,50 +140,97 @@ export function StringArtComponent(){
     setInitialTime(t1)
     setInUseErrorMatrix(computedErrorMatrix)
 
-    intervalRef.current = setInterval(() =>{
-      if (count >= maxLines - 1 && intervalRef.current){
-        clearInterval(intervalRef.current)
-      }
-      // CHOOSE NEXT NAIL
-      setLinesVector((prevPinsVector) => {
-        const prevNail = prevPinsVector[prevPinsVector.length-1]
-        let nextNail = Math.floor(Math.random() * numPins)
-        let highestScore = computeError(computedErrorMatrix, prevNail, nextNail, precomputedLinesRef.current)
-        const last10 = prevPinsVector.slice(-10)
+    // intervalRef.current = setInterval(() =>{
+    //   if (count >= maxLines - 1 && intervalRef.current){
+    //     clearInterval(intervalRef.current)
+    //   }
+
+    //   // CHOOSE NEXT NAIL
+    //   setLinesVector((prevPinsVector) => {
+    //     const prevNail = prevPinsVector[prevPinsVector.length-1]
+    //     let nextNail = Math.floor(Math.random() * numPins)
+    //     let highestScore = computeError(computedErrorMatrix, prevNail, nextNail, precomputedLinesRef.current)
+    //     const last10 = prevPinsVector.slice(-10)
         
-        for(let i = 0; i < numPins; i++){
-          // MAKE THAT ONLY TAKES INTO ACOUNT LINE FURHTER THAN 10 POSTIONS %
-          const up = (i + neighbourtNailMargin) % numPins
-          const down = (i - neighbourtNailMargin + numPins) % numPins
-          if ((prevNail <= up && prevNail >= down) || nailVector[prevNail].usedWith.has(i) || last10.includes(i)) 
-            continue //Avoid using pins close to the acutal
+    //     for(let i = 0; i < numPins; i++){
+    //       // MAKE THAT ONLY TAKES INTO ACOUNT LINE FURHTER THAN 10 POSTIONS %
+    //       const up = (i + neighbourtNailMargin) % numPins
+    //       const down = (i - neighbourtNailMargin + numPins) % numPins
+    //       if ((prevNail <= up && prevNail >= down) || nailVector[prevNail].usedWith.has(i) || last10.includes(i)) 
+    //         continue //Avoid using pins close to the acutal
 
-          const auxScore = computeError(computedErrorMatrix, prevNail, i, precomputedLinesRef.current)
+    //       const auxScore = computeError(computedErrorMatrix, prevNail, i, precomputedLinesRef.current)
 
-          if(highestScore < auxScore){
-            highestScore = auxScore
-            nextNail = i
-          }
-        }
+    //       if(highestScore < auxScore){
+    //         highestScore = auxScore
+    //         nextNail = i
+    //       }
+    //     }
 
-        // UPDATE DRAWN MATRIX
-        computedErrorMatrix = updateComputeImageMatrix(computedErrorMatrix, prevNail, nextNail, precomputedLinesRef.current)
-        nailVector[prevNail].usedWith.add(nextNail)
-        nailVector[nextNail].usedWith.add(prevNail)
+    //     // UPDATE DRAWN MATRIX
+    //     computedErrorMatrix = updateComputeImageMatrix(computedErrorMatrix, prevNail, nextNail, precomputedLinesRef.current)
+    //     nailVector[prevNail].usedWith.add(nextNail)
+    //     nailVector[nextNail].usedWith.add(prevNail)
 
-        return [...prevPinsVector, nextNail]
-      })
+    //     return [...prevPinsVector, nextNail]
+    //   })
       
-      // UPDATE VALUES
-      setLinesDrawn((prevLinesDrawn) => prevLinesDrawn + 1)
-      if(count % 20 == 0) {
-        const computedTime = Math.round((performance.now() - t1)/100)/10
-        setTotalTime(computedTime) // 2 digits precision
-        setStimatedTime(((computedTime / count) * (maxLines - count)))
+    //   // UPDATE VALUES
+    //   setLinesDrawn((prevLinesDrawn) => prevLinesDrawn + 1)
+    //   if(count % 20 == 0) {
+    //     const computedTime = Math.round((performance.now() - t1)/100)/10
+    //     setTotalTime(computedTime) // 2 digits precision
+    //     setStimatedTime(((computedTime / count) * (maxLines - count)))
+    //   }
+    //   count++;
+    //   // setErrorMatrix(computedErrorMatrix)
+    // }, 0);
+    
+  intervalRef.current = setInterval(() => {
+    if (count >= maxLines - 1 && intervalRef.current) {
+      clearInterval(intervalRef.current)
+      return
+    }
+
+    const prevNail = newLinesVector[newLinesVector.length - 1]
+    let nextNail = Math.floor(Math.random() * numPins)
+    let highestScore = computeError(computedErrorMatrix, prevNail, nextNail, precomputedLinesRef.current)
+    const last10 = newLinesVector.slice(-10)
+
+    for (let i = 0; i < numPins; i++) {
+      const up = (i + neighbourtNailMargin) % numPins
+      const down = (i - neighbourtNailMargin + numPins) % numPins
+
+      if (
+        (prevNail <= up && prevNail >= down) ||
+        nailVector[prevNail].usedWith.has(i) ||
+        last10.includes(i)
+      ) continue
+
+      const score = computeError(computedErrorMatrix, prevNail, i, precomputedLinesRef.current)
+
+      if (score > highestScore) {
+        highestScore = score
+        nextNail = i
       }
-      count++;
-      // setErrorMatrix(computedErrorMatrix)
-    }, 0);
+    }
+
+    computedErrorMatrix = updateComputeImageMatrix(computedErrorMatrix, prevNail, nextNail, precomputedLinesRef.current)
+    nailVector[prevNail].usedWith.add(nextNail)
+    nailVector[nextNail].usedWith.add(prevNail)
+
+    newLinesVector = [...newLinesVector, nextNail]
+    setLinesVector(newLinesVector)
+
+    setLinesDrawn(prev => prev + 1)
+    if (count % 20 === 0) {
+      const elapsed = Math.round((performance.now() - t1) / 100) / 10
+      setTotalTime(elapsed)
+      setStimatedTime(((elapsed / (count + 1)) * (maxLines - count - 1)))
+    }
+
+    count++
+  }, 0)
   }
 
 
@@ -311,7 +365,7 @@ export function StringArtComponent(){
                 clearInterval(intervalRef.current)
 
               createImage(linesVector.length <= 1)
-
+              setLinesVector([0])
               setCreatingImage(!creatingImage)
             }}
           > 
