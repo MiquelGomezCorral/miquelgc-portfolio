@@ -23,7 +23,7 @@ export function StringArtComponent(){
 
   // ================================ IMAGE ================================
   const [selectedImage, setSelectedImage] = useState("/assets/projects/Einstein.webp");
-  // const [selectedImage, setSelectedImage] = useState("/assets/projects/Robot.webp");
+  // const [selectedImage, setSelectedImage] = useState("/assets/projects/Robot.webp"); 
   const fileUploadRef = useRef<HTMLInputElement>(null);
 
   const [creatingImage, setCreatingImage] = useState(false);
