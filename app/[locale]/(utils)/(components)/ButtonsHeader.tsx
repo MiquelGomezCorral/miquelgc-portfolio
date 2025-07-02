@@ -4,6 +4,8 @@ import cn from "classnames"
 import Link from "next/link"
 import { usePageStackStore } from "@/app/[locale]/(global_state)/state"
 import { Icon } from "@/app/[locale]/(utils)/(components)/Icons"
+import { Button } from '@/app/[locale]/(utils)/(components)/Buttons';
+import { t } from "i18next"
 
 
 interface HeaderButtonProps  {
@@ -83,5 +85,32 @@ export function ButtonLink({icon, link, blank, notAddToStack, stayPage, onClick,
         </HeaderButton>
       }
     </Link>
+  )
+}
+
+
+interface HeaderButtonModalProps  {
+  icon?: string,
+  
+  className?: string
+  children?: React.ReactNode,
+}
+export function ButtonModal({icon, className, ...props }: HeaderButtonModalProps){
+
+  return(
+    <div className="z-30 absolute h-full w-full top-0 left-0 flex justify-center items-center bg-miquel-black-500-a/40 backdrop-blur-md">
+      <div className={cn("z-30 h-32 w-32 absolute left-1/2 top-1/2 rounded-md")}>
+        {icon ?
+          <HeaderButtonIcon icon={icon} className={cn("",className)}>
+            {props.children}
+          </HeaderButtonIcon>
+          :
+          <HeaderButton className={cn("",className)}>
+            {props.children}
+          </HeaderButton>
+        }
+        <Button>{t("close")}</Button>
+      </div>
+    </div>
   )
 }

@@ -1,6 +1,6 @@
 import cn from "classnames"
 
-import { ButtonLink } from "@/app/[locale]/(utils)/(components)/ButtonLink";
+import { ButtonLink } from "@/app/[locale]/(utils)/(components)/ButtonsHeader";
 import GlowingText from "@/app/[locale]/(utils)/(components)/GlowingText";
 import { Icon } from "@/app/[locale]/(utils)/(components)/Icons";
 

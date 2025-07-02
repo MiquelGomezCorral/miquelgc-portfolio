@@ -4,7 +4,7 @@ import cn from 'classnames';
 import Link from "next/link";
 import { useState } from "react";
 import { useTranslation } from 'react-i18next';
-import { HeaderButton, ButtonLink, HeaderButtonIcon} from "@/app/[locale]/(utils)/(components)/ButtonLink";
+import { ButtonModal, ButtonLink, HeaderButtonIcon} from "@/app/[locale]/(utils)/(components)/ButtonsHeader";
 import { DownloadCV } from "@/app/[locale]/(utils)/(components)/Utils";
 import { Icon } from "@/app/[locale]/(utils)/(components)/Icons";
 import { CloseMenu, OpenMenu } from "@/app/[locale]/(utils)/(constants)/constants.text.d";
@@ -52,6 +52,9 @@ export default function Header() {
           <DownloadCV>
             <HeaderButtonIcon icon='download-document'> {t("cv")} </HeaderButtonIcon>
           </DownloadCV>
+          <ButtonModal icon='info'>
+            {t("about")}
+          </ButtonModal>
           <LanguageChanger/>
         </nav>
       </header>

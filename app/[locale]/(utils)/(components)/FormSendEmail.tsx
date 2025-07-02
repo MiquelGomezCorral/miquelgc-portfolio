@@ -3,7 +3,7 @@
 import cn from "classnames"
 import emailjs from '@emailjs/browser';
 import { useState, useRef } from 'react';
-import { Button } from './FormComponents';
+import { Button } from '@/app/[locale]/(utils)/(components)/Buttons';
 import { useTranslation } from "react-i18next";
 import { ShakeHard } from 'reshake'
 

@@ -1,6 +1,6 @@
 "use client"
 
-import { ButtonLink } from "@/app/[locale]/(utils)/(components)/ButtonLink";
+import { ButtonLink } from "@/app/[locale]/(utils)/(components)/ButtonsHeader";
 import { IconLink } from "./Icons";
 import { usePageStackStore } from "@/app/[locale]/(global_state)/state"
 import { useTranslation } from "react-i18next";
