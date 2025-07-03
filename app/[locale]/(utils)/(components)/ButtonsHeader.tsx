@@ -1,20 +1,29 @@
 "use client"
 
+import { t } from "i18next"
+
 import cn from "classnames"
 import Link from "next/link"
-import { usePageStackStore } from "@/app/[locale]/(global_state)/state"
+import { useState } from "react"
 import { Icon } from "@/app/[locale]/(utils)/(components)/Icons"
 import { Button } from '@/app/[locale]/(utils)/(components)/Buttons';
-import { t } from "i18next"
+import { usePageStackStore } from "@/app/[locale]/(global_state)/state"
 
 
 interface HeaderButtonProps  {
   className?: string,
-  children?: React.ReactNode
+  children?: React.ReactNode,
+  onClick?: () => void,
 }
-export function HeaderButton({className, ...props}: HeaderButtonProps) {
+export function HeaderButton({className, onClick, ...props}: HeaderButtonProps) {
   return (
-    <button className={cn("w-full text-miquel-white text-start text-nowrap opacity-70 hover:opacity-100 transform duration-300 flex items-center drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)]", className)}>
+    <button className={
+      cn(
+        "text-miquel-white text-start text-nowrap opacity-70 hover:opacity-100 transform duration-300 flex items-center drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)]", 
+        className
+      )}
+      onClick={onClick}
+    >
       {props.children}
     </button>
   )
@@ -22,10 +31,11 @@ export function HeaderButton({className, ...props}: HeaderButtonProps) {
 
 interface HeaderButtonIconProps extends HeaderButtonProps {
   icon: string,
+  onClick?: () => void,
 }
-export function HeaderButtonIcon({icon, className, ...props}: HeaderButtonIconProps) {
+export function HeaderButtonIcon({icon, className, onClick, ...props}: HeaderButtonIconProps) {
   return (
-    <HeaderButton {...props} className={cn("flex gap-2", className)}>
+    <HeaderButton {...props} className={cn("flex gap-2", className)} onClick={onClick}>
       <Icon
         src={icon} title={icon}
         type={"white"}
@@ -91,26 +101,41 @@ export function ButtonLink({icon, link, blank, notAddToStack, stayPage, onClick,
 
 interface HeaderButtonModalProps  {
   icon?: string,
-  
+  text?: string,
+
   className?: string
   children?: React.ReactNode,
 }
-export function ButtonModal({icon, className, ...props }: HeaderButtonModalProps){
-
+export function ButtonModal({icon, text, className, ...props }: HeaderButtonModalProps){
+  const [ showModal, setshowModal ] = useState(false)
+  
   return(
-    <div className="z-30 absolute h-full w-full top-0 left-0 flex justify-center items-center bg-miquel-black-500-a/40 backdrop-blur-md">
-      <div className={cn("z-30 h-32 w-32 absolute left-1/2 top-1/2 rounded-md")}>
-        {icon ?
-          <HeaderButtonIcon icon={icon} className={cn("",className)}>
+    <>
+      {icon ?
+        <HeaderButtonIcon icon={icon} className={cn("",className)} onClick={() => setshowModal(!showModal)}>
+          {text}
+        </HeaderButtonIcon>
+        :
+        <HeaderButton className={cn("",className)}>
+          {text}
+        </HeaderButton>
+      }
+      {showModal &&
+      <>
+        <div className="z-50 fixed inset-0 h-full w-full top-0 left-0 flex justify-center items-center bg-miquel-black-500-a/40 backdrop-blur-md"/>
+        <div className={
+          "z-50 fixed inset-0 h-48 w-96 left-1/2 top-1/2 -translate-x-1/2 translate-y-1/2 rounded-xl "+
+          "bg-miquel-black-100-a/90 backdrop-blur-md flex flex-col justify-between items-center px-12 py-3"
+        }>
+          <div className="flex flex-col items-center gap-2 justify-center flex-grow">
             {props.children}
-          </HeaderButtonIcon>
-          :
-          <HeaderButton className={cn("",className)}>
-            {props.children}
-          </HeaderButton>
-        }
-        <Button>{t("close")}</Button>
-      </div>
-    </div>
+          </div>
+          <div className="flex justify-end w-full">
+            <Button onClick={() => setshowModal(!showModal)} className="max-w-min">{t("close")} Close</Button>
+          </div>
+        </div>
+      </>
+      }
+    </>
   )
 }

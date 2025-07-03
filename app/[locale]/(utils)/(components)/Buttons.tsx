@@ -11,7 +11,7 @@ export function Button({children, className, type = "button", disabled, onClick}
   return(
     <button type={type} disabled = {disabled} 
       className={cn(
-        "p-2 rounded-md bg-miquel-blue-400 hover:bg-miquel-blue-400/70 transform duration-300 flex gap-2 justify-center text-nowrap", 
+        "p-2 px-4 rounded-md bg-miquel-blue-400 hover:bg-miquel-blue-500 transform duration-300 flex gap-2 justify-center text-nowrap", 
         {"bg-red-500/40 hover:bg-red-500/40 cursor-not-allowed": disabled},
         className
       )}

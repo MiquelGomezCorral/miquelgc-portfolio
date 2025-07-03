@@ -53,7 +53,13 @@ export default function Header() {
             <HeaderButtonIcon icon='download-document'> {t("cv")} </HeaderButtonIcon>
           </DownloadCV>
           <ButtonModal icon='info'>
-            {t("about")}
+            <div className="w-full flex flex-col justify-center items-start gap-2">
+                <h2 className="text-xl">Version 1.0.0</h2>
+                <span className=''>
+                  Created by Miquel Gómez using Next.js, Tailwind CSS, and TypeScript.
+                  More details about it in the Github repo.
+                </span>
+            </div>
           </ButtonModal>
           <LanguageChanger/>
         </nav>
