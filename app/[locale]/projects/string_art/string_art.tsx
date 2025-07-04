@@ -15,7 +15,7 @@ type point = {
   x: number,
   y: number,
 }
-type nail = point & {
+type pin = point & {
   usedWith: Set<number>,
 }
 
@@ -41,11 +41,11 @@ export function StringArtComponent(){
   // ================================ CONFIG ================================
   const [lineWidth, setLineWidth] = useState(CONFIG.lineWidth)
   const [numPins, setNumPins] = useState(CONFIG.numPins)
-  const [nailVector, setNailVector] = useState<nail[]>([])
+  const [pinVector, setPinVector] = useState<pin[]>([])
   const [maxLines, setMaxLines] = useState(CONFIG.maxLines)
 
   // ================================ LINES ================================
-  const [linesVector, setLinesVector] = useState<number[]>([CONFIG.firstNail]) 
+  const [linesVector, setLinesVector] = useState<number[]>([CONFIG.firstPin]) 
   const [linesDrawn, setLinesDrawn] = useState(0) 
 
   // ================================ TIME ================================
@@ -55,15 +55,15 @@ export function StringArtComponent(){
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  // ================================ NAILS ================================
+  // ================================ PINS ================================
   const precomputedLinesRef = useRef<Map<string, point[]>>(new Map())
-  const neighbourtNailMargin = Math.ceil(CONFIG.neighbourtMaring)
+  const neighbourtPinMargin = Math.ceil(CONFIG.neighbourtMaring)
 
   useEffect(() => {
-    // GET NAILS
+    // GET PIN
     //    degrees between pins
     const d = (360 / numPins) * (Math.PI / 180) // convert to radians
-    const pins: nail[] = []
+    const pins: pin[] = []
     for(let i = 0; i < numPins; i++){
       pins.push({ //  - Math.PI / 2 -> rotate by 90 | Margin with the canvas
         x: Math.cos(d*i - Math.PI / 2) * (CONFIG.radius - CONFIG.margin) + CONFIG.radius, 
@@ -73,11 +73,11 @@ export function StringArtComponent(){
     }
 
     // update state
-    setNailVector(pins)
+    setPinVector(pins)
 
     // Precompute lines immediately after
-    // NOTE: precomputeLinePoints needs nailVector synchronously,
-    // so call it here with pins, not nailVector (which updates async)
+    // NOTE: precomputeLinePoints needs PinVector synchronously,
+    // so call it here with pins, not PinVector (which updates async)
     precomputedLinesRef.current = precomputeLinePoints(pins, imageSize, CONFIG.radius, numPins)
   },[numPins, CONFIG.radius, CONFIG.margin])
 
@@ -131,7 +131,7 @@ export function StringArtComponent(){
     let count = linesDrawn
     let computedErrorMatrix = inUseErrorMatrix
     if(reset){
-      newLinesVector = [CONFIG.firstNail]
+      newLinesVector = [CONFIG.firstPin]
       t1 = performance.now()
       count = 0
       computedErrorMatrix = errorMatrix.map((row) => [...row]);
@@ -149,42 +149,42 @@ export function StringArtComponent(){
         return
       }
 
-      // ============= LOOK FOR NEXT NAIL =============
-      const prevNail = newLinesVector[newLinesVector.length - 1]
+      // ============= LOOK FOR NEXT PIN =============
+      const prevPin = newLinesVector[newLinesVector.length - 1]
       const last10 = newLinesVector.slice(-CONFIG.lastNUsedPinsMargin)
 
-      let nextNail = Math.floor(Math.random() * numPins)
-      let highestScore = computeError(computedErrorMatrix, prevNail, nextNail, precomputedLinesRef.current)
+      let nextPin = Math.floor(Math.random() * numPins)
+      let highestScore = computeError(computedErrorMatrix, prevPin, nextPin, precomputedLinesRef.current)
 
       for (let i = 0; i < numPins; i++) {
         // Initial check for valid pints
         // If closer than margin or if in the last n used pass
-        const up = (i + neighbourtNailMargin) % numPins
-        const down = (i - neighbourtNailMargin + numPins) % numPins
+        const up = (i + neighbourtPinMargin) % numPins
+        const down = (i - neighbourtPinMargin + numPins) % numPins
 
         if (
-          (prevNail <= up && prevNail >= down) ||
-          nailVector[prevNail].usedWith.has(i) ||
+          (prevPin <= up && prevPin >= down) ||
+          pinVector[prevPin].usedWith.has(i) ||
           last10.includes(i)
         ) continue
 
         // Compute and compare score if the candidate
-        const score = computeError(computedErrorMatrix, prevNail, i, precomputedLinesRef.current)
+        const score = computeError(computedErrorMatrix, prevPin, i, precomputedLinesRef.current)
 
         if (score > highestScore) {
           highestScore = score
-          nextNail = i
+          nextPin = i
         }
       }
 
-      // ============= UPDATE MATRIX WITH THE NAIL =============
+      // ============= UPDATE MATRIX WITH THE PIN =============
       // Recopute error matrix
-      computedErrorMatrix = updateComputeImageMatrix(computedErrorMatrix, prevNail, nextNail, precomputedLinesRef.current)
-      nailVector[prevNail].usedWith.add(nextNail)
-      nailVector[nextNail].usedWith.add(prevNail)
+      computedErrorMatrix = updateComputeImageMatrix(computedErrorMatrix, prevPin, nextPin, precomputedLinesRef.current)
+      pinVector[prevPin].usedWith.add(nextPin)
+      pinVector[nextPin].usedWith.add(prevPin)
 
       // New vector
-      newLinesVector = [...newLinesVector, nextNail]
+      newLinesVector = [...newLinesVector, nextPin]
       setLinesVector(newLinesVector)
 
       // Update count and update stimation
@@ -201,7 +201,7 @@ export function StringArtComponent(){
 
 
   const precomputeLinePoints = (
-    nailVector: nail[],
+    pinVector: pin[],
     imageSize: number,
     radius: number,
     numPins: number
@@ -214,8 +214,8 @@ export function StringArtComponent(){
         const key = getLineKey(i, j)
 
         const { x1, y1, x2, y2, dx, dy, sx, sy } = getVariableForPixelSearch(
-          nailVector[i].x, nailVector[i].y,
-          nailVector[j].x, nailVector[j].y,
+          pinVector[i].x, pinVector[i].y,
+          pinVector[j].x, pinVector[j].y,
           imageSize, radius * 2
         )
 
@@ -243,10 +243,10 @@ export function StringArtComponent(){
     return map
   }
 
-  const updateComputeImageMatrix = (prevErrorMatrix:number[][], nail1Idx: number, nail2Idx: number, precomputedLines: Map<string, point[]>) => {
+  const updateComputeImageMatrix = (prevErrorMatrix:number[][], pin1Idx: number, pin2Idx: number, precomputedLines: Map<string, point[]>) => {
 
     const newMatrix = prevErrorMatrix.map(row => [...row])
-    const key = getLineKey(nail1Idx, nail2Idx)
+    const key = getLineKey(pin1Idx, pin2Idx)
     const line = precomputedLines.get(key)
 
     if (!line) return newMatrix // fallback if no precomputed line
@@ -262,7 +262,7 @@ export function StringArtComponent(){
   // ================================ CANVAS MANAGEMENT ================================
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas || !nailVector.length || !linesVector.length) return;
+    if (!canvas || !pinVector.length || !linesVector.length) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
@@ -274,13 +274,13 @@ export function StringArtComponent(){
     // Draw shape
     ctx.beginPath();
     for (let i = 1; i < linesVector.length; i++) {
-      const from = nailVector[linesVector[i - 1]];
-      const to = nailVector[linesVector[i]];
+      const from = pinVector[linesVector[i - 1]];
+      const to = pinVector[linesVector[i]];
       ctx.moveTo(from.x, from.y);
       ctx.lineTo(to.x, to.y);
     }
     ctx.stroke();
-  }, [nailVector, linesVector, lineWidth]);
+  }, [pinVector, linesVector, lineWidth]);
 
   
   // ================================ COMPONENT ================================
@@ -317,15 +317,15 @@ export function StringArtComponent(){
             />
             :
             // <svg width={(CONFIG.radius)*2} height={(CONFIG.radius)*2} className="bg-white/80">
-            //   {nailVector.map((nail, idx) => (
-            //     <circle key={idx} cx={nail.x} cy={nail.y} r={1.5} fill="#000" />
+            //   {pinVector.map((pin, idx) => (
+            //     <circle key={idx} cx={pin.x} cy={pin.y} r={1.5} fill="#000" />
             //   ))}
-            //   {linesVector.slice(1).map((nextNail, idx) => (
+            //   {linesVector.slice(1).map((nextPin, idx) => (
             //     <line key={idx} stroke="black" strokeWidth={lineWidth}
-            //       x1={nailVector[linesVector[idx]].x} 
-            //       y1={nailVector[linesVector[idx]].y} 
-            //       x2={nailVector[nextNail].x} 
-            //       y2={nailVector[nextNail].y} 
+            //       x1={pinVector[linesVector[idx]].x} 
+            //       y1={pinVector[linesVector[idx]].y} 
+            //       x2={pinVector[nextPin].x} 
+            //       y2={pinVector[nextPin].y} 
             //     />
             //   ))}
             // </svg>
@@ -364,7 +364,7 @@ export function StringArtComponent(){
 
               // if stoped and then continued, aboid reseting always
               createImage(linesVector.length <= 1) 
-              setLinesVector([CONFIG.firstNail])
+              setLinesVector([CONFIG.firstPin])
               setCreatingImage(!creatingImage)
             }}
           > 
@@ -441,9 +441,9 @@ function getLineKey (a: number, b: number) {
 }
 
 function computeError ( 
-  computedErrorMatrix: number[][],  nail1Idx: number,  nail2Idx: number,  precomputedLines: Map<string, point[]>
+  computedErrorMatrix: number[][],  pin1Idx: number,  pin2Idx: number,  precomputedLines: Map<string, point[]>
 ): number {
-  const key = getLineKey(nail1Idx, nail2Idx)
+  const key = getLineKey(pin1Idx, pin2Idx)
   const line = precomputedLines.get(key)
   if (!line) return Infinity
 
@@ -508,9 +508,9 @@ async function getCroppedImg(imageSrc: string, pixelCrop: { x: number; y: number
 }
 
 
-function getVariableForPixelSearch(nailx1: number, naily1: number, nailx2: number, naily2: number, imageSize: number, canvasSize: number){
-  const {x: x1, y: y1} = {x: Math.floor(nailx1*imageSize/canvasSize), y: Math.floor(naily1*imageSize/canvasSize)}
-  const {x: x2, y: y2} = {x: Math.floor(nailx2*imageSize/canvasSize), y: Math.floor(naily2*imageSize/canvasSize)}
+function getVariableForPixelSearch(pinx1: number, piny1: number, pinx2: number, piny2: number, imageSize: number, canvasSize: number){
+  const {x: x1, y: y1} = {x: Math.floor(pinx1*imageSize/canvasSize), y: Math.floor(piny1*imageSize/canvasSize)}
+  const {x: x2, y: y2} = {x: Math.floor(pinx2*imageSize/canvasSize), y: Math.floor(piny2*imageSize/canvasSize)}
   
   // Calculate differences
   let dx = Math.abs(x2 - x1)

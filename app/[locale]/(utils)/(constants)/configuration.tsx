@@ -10,7 +10,7 @@ class Configuration {
     public lineWidth = 0.20,
     public numPins = 288,
     public maxLines = 3500,
-    public firstNail = 0, // //Math.floor(Math.random() * numPins)
+    public firstPin = 0, // //Math.floor(Math.random() * numPins)
 
     public margin = 0, // Margin with the canvas border  
     public radius = 350, // Circle radius
