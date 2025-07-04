@@ -21,10 +21,7 @@ export default function Header() {
   const { currentPage } = usePageStackStore()
 
   useEffect(() => {
-    document.body.style.overflow = 'hidden' // disable scroll
-    return () => {
-      document.body.style.overflow = '' // enable scroll
-    }
+    document.body.style.overflow = showMenu ? 'hidden' : '' // disable / enbale scroll
   },[showMenu])
 
   return (
