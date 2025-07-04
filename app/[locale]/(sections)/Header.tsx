@@ -54,11 +54,11 @@ export default function Header() {
           </DownloadCV>
           <ButtonModal icon='info'>
             <div className="w-full flex flex-col justify-center items-start gap-2">
-                <h2 className="text-xl">Version 1.0.0</h2>
-                <span className=''>
-                  Created by Miquel Gómez using Next.js, Tailwind CSS, and TypeScript.
-                  More details about it in the Github repo.
-                </span>
+              <h2 className="text-xl font-extrabold">Version 1.0.0</h2>
+              <span className=''>
+                Created by Miquel Gómez using Next.js, Tailwind CSS, and TypeScript.
+                More details about it in the Github repo.
+              </span>
             </div>
           </ButtonModal>
           <LanguageChanger/>

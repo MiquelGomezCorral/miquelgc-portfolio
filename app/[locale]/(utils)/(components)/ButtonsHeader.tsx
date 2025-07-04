@@ -4,7 +4,9 @@ import { t } from "i18next"
 
 import cn from "classnames"
 import Link from "next/link"
-import { useState } from "react"
+import { useState, useEffect, useMemo } from "react"
+import { createPortal } from 'react-dom'
+
 import { Icon } from "@/app/[locale]/(utils)/(components)/Icons"
 import { Button } from '@/app/[locale]/(utils)/(components)/Buttons';
 import { usePageStackStore } from "@/app/[locale]/(global_state)/state"
@@ -107,35 +109,61 @@ interface HeaderButtonModalProps  {
   children?: React.ReactNode,
 }
 export function ButtonModal({icon, text, className, ...props }: HeaderButtonModalProps){
-  const [ showModal, setshowModal ] = useState(false)
+  const [ showModal, setShowModal ] = useState(false)
   
   return(
     <>
       {icon ?
-        <HeaderButtonIcon icon={icon} className={cn("",className)} onClick={() => setshowModal(!showModal)}>
+        <HeaderButtonIcon icon={icon} className={cn("",className)} onClick={() => setShowModal(true)}>
           {text}
         </HeaderButtonIcon>
         :
-        <HeaderButton className={cn("",className)}>
+        <HeaderButton className={cn("",className)} onClick={() => setShowModal(true)}>
           {text}
         </HeaderButton>
       }
       {showModal &&
-      <>
-        <div className="z-50 fixed inset-0 h-full w-full top-0 left-0 flex justify-center items-center bg-miquel-black-500-a/40 backdrop-blur-md"/>
-        <div className={
-          "z-50 fixed inset-0 h-48 w-96 left-1/2 top-1/2 -translate-x-1/2 translate-y-1/2 rounded-xl "+
-          "bg-miquel-black-100-a/90 backdrop-blur-md flex flex-col justify-between items-center px-12 py-3"
-        }>
-          <div className="flex flex-col items-center gap-2 justify-center flex-grow">
-            {props.children}
-          </div>
-          <div className="flex justify-end w-full">
-            <Button onClick={() => setshowModal(!showModal)} className="max-w-min">{t("close")} Close</Button>
-          </div>
+      <Modal onClose={() => setShowModal(false)}>
+        <div className="flex flex-col items-center gap-2 justify-center flex-grow">
+          {props.children}
         </div>
-      </>
+        <div className="flex justify-end w-full">
+          <Button onClick={() => setShowModal(false)} className="max-w-min">{t("close")} Close</Button>
+        </div>
+      </Modal>
       }
     </>
+  )
+}
+
+interface ModalProps {
+  children: React.ReactNode
+  onClose(): void
+}
+
+export function Modal({ children, onClose }: ModalProps) {
+  const container = useMemo(() => document.createElement('div'), [])
+
+  useEffect(() => {
+    document.body.appendChild(container)
+    return () => {
+      document.body.removeChild(container)
+    }
+  }, [container])
+
+
+  return createPortal(
+    <div
+      className="fixed inset-0 bg-miquel-black-500-a/40 backdrop-blur-md z-50 cursor-pointer flex items-center justify-center"
+      onClick={e => {e.stopPropagation(); onClose()}}
+    >
+      <div 
+        className="max-w-md bg-miquel-black-100-a/80 backdrop-blur-md rounded-xl flex flex-col justify-between p-6 gap-4 cursor-default"
+        onClick={e => e.stopPropagation()}
+      >
+        {children}
+      </div>
+    </div>,
+    container
   )
 }
