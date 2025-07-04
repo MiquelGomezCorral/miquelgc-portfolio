@@ -4,13 +4,16 @@ import cn from 'classnames';
 import Link from "next/link";
 import { useState } from "react";
 import { useTranslation } from 'react-i18next';
-import { ButtonModal, ButtonLink, HeaderButtonIcon} from "@/app/[locale]/(utils)/(components)/ButtonsHeader";
-import { DownloadCV } from "@/app/[locale]/(utils)/(components)/Utils";
+
 import { Icon } from "@/app/[locale]/(utils)/(components)/Icons";
-import { CloseMenu, OpenMenu } from "@/app/[locale]/(utils)/(constants)/constants.text.d";
-import { GoBackButton } from '@/app/[locale]/(utils)/(components)/GoBackButton';
+import { DownloadCV } from "@/app/[locale]/(utils)/(components)/Utils";
 import { usePageStackStore } from '@/app/[locale]/(global_state)/state';
+import { GoBackButton } from '@/app/[locale]/(utils)/(components)/GoBackButton';
+import { CloseMenu, OpenMenu } from "@/app/[locale]/(utils)/(constants)/constants.text.d";
 import LanguageChanger from '@/app/[locale]/(utils)/(components)/LanguageChanger';
+import { ButtonModal, ButtonLink, HeaderButtonIcon} from "@/app/[locale]/(utils)/(components)/ButtonsHeader";
+import CONFIG from "@/app/[locale]/(utils)/(constants)/configuration";
+
 
 export default function Header() {
   const {t} = useTranslation("header");
@@ -54,11 +57,8 @@ export default function Header() {
           </DownloadCV>
           <ButtonModal icon='info'>
             <div className="w-full flex flex-col justify-center items-start gap-2">
-              <h2 className="text-xl font-extrabold">Version 1.0.0</h2>
-              <span className=''>
-                Created by Miquel Gómez using Next.js, Tailwind CSS, and TypeScript.
-                More details about it in the Github repo.
-              </span>
+              <h2 className="text-xl font-extrabold">{t("version")} {CONFIG.version}</h2>
+              <span className=''>{t("created_by")}</span>
             </div>
           </ButtonModal>
           <LanguageChanger/>

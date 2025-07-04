@@ -6,5 +6,9 @@
     "technologies": "Tecnologías",
     "cv": "C.V.",
     "contact": "Contacto",
-    "about": ""
+    
+    "about": "",
+    "version": "Versión",
+    "created_by": "Creado por Miquel Gómez usando Next.js, Tailwind CSS y TypeScript. Disfruta de la experiencia :)"
+
 }
