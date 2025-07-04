@@ -1,13 +1,15 @@
 "use client"
 
 import cn from "classnames"
-import Cropper from 'react-easy-crop';
-import { useState, useRef, useEffect } from "react";
 import NextImage from "next/image";
-import { Icon } from '@/app/[locale]/(utils)/(components)/Icons';
+import Cropper from 'react-easy-crop';
 import { useTranslation } from 'react-i18next';
+import { useState, useRef, useEffect } from "react";
+
+import { Icon } from '@/app/[locale]/(utils)/(components)/Icons';
 import { Button, Input } from '@/app/[locale]/(utils)/(components)/Buttons';
 
+import CONFIG from "@/app/[locale]/(utils)/(constants)/configuration";
 
 type point = {
   x: number,
@@ -22,8 +24,7 @@ export function StringArtComponent(){
   const {t} = useTranslation("projects")
 
   // ================================ IMAGE ================================
-  // const [selectedImage, setSelectedImage] = useState("/assets/projects/Einstein.webp");
-  const [selectedImage, setSelectedImage] = useState("/assets/projects/Robot.webp"); 
+  const [selectedImage, setSelectedImage] = useState(CONFIG.defaultImage); 
   const fileUploadRef = useRef<HTMLInputElement>(null);
 
   const [creatingImage, setCreatingImage] = useState(false);
@@ -31,20 +32,20 @@ export function StringArtComponent(){
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<{ x: number; y: number; width: number; height: number } | null>(null);
-  const [imageSize, setImazeSize] = useState(1900)
+  const [imageSize, setImazeSize] = useState(CONFIG.imageSize)
 
   // ================================ MATRIX ================================
   const [errorMatrix, setErrorMatrix] = useState<number[][]>([[]])
   const [inUseErrorMatrix, setInUseErrorMatrix] = useState<number[][]>([[]])
 
   // ================================ CONFIG ================================
-  const [lineWidth, setLineWidth] = useState(0.20)
-  const [numPins, setNumPins] = useState(288)
+  const [lineWidth, setLineWidth] = useState(CONFIG.lineWidth)
+  const [numPins, setNumPins] = useState(CONFIG.numPins)
   const [nailVector, setNailVector] = useState<nail[]>([])
-  const [maxLines, setMaxLines] = useState(3500) 
+  const [maxLines, setMaxLines] = useState(CONFIG.maxLines)
 
   // ================================ LINES ================================
-  const [linesVector, setLinesVector] = useState<number[]>([0]) //Math.floor(Math.random() * numPins)
+  const [linesVector, setLinesVector] = useState<number[]>([CONFIG.firstNail]) 
   const [linesDrawn, setLinesDrawn] = useState(0) 
 
   // ================================ TIME ================================
@@ -56,31 +57,29 @@ export function StringArtComponent(){
 
   // ================================ NAILS ================================
   const precomputedLinesRef = useRef<Map<string, point[]>>(new Map())
-  const margin = 10
-  const radius = 350 
-  const neighbourtNailMargin = Math.ceil(numPins*0.035)
+  const neighbourtNailMargin = Math.ceil(CONFIG.neighbourtMaring)
 
   useEffect(() => {
     // GET NAILS
+    //    degrees between pins
     const d = (360 / numPins) * (Math.PI / 180) // convert to radians
     const pins: nail[] = []
     for(let i = 0; i < numPins; i++){
-      pins.push({
-        x: Math.cos(d*i - Math.PI / 2) * (radius - margin) + radius, //  + Math.PI / 2 -> ofset by 90
-        y: Math.sin(d*i - Math.PI / 2) * (radius - margin) + radius,
+      pins.push({ //  - Math.PI / 2 -> rotate by 90 | Margin with the canvas
+        x: Math.cos(d*i - Math.PI / 2) * (CONFIG.radius - CONFIG.margin) + CONFIG.radius, 
+        y: Math.sin(d*i - Math.PI / 2) * (CONFIG.radius - CONFIG.margin) + CONFIG.radius,
         usedWith: new Set<number>(),
       })
     }
 
     // update state
     setNailVector(pins)
-    
 
     // Precompute lines immediately after
     // NOTE: precomputeLinePoints needs nailVector synchronously,
     // so call it here with pins, not nailVector (which updates async)
-    precomputedLinesRef.current = precomputeLinePoints(pins, imageSize, radius, numPins)
-  },[numPins, radius, margin])
+    precomputedLinesRef.current = precomputeLinePoints(pins, imageSize, CONFIG.radius, numPins)
+  },[numPins, CONFIG.radius, CONFIG.margin])
 
   // ================================ MANAGE CREATING IMAGE ================================
   useEffect(() => {
@@ -251,7 +250,7 @@ export function StringArtComponent(){
       <div className='flex flex-col items-center gap-2'>
         <header className={cn("flex w-full flex-col font-mono", {"opacity-0": !creatingImage})}>
           <span className="flex w-full justify-between"> 
-            <p>{linesDrawn}/{maxLines} </p>
+            <p>{linesDrawn}/{maxLines}</p>
             <p>{((linesDrawn * 100) / maxLines).toFixed(2)}% </p>
           </span>
           <span className="flex w-full justify-between">
@@ -278,7 +277,7 @@ export function StringArtComponent(){
               className='rounded-full'
             />
             :
-            <svg width={(radius)*2} height={(radius)*2} className="bg-white/80">
+            <svg width={(CONFIG.radius)*2} height={(CONFIG.radius)*2} className="bg-white/80">
               {nailVector.map((nail, idx) => (
                 <circle key={idx} cx={nail.x} cy={nail.y} r={1.5} fill="#000" />
               ))}
