@@ -54,7 +54,7 @@ export function StringArtComponent(){
   const [stimatedTime, setStimatedTime] = useState(0)
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   
-
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   // ================================ NAILS ================================
   const precomputedLinesRef = useRef<Map<string, point[]>>(new Map())
   const neighbourtNailMargin = Math.ceil(CONFIG.neighbourtMaring)
@@ -124,12 +124,14 @@ export function StringArtComponent(){
 
   // ================================ ALGORITH ================================
   const createImage = (reset: boolean) => {
+    // ============= INTITIAL VARIABLES =============
+    // Handle already initialized values if the run has been stoped
     let newLinesVector = linesVector
     let t1 = initialTime
     let count = linesDrawn
     let computedErrorMatrix = inUseErrorMatrix
     if(reset){
-      newLinesVector = [Math.floor(Math.random() * numPins)]
+      newLinesVector = [CONFIG.firstNail]
       t1 = performance.now()
       count = 0
       computedErrorMatrix = errorMatrix.map((row) => [...row]);
@@ -139,51 +141,62 @@ export function StringArtComponent(){
     setInitialTime(t1)
     setInUseErrorMatrix(computedErrorMatrix)
     
-  intervalRef.current = setInterval(() => {
-    if (count >= maxLines - 1 && intervalRef.current) {
-      clearInterval(intervalRef.current)
-      return
-    }
-
-    const prevNail = newLinesVector[newLinesVector.length - 1]
-    let nextNail = Math.floor(Math.random() * numPins)
-    let highestScore = computeError(computedErrorMatrix, prevNail, nextNail, precomputedLinesRef.current)
-    const last10 = newLinesVector.slice(-10)
-
-    for (let i = 0; i < numPins; i++) {
-      const up = (i + neighbourtNailMargin) % numPins
-      const down = (i - neighbourtNailMargin + numPins) % numPins
-
-      if (
-        (prevNail <= up && prevNail >= down) ||
-        nailVector[prevNail].usedWith.has(i) ||
-        last10.includes(i)
-      ) continue
-
-      const score = computeError(computedErrorMatrix, prevNail, i, precomputedLinesRef.current)
-
-      if (score > highestScore) {
-        highestScore = score
-        nextNail = i
+    // ============= EXECUTION =============
+    intervalRef.current = setInterval(() => {
+      // FINISH CHECK 
+      if (count >= maxLines - 1 && intervalRef.current) {
+        clearInterval(intervalRef.current)
+        return
       }
-    }
 
-    computedErrorMatrix = updateComputeImageMatrix(computedErrorMatrix, prevNail, nextNail, precomputedLinesRef.current)
-    nailVector[prevNail].usedWith.add(nextNail)
-    nailVector[nextNail].usedWith.add(prevNail)
+      // ============= LOOK FOR NEXT NAIL =============
+      const prevNail = newLinesVector[newLinesVector.length - 1]
+      const last10 = newLinesVector.slice(-CONFIG.lastNUsedPinsMargin)
 
-    newLinesVector = [...newLinesVector, nextNail]
-    setLinesVector(newLinesVector)
+      let nextNail = Math.floor(Math.random() * numPins)
+      let highestScore = computeError(computedErrorMatrix, prevNail, nextNail, precomputedLinesRef.current)
 
-    setLinesDrawn(prev => prev + 1)
-    if (count % 20 === 0) {
-      const elapsed = Math.round((performance.now() - t1) / 100) / 10
-      setTotalTime(elapsed)
-      setStimatedTime(((elapsed / (count + 1)) * (maxLines - count - 1)))
-    }
+      for (let i = 0; i < numPins; i++) {
+        // Initial check for valid pints
+        // If closer than margin or if in the last n used pass
+        const up = (i + neighbourtNailMargin) % numPins
+        const down = (i - neighbourtNailMargin + numPins) % numPins
 
-    count++
-  }, 0)
+        if (
+          (prevNail <= up && prevNail >= down) ||
+          nailVector[prevNail].usedWith.has(i) ||
+          last10.includes(i)
+        ) continue
+
+        // Compute and compare score if the candidate
+        const score = computeError(computedErrorMatrix, prevNail, i, precomputedLinesRef.current)
+
+        if (score > highestScore) {
+          highestScore = score
+          nextNail = i
+        }
+      }
+
+      // ============= UPDATE MATRIX WITH THE NAIL =============
+      // Recopute error matrix
+      computedErrorMatrix = updateComputeImageMatrix(computedErrorMatrix, prevNail, nextNail, precomputedLinesRef.current)
+      nailVector[prevNail].usedWith.add(nextNail)
+      nailVector[nextNail].usedWith.add(prevNail)
+
+      // New vector
+      newLinesVector = [...newLinesVector, nextNail]
+      setLinesVector(newLinesVector)
+
+      // Update count and update stimation
+      setLinesDrawn(prev => prev + 1)
+      if (count % 20 === 0) {
+        const elapsed = Math.round((performance.now() - t1) / 100) / 10
+        setTotalTime(elapsed)
+        setStimatedTime(((elapsed / (count + 1)) * (maxLines - count - 1)))
+      }
+
+      count++
+    }, 0)
   }
 
 
@@ -245,6 +258,32 @@ export function StringArtComponent(){
     return newMatrix
   }
 
+
+  // ================================ CANVAS MANAGEMENT ================================
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas || !nailVector.length || !linesVector.length) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    // Clear canva
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.lineWidth = lineWidth;
+    ctx.strokeStyle = "#000";
+
+    // Draw shape
+    ctx.beginPath();
+    for (let i = 1; i < linesVector.length; i++) {
+      const from = nailVector[linesVector[i - 1]];
+      const to = nailVector[linesVector[i]];
+      ctx.moveTo(from.x, from.y);
+      ctx.lineTo(to.x, to.y);
+    }
+    ctx.stroke();
+  }, [nailVector, linesVector, lineWidth]);
+
+  
+  // ================================ COMPONENT ================================
   return(
     <section className='w-full flex gap-4 flex-col items-center'>
       <div className='flex flex-col items-center gap-2'>
@@ -277,19 +316,25 @@ export function StringArtComponent(){
               className='rounded-full'
             />
             :
-            <svg width={(CONFIG.radius)*2} height={(CONFIG.radius)*2} className="bg-white/80">
-              {nailVector.map((nail, idx) => (
-                <circle key={idx} cx={nail.x} cy={nail.y} r={1.5} fill="#000" />
-              ))}
-              {linesVector.slice(1).map((nextNail, idx) => (
-                <line key={idx} stroke="black" strokeWidth={lineWidth}
-                  x1={nailVector[linesVector[idx]].x} 
-                  y1={nailVector[linesVector[idx]].y} 
-                  x2={nailVector[nextNail].x} 
-                  y2={nailVector[nextNail].y} 
-                />
-              ))}
-            </svg>
+            // <svg width={(CONFIG.radius)*2} height={(CONFIG.radius)*2} className="bg-white/80">
+            //   {nailVector.map((nail, idx) => (
+            //     <circle key={idx} cx={nail.x} cy={nail.y} r={1.5} fill="#000" />
+            //   ))}
+            //   {linesVector.slice(1).map((nextNail, idx) => (
+            //     <line key={idx} stroke="black" strokeWidth={lineWidth}
+            //       x1={nailVector[linesVector[idx]].x} 
+            //       y1={nailVector[linesVector[idx]].y} 
+            //       x2={nailVector[nextNail].x} 
+            //       y2={nailVector[nextNail].y} 
+            //     />
+            //   ))}
+            // </svg>
+            <canvas
+              ref={canvasRef}
+              width={CONFIG.radius * 2}
+              height={CONFIG.radius * 2}
+              className="bg-miquel-white-200 rounded-full"
+            />
             )
           }
         </figure>
@@ -317,8 +362,9 @@ export function StringArtComponent(){
               if(intervalRef.current)
                 clearInterval(intervalRef.current)
 
-              createImage(linesVector.length <= 1)
-              setLinesVector([0])
+              // if stoped and then continued, aboid reseting always
+              createImage(linesVector.length <= 1) 
+              setLinesVector([CONFIG.firstNail])
               setCreatingImage(!creatingImage)
             }}
           > 
