@@ -22,8 +22,8 @@ export function StringArtComponent(){
   const {t} = useTranslation("projects")
 
   // ================================ IMAGE ================================
-  const [selectedImage, setSelectedImage] = useState("/assets/projects/Einstein.webp");
-  // const [selectedImage, setSelectedImage] = useState("/assets/projects/Robot.webp"); 
+  // const [selectedImage, setSelectedImage] = useState("/assets/projects/Einstein.webp");
+  const [selectedImage, setSelectedImage] = useState("/assets/projects/Robot.webp"); 
   const fileUploadRef = useRef<HTMLInputElement>(null);
 
   const [creatingImage, setCreatingImage] = useState(false);
@@ -139,52 +139,6 @@ export function StringArtComponent(){
     setLinesVector(newLinesVector) 
     setInitialTime(t1)
     setInUseErrorMatrix(computedErrorMatrix)
-
-    // intervalRef.current = setInterval(() =>{
-    //   if (count >= maxLines - 1 && intervalRef.current){
-    //     clearInterval(intervalRef.current)
-    //   }
-
-    //   // CHOOSE NEXT NAIL
-    //   setLinesVector((prevPinsVector) => {
-    //     const prevNail = prevPinsVector[prevPinsVector.length-1]
-    //     let nextNail = Math.floor(Math.random() * numPins)
-    //     let highestScore = computeError(computedErrorMatrix, prevNail, nextNail, precomputedLinesRef.current)
-    //     const last10 = prevPinsVector.slice(-10)
-        
-    //     for(let i = 0; i < numPins; i++){
-    //       // MAKE THAT ONLY TAKES INTO ACOUNT LINE FURHTER THAN 10 POSTIONS %
-    //       const up = (i + neighbourtNailMargin) % numPins
-    //       const down = (i - neighbourtNailMargin + numPins) % numPins
-    //       if ((prevNail <= up && prevNail >= down) || nailVector[prevNail].usedWith.has(i) || last10.includes(i)) 
-    //         continue //Avoid using pins close to the acutal
-
-    //       const auxScore = computeError(computedErrorMatrix, prevNail, i, precomputedLinesRef.current)
-
-    //       if(highestScore < auxScore){
-    //         highestScore = auxScore
-    //         nextNail = i
-    //       }
-    //     }
-
-    //     // UPDATE DRAWN MATRIX
-    //     computedErrorMatrix = updateComputeImageMatrix(computedErrorMatrix, prevNail, nextNail, precomputedLinesRef.current)
-    //     nailVector[prevNail].usedWith.add(nextNail)
-    //     nailVector[nextNail].usedWith.add(prevNail)
-
-    //     return [...prevPinsVector, nextNail]
-    //   })
-      
-    //   // UPDATE VALUES
-    //   setLinesDrawn((prevLinesDrawn) => prevLinesDrawn + 1)
-    //   if(count % 20 == 0) {
-    //     const computedTime = Math.round((performance.now() - t1)/100)/10
-    //     setTotalTime(computedTime) // 2 digits precision
-    //     setStimatedTime(((computedTime / count) * (maxLines - count)))
-    //   }
-    //   count++;
-    //   // setErrorMatrix(computedErrorMatrix)
-    // }, 0);
     
   intervalRef.current = setInterval(() => {
     if (count >= maxLines - 1 && intervalRef.current) {

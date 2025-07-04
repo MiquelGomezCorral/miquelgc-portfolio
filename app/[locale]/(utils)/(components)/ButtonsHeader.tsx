@@ -145,8 +145,10 @@ export function Modal({ children, onClose }: ModalProps) {
   const container = useMemo(() => document.createElement('div'), [])
 
   useEffect(() => {
+    document.body.style.overflow = 'hidden' // disable scroll
     document.body.appendChild(container)
     return () => {
+      document.body.style.overflow = '' // re-enable scroll
       document.body.removeChild(container)
     }
   }, [container])

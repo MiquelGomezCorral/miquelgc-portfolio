@@ -2,7 +2,7 @@
 
 import cn from 'classnames';
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from 'react-i18next';
 
 import { Icon } from "@/app/[locale]/(utils)/(components)/Icons";
@@ -17,8 +17,15 @@ import CONFIG from "@/app/[locale]/(utils)/(constants)/configuration";
 
 export default function Header() {
   const {t} = useTranslation("header");
-  const [ showMenu, setshowMenu ] = useState(false)
+  const [showMenu, setshowMenu] = useState(false)
   const { currentPage } = usePageStackStore()
+
+  useEffect(() => {
+    document.body.style.overflow = 'hidden' // disable scroll
+    return () => {
+      document.body.style.overflow = '' // enable scroll
+    }
+  },[showMenu])
 
   return (
     <div className='flex w-full' id="header">
@@ -116,6 +123,12 @@ export default function Header() {
           <DownloadCV>
             <HeaderButtonIcon icon='download-document'> {t("cv")} </HeaderButtonIcon>
           </DownloadCV>
+          <ButtonModal icon='info' text={t("about")}>
+            <div className="w-full flex flex-col justify-center items-start gap-2">
+              <h2 className="text-xl font-extrabold">{t("version")} {CONFIG.version}</h2>
+              <span className=''>{t("created_by")}</span>
+            </div>
+          </ButtonModal>
           <LanguageChanger mobile/>
         </nav>
       </header>
