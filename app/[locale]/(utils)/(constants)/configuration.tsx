@@ -6,7 +6,7 @@ class Configuration {
     // String art
     // public defaultImage = "/assets/projects/Robot.webp",
     public defaultImage = "/assets/projects/Einstein.webp",
-    public imageSize = 1900,
+    public imageSize = undefined,
     public lineWidth = 0.20,
     public numPins = 288,
     public maxLines = 3500,

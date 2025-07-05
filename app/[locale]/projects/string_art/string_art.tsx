@@ -33,7 +33,7 @@ export function StringArtComponent(){
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<{ x: number; y: number; width: number; height: number } | null>(null);
-  const [imageSize, setImazeSize] = useState(CONFIG.imageSize)
+  const [imageSize, setImazeSize] = useState<number  | undefined>(CONFIG.imageSize)
 
   // ================================ MATRIX ================================
   const [errorMatrix, setErrorMatrix] = useState<number[][]>([[]])
@@ -76,11 +76,16 @@ export function StringArtComponent(){
     // update state
     setPinVector(pins)
 
+  },[numPins, CONFIG.radius, CONFIG.margin])
+
+  useEffect(() => {
+    if (!imageSize || pinVector.length < numPins)
+      return
     // Precompute lines immediately after
     // NOTE: precomputeLinePoints needs PinVector synchronously,
     // so call it here with pins, not PinVector (which updates async)
-    precomputedLinesRef.current = precomputeLinePoints(pins, imageSize, CONFIG.radius)
-  },[numPins, CONFIG.radius, CONFIG.margin])
+    precomputedLinesRef.current = precomputeLinePoints(pinVector, imageSize, CONFIG.radius)
+  }, [imageSize])
 
   // ================================ MANAGE CREATING IMAGE ================================
   useEffect(() => {
@@ -100,6 +105,7 @@ export function StringArtComponent(){
     event.preventDefault()
     fileUploadRef.current?.click()
   }
+
   const uploadIMageDisplay = () => {
     if (!(fileUploadRef.current && fileUploadRef.current.files)) return // No selected file
 
@@ -109,6 +115,7 @@ export function StringArtComponent(){
     setCroppingCompleted(false)  
     setCreatingImage(false)
   }
+
   const handleCropImage = async () => {
     if (croppedAreaPixels) {
       const {image, errorMatrix} = await getCroppedImg(selectedImage, croppedAreaPixels);
@@ -117,6 +124,8 @@ export function StringArtComponent(){
       setErrorMatrix(errorMatrix)    
       setInUseErrorMatrix(errorMatrix)    
 
+      console.log(`errorMatrix.length ${errorMatrix.length}`);
+        
       setImazeSize(errorMatrix.length)
       setLinesDrawn(0)     
     }
