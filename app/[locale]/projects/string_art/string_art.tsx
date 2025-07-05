@@ -10,6 +10,7 @@ import { Icon } from '@/app/[locale]/(utils)/(components)/Icons';
 import { Button, Input } from '@/app/[locale]/(utils)/(components)/Buttons';
 
 import CONFIG from "@/app/[locale]/(utils)/(constants)/configuration";
+import { log } from "console";
 
 type point = {
   x: number,
@@ -78,7 +79,7 @@ export function StringArtComponent(){
     // Precompute lines immediately after
     // NOTE: precomputeLinePoints needs PinVector synchronously,
     // so call it here with pins, not PinVector (which updates async)
-    precomputedLinesRef.current = precomputeLinePoints(pins, imageSize, CONFIG.radius, numPins)
+    precomputedLinesRef.current = precomputeLinePoints(pins, imageSize, CONFIG.radius)
   },[numPins, CONFIG.radius, CONFIG.margin])
 
   // ================================ MANAGE CREATING IMAGE ================================
@@ -128,12 +129,12 @@ export function StringArtComponent(){
     // Handle already initialized values if the run has been stoped
     let newLinesVector = linesVector
     let t1 = initialTime
-    let count = linesDrawn
+    let linesCount = linesDrawn
     let computedErrorMatrix = inUseErrorMatrix
     if(reset){
       newLinesVector = [CONFIG.firstPin]
       t1 = performance.now()
-      count = 0
+      linesCount = 0
       computedErrorMatrix = errorMatrix.map((row) => [...row]);
     }
 
@@ -141,10 +142,10 @@ export function StringArtComponent(){
     setInitialTime(t1)
     setInUseErrorMatrix(computedErrorMatrix)
     
-    // ============= EXECUTION =============
+    // ========================== EXECUTION ==========================
     intervalRef.current = setInterval(() => {
       // FINISH CHECK 
-      if (count >= maxLines - 1 && intervalRef.current) {
+      if (linesCount >= maxLines && intervalRef.current) {
         clearInterval(intervalRef.current)
         return
       }
@@ -152,7 +153,7 @@ export function StringArtComponent(){
       // ============= LOOK FOR NEXT PIN =============
       const prevPin = newLinesVector[newLinesVector.length - 1]
       const last10 = newLinesVector.slice(-CONFIG.lastNUsedPinsMargin)
-
+      
       let nextPin = Math.floor(Math.random() * numPins)
       let highestScore = computeError(computedErrorMatrix, prevPin, nextPin, precomputedLinesRef.current)
 
@@ -161,16 +162,15 @@ export function StringArtComponent(){
         // If closer than margin or if in the last n used pass
         const up = (i + neighbourtPinMargin) % numPins
         const down = (i - neighbourtPinMargin + numPins) % numPins
-
         if (
           (prevPin <= up && prevPin >= down) ||
           pinVector[prevPin].usedWith.has(i) ||
           last10.includes(i)
         ) continue
 
-        // Compute and compare score if the candidate
+        // Compute and compare score for the candidate 
         const score = computeError(computedErrorMatrix, prevPin, i, precomputedLinesRef.current)
-
+        
         if (score > highestScore) {
           highestScore = score
           nextPin = i
@@ -189,13 +189,13 @@ export function StringArtComponent(){
 
       // Update count and update stimation
       setLinesDrawn(prev => prev + 1)
-      if (count % 20 === 0) {
-        const elapsed = Math.round((performance.now() - t1) / 100) / 10
-        setTotalTime(elapsed)
-        setStimatedTime(((elapsed / (count + 1)) * (maxLines - count - 1)))
+      if (linesCount % CONFIG.updateEveryNPins === 0) {
+        const timePased = Number(((performance.now() - t1) / 1000).toFixed(2))
+        setTotalTime(timePased)
+        setStimatedTime(((timePased / (linesCount + 1)) * (maxLines - linesCount - 1)))
       }
 
-      count++
+      linesCount++
     }, 0)
   }
 
@@ -204,15 +204,14 @@ export function StringArtComponent(){
     pinVector: pin[],
     imageSize: number,
     radius: number,
-    numPins: number
   ): Map<string, point[]> => {
     const map = new Map<string, point[]>()
-
-    for (let i = 0; i < numPins; i++) {
-      for (let j = 0; j < numPins; j++) {
-        if (i === j) continue
+    
+    for (let i = 0; i < pinVector.length; i++) {
+      for (let j = i + 1; j < pinVector.length; j++) {
         const key = getLineKey(i, j)
 
+        // Bresenham ALGORITHM
         const { x1, y1, x2, y2, dx, dy, sx, sy } = getVariableForPixelSearch(
           pinVector[i].x, pinVector[i].y,
           pinVector[j].x, pinVector[j].y,
@@ -224,7 +223,10 @@ export function StringArtComponent(){
         const line: point[] = []
 
         do {
-          line.push({ x: actual.x, y: actual.y })
+          if (actual.x >= 0 && actual.x < imageSize && actual.y >= 0 && actual.y < imageSize) {
+            line.push({ x: actual.x, y: actual.y })
+          }
+
           const e2 = err * 2
           if (e2 > -dy) {
             err -= dy
@@ -445,11 +447,15 @@ function computeError (
 ): number {
   const key = getLineKey(pin1Idx, pin2Idx)
   const line = precomputedLines.get(key)
-  if (!line) return Infinity
-
+  if (!line) return Infinity // Fall back just in case
   let error = 0
   for (const { x, y } of line) {
-    error += computedErrorMatrix[y][x]
+    try {
+      error += computedErrorMatrix[y][x]
+    } catch (err) {
+      console.error(`Access error at x=${x}, y=${y}`)
+      // console.error(err)
+    }
   }
 
   return error
@@ -478,11 +484,11 @@ async function getCroppedImg(imageSrc: string, pixelCrop: { x: number; y: number
     pixelCrop.width, pixelCrop.height
   );
 
-  // Black and white
+  // ========= Black and white =========
   ctx.filter = "grayscale(100%)";
   ctx.drawImage(canvas, 0, 0);
 
-  //Get image matrix
+  // ========= Get image matrix =========
   const { data } = ctx.getImageData(0, 0, canvas.width, canvas.height);
   const matrix: number[][] = [];
 
@@ -496,7 +502,7 @@ async function getCroppedImg(imageSrc: string, pixelCrop: { x: number; y: number
     matrix.push(row);
   }
 
-    // Create a new matrix with the same dimensions
+  // ========= Create a new matrix for error with the same dimensions =========
   const errorMatrix: number[][] = matrix.map(row => 
     row.map(value => {
       return 255 - value; 
