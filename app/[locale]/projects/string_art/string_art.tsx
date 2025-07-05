@@ -10,7 +10,6 @@ import { Icon } from '@/app/[locale]/(utils)/(components)/Icons';
 import { Button, Input } from '@/app/[locale]/(utils)/(components)/Buttons';
 
 import CONFIG from "@/app/[locale]/(utils)/(constants)/configuration";
-import { log } from "console";
 
 type point = {
   x: number,
@@ -47,7 +46,6 @@ export function StringArtComponent(){
 
   // ================================ LINES ================================
   const [linesVector, setLinesVector] = useState<number[]>([CONFIG.firstPin]) 
-  const [linesDrawn, setLinesDrawn] = useState(0) 
 
   // ================================ TIME ================================
   const [initialTime, setInitialTime] = useState(0)
@@ -127,23 +125,21 @@ export function StringArtComponent(){
       console.log(`errorMatrix.length ${errorMatrix.length}`);
         
       setImazeSize(errorMatrix.length)
-      setLinesDrawn(0)     
+      setLinesVector([CONFIG.firstPin])
     }
   }
 
 
   // ================================ ALGORITH ================================
-  const createImage = (reset: boolean) => {
+  const startAlgorithm = (reset: boolean) => {
     // ============= INTITIAL VARIABLES =============
     // Handle already initialized values if the run has been stoped
     let newLinesVector = linesVector
     let t1 = initialTime
-    let linesCount = linesDrawn
     let computedErrorMatrix = inUseErrorMatrix
     if(reset){
       newLinesVector = [CONFIG.firstPin]
       t1 = performance.now()
-      linesCount = 0
       computedErrorMatrix = errorMatrix.map((row) => [...row]);
     }
 
@@ -154,7 +150,7 @@ export function StringArtComponent(){
     // ========================== EXECUTION ==========================
     intervalRef.current = setInterval(() => {
       // FINISH CHECK 
-      if (linesCount >= maxLines && intervalRef.current) {
+      if (newLinesVector.length >= maxLines && intervalRef.current) {
         clearInterval(intervalRef.current)
         return
       }
@@ -197,14 +193,11 @@ export function StringArtComponent(){
       setLinesVector(newLinesVector)
 
       // Update count and update stimation
-      setLinesDrawn(prev => prev + 1)
-      if (linesCount % CONFIG.updateEveryNPins === 0) {
+      if (newLinesVector.length % CONFIG.updateEveryNPins === 0) {
         const timePased = Number(((performance.now() - t1) / 1000).toFixed(2))
         setTotalTime(timePased)
-        setStimatedTime(((timePased / (linesCount + 1)) * (maxLines - linesCount - 1)))
+        setStimatedTime(((timePased / (newLinesVector.length + 1)) * (maxLines - newLinesVector.length - 1)))
       }
-
-      linesCount++
     }, 0)
   }
 
@@ -300,8 +293,8 @@ export function StringArtComponent(){
       <div className='flex flex-col items-center gap-2'>
         <header className={cn("flex w-full flex-col font-mono", {"opacity-0": !creatingImage})}>
           <span className="flex w-full justify-between"> 
-            <p>{linesDrawn}/{maxLines}</p>
-            <p>{((linesDrawn * 100) / maxLines).toFixed(2)}% </p>
+            <p>{linesVector.length}/{maxLines}</p>
+            <p>{((linesVector.length * 100) / maxLines).toFixed(2)}% </p>
           </span>
           <span className="flex w-full justify-between">
             <p>Total time: {secondsToTime(totalTime)}</p>
@@ -362,11 +355,11 @@ export function StringArtComponent(){
             onClick={()=>{
               if(intervalRef.current)
                 clearInterval(intervalRef.current)
-
               // if stoped and then continued, aboid reseting always
-              createImage(linesVector.length <= 1) 
-              setLinesVector([CONFIG.firstPin])
+              startAlgorithm(linesVector.length <= 1) 
               setCreatingImage(!creatingImage)
+              if (linesVector.length <= 1)
+                setLinesVector([CONFIG.firstPin])
             }}
           > 
             <Icon 
@@ -382,9 +375,8 @@ export function StringArtComponent(){
             onClick={()=>{
               if(intervalRef.current)
                 clearInterval(intervalRef.current)
-              setLinesVector([]) 
+              setLinesVector([CONFIG.firstPin]) 
               setInitialTime(0)
-              setLinesDrawn(0)
               setCreatingImage(false)
             }}
           > 
