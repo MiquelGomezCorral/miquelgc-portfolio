@@ -5,17 +5,20 @@ class Configuration {
     
     // String art
     // public defaultImage = "/assets/projects/Robot.webp",
-    public defaultImage = "/assets/projects/Einstein.webp",
+    // public defaultImage = "/assets/projects/Einstein.webp",
+    public defaultImage = "/assets/projects/Noether.webp",
     public imageSize = undefined,
-    public lineWidth = 0.20,
-    public numPins = 288,
+    public imageConstrast = 125, //100% is base
+
+    public lineWidth = 0.15,
+    public numPins = 300,
     public maxLines = 3500,
     public firstPin = 0, // //Math.floor(Math.random() * numPins)
 
     public margin = 0, // Margin with the canvas border  
-    public radius = 350, // Circle radius
+    public radius = 325, // Circle radius
 
-    public neighbourtMaring = 15,//0.035*numPins,
+    public neighbourtMaring = 10,
     public lastNUsedPinsMargin = 10,
 
     public updateEveryNPins = 20,

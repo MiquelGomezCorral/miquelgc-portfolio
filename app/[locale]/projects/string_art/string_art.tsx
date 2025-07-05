@@ -308,7 +308,10 @@ export function StringArtComponent(){
             <p>Stimated time:  {secondsToTime(stimatedTime)}</p>
           </span>
         </header>
-        <figure className='relative flex justify-center w-[700px] lg:min-w-[300px] aspect-square rounded-full'>
+        <figure 
+          className="relative flex justify-center aspect-square rounded-full"
+          style={{ width: `${CONFIG.radius * 2}px`, minWidth: `${CONFIG.radius}px` }}
+        >
           {!croppingCompleted ? 
             <Cropper
               image={selectedImage}
@@ -327,19 +330,6 @@ export function StringArtComponent(){
               className='rounded-full'
             />
             :
-            // <svg width={(CONFIG.radius)*2} height={(CONFIG.radius)*2} className="bg-white/80">
-            //   {pinVector.map((pin, idx) => (
-            //     <circle key={idx} cx={pin.x} cy={pin.y} r={1.5} fill="#000" />
-            //   ))}
-            //   {linesVector.slice(1).map((nextPin, idx) => (
-            //     <line key={idx} stroke="black" strokeWidth={lineWidth}
-            //       x1={pinVector[linesVector[idx]].x} 
-            //       y1={pinVector[linesVector[idx]].y} 
-            //       x2={pinVector[nextPin].x} 
-            //       y2={pinVector[nextPin].y} 
-            //     />
-            //   ))}
-            // </svg>
             <canvas
               ref={canvasRef}
               width={CONFIG.radius * 2}
@@ -494,7 +484,7 @@ async function getCroppedImg(imageSrc: string, pixelCrop: { x: number; y: number
   );
 
   // ========= Black and white =========
-  ctx.filter = "grayscale(100%)";
+  ctx.filter = `grayscale(100%) contrast(${CONFIG.imageConstrast}%)`;
   ctx.drawImage(canvas, 0, 0);
 
   // ========= Get image matrix =========
