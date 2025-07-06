@@ -220,7 +220,7 @@ export function StringArtComponent(){
 
     // Clear canva
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.lineWidth = lineWidth;
+    ctx.lineWidth = lineWidth / 100;
     ctx.strokeStyle = "#000";
 
     // Draw shape
@@ -363,16 +363,29 @@ export function StringArtComponent(){
             />
           </aside>
           <aside className="flex gap-4">
-            <Input type="number" className="w-20" value={numPins} onChange={(e)=>{e.preventDefault(); setNumPins(e.target.value)}} 
+            <Input type="number" className="w-20" value={numPins} onChange={(e)=>{
+              e.preventDefault();
+              setNumPins(checkLimits(e.target.value, CONFIG.pinLimits))
+            }} 
               disabled={!croppingCompleted || creatingImage || (linesVector.length > 1)}
             />
-            <Input type="number" className="w-20" value={maxLines} onChange={(e)=>{e.preventDefault(); setMaxLines(e.target.value)}} 
+            <Input type="number" className="w-20" value={maxLines} onChange={(e)=>{
+              e.preventDefault();
+              setMaxLines(checkLimits(e.target.value, CONFIG.linesLimits))
+            }} 
               disabled={!croppingCompleted || creatingImage || (linesVector.length > 1)}
             />
-            <Input type="number" className="w-20" value={lineWidth} onChange={(e)=>{e.preventDefault(); setLineWidth(e.target.value)}} 
+            <Input type="number" className="w-20" value={lineWidth} onChange={(e)=>{
+              e.preventDefault();
+              setLineWidth(checkLimits(e.target.value, CONFIG.lineWidthLimits))
+
+            }} 
               disabled={!croppingCompleted || creatingImage || (linesVector.length > 1)}
             />
-            <Input type="number" className="w-20" value={imageContrast} onChange={(e)=>{e.preventDefault(); setImageContrast(e.target.value)}} 
+            <Input type="number" className="w-20" value={imageContrast} onChange={(e)=>{
+              e.preventDefault();
+              setImageContrast(checkLimits(e.target.value, CONFIG.constrastLimits))
+            }} 
               disabled={!croppingCompleted || creatingImage || (linesVector.length > 1)}
             />
           </aside>
@@ -382,6 +395,13 @@ export function StringArtComponent(){
 
     </section>
   )
+}
+
+function checkLimits(value: number, limits: readonly [number?, number?]){
+  const [low, top] = limits
+  if (low !== undefined && value < low) return low
+  if (top !== undefined && value > top) return top
+  return value
 }
 
 // =========================================================================
