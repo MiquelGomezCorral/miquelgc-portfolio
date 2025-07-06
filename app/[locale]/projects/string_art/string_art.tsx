@@ -8,6 +8,7 @@ import { useState, useRef, useEffect } from "react";
 
 import { Icon } from '@/app/[locale]/(utils)/(components)/Icons';
 import { Button, Input } from '@/app/[locale]/(utils)/(components)/Buttons';
+import { secondsToTime, getLineKey, checkLimits } from '@/app/[locale]/(utils)/(functions)/functionUtils';
 
 import CONFIG from "@/app/[locale]/(utils)/(constants)/configuration";
 
@@ -204,7 +205,7 @@ export function StringArtComponent(){
     if (!line) return newMatrix // fallback if no precomputed line
 
     for (const { x, y } of line) {
-      newMatrix[y][x] = Math.max(newMatrix[y][x] - 255 * lineWidth, 0)
+      newMatrix[y][x] = Math.max(newMatrix[y][x] - 255 * lineWidth / 100, 0)
     }
 
     return newMatrix
@@ -397,12 +398,6 @@ export function StringArtComponent(){
   )
 }
 
-function checkLimits(value: number, limits: readonly [number?, number?]){
-  const [low, top] = limits
-  if (low !== undefined && value < low) return low
-  if (top !== undefined && value > top) return top
-  return value
-}
 
 // =========================================================================
 //                        ALGORITHM EXTERNAL FUNCTIONS
@@ -569,20 +564,3 @@ function precomputeLinePoints (
 }
 
 
-// =========================================================================
-//                              UTIL FUNCTIONS
-// =========================================================================
-function secondsToTime(sec: number): string{
-  const minutes = Math.floor(sec/60)
-  const seconds = Math.floor(sec%60)
-  
-  // Pad minutes and seconds with leading zeros
-  const formattedMinutes = String(minutes).padStart(2, "0");
-  const formattedSeconds = String(seconds).padStart(2, "0");
-
-  return `${formattedMinutes}min ${formattedSeconds}sec`;
-}
-
-function getLineKey (a: number, b: number) {
- return a < b ? `${a}-${b}` : `${b}-${a}` // consistent key regardless of order
-}
