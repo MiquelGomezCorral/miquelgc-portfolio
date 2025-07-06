@@ -25,6 +25,7 @@ export function StringArtComponent(){
 
   // ================================ IMAGE ================================
   const [selectedImage, setSelectedImage] = useState(CONFIG.defaultImage); 
+  const [modifiedImage, setModifiedImage] = useState(CONFIG.defaultImage); 
   const fileUploadRef = useRef<HTMLInputElement>(null);
 
   const [creatingImage, setCreatingImage] = useState(false);
@@ -32,7 +33,7 @@ export function StringArtComponent(){
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<{ x: number; y: number; width: number; height: number } | null>(null);
-  const [imageSize, setImazeSize] = useState<number  | undefined>(CONFIG.imageSize)
+  const [imageSize, setImazeSize] = useState<number>(CONFIG.imageSize)
 
   // ================================ MATRIX ================================
   const [errorMatrix, setErrorMatrix] = useState<number[][]>([[]])
@@ -58,31 +59,7 @@ export function StringArtComponent(){
   const neighbourtPinMargin = Math.ceil(CONFIG.neighbourtMaring)
   const precomputedLinesRef = useRef<Map<string, point[]>>(new Map())
 
-  useEffect(() => {
-    // GET PIN
-    //    degrees between pins
-    const d = (360 / numPins) * (Math.PI / 180) // convert to radians
-    const pins: pin[] = []
-    for(let i = 0; i < numPins; i++){
-      pins.push({ //  - Math.PI / 2 -> rotate by 90 | Margin with the canvas
-        x: Math.cos(d*i - Math.PI / 2) * (CONFIG.radius - CONFIG.margin) + CONFIG.radius, 
-        y: Math.sin(d*i - Math.PI / 2) * (CONFIG.radius - CONFIG.margin) + CONFIG.radius,
-        usedWith: new Set<number>(),
-      })
-    }
-
-    // update state
-    setPinVector(pins)
-
-  },[numPins, CONFIG.radius, CONFIG.margin])
-
-  useEffect(() => {
-    if (!imageSize || pinVector.length < numPins) 
-      return // make sure there is an image an all pin's locations have been computed
-    // NOTE: precomputeLinePoints needs PinVector synchronously,
-    // so call it here with pins, not PinVector (which updates async)
-    precomputedLinesRef.current = precomputeLinePoints(pinVector, imageSize, CONFIG.radius)
-  }, [pinVector, imageSize])
+ 
 
   // ================================ MANAGE CREATING IMAGE ================================
   useEffect(() => {
@@ -115,19 +92,20 @@ export function StringArtComponent(){
 
   const handleCropImage = async () => {
     if (croppedAreaPixels) {
-      const {image, errorMatrix} = await getCroppedImg(selectedImage, croppedAreaPixels);
-      setSelectedImage(image)
+      const {image, errorMatrix} = await getCroppedImg(selectedImage, croppedAreaPixels, imageContrast);
+      setModifiedImage(image)
       setCroppingCompleted(true)
       setErrorMatrix(errorMatrix)    
       setInUseErrorMatrix(errorMatrix)    
 
-      console.log(`errorMatrix.length ${errorMatrix.length}`);
-        
       setImazeSize(errorMatrix.length)
       setLinesVector([CONFIG.firstPin])
     }
   }
 
+  useEffect(() => {
+    handleCropImage()
+  },[imageContrast])
 
   // ================================ ALGORITH ================================
   const startAlgorithm = (reset: boolean) => {
@@ -136,10 +114,20 @@ export function StringArtComponent(){
     let newLinesVector = linesVector
     let t1 = initialTime
     let computedErrorMatrix = inUseErrorMatrix
+    let pins = pinVector
     if(reset){
       newLinesVector = [CONFIG.firstPin]
       t1 = performance.now()
       computedErrorMatrix = errorMatrix.map((row) => [...row]);
+      
+      pins = computePins(
+        numPins,
+        imageSize,
+        CONFIG.radius,
+        CONFIG.margin,
+        precomputedLinesRef
+      )
+      setPinVector(pins)
     }
 
     setLinesVector(newLinesVector) 
@@ -169,7 +157,7 @@ export function StringArtComponent(){
         const down = (i - neighbourtPinMargin + numPins) % numPins
         if (
           (prevPin <= up && prevPin >= down) ||
-          pinVector[prevPin].usedWith.has(i) ||
+          pins[prevPin].usedWith.has(i) ||
           last10.includes(i)
         ) continue
 
@@ -185,8 +173,8 @@ export function StringArtComponent(){
       // ============= UPDATE MATRIX WITH THE PIN =============
       // Recopute error matrix
       computedErrorMatrix = updateComputeImageMatrix(computedErrorMatrix, prevPin, nextPin, precomputedLinesRef.current)
-      pinVector[prevPin].usedWith.add(nextPin)
-      pinVector[nextPin].usedWith.add(prevPin)
+      pins[prevPin].usedWith.add(nextPin)
+      pins[nextPin].usedWith.add(prevPin)
 
       // New vector
       newLinesVector = [...newLinesVector, nextPin]
@@ -202,50 +190,6 @@ export function StringArtComponent(){
   }
 
 
-  const precomputeLinePoints = (
-    pinVector: pin[],
-    imageSize: number,
-    radius: number,
-  ): Map<string, point[]> => {
-    const map = new Map<string, point[]>()
-    
-    for (let i = 0; i < pinVector.length; i++) {
-      for (let j = i + 1; j < pinVector.length; j++) {
-        const key = getLineKey(i, j)
-
-        // Bresenham ALGORITHM
-        const { x1, y1, x2, y2, dx, dy, sx, sy } = getVariableForPixelSearch(
-          pinVector[i].x, pinVector[i].y,
-          pinVector[j].x, pinVector[j].y,
-          imageSize, radius * 2
-        )
-
-        const actual: point = { x: x1, y: y1 }
-        let err = dx - dy
-        const line: point[] = []
-
-        do {
-          if (actual.x >= 0 && actual.x < imageSize && actual.y >= 0 && actual.y < imageSize) {
-            line.push({ x: actual.x, y: actual.y })
-          }
-
-          const e2 = err * 2
-          if (e2 > -dy) {
-            err -= dy
-            actual.x += sx
-          }
-          if (e2 < dx) {
-            err += dx
-            actual.y += sy
-          }
-        } while (actual.x !== x2 || actual.y !== y2)
-
-        map.set(key, line)
-      }
-    }
-
-    return map
-  }
 
   const updateComputeImageMatrix = (prevErrorMatrix:number[][], pin1Idx: number, pin2Idx: number, precomputedLines: Map<string, point[]>) => {
 
@@ -302,8 +246,8 @@ export function StringArtComponent(){
           </span>
         </header>
         <figure 
-          className="relative flex justify-center aspect-square rounded-full"
-          style={{ width: `${CONFIG.radius * 2}px`, minWidth: `${CONFIG.radius}px` }}
+          className="relative flex justify-center items-center aspect-square rounded-full"
+          style={{ width: `${CONFIG.radius * 2}px`, minWidth: `${CONFIG.radius}px` }} // variable size following config
         >
           {!croppingCompleted ? 
             <Cropper
@@ -311,17 +255,19 @@ export function StringArtComponent(){
               crop={crop}
               zoom={zoom}
               zoomSpeed={CONFIG.zoomSmoothFactor} // smoother zoom
-              aspect={1}
+              aspect={1} // perfect circle
               onCropChange={setCrop}
               onZoomChange={setZoom}
               onCropComplete={(_, croppedArea) => setCroppedAreaPixels(croppedArea)}
             />
-            : ((!creatingImage && !intervalRef.current) ?
+            : ((!creatingImage && linesVector.length <= 1) ?
             <NextImage
-              src={selectedImage}
-              fill
-              alt={selectedImage}
-              className='rounded-full'
+              src={modifiedImage}
+              alt={modifiedImage}
+              width={CONFIG.radius * 2}
+              height={CONFIG.radius * 2}
+              className="rounded-full object-contain"
+              
             />
             :
             <canvas
@@ -330,8 +276,7 @@ export function StringArtComponent(){
               height={CONFIG.radius * 2}
               className="bg-miquel-white-200 rounded-full"
             />
-            )
-          }
+          )}
         </figure>
       </div>
 
@@ -355,11 +300,13 @@ export function StringArtComponent(){
             onClick={()=>{
               if(intervalRef.current)
                 clearInterval(intervalRef.current)
+              
               // if stoped and then continued, aboid reseting always
-              startAlgorithm(linesVector.length <= 1) 
-              setCreatingImage(!creatingImage)
               if (linesVector.length <= 1)
                 setLinesVector([CONFIG.firstPin])
+              startAlgorithm(linesVector.length <= 1) 
+              
+              setCreatingImage(!creatingImage)
             }}
           > 
             <Icon 
@@ -412,10 +359,18 @@ export function StringArtComponent(){
             />
           </aside>
           <aside className="flex gap-4">
-            <Input type="text" className="w-20" value={numPins} onChange={(e)=>{e.preventDefault(); setNumPins(e.target.value)}} disabled={creatingImage || (linesVector.length > 1)}/>
-            <Input type="text" className="w-20" value={maxLines} onChange={(e)=>{e.preventDefault(); setMaxLines(e.target.value)}} disabled={creatingImage || (linesVector.length > 1)}/>
-            <Input type="text" className="w-20" value={lineWidth} onChange={(e)=>{e.preventDefault(); setLineWidth(e.target.value)}} disabled={creatingImage || (linesVector.length > 1)}/>
-            <Input type="text" className="w-20" value={imageContrast} onChange={(e)=>{e.preventDefault(); setImageContrast(e.target.value)}} disabled={creatingImage || (linesVector.length > 1)}/>
+            <Input type="text" className="w-20" value={numPins} onChange={(e)=>{e.preventDefault(); setNumPins(e.target.value)}} 
+              disabled={!croppingCompleted || creatingImage || (linesVector.length > 1)}
+            />
+            <Input type="text" className="w-20" value={maxLines} onChange={(e)=>{e.preventDefault(); setMaxLines(e.target.value)}} 
+              disabled={!croppingCompleted || creatingImage || (linesVector.length > 1)}
+            />
+            <Input type="text" className="w-20" value={lineWidth} onChange={(e)=>{e.preventDefault(); setLineWidth(e.target.value)}} 
+              disabled={!croppingCompleted || creatingImage || (linesVector.length > 1)}
+            />
+            <Input type="text" className="w-20" value={imageContrast} onChange={(e)=>{e.preventDefault(); setImageContrast(e.target.value)}} 
+              disabled={!croppingCompleted || creatingImage || (linesVector.length > 1)}
+            />
           </aside>
 
         </form>
@@ -428,12 +383,6 @@ export function StringArtComponent(){
 // =========================================================================
 //                        ALGORITHM EXTERNAL FUNCTIONS
 // =========================================================================
-
-
-function getLineKey (a: number, b: number) {
- return a < b ? `${a}-${b}` : `${b}-${a}` // consistent key regardless of order
-}
-
 function computeError ( 
   computedErrorMatrix: number[][],  pin1Idx: number,  pin2Idx: number,  precomputedLines: Map<string, point[]>
 ): number {
@@ -458,16 +407,23 @@ function computeError (
 //                              IMAGE FUNCTIONS
 // =========================================================================
 
-async function getCroppedImg(imageSrc: string, pixelCrop: { x: number; y: number; width: number; height: number }) {
-  const image = new Image();
-  image.src = imageSrc;
-  await new Promise((resolve) => (image.onload = resolve));
+async function getCroppedImg(
+  imageSrc: string, 
+  pixelCrop: { x: number; y: number; width: number; height: number }, 
+  imageConstrast: number
+) {
+  const image = new Image()
+  image.src = imageSrc
+  await new Promise((resolve) => (image.onload = resolve))
 
-  const canvas = document.createElement("canvas");
-  canvas.width = pixelCrop.width;
-  canvas.height = pixelCrop.height;
-  const ctx = canvas.getContext("2d")!;
+  const canvas = document.createElement("canvas")
+  canvas.width = pixelCrop.width
+  canvas.height = pixelCrop.height
+  const ctx = canvas.getContext("2d")!
 
+  // ========= Black and white =========
+  ctx.filter = `grayscale(100%) contrast(${imageConstrast}%)`
+  // ========= Draw image =========
   ctx.drawImage(
     image,
     pixelCrop.x, pixelCrop.y,
@@ -475,10 +431,6 @@ async function getCroppedImg(imageSrc: string, pixelCrop: { x: number; y: number
     0, 0,
     pixelCrop.width, pixelCrop.height
   );
-
-  // ========= Black and white =========
-  ctx.filter = `grayscale(100%) contrast(${CONFIG.imageConstrast}%)`;
-  ctx.drawImage(canvas, 0, 0);
 
   // ========= Get image matrix =========
   const { data } = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -489,7 +441,7 @@ async function getCroppedImg(imageSrc: string, pixelCrop: { x: number; y: number
     for (let x = 0; x < canvas.width; x++) {
       const index = (y * canvas.width + x) * 4;
       // With grayscale, R, G, and B are equal; use the red channel
-      row.push(data[index]);
+      row.push(data[index])
     }
     matrix.push(row);
   }
@@ -522,9 +474,80 @@ function getVariableForPixelSearch(pinx1: number, piny1: number, pinx2: number, 
 
 
 // =========================================================================
+//                              PINS FUNCTIONS
+// =========================================================================
+function computePins (
+  numPins: number,
+  imageSize: number,
+  radius: number,
+  margin: number,
+  precomputedLinesRef: React.MutableRefObject<Map<string, point[]>>
+): pin[] {
+  // GET PIN
+  const degree = (360 / numPins) * (Math.PI / 180) // convert to radians
+  const pins: pin[] = []
+  for(let i = 0; i < numPins; i++){
+    pins.push({ //  - Math.PI / 2 -> rotate by 90 | Margin with the canvas
+      x: Math.cos(degree*i - Math.PI / 2) * (radius - margin) + radius, 
+      y: Math.sin(degree*i - Math.PI / 2) * (radius - margin) + radius,
+      usedWith: new Set<number>(),
+    })
+  }
+
+  precomputedLinesRef.current = precomputeLinePoints(pins, imageSize, radius)
+  return pins
+}//,[numPins, CONFIG.radius, CONFIG.margin])
+
+
+function precomputeLinePoints (
+  pinVector: pin[],
+  imageSize: number,
+  radius: number,
+): Map<string, point[]> {
+  const map = new Map<string, point[]>()
+  
+  for (let i = 0; i < pinVector.length; i++) {
+    for (let j = i + 1; j < pinVector.length; j++) {
+      const key = getLineKey(i, j)
+
+      // Bresenham ALGORITHM
+      const { x1, y1, x2, y2, dx, dy, sx, sy } = getVariableForPixelSearch(
+        pinVector[i].x, pinVector[i].y,
+        pinVector[j].x, pinVector[j].y,
+        imageSize, radius * 2
+      )
+
+      const actual: point = { x: x1, y: y1 }
+      let err = dx - dy
+      const line: point[] = []
+
+      do {
+        if (actual.x >= 0 && actual.x < imageSize && actual.y >= 0 && actual.y < imageSize) {
+          line.push({ x: actual.x, y: actual.y })
+        }
+
+        const e2 = err * 2
+        if (e2 > -dy) {
+          err -= dy
+          actual.x += sx
+        }
+        if (e2 < dx) {
+          err += dx
+          actual.y += sy
+        }
+      } while (actual.x !== x2 || actual.y !== y2)
+
+      map.set(key, line)
+    }
+  }
+
+  return map
+}
+
+
+// =========================================================================
 //                              UTIL FUNCTIONS
 // =========================================================================
-
 function secondsToTime(sec: number): string{
   const minutes = Math.floor(sec/60)
   const seconds = Math.floor(sec%60)
@@ -534,4 +557,8 @@ function secondsToTime(sec: number): string{
   const formattedSeconds = String(seconds).padStart(2, "0");
 
   return `${formattedMinutes}min ${formattedSeconds}sec`;
+}
+
+function getLineKey (a: number, b: number) {
+ return a < b ? `${a}-${b}` : `${b}-${a}` // consistent key regardless of order
 }
