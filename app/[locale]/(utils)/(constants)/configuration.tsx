@@ -8,7 +8,8 @@ class Configuration {
     // public defaultImage = "/assets/projects/Einstein.webp",
     public defaultImage = "/assets/projects/Noether.webp",
     public imageSize = undefined,
-    public imageConstrast = 125, //100% is base
+    public imageConstrast = 100, //100% is base
+    public zoomSmoothFactor = 0.1,
 
     public lineWidth = 0.15,
     public numPins = 300,

@@ -43,6 +43,7 @@ export function StringArtComponent(){
   const [numPins, setNumPins] = useState(CONFIG.numPins)
   const [pinVector, setPinVector] = useState<pin[]>([])
   const [maxLines, setMaxLines] = useState(CONFIG.maxLines)
+  const [imageContrast, setImageContrast] = useState(CONFIG.imageConstrast)
 
   // ================================ LINES ================================
   const [linesVector, setLinesVector] = useState<number[]>([CONFIG.firstPin]) 
@@ -310,6 +311,7 @@ export function StringArtComponent(){
               image={selectedImage}
               crop={crop}
               zoom={zoom}
+              zoomSpeed={CONFIG.zoomSmoothFactor} // smoother zoom
               aspect={1}
               onCropChange={setCrop}
               onZoomChange={setZoom}
@@ -415,6 +417,7 @@ export function StringArtComponent(){
             <Input type="text" className="w-20" value={numPins} onChange={(e)=>{e.preventDefault(); setNumPins(e.target.value)}} disabled={creatingImage || (linesVector.length > 1)}/>
             <Input type="text" className="w-20" value={maxLines} onChange={(e)=>{e.preventDefault(); setMaxLines(e.target.value)}} disabled={creatingImage || (linesVector.length > 1)}/>
             <Input type="text" className="w-20" value={lineWidth} onChange={(e)=>{e.preventDefault(); setLineWidth(e.target.value)}} disabled={creatingImage || (linesVector.length > 1)}/>
+            <Input type="text" className="w-20" value={imageContrast} onChange={(e)=>{e.preventDefault(); setLineWidth(e.target.value)}} disabled={creatingImage || (linesVector.length > 1)}/>
           </aside>
 
         </form>
