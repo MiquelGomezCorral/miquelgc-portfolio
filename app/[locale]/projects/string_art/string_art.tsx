@@ -359,16 +359,16 @@ export function StringArtComponent(){
             />
           </aside>
           <aside className="flex gap-4">
-            <Input type="text" className="w-20" value={numPins} onChange={(e)=>{e.preventDefault(); setNumPins(e.target.value)}} 
+            <Input type="number" className="w-20" value={numPins} onChange={(e)=>{e.preventDefault(); setNumPins(e.target.value)}} 
               disabled={!croppingCompleted || creatingImage || (linesVector.length > 1)}
             />
-            <Input type="text" className="w-20" value={maxLines} onChange={(e)=>{e.preventDefault(); setMaxLines(e.target.value)}} 
+            <Input type="number" className="w-20" value={maxLines} onChange={(e)=>{e.preventDefault(); setMaxLines(e.target.value)}} 
               disabled={!croppingCompleted || creatingImage || (linesVector.length > 1)}
             />
-            <Input type="text" className="w-20" value={lineWidth} onChange={(e)=>{e.preventDefault(); setLineWidth(e.target.value)}} 
+            <Input type="number" className="w-20" value={lineWidth} onChange={(e)=>{e.preventDefault(); setLineWidth(e.target.value)}} 
               disabled={!croppingCompleted || creatingImage || (linesVector.length > 1)}
             />
-            <Input type="text" className="w-20" value={imageContrast} onChange={(e)=>{e.preventDefault(); setImageContrast(e.target.value)}} 
+            <Input type="number" className="w-20" value={imageContrast} onChange={(e)=>{e.preventDefault(); setImageContrast(e.target.value)}} 
               disabled={!croppingCompleted || creatingImage || (linesVector.length > 1)}
             />
           </aside>
