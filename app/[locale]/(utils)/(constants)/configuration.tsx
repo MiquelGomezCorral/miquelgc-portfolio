@@ -2,6 +2,8 @@ class Configuration {
   constructor(
     // General
     public version = "1.0.0",
+
+    public debounceTime = 100, // ms debounce
     
     // String art
     // public defaultImage = "/assets/projects/Robot.webp",

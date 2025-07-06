@@ -104,8 +104,12 @@ export function StringArtComponent(){
   }
 
   useEffect(() => {
-    handleCropImage()
-  },[imageContrast])
+    const timeout = setTimeout(() => {
+      handleCropImage()
+    }, CONFIG.debounceTime) // ms debounce
+
+    return () => clearTimeout(timeout)
+  }, [imageContrast])
 
   // ================================ ALGORITH ================================
   const startAlgorithm = (reset: boolean) => {
