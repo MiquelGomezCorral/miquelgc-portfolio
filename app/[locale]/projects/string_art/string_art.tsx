@@ -50,6 +50,7 @@ export function StringArtComponent(){
   const [linesVector, setLinesVector] = useState<number[]>([CONFIG.firstPin]) 
 
   // ================================ TIME ================================
+  const [loading, setLoading] = useState(false);
   const [initialTime, setInitialTime] = useState(0)
   const [totalTime, setTotalTime] = useState(0)
   const [stimatedTime, setStimatedTime] = useState(0)
@@ -116,6 +117,8 @@ export function StringArtComponent(){
   const startAlgorithm = (reset: boolean) => {
     // ============= INTITIAL VARIABLES =============
     // Handle already initialized values if the run has been stoped
+    setLoading(true)
+
     let newLinesVector = linesVector
     let t1 = initialTime
     let computedErrorMatrix = inUseErrorMatrix
@@ -139,6 +142,7 @@ export function StringArtComponent(){
     setInitialTime(t1)
     setInUseErrorMatrix(computedErrorMatrix)
     
+    setLoading(false)
     // ========================== EXECUTION ==========================
     intervalRef.current = setInterval(() => {
       // FINISH CHECK 
@@ -194,10 +198,7 @@ export function StringArtComponent(){
     }, 0)
   }
 
-
-
   const updateComputeImageMatrix = (prevErrorMatrix:number[][], pin1Idx: number, pin2Idx: number, precomputedLines: Map<string, point[]>) => {
-
     const newMatrix = prevErrorMatrix.map(row => [...row])
     const key = getLineKey(pin1Idx, pin2Idx)
     const line = precomputedLines.get(key)
