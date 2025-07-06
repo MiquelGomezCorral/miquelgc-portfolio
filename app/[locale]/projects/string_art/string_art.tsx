@@ -38,14 +38,13 @@ export function StringArtComponent(){
   const [errorMatrix, setErrorMatrix] = useState<number[][]>([[]])
   const [inUseErrorMatrix, setInUseErrorMatrix] = useState<number[][]>([[]])
 
-  // ================================ CONFIG ================================
-  const [lineWidth, setLineWidth] = useState(CONFIG.lineWidth)
-  const [numPins, setNumPins] = useState(CONFIG.numPins)
-  const [pinVector, setPinVector] = useState<pin[]>([])
-  const [maxLines, setMaxLines] = useState(CONFIG.maxLines)
+  // ================================ LINES CONFIG ================================
   const [imageContrast, setImageContrast] = useState(CONFIG.imageConstrast)
+  const [lineWidth, setLineWidth] = useState(CONFIG.lineWidth)
+  const [maxLines, setMaxLines] = useState(CONFIG.maxLines)
+  const [numPins, setNumPins] = useState(CONFIG.numPins)
 
-  // ================================ LINES ================================
+  const [pinVector, setPinVector] = useState<pin[]>([])
   const [linesVector, setLinesVector] = useState<number[]>([CONFIG.firstPin]) 
 
   // ================================ TIME ================================
@@ -56,8 +55,8 @@ export function StringArtComponent(){
   
   const canvasRef = useRef<HTMLCanvasElement>(null);
   // ================================ PINS ================================
-  const precomputedLinesRef = useRef<Map<string, point[]>>(new Map())
   const neighbourtPinMargin = Math.ceil(CONFIG.neighbourtMaring)
+  const precomputedLinesRef = useRef<Map<string, point[]>>(new Map())
 
   useEffect(() => {
     // GET PIN
@@ -78,13 +77,12 @@ export function StringArtComponent(){
   },[numPins, CONFIG.radius, CONFIG.margin])
 
   useEffect(() => {
-    if (!imageSize || pinVector.length < numPins)
-      return
-    // Precompute lines immediately after
+    if (!imageSize || pinVector.length < numPins) 
+      return // make sure there is an image an all pin's locations have been computed
     // NOTE: precomputeLinePoints needs PinVector synchronously,
     // so call it here with pins, not PinVector (which updates async)
     precomputedLinesRef.current = precomputeLinePoints(pinVector, imageSize, CONFIG.radius)
-  }, [imageSize])
+  }, [pinVector, imageSize])
 
   // ================================ MANAGE CREATING IMAGE ================================
   useEffect(() => {
@@ -153,6 +151,7 @@ export function StringArtComponent(){
       // FINISH CHECK 
       if (newLinesVector.length >= maxLines && intervalRef.current) {
         clearInterval(intervalRef.current)
+        setCreatingImage(false)
         return
       }
 
@@ -292,7 +291,7 @@ export function StringArtComponent(){
   return(
     <section className='w-full flex gap-4 flex-col items-center'>
       <div className='flex flex-col items-center gap-2'>
-        <header className={cn("flex w-full flex-col font-mono", {"opacity-0": !creatingImage})}>
+        <header className={cn("flex w-full flex-col font-mono", {"opacity-0": !creatingImage && !(linesVector.length > 1)})}>
           <span className="flex w-full justify-between"> 
             <p>{linesVector.length}/{maxLines}</p>
             <p>{((linesVector.length * 100) / maxLines).toFixed(2)}% </p>
@@ -334,7 +333,6 @@ export function StringArtComponent(){
             )
           }
         </figure>
-              
       </div>
 
       <nav className='flex items-center gap-4 w-full'>
@@ -353,7 +351,7 @@ export function StringArtComponent(){
           </Button>
 
           <Button
-            disabled={!croppingCompleted}
+            disabled={!croppingCompleted || linesVector.length >= maxLines}
             onClick={()=>{
               if(intervalRef.current)
                 clearInterval(intervalRef.current)
@@ -417,7 +415,7 @@ export function StringArtComponent(){
             <Input type="text" className="w-20" value={numPins} onChange={(e)=>{e.preventDefault(); setNumPins(e.target.value)}} disabled={creatingImage || (linesVector.length > 1)}/>
             <Input type="text" className="w-20" value={maxLines} onChange={(e)=>{e.preventDefault(); setMaxLines(e.target.value)}} disabled={creatingImage || (linesVector.length > 1)}/>
             <Input type="text" className="w-20" value={lineWidth} onChange={(e)=>{e.preventDefault(); setLineWidth(e.target.value)}} disabled={creatingImage || (linesVector.length > 1)}/>
-            <Input type="text" className="w-20" value={imageContrast} onChange={(e)=>{e.preventDefault(); setLineWidth(e.target.value)}} disabled={creatingImage || (linesVector.length > 1)}/>
+            <Input type="text" className="w-20" value={imageContrast} onChange={(e)=>{e.preventDefault(); setImageContrast(e.target.value)}} disabled={creatingImage || (linesVector.length > 1)}/>
           </aside>
 
         </form>

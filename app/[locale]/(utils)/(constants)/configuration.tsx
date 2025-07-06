@@ -12,15 +12,15 @@ class Configuration {
     public zoomSmoothFactor = 0.1,
 
     public lineWidth = 0.15,
-    public numPins = 300,
+    public numPins = 350,
     public maxLines = 3500,
     public firstPin = 0, // //Math.floor(Math.random() * numPins)
 
     public margin = 0, // Margin with the canvas border  
     public radius = 325, // Circle radius
 
-    public neighbourtMaring = 10,
-    public lastNUsedPinsMargin = 10,
+    public neighbourtMaring = 20,
+    public lastNUsedPinsMargin = 5,
 
     public updateEveryNPins = 20,
   ) {}
