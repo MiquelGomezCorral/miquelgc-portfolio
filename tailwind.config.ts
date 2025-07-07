@@ -37,6 +37,7 @@ const config: Config = {
           900: "oklch(33.1% 0.17 250.0)"
         },
         "miquel-purple": {
+          100: "oklch(90.0% 0.15 296.2)",
           500: "oklch(43.6% 0.23 296.2)",
         },
         //   "miquel-background": "#16171f",
