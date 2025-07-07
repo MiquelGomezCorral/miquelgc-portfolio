@@ -26,25 +26,30 @@ export function Button({children, className, type = "button", disabled, onClick}
 }
 
 interface InputProps {
-  type?: "button" | "submit" | "reset" | "text" | "password" | "email" | "number" | "checkbox" | "radio" | "file" | "date";  
+  type?: React.HTMLInputTypeAttribute,  
   className?: string,
-  disabled?: boolean
-  value?: string | number | readonly string[] | undefined
-  onChange?: (e:any) => void
+  disabled?: boolean,
+  value?: string | number | readonly string[] | undefined,
+  text?: string,
+  onChange?: (e:any) => void,
 }
-export function Input({className, type = "button", disabled, onChange, value}: InputProps){
+export function Input({className, type, disabled, onChange, value, text}: InputProps){
   return(
-    <input type={type} disabled = {disabled} value={value}
-      className={cn(
-        "p-2 rounded-md border border-miquel-blue-400 bg-miquel-blue-500-a/20 text-white transform duration-300 flex gap-2 justify-center text-nowrap", 
-        { 'border-red-500 bg-red-500/30 placeholder-red-400/80': disabled },
-        className
-      )}
-      onChange={(e) =>{
-        if(onChange) 
-          onChange(e)
-      }}
-    />
+    <div className="grid grid-cols-1 w-full md:w-fit gap-2">
+      <h2 className="w-full">{text}</h2>
+      <input type={type} disabled = {disabled} value={value}
+        className={cn(
+          "p-2 rounded-md border border-miquel-blue-400 bg-miquel-blue-500-a/20 text-white " +
+          "transform duration-300 flex gap-2 justify-center text-nowrap w-full", 
+          { 'border-red-500 bg-red-500/30 placeholder-red-400/80': disabled },
+          className
+        )}
+        onChange={(e) =>{
+          if(onChange) 
+            onChange(e)
+        }}
+      />
+    </div>
   )
 }              
 

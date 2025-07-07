@@ -239,7 +239,7 @@ export function StringArtComponent(){
   
   // ================================ COMPONENT ================================
   return(
-    <section className='w-full flex gap-4 flex-col items-center'>
+    <section className='w-full flex gap-4 lg:gap-8 flex-col lg:flex-row items-center'>
       <div className='flex flex-col items-center gap-2'>
         <header className={cn("flex w-full flex-col font-mono", {"opacity-0": !creatingImage && !(linesVector.length > 1)})}>
           <span className="flex w-full justify-between"> 
@@ -286,9 +286,10 @@ export function StringArtComponent(){
         </figure>
       </div>
 
-      <nav className='flex items-center gap-4 w-full'>
-        <aside className="w-full flex gap-4">
+      <nav className='pt-16 gap-4 md:gap-8 w-full lg:h-full grid grid-cols-1 items-center lg:flex lg:flex-col '>
+        <aside className="w-full grid grid-cols-1 2xl:flex 2xl:flex-row gap-4 ">
           <Button
+            className="w-full"
             disabled={croppingCompleted}
             onClick={handleCropImage}
           > 
@@ -302,6 +303,7 @@ export function StringArtComponent(){
           </Button>
 
           <Button
+            className="w-full"
             disabled={!croppingCompleted || linesVector.length >= maxLines}
             onClick={()=>{
               if(intervalRef.current)
@@ -323,7 +325,9 @@ export function StringArtComponent(){
             />
             {creatingImage ? t("string.stop") : (linesVector.length <= 1) ? t("string.start") : t("string.continue")}
           </Button>
+
           <Button
+            className="w-full"
             disabled={!croppingCompleted || linesVector.length <= 1}
             onClick={()=>{
               if(intervalRef.current)
@@ -344,9 +348,9 @@ export function StringArtComponent(){
         </aside>
 
 
-        <form id='form' encType='multipart/form-data' action="" className="w-full flex justify-between">
-          <aside className="flex gap-4">
-            <Button type='submit' className='text-nowrap '
+        <form id='form' encType='multipart/form-data' action="" className="w-full flex gap-16 lg:gap-8 justify-center flex-col lg:h-full">
+          <aside className="flex w-full justify-center lg:hidden">
+            <Button type='submit' className='text-nowrap w-full lg:w-fit'
               onClick={handleImageUpload}
               disabled={creatingImage}
             >
@@ -364,27 +368,54 @@ export function StringArtComponent(){
               onChange={uploadIMageDisplay}
             />
           </aside>
-          <aside className="flex gap-4">
-            <Input type="number" className="w-20" value={numPins} onChange={(e)=>{
+
+          <aside className="w-full lg:h-full justify-center hidden lg:flex">
+            {/* <Button type='submit' className='text-nowrap w-full lg:w-fit'
+              onClick={handleImageUpload}
+              disabled={creatingImage}
+            >
+              <Icon 
+                src={"upload"}
+                height={20}
+                width={20}
+                title={"upload"}
+              />
+              {t("string.upload")}
+            </Button> */}
+            <div className="w-full h-full rounded-xl bg-miquel-black-200 p-4">
+              <div className="w-full h-full rounded-xl border-2 border-dashed border-miquel-purple-100 500 p-4">
+
+              </div>
+            </div>
+            <input type='file' id='file' 
+              ref={fileUploadRef} 
+              className='hidden'
+              onChange={uploadIMageDisplay}
+            />
+          </aside>
+
+
+          <aside className="grid grid-cols-2 gap-4 w-full 2xl:flex 2xl:flex-row">
+            <Input type="number" className="w-20" value={numPins} text={t("string.pins")} onChange={(e)=>{
               e.preventDefault();
               setNumPins(checkLimits(e.target.value, CONFIG.pinLimits))
             }} 
               disabled={!croppingCompleted || creatingImage || (linesVector.length > 1)}
             />
-            <Input type="number" className="w-20" value={maxLines} onChange={(e)=>{
+            <Input type="number" className="w-20" value={maxLines} text={t("string.lines")} onChange={(e)=>{
               e.preventDefault();
               setMaxLines(checkLimits(e.target.value, CONFIG.linesLimits))
             }} 
               disabled={!croppingCompleted || creatingImage || (linesVector.length > 1)}
             />
-            <Input type="number" className="w-20" value={lineWidth} onChange={(e)=>{
+            <Input type="number" className="w-20" value={lineWidth} text={t("string.width")} onChange={(e)=>{
               e.preventDefault();
               setLineWidth(checkLimits(e.target.value, CONFIG.lineWidthLimits))
 
             }} 
               disabled={!croppingCompleted || creatingImage || (linesVector.length > 1)}
             />
-            <Input type="number" className="w-20" value={imageContrast} onChange={(e)=>{
+            <Input type="number" className="w-20" value={imageContrast} text={t("string.contrast")} onChange={(e)=>{
               e.preventDefault();
               setImageContrast(checkLimits(e.target.value, CONFIG.constrastLimits))
             }} 
