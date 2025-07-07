@@ -370,23 +370,18 @@ export function StringArtComponent(){
           </aside>
 
           <aside className="w-full lg:h-full justify-center hidden lg:flex">
-            {/* <Button type='submit' className='text-nowrap w-full lg:w-fit'
+
+            <button className="w-full h-full rounded-xl bg-miquel-black-200 p-4 cursor-pointer"
               onClick={handleImageUpload}
               disabled={creatingImage}
             >
-              <Icon 
-                src={"upload"}
-                height={20}
-                width={20}
-                title={"upload"}
-              />
-              {t("string.upload")}
-            </Button> */}
-            <div className="w-full h-full rounded-xl bg-miquel-black-200 p-4">
-              <div className="w-full h-full rounded-xl border-2 border-dashed border-miquel-purple-100 500 p-4">
-
+              <div className={
+                "w-full h-full rounded-xl border-2 border-dashed border-miquel-purple-100 " +
+                "p-4 text-miquel-white-500 flex justify-center items-center"
+              }>
+                {t("string.drag-image")}
               </div>
-            </div>
+            </button>
             <input type='file' id='file' 
               ref={fileUploadRef} 
               className='hidden'

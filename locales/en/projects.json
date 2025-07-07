@@ -68,6 +68,9 @@
         "pins": "Pins",
         "lines": "Lines",
         "width": "Width",
-        "contrast": "Contrast"
+        "contrast": "Contrast", 
+
+        "drag-image": "Click, drag or drop and image"
+        
     }
 }
