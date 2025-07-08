@@ -1,11 +1,12 @@
 class Configuration {
   constructor(
-    // General
+    // =============== General ===============
     public version = "1.0.0",
 
     public debounceTime = 100, // ms debounce
     
-    // String art
+
+    // =============== String art ===============
     // public defaultImage = "/assets/projects/Robot.webp",
     // public defaultImage = "/assets/projects/Einstein.webp",
     public defaultImage = "/assets/projects/Noether.webp",
@@ -25,7 +26,7 @@ class Configuration {
     public constrastLimits = [1, undefined] as const, 
 
     public margin = 0, // Margin with the canvas border  
-    public radius = 325, // Circle radius
+    public radius = 300, // Circle radius
 
     public neighbourtMaring = 20,
     public lastNUsedPinsMargin = 5,

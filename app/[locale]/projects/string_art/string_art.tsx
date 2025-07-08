@@ -330,7 +330,7 @@ export function StringArtComponent(){
         </figure>
       </div>
 
-      <nav className='pt-16 gap-4 md:gap-8 w-full lg:h-full grid grid-cols-1 items-center lg:flex lg:flex-col '>
+      <nav className='pt-16 gap-4 lg:gap-8 w-full lg:h-auto grid grid-cols-1 items-center lg:flex lg:flex-col  flex-grow'>
         <aside className="w-full grid grid-cols-1 2xl:flex 2xl:flex-row gap-4 ">
           <Button
             className="w-full"
@@ -392,7 +392,8 @@ export function StringArtComponent(){
         </aside>
 
 
-        <form id='form' encType='multipart/form-data' action="" className="w-full flex gap-16 lg:gap-8 justify-center flex-col lg:h-full">
+        <form id='form' encType='multipart/form-data' action="" className="w-full flex gap-4 lg:gap-8 justify-center flex-col lg:h-full min-h-0">
+          {/* Let's asume the drag and drop is only used for the computer version, in the movile one you just select the image */}
           <aside className="flex w-full justify-center lg:hidden">
             <Button type='submit' className='text-nowrap w-full lg:w-fit'
               onClick={handleImageUpload}
@@ -413,17 +414,23 @@ export function StringArtComponent(){
             />
           </aside>
 
-          <aside className="w-full lg:h-full justify-center hidden lg:flex">
+          <aside className="w-full lg:h-44 2xl:h-64 justify-center hidden lg:flex">
             <button className="w-full h-full rounded-xl bg-miquel-black-200 hover:bg-miquel-black-150 p-4 cursor-pointer transform duration-300 group"
               onClick={handleImageUpload}
               disabled={creatingImage}
             >
               <div className={
                 "w-full h-full rounded-xl border-2 border-dashed border-miquel-purple-100 group-hover:border-miquel-purple-200 transform duration-300 " +
-                "p-4 flex justify-center items-center"
+                "p-4 flex justify-center items-center group-hover:animate-pulse "
               }>
-                <p className="text-miquel-white-500 group-hover:text-miquel-white-200 group-hover:animate-pulse transform duration-300">
-                  {t("string.drag-image")}
+                <p className="text-miquel-white-100 opacity-70 group-hover:opacity-100 transform duration-300 flex flex-col gap-2 ">
+                  {t("string.drag-image")} 
+                  <Icon 
+                    src={"upload"}
+                    height={20}
+                    width={20}
+                    title={"upload"}
+                  />
                 </p>
               </div>
             </button>
@@ -436,26 +443,26 @@ export function StringArtComponent(){
 
 
           <aside className="grid grid-cols-2 gap-4 w-full 2xl:flex 2xl:flex-row">
-            <Input type="number" className="w-20" value={numPins} text={t("string.pins")} onChange={(e)=>{
+            <Input type="number" className="" value={numPins} text={t("string.pins")} onChange={(e)=>{
               e.preventDefault();
               setNumPins(checkLimits(e.target.value, CONFIG.pinLimits))
             }} 
               disabled={!croppingCompleted || creatingImage || (linesVector.length > 1)}
             />
-            <Input type="number" className="w-20" value={maxLines} text={t("string.lines")} onChange={(e)=>{
+            <Input type="number" className="" value={maxLines} text={t("string.lines")} onChange={(e)=>{
               e.preventDefault();
               setMaxLines(checkLimits(e.target.value, CONFIG.linesLimits))
             }} 
               disabled={!croppingCompleted || creatingImage || (linesVector.length > 1)}
             />
-            <Input type="number" className="w-20" value={lineWidth} text={t("string.width")} onChange={(e)=>{
+            <Input type="number" className="" value={lineWidth} text={t("string.width")} onChange={(e)=>{
               e.preventDefault();
               setLineWidth(checkLimits(e.target.value, CONFIG.lineWidthLimits))
 
             }} 
               disabled={!croppingCompleted || creatingImage || (linesVector.length > 1)}
             />
-            <Input type="number" className="w-20" value={imageContrast} text={t("string.contrast")} onChange={(e)=>{
+            <Input type="number" className="" value={imageContrast} text={t("string.contrast")} onChange={(e)=>{
               e.preventDefault();
               setImageContrast(checkLimits(e.target.value, CONFIG.constrastLimits))
             }} 

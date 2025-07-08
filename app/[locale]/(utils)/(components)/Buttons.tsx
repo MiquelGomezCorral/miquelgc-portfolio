@@ -35,7 +35,7 @@ interface InputProps {
 }
 export function Input({className, type, disabled, onChange, value, text}: InputProps){
   return(
-    <div className="grid grid-cols-1 w-full md:w-fit gap-2">
+    <div className="grid grid-cols-1 w-full lg:w-fit gap-2">
       <h2 className="w-full">{text}</h2>
       <input type={type} disabled = {disabled} value={value}
         className={cn(
