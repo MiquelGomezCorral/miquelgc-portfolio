@@ -99,11 +99,11 @@ export function StringArtComponent(){
       setCreatingImage(false)
     }
 
-  const handleCropImage = async () => {
+  const handleCropImage = async (cropping: boolean = true) => {
     if (!croppedAreaPixels)
       return
 
-    if (!croppingCompleted) {
+    if (!croppingCompleted || !cropping) {
       const {image, errorMatrix} = await getCroppedImg(selectedImage, croppedAreaPixels, imageContrast);
       setModifiedImage(image)
       setErrorMatrix(errorMatrix)    
@@ -112,13 +112,14 @@ export function StringArtComponent(){
       setImazeSize(errorMatrix.length)
       setLinesVector([CONFIG.firstPin])
     }
-
-    setCroppingCompleted(!croppingCompleted)
+    if (cropping){
+      setCroppingCompleted(!croppingCompleted)
+    }
   }
 
   useEffect(() => { // Contrast debounce to update de image.
     const timeout = setTimeout(() => {
-      handleCropImage()
+      handleCropImage(false)
     }, CONFIG.debounceTime) // ms debounce
 
     return () => clearTimeout(timeout)
@@ -333,7 +334,7 @@ export function StringArtComponent(){
         <aside className="w-full grid grid-cols-1 2xl:flex 2xl:flex-row gap-4 ">
           <Button
             className="w-full"
-            // disabled={croppingCompleted}
+            disabled={creatingImage}
             onClick={handleCropImage}
           > 
             <Icon 
@@ -413,16 +414,17 @@ export function StringArtComponent(){
           </aside>
 
           <aside className="w-full lg:h-full justify-center hidden lg:flex">
-
-            <button className="w-full h-full rounded-xl bg-miquel-black-200 p-4 cursor-pointer"
+            <button className="w-full h-full rounded-xl bg-miquel-black-200 hover:bg-miquel-black-150 p-4 cursor-pointer transform duration-300 group"
               onClick={handleImageUpload}
               disabled={creatingImage}
             >
               <div className={
-                "w-full h-full rounded-xl border-2 border-dashed border-miquel-purple-100 " +
-                "p-4 text-miquel-white-500 flex justify-center items-center"
+                "w-full h-full rounded-xl border-2 border-dashed border-miquel-purple-100 group-hover:border-miquel-purple-200 transform duration-300 " +
+                "p-4 flex justify-center items-center"
               }>
-                {t("string.drag-image")}
+                <p className="text-miquel-white-500 group-hover:text-miquel-white-200 group-hover:animate-pulse transform duration-300">
+                  {t("string.drag-image")}
+                </p>
               </div>
             </button>
             <input type='file' id='file' 
