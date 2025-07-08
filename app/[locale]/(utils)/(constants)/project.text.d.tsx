@@ -172,6 +172,7 @@ export const getProjects = (t: TFunction):  ProjectsObject => {
   }
 
   return {
+    StringArt,
     ProceduralAnimations,
     DoublePendulum,
     BoidsSimulator,
@@ -182,6 +183,5 @@ export const getProjects = (t: TFunction):  ProjectsObject => {
     // TetrisJavaFX,
     OrbitsSimulator,
     AutoImageToAscii,
-    StringArt,
   }
 }

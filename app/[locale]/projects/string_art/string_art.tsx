@@ -424,7 +424,7 @@ export function StringArtComponent(){
                 "w-full h-full rounded-xl border-2 border-dashed border-miquel-purple-100 group-hover:border-miquel-purple-200 transform duration-300 " +
                 "p-4 flex justify-center items-center group-hover:animate-pulse "
               }>
-                <p className="text-miquel-white-100 opacity-70 group-hover:opacity-100 transform duration-300 flex flex-col gap-2 ">
+                <span className="text-miquel-white-100 opacity-70 group-hover:opacity-100 transform duration-300 flex flex-col gap-2 ">
                   {t("string.drag-image")} 
                   <Icon 
                     src={"upload"}
@@ -432,7 +432,7 @@ export function StringArtComponent(){
                     width={20}
                     title={"upload"}
                   />
-                </p>
+                </span>
               </div>
             </button>
             <input type='file' id='file' 
