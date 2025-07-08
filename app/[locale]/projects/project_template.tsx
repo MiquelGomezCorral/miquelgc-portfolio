@@ -11,7 +11,7 @@ import Footer from "@/app/[locale]/(sections)/Footer";
 import type { TFunction } from "i18next";
 
 
-export function ProjectPageTemplate({object,  t , params }: {object: ProjectType, t: TFunction,  params:{locale: string}}) {
+export function ProjectPageTemplate({object,  t, params, headerDisplay}: {object: ProjectType, t: TFunction,  params:{locale: string}, headerDisplay?: React.ReactNode}) {
   return (
     <>
       <Header />
@@ -19,9 +19,10 @@ export function ProjectPageTemplate({object,  t , params }: {object: ProjectType
       <main className="max-w-[110rem] w-full flex flex-col gap-16 px-4 md:px-10 xl:px-48 2xl:px-64">
         <div className="w-full flex flex-col justify-center gap-10 rounded-xl">
           <header className="w-full h-full flex justify-center">
-            <div className="relative max-w-3xl w-full h-full aspect-video">
-              {object.youtube ? 
-                <iframe
+            {headerDisplay ||
+              <div className="relative max-w-3xl w-full h-full aspect-video">
+                {object.youtube ? 
+                  <iframe
                   // width="560"
                   // height="315"
                   src={object.youtube} // Replace with your video ID
@@ -29,16 +30,17 @@ export function ProjectPageTemplate({object,  t , params }: {object: ProjectType
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                   className="rounded-xl w-full h-full"
-                ></iframe>
-                :
-                <Image
+                  ></iframe>
+                  :
+                  <Image
                   src={`/assets/projects/${object.logo}.webp`}
                   alt={object.title}
                   fill
                   className="rounded-xl"
-                /> 
-              }
-            </div>
+                  /> 
+                }
+              </div>
+            }
           </header>
 
           <article className="flex flex-col gap-10">
