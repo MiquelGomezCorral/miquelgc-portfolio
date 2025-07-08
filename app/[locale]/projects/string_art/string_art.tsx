@@ -64,7 +64,7 @@ export function StringArtComponent(){
  
 
   // ================================ MANAGE CREATING IMAGE ================================
-  useEffect(() => {
+  useEffect(() => { // checks whether or not the algorith is running, and if nore removes the interval
     return () => {
       setCreatingImage((prevCreatingImage)=>{
         if (intervalRef.current && !prevCreatingImage) 
@@ -75,43 +75,86 @@ export function StringArtComponent(){
     };
   }, [creatingImage]);
 
-
   // ================================ IMAGE UPDATE ================================
   const handleImageUpload = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
     fileUploadRef.current?.click()
   }
 
-  const uploadIMageDisplay = () => {
-    if (!(fileUploadRef.current && fileUploadRef.current.files)) return // No selected file
+  const uploadIMageDisplay = (input?: File | React.ChangeEvent<HTMLInputElement>) => {
+    let file: File | undefined
 
-    const uploadedFile = fileUploadRef.current.files[0];
-    const cacheURL = URL.createObjectURL(uploadedFile)
-    setSelectedImage(cacheURL)
-    setCroppingCompleted(false)  
-    setCreatingImage(false)
-  }
+    if (input instanceof File) {
+      file = input
+    } else if (input?.target?.files?.[0]) {
+      file = input.target.files[0]
+    }
+
+    if (!file) return
+      if (!(fileUploadRef.current && fileUploadRef.current.files)) return // No selected file
+
+      const cacheURL = URL.createObjectURL(file)
+      setSelectedImage(cacheURL)
+      setCroppingCompleted(false)  
+      setCreatingImage(false)
+    }
 
   const handleCropImage = async () => {
-    if (croppedAreaPixels) {
+    if (!croppedAreaPixels)
+      return
+
+    if (!croppingCompleted) {
       const {image, errorMatrix} = await getCroppedImg(selectedImage, croppedAreaPixels, imageContrast);
       setModifiedImage(image)
-      setCroppingCompleted(true)
       setErrorMatrix(errorMatrix)    
       setInUseErrorMatrix(errorMatrix)    
-
+      
       setImazeSize(errorMatrix.length)
       setLinesVector([CONFIG.firstPin])
     }
+
+    setCroppingCompleted(!croppingCompleted)
   }
 
-  useEffect(() => {
+  useEffect(() => { // Contrast debounce to update de image.
     const timeout = setTimeout(() => {
       handleCropImage()
     }, CONFIG.debounceTime) // ms debounce
 
     return () => clearTimeout(timeout)
   }, [imageContrast])
+
+
+  // ================ DRAG & DROP ================
+
+  useEffect(() => {
+    const handlePaste = (e: ClipboardEvent) => {
+      const file = e.clipboardData?.files?.[0]
+      if (file && file.type.startsWith('image/')) {
+        uploadIMageDisplay(file)
+      }
+    }
+
+    const handleDrop = (e: DragEvent) => {
+      e.preventDefault()
+      const file = e.dataTransfer?.files?.[0]
+      if (file && file.type.startsWith('image/')) {
+        uploadIMageDisplay(file)
+      }
+    }
+
+    const prevent = (e: DragEvent) => e.preventDefault()
+
+    window.addEventListener('paste', handlePaste)
+    window.addEventListener('drop', handleDrop)
+    window.addEventListener('dragover', prevent)
+
+    return () => {
+      window.removeEventListener('paste', handlePaste)
+      window.removeEventListener('drop', handleDrop)
+      window.removeEventListener('dragover', prevent)
+    }
+  }, [])
 
   // ================================ ALGORITH ================================
   const startAlgorithm = (reset: boolean) => {
@@ -290,7 +333,7 @@ export function StringArtComponent(){
         <aside className="w-full grid grid-cols-1 2xl:flex 2xl:flex-row gap-4 ">
           <Button
             className="w-full"
-            disabled={croppingCompleted}
+            // disabled={croppingCompleted}
             onClick={handleCropImage}
           > 
             <Icon 
@@ -299,7 +342,7 @@ export function StringArtComponent(){
               width={20}
               title={"crop"}
             />
-            {t("string.crop")}
+            {croppingCompleted ? t("string.crop") : t("string.accept")}
           </Button>
 
           <Button
