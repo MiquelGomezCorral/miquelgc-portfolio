@@ -72,6 +72,9 @@
         "width": "Grosor",
         "contrast": "Contraste",
 
-        "drag-image": "Haz click, arrastra o copia una imagen"
+        "drag-image": "Haz click, arrastra o copia una imagen",
+        
+        "total-time": "Tiempo total",
+        "stimated-time": "Tiempo estimado"
     }
 }

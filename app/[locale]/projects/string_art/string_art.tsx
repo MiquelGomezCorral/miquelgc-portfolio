@@ -237,7 +237,7 @@ export function StringArtComponent(){
       if (newLinesVector.length % CONFIG.updateEveryNPins === 0) {
         const timePased = Number(((performance.now() - t1) / 1000).toFixed(2))
         setTotalTime(timePased)
-        setStimatedTime(((timePased / (newLinesVector.length + 1)) * (maxLines - newLinesVector.length - 1)))
+        setStimatedTime(((timePased / (newLinesVector.length + 1)) * (maxLines - newLinesVector.length )))
       }
     }, 0)
   }
@@ -284,17 +284,7 @@ export function StringArtComponent(){
   // ================================ COMPONENT ================================
   return(
     <section className='w-full flex gap-4 lg:gap-8 flex-col lg:flex-row items-center'>
-      <div className='flex flex-col items-center gap-2'>
-        <header className={cn("flex w-full flex-col font-mono", {"opacity-0": !creatingImage && !(linesVector.length > 1)})}>
-          <span className="flex w-full justify-between"> 
-            <p>{linesVector.length}/{maxLines}</p>
-            <p>{((linesVector.length * 100) / maxLines).toFixed(2)}% </p>
-          </span>
-          <span className="flex w-full justify-between">
-            <p>Total time: {secondsToTime(totalTime)}</p>
-            <p>Stimated time:  {secondsToTime(stimatedTime)}</p>
-          </span>
-        </header>
+      <div className='flex flex-col items-center gap-2'>   
         <figure 
           className="relative flex justify-center items-center aspect-square rounded-full"
           style={{ width: `${CONFIG.radius * 2}px`, minWidth: `${CONFIG.radius}px` }} // variable size following config
@@ -328,9 +318,20 @@ export function StringArtComponent(){
             />
           )}
         </figure>
+        
+        <header className={cn("flex w-full flex-col font-mono ", {"opacity-0": !creatingImage && !(linesVector.length > 1)})}>
+          <span className="flex w-full justify-between"> 
+            <p>{linesVector.length}/{maxLines}</p>
+            <p>{((linesVector.length * 100) / maxLines).toFixed(2)}% </p>
+          </span>
+          <span className="flex w-full justify-between">
+            <p>{t("string.total-time")}: {secondsToTime(totalTime)}</p>
+            <p>{t("string.stimated-time")}: {secondsToTime(stimatedTime)}</p>
+          </span>
+        </header>
       </div>
 
-      <nav className='pt-16 gap-4 lg:gap-8 w-full lg:h-auto grid grid-cols-1 items-center lg:flex lg:flex-col  flex-grow'>
+      <nav className='gap-4 lg:gap-8 w-full grid grid-cols-1 items-center lg:flex lg:flex-col flex-grow'>
         <aside className="w-full grid grid-cols-1 2xl:flex 2xl:flex-row gap-4 ">
           <Button
             className="w-full"

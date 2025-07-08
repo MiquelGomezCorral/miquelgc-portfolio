@@ -72,7 +72,10 @@
         "width": "Width",
         "contrast": "Contrast", 
 
-        "drag-image": "Click, drag or drop and image"
+        "drag-image": "Click, drag or drop and image",
+
+        "total-time": "Total time",
+        "stimated-time": "Stimated time"
         
     }
 }
