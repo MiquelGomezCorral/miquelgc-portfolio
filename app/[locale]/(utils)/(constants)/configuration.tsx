@@ -14,23 +14,22 @@ class Configuration {
     public imageConstrast = 100, //100% is base
     public zoomSmoothFactor = 0.1,
 
-    public numPins = 350,
-    public maxLines = 3500,
+    public numPins   = 350,
+    public maxLines  = 3500,
     public lineWidth = 15,
-    public firstPin = 0, // //Math.floor(Math.random() * numPins)
+    public firstPin  = 0, // //Math.floor(Math.random() * numPins)
 
     // Limits
-    public pinLimits = [2, 1000] as const, 
-    public linesLimits = [1, undefined] as const, 
+    public pinLimits       = [2, 1000] as const, 
+    public linesLimits     = [1, undefined] as const, 
     public lineWidthLimits = [1, 100] as const, 
     public constrastLimits = [1, undefined] as const, 
 
-    public margin = 0, // Margin with the canvas border  
+    public margin = 0,   // Margin with the canvas border  
     public radius = 300, // Circle radius
 
-    public neighbourtMaring = 20,
-    public lastNUsedPinsMargin = 5,
-
+    public neighbourtMaring    = 5,
+    public lastNUsedPinsMargin = 10,
     public updateEveryNPins = 20,
   ) {}
 }

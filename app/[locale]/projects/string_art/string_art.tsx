@@ -415,22 +415,31 @@ export function StringArtComponent(){
             />
           </aside>
 
-          <aside className="w-full lg:h-44 2xl:h-64 justify-center hidden lg:flex">
-            <button className="w-full h-full rounded-xl bg-miquel-black-200 hover:bg-miquel-black-150 p-4 cursor-pointer transform duration-300 group"
+          <aside className="w-full lg:h-44 2xl:h-64 justify-center hidden lg:flex ">
+            <button className={cn(
+              "w-full h-full rounded-xl bg-miquel-black-200 hover:bg-miquel-black-150 p-4 cursor-pointer transform duration-300 group", 
+              {"bg-miquel-black-300 hover:bg-miquel-black-300 cursor-no-drop": creatingImage}
+            )}
               onClick={handleImageUpload}
               disabled={creatingImage}
             >
-              <div className={
+              <div className={cn(
                 "w-full h-full rounded-xl border-2 border-dashed border-miquel-purple-100 group-hover:border-miquel-purple-200 transform duration-300 " +
-                "p-4 flex justify-center items-center group-hover:animate-pulse "
-              }>
-                <span className="text-miquel-white-100 opacity-70 group-hover:opacity-100 transform duration-300 flex flex-col gap-2 ">
+                "p-4 flex justify-center items-center group-hover:animate-pulse ",
+                {"border-red-800 group-hover:border-red-800 cursor-no-drop group-hover:animate-none": creatingImage}
+
+                )}>
+                <span className={cn(
+                  "text-miquel-white-100 opacity-70 group-hover:opacity-100 transform duration-300 flex flex-col gap-2 ",
+                  {"text-red-400 group-hover:opacity-70": creatingImage}
+                )}>
                   {t("string.drag-image")} 
                   <Icon 
                     src={"upload"}
                     height={20}
                     width={20}
                     title={"upload"}
+                    type={creatingImage ? "color" : "white"}
                   />
                 </span>
               </div>
