@@ -44,6 +44,16 @@ html {
     background: #505160;
 }
 
+.miquel-opacity {
+  opacity: 0.7;
+  transition: opacity 300ms, transform 300ms;
+}
+
+.miquel-opacity:hover {
+  opacity: 1;
+}
+
+
 /* Gradient blackground with smooth transition*/
 @layer components {
   .bg-miquel-gradient {

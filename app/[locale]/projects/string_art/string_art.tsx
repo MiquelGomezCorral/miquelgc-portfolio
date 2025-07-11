@@ -502,7 +502,7 @@ export function StringArtComponent(){
 
                 )}>
                 <span className={cn(
-                  "text-miquel-white-100 opacity-70 group-hover:opacity-100 transform duration-300 flex flex-col gap-2 ",
+                  "text-miquel-white-100 miquel-opacity group-hover:opacity-100 flex flex-col gap-2 ",
                   {"text-red-400 group-hover:opacity-70": creatingImage}
                 )}>
                   {t("string.drag-image")} 
@@ -560,7 +560,7 @@ export function StringArtComponent(){
                   e.preventDefault(); setImageContrast(e.target.value)
                 }} 
               />
-              </ShakeHard>
+            </ShakeHard>
           </aside>
 
         </form>

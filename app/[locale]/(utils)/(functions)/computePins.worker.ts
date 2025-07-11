@@ -27,14 +27,14 @@ type WorkerResponse = {
   lines: Map<string, point[]>
 }
 
-self.onmessage = (event: MessageEvent<WorkerRequest>) => {
-  const { numPins, imageSize, radius, margin } = event.data
+// self.onmessage = (event: MessageEvent<WorkerRequest>) => {
+//   const { numPins, imageSize, radius, margin } = event.data
   
-  const pins = computePins(numPins, radius, margin);
-  const lines = precomputeLines(pins, imageSize, radius)
+//   const pins = computePins(numPins, radius, margin);
+//   const lines = precomputeLines(pins, imageSize, radius)
 
-  postMessage({ pins, lines })
-};
+//   postMessage({ pins, lines })
+// };
 // =========================================================================
 //                              PINS FUNCTIONS
 // =========================================================================

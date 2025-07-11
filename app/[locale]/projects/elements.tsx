@@ -68,7 +68,7 @@ export function SeeMoreProject({ object, text }: { object: ProjectType, text: st
   const { goToPageFrom } = usePageStackStore()
 
   return (
-    <div className="relative rounded-xl opacity-70 hover:opacity-100 hover:bg-miquel-black-300/20 transform duration-300 cursor-pointer"> 
+    <div className="relative rounded-xl miquel-opacity hover:bg-miquel-black-300/20 cursor-pointer"> 
       <Link 
         onClick={() => goToPageFrom(window.location.pathname, object.link)}
         href="/projects"

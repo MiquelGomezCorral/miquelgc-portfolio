@@ -32,7 +32,7 @@ export default function Header() {
         <nav className='w-max flex justify-between gap-4'>
           <GoBackButton />
           
-          <Link href="/" scroll={false} className="opacity-70 hover:opacity-100 transform duration-300">
+          <Link href="/" scroll={false} className="miquel-opacity">
             Miquel Gómez
           </Link>
         </nav>
@@ -92,7 +92,7 @@ export default function Header() {
       {/* MENU */}
 
       <header className={cn('z-40 fixed gap-4 lg:hidden flex flex-col w-full h-full top-0 left-0 py-4 backdrop-blur-md text-miquel-white-200', { "hidden": !showMenu })}>
-        <Link href="/" className="pl-4 opacity-70 hover:opacity-100 transform duration-300 text-2xl font-semibold">
+        <Link href="/" className="pl-4 miquel-opacity text-2xl font-semibold">
           <h3>Miquel Gómez</h3>
         </Link>
 

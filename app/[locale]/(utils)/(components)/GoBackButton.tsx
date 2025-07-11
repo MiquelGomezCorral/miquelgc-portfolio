@@ -9,7 +9,7 @@ export function GoBackButton(){
 	const router = useRouter()
 	return(
     <button 
-			className={cn("opacity-70 hover:opacity-100 transform duration-300", 
+			className={cn("miquel-opacity", 
 				{"hidden": (
 					pageStack.length === 0 ||  
 					(pageStack.length === 1 && pageStack[0] === "/" )
