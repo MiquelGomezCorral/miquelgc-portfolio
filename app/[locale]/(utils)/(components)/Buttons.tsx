@@ -1,4 +1,7 @@
 import cn from "classnames"
+import { Icon } from '@/app/[locale]/(utils)/(components)/Icons';
+import { useEffect, useRef, useState } from "react";
+
 
 interface ButtonProps {
   children: React.ReactNode,
@@ -32,12 +35,16 @@ interface InputProps {
   error?: boolean,
   value?: string | number | readonly string[] | undefined,
   text?: string,
+  infoText?: string,
   onChange?: (e:any) => void,
 }
-export function Input({className, type, disabled, error, onChange, value, text}: InputProps){
+export function Input({className, type, disabled, error, onChange, value, text, infoText}: InputProps){
   return(
     <div className="grid grid-cols-1 w-full lg:w-fit gap-2">
-      <h2 className="w-full">{text}</h2>
+      <h2 className="w-full flex relative gap-2">
+        {text}
+        <InfoPopUp infoText={infoText}/>
+      </h2>
       <input type={type} disabled = {disabled} value={value}
         className={cn(
           "p-2 rounded-md border border-miquel-blue-400 bg-miquel-blue-500-a/20 text-miquel-white-100 " +
@@ -55,3 +62,38 @@ export function Input({className, type, disabled, error, onChange, value, text}:
   )
 }              
 
+export function InfoPopUp({infoText}: {infoText?: string}){
+  const [open, setOpen] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+
+  // Detect outside clicks
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false)
+      }
+    }
+    if (open) document.addEventListener("mousedown", handleClickOutside)
+    return () => document.removeEventListener("mousedown", handleClickOutside)
+  }, [open])
+
+  return (
+    <div className="relative inline-block" ref={ref}>
+    {infoText && 
+      <button className="miquel-opacity flex items-center" onClick={(e) => {e.preventDefault(); setOpen(!open)}}>
+        <Icon 
+          src={"question-mark"}
+          height={20}
+          width={20}
+          title={"question-mark"}
+          /> 
+      </button>
+    }
+    {open && (
+      <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-miquel-black-300 text-white text-sm px-2 py-1 rounded shadow z-10">
+        {infoText}
+      </div>
+    )}
+    </div>
+  )
+}
