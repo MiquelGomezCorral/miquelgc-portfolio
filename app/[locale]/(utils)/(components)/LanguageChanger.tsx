@@ -62,7 +62,7 @@ export default function LanguageChanger({mobile}: {mobile?: boolean}) {
       <button
         onClick={() => setOpen(!open)}
         className={
-          cn("flex items-center lg:px-5 gap-2 opacity-70 hover:opacity-100 transform duration-300 ",
+          cn("flex items-center lg:px-5 gap-2 miquel-opacity ",
             {"px-0": mobile}
         )}>
         <Icon 
@@ -83,7 +83,7 @@ export default function LanguageChanger({mobile}: {mobile?: boolean}) {
               onClick={() => handleChange(lang.locale)}
               className={
               cn("flex items-center cursor-pointer px-4 py-2 gap-2 hover:bg-miquel-black-100 w-full",
-              {"hover:bg-miquel-black-100/40 opacity-70 hover:opacity-100":mobile}
+              {"hover:bg-miquel-black-100/40 miquel-opacity":mobile}
             )}>
               <Icon src={lang.iconSrc} 
                 width={15} height={15} 
