@@ -8,17 +8,13 @@ import { useState, useRef, useEffect } from "react";
 
 import { Icon } from '@/app/[locale]/(utils)/(components)/Icons';
 import { Button, Input } from '@/app/[locale]/(utils)/(components)/Buttons';
+import { Loader } from '@/app/[locale]/(utils)/(components)/Loader';
+
 import { secondsToTime, getLineKey, checkLimits } from '@/app/[locale]/(utils)/(functions)/functionUtils';
+import { pin, point, computePins, precomputeLines } from '@/app/[locale]/(utils)/(functions)/computePins.worker';
 
 import CONFIG from "@/app/[locale]/(utils)/(constants)/configuration";
 
-type point = {
-  x: number,
-  y: number,
-}
-type pin = point & {
-  usedWith: Set<number>,
-}
 
 
 export function StringArtComponent(){
@@ -158,34 +154,54 @@ export function StringArtComponent(){
   }, [])
 
   // ================================ ALGORITH ================================
-  const startAlgorithm = (reset: boolean) => {
+  const workerRef = useRef<Worker>();
+
+  useEffect(() => {
+    workerRef.current = new Worker(
+      new URL('@/app/[locale]/(utils)/(functions)/computePins.worker', import.meta.url),
+      { type: 'module' }
+    );
+    return () => workerRef.current?.terminate();
+  }, []);
+
+  const startAlgorithm = async (reset: boolean) => {
     // ============= INTITIAL VARIABLES =============
     // Handle already initialized values if the run has been stoped
-    setLoading(true)
-
     let newLinesVector = linesVector
     let t1 = initialTime
     let computedErrorMatrix = inUseErrorMatrix
     let pins = pinVector
-    if(reset){
+
+    setLoading(true)
+    
+    if(reset && workerRef.current){
       newLinesVector = [CONFIG.firstPin]
       t1 = performance.now()
       computedErrorMatrix = errorMatrix.map((row) => [...row]);
       
-      pins = computePins(
-        numPins,
-        imageSize,
-        CONFIG.radius,
-        CONFIG.margin,
-        precomputedLinesRef
-      )
+      //→ POST to worker and AWAIT response
+      // const { pins: newPins, lines } = await new Promise<{
+      //   pins: pin[]
+      //   lines: Map<string, point[]>
+      // }>(resolve => {
+      //   const w = workerRef.current!
+      //   w.onmessage = (e: MessageEvent<{
+      //     pins: pin[]
+      //     lines: Map<string, point[]>
+      //   }>) => resolve(e.data)
+      //   w.postMessage({numPins,imageSize,radius: CONFIG.radius,margin: CONFIG.margin})
+      // })
+      const newPins = computePins(numPins, CONFIG.radius, CONFIG.margin);
+      // update pins & reconstruct your Map
+      pins = newPins
       setPinVector(pins)
+      precomputedLinesRef.current = precomputeLines(pins, imageSize, CONFIG.radius)
     }
 
     setLinesVector(newLinesVector) 
     setInitialTime(t1)
     setInUseErrorMatrix(computedErrorMatrix)
-    
+
     setLoading(false)
     // ========================== EXECUTION ==========================
     intervalRef.current = setInterval(() => {
@@ -284,11 +300,12 @@ export function StringArtComponent(){
   // ================================ COMPONENT ================================
   return(
     <section className='w-full flex gap-4 lg:gap-8 flex-col lg:flex-row items-center'>
-      <div className='flex flex-col items-center gap-2'>   
+      <div className='flex flex-col items-center gap-2 relative'>   
         <figure 
           className="relative flex justify-center items-center aspect-square rounded-full"
           style={{ width: `${CONFIG.radius * 2}px`, minWidth: `${CONFIG.radius}px` }} // variable size following config
         >
+          <Loader enable={loading}/>
           {!croppingCompleted ? 
             <Cropper
               image={selectedImage}
@@ -566,90 +583,5 @@ async function getCroppedImg(
 }
 
 
-function getVariableForPixelSearch(pinx1: number, piny1: number, pinx2: number, piny2: number, imageSize: number, canvasSize: number){
-  const {x: x1, y: y1} = {x: Math.floor(pinx1*imageSize/canvasSize), y: Math.floor(piny1*imageSize/canvasSize)}
-  const {x: x2, y: y2} = {x: Math.floor(pinx2*imageSize/canvasSize), y: Math.floor(piny2*imageSize/canvasSize)}
-  
-  // Calculate differences
-  let dx = Math.abs(x2 - x1)
-  let dy = Math.abs(y2 - y1)
-  // Determine directions
-  let sx = (x1 < x2) ? 1 : -1
-  let sy = (y1 < y2) ? 1 : -1
-
-  return {x1, y1, x2, y2, dx, dy, sx, sy}
-}
-
-
-// =========================================================================
-//                              PINS FUNCTIONS
-// =========================================================================
-function computePins (
-  numPins: number,
-  imageSize: number,
-  radius: number,
-  margin: number,
-  precomputedLinesRef: React.MutableRefObject<Map<string, point[]>>
-): pin[] {
-  // GET PIN
-  const degree = (360 / numPins) * (Math.PI / 180) // convert to radians
-  const pins: pin[] = []
-  for(let i = 0; i < numPins; i++){
-    pins.push({ //  - Math.PI / 2 -> rotate by 90 | Margin with the canvas
-      x: Math.cos(degree*i - Math.PI / 2) * (radius - margin) + radius, 
-      y: Math.sin(degree*i - Math.PI / 2) * (radius - margin) + radius,
-      usedWith: new Set<number>(),
-    })
-  }
-
-  precomputedLinesRef.current = precomputeLinePoints(pins, imageSize, radius)
-  return pins
-}//,[numPins, CONFIG.radius, CONFIG.margin])
-
-
-function precomputeLinePoints (
-  pinVector: pin[],
-  imageSize: number,
-  radius: number,
-): Map<string, point[]> {
-  const map = new Map<string, point[]>()
-  
-  for (let i = 0; i < pinVector.length; i++) {
-    for (let j = i + 1; j < pinVector.length; j++) {
-      const key = getLineKey(i, j)
-
-      // Bresenham ALGORITHM
-      const { x1, y1, x2, y2, dx, dy, sx, sy } = getVariableForPixelSearch(
-        pinVector[i].x, pinVector[i].y,
-        pinVector[j].x, pinVector[j].y,
-        imageSize, radius * 2
-      )
-
-      const actual: point = { x: x1, y: y1 }
-      let err = dx - dy
-      const line: point[] = []
-
-      do {
-        if (actual.x >= 0 && actual.x < imageSize && actual.y >= 0 && actual.y < imageSize) {
-          line.push({ x: actual.x, y: actual.y })
-        }
-
-        const e2 = err * 2
-        if (e2 > -dy) {
-          err -= dy
-          actual.x += sx
-        }
-        if (e2 < dx) {
-          err += dx
-          actual.y += sy
-        }
-      } while (actual.x !== x2 || actual.y !== y2)
-
-      map.set(key, line)
-    }
-  }
-
-  return map
-}
 
 
