@@ -13,14 +13,14 @@ export function secondsToTime(sec: number): string{
 }
 
 
-export function checkLimits(value: number, limits: readonly [number?, number?]){
+export function checkLimits(value: number, limits: readonly [number?, number?]): { value: number; valid: boolean } {
   const [low, top] = limits
-  if (low !== undefined && value < low) return low
-  if (top !== undefined && value > top) return top
-  return value
+  if (low !== undefined && value < low) return { value: low, valid: false }
+  if (top !== undefined && value > top) return { value: top, valid: false }
+  return { value, valid: true }
 }
-
 
 export function getLineKey (a: number, b: number) {
  return a < b ? `${a}-${b}` : `${b}-${a}` // consistent key regardless of order
 }
+

@@ -2,6 +2,7 @@
 
 import cn from "classnames"
 import NextImage from "next/image";
+import { ShakeHard } from 'reshake'
 import Cropper from 'react-easy-crop';
 import { useTranslation } from 'react-i18next';
 import { useState, useRef, useEffect } from "react";
@@ -46,6 +47,7 @@ export function StringArtComponent(){
   const [linesVector, setLinesVector] = useState<number[]>([CONFIG.firstPin]) 
 
   // ================================ TIME ================================
+
   const [loading, setLoading] = useState(false);
   const [initialTime, setInitialTime] = useState(0)
   const [totalTime, setTotalTime] = useState(0)
@@ -165,8 +167,23 @@ export function StringArtComponent(){
   }, []);
 
   const startAlgorithm = async (reset: boolean) => {
-    // ============= INTITIAL VARIABLES =============
+    // ================== VALUE AND CHECKS ==================
     // Handle already initialized values if the run has been stoped
+    const fakeFormEvent = { preventDefault: () => {} } as React.ChangeEvent<HTMLInputElement>
+    const newErrors = onChangeFormValues(fakeFormEvent)
+    if (Object.values(newErrors).some(e => e)) // At least one is truthy
+    return
+    
+    // ================== GENERAL VARIABLES ==================
+    if(intervalRef.current)
+      clearInterval(intervalRef.current)
+    
+    // if stoped and then continued, aboid reseting always
+    if (linesVector.length <= 1)
+      setLinesVector([CONFIG.firstPin])
+    setCreatingImage(!creatingImage)
+    
+    // ============= INTITIAL VARIABLES =============
     let newLinesVector = linesVector
     let t1 = initialTime
     let computedErrorMatrix = inUseErrorMatrix
@@ -297,6 +314,50 @@ export function StringArtComponent(){
   }, [pinVector, linesVector, lineWidth]);
 
   
+
+  // ================================ handleSubmit  ================================
+  const [errors, setErrors] = useState({ pins: false, lines: false, width: false , contrast: false})
+  const [shake, setShake] = useState(false)
+  const timeoutShakeRef = useRef<NodeJS.Timeout | null>(null);
+  useEffect(() => { // Contrast debounce to update de image.
+    const timeout = setTimeout(() => {
+      const fakeFormEvent = { preventDefault: () => {} } as React.ChangeEvent<HTMLInputElement>
+      onChangeFormValues(fakeFormEvent)
+    }, CONFIG.debounceTime * 5) // ms debounce
+
+    return () => clearTimeout(timeout)
+  }, [numPins, maxLines, lineWidth, imageContrast])
+  useEffect(() => {
+  if (!shake) return
+
+  const timeout = setTimeout(() => setShake(false), CONFIG.shakingTime)
+  return () => clearTimeout(timeout)
+}, [shake])
+
+  const onChangeFormValues = (e: React.ChangeEvent<HTMLInputElement>)=>{
+    e.preventDefault()
+
+    // Check email format
+    const {value: valuePins,     valid: validPins}     = checkLimits(numPins,       CONFIG.pinLimits)
+    const {value: valueLines,    valid: validLines}    = checkLimits(maxLines,      CONFIG.linesLimits)
+    const {value: valueWidth,    valid: validWidth}    = checkLimits(lineWidth,     CONFIG.lineWidthLimits)
+    const {value: valueContrast, valid: validContrast} = checkLimits(imageContrast, CONFIG.constrastLimits)
+    
+    const newErrors = {
+      pins: !validPins,
+      lines: !validLines,
+      width: !validWidth,
+      contrast: !validContrast,
+    };
+    setErrors(newErrors);
+    // Check last time sent
+    setShake(Object.values(newErrors).some(e => e))// At least one is truthy
+      
+
+    return newErrors
+  }
+
+
   // ================================ COMPONENT ================================
   return(
     <section className='w-full flex gap-4 lg:gap-8 flex-col lg:flex-row items-center'>
@@ -368,15 +429,7 @@ export function StringArtComponent(){
             className="w-full"
             disabled={!croppingCompleted || linesVector.length >= maxLines}
             onClick={()=>{
-              if(intervalRef.current)
-                clearInterval(intervalRef.current)
-              
-              // if stoped and then continued, aboid reseting always
-              if (linesVector.length <= 1)
-                setLinesVector([CONFIG.firstPin])
               startAlgorithm(linesVector.length <= 1) 
-              
-              setCreatingImage(!creatingImage)
             }}
           > 
             <Icon 
@@ -410,7 +463,9 @@ export function StringArtComponent(){
         </aside>
 
 
-        <form id='form' encType='multipart/form-data' action="" className="w-full flex gap-4 lg:gap-8 justify-center flex-col lg:h-full min-h-0">
+        <form id='form' encType='multipart/form-data' action="" noValidate
+          className="w-full flex gap-4 lg:gap-8 justify-center flex-col lg:h-full min-h-0"
+        >
           {/* Let's asume the drag and drop is only used for the computer version, in the movile one you just select the image */}
           <aside className="flex w-full justify-center lg:hidden">
             <Button type='submit' className='text-nowrap w-full lg:w-fit'
@@ -470,31 +525,42 @@ export function StringArtComponent(){
 
 
           <aside className="grid grid-cols-2 gap-4 w-full 2xl:flex 2xl:flex-row">
-            <Input type="number" className="" value={numPins} text={t("string.pins")} onChange={(e)=>{
-              e.preventDefault();
-              setNumPins(checkLimits(e.target.value, CONFIG.pinLimits))
-            }} 
-              disabled={!croppingCompleted || creatingImage || (linesVector.length > 1)}
-            />
-            <Input type="number" className="" value={maxLines} text={t("string.lines")} onChange={(e)=>{
-              e.preventDefault();
-              setMaxLines(checkLimits(e.target.value, CONFIG.linesLimits))
-            }} 
-              disabled={!croppingCompleted || creatingImage || (linesVector.length > 1)}
-            />
-            <Input type="number" className="" value={lineWidth} text={t("string.width")} onChange={(e)=>{
-              e.preventDefault();
-              setLineWidth(checkLimits(e.target.value, CONFIG.lineWidthLimits))
-
-            }} 
-              disabled={!croppingCompleted || creatingImage || (linesVector.length > 1)}
-            />
-            <Input type="number" className="" value={imageContrast} text={t("string.contrast")} onChange={(e)=>{
-              e.preventDefault();
-              setImageContrast(checkLimits(e.target.value, CONFIG.constrastLimits))
-            }} 
-              disabled={!croppingCompleted || creatingImage || (linesVector.length > 1)}
-            />
+            <ShakeHard onClick={()=>{}} key={(shake && errors.pins) ? 'shake1' : 'no-shake1'} active={(shake && errors.pins)} fixed>
+              <Input type="number" className="" value={numPins} text={t("string.pins")} 
+                disabled={!croppingCompleted || creatingImage || (linesVector.length > 1)}
+                error={errors.pins}
+                onChange={(e)=>{
+                  e.preventDefault(); setNumPins(e.target.value)
+                }} 
+              />
+            </ShakeHard>
+            <ShakeHard  onClick={()=>{}} key={(shake && errors.lines) ? 'shake2' : 'no-shake2'} active={(shake && errors.lines)} fixed>
+              <Input type="number" className="" value={maxLines} text={t("string.lines")} 
+                disabled={!croppingCompleted || creatingImage || (linesVector.length > 1)}
+                error={errors.lines}
+                onChange={(e)=>{
+                  e.preventDefault(); setMaxLines(e.target.value)
+                }} 
+              />
+            </ShakeHard>
+            <ShakeHard  onClick={()=>{}} key={(shake && errors.width) ? 'shake3' : 'no-shake3'} active={(shake && errors.width)} fixed>
+              <Input type="number" className="" value={lineWidth} text={t("string.width")} 
+                disabled={!croppingCompleted || creatingImage || (linesVector.length > 1)}
+                error={errors.width}
+                onChange={(e)=>{
+                  e.preventDefault(); setLineWidth(e.target.value)
+                }} 
+              />
+            </ShakeHard>
+            <ShakeHard  onClick={()=>{}} key={(shake && errors.contrast) ? 'shake4' : 'no-shake4'} active={(shake && errors.contrast)} fixed>
+              <Input type="number" className="" value={imageContrast} text={t("string.contrast")} 
+                disabled={!croppingCompleted || creatingImage || (linesVector.length > 1)}
+                error={errors.contrast}
+                onChange={(e)=>{
+                  e.preventDefault(); setImageContrast(e.target.value)
+                }} 
+              />
+              </ShakeHard>
           </aside>
 
         </form>
@@ -581,7 +647,3 @@ async function getCroppedImg(
 
   return {image: canvas.toDataURL("image/webp"), errorMatrix};
 }
-
-
-
-

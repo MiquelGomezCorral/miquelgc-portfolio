@@ -2,10 +2,13 @@
 
 import cn from "classnames"
 import emailjs from '@emailjs/browser';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/app/[locale]/(utils)/(components)/Buttons';
 import { useTranslation } from "react-i18next";
 import { ShakeHard } from 'reshake'
+
+import CONFIG from "@/app/[locale]/(utils)/(constants)/configuration";
+
 
 export function FormSendEmail(){
   const [name, setName] = useState("")
@@ -19,7 +22,6 @@ export function FormSendEmail(){
   const timeoutShakeRef = useRef<NodeJS.Timeout | null>(null);
   const timeoutScreamRef = useRef<NodeJS.Timeout | null>(null);
   const [shakedTooMuch, setShakedTooMuch] = useState(false)
-  const shakingTime = 300 //ms
 
   const {t} = useTranslation("footer")
 
@@ -29,7 +31,7 @@ export function FormSendEmail(){
     const diff12 = t2 - t1.current 
     const diff01 = t1.current - t0.current
 
-    if (diff12 < shakingTime && diff01 < shakingTime){
+    if (diff12 < CONFIG.shakingTime  && diff01 < CONFIG.shakingTime ){
       setShakedTooMuch(true)
       if (timeoutScreamRef.current) clearTimeout(timeoutScreamRef.current)
       timeoutScreamRef.current = setTimeout(()=>{
@@ -41,6 +43,12 @@ export function FormSendEmail(){
     t0.current = t1.current 
     t1.current = t2 
   }
+
+  useEffect(() => {
+    if (!shake) return
+    const timeout = setTimeout(() => setShake(false), CONFIG.shakingTime)
+    return () => clearTimeout(timeout)
+  }, [shake])
 
   // ================== handleSubmit ==================
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>)=>{
@@ -86,15 +94,7 @@ export function FormSendEmail(){
       general: errorGeneral,
     };
     setErrors(newErrors);
-    if (newErrors.name || newErrors.email || newErrors.message || newErrors.general) {
-      setShake(true)
-      if (timeoutShakeRef.current) clearTimeout(timeoutShakeRef.current)
-      setTimeout(()=>{
-        setShake(false)
-        timeoutShakeRef.current = null
-      }, shakingTime)
-      return
-    }
+    setShake(Object.values(newErrors).some(e => e))
 
     // ============================================
     //  ALL CHECK PASSED, SENDING THE EMAIL

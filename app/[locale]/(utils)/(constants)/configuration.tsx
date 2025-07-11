@@ -3,8 +3,8 @@ class Configuration {
     // =============== General ===============
     public version = "1.0.1",
 
-    public debounceTime = 100, // ms debounce
-    
+    public debounceTime = 100, // ms
+    public shakingTime = 300, // ms
 
     // =============== String art ===============
     // public defaultImage = "/assets/projects/Robot.webp",

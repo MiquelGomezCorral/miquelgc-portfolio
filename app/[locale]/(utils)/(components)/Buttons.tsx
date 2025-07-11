@@ -29,19 +29,21 @@ interface InputProps {
   type?: React.HTMLInputTypeAttribute,  
   className?: string,
   disabled?: boolean,
+  error?: boolean,
   value?: string | number | readonly string[] | undefined,
   text?: string,
   onChange?: (e:any) => void,
 }
-export function Input({className, type, disabled, onChange, value, text}: InputProps){
+export function Input({className, type, disabled, error, onChange, value, text}: InputProps){
   return(
     <div className="grid grid-cols-1 w-full lg:w-fit gap-2">
       <h2 className="w-full">{text}</h2>
       <input type={type} disabled = {disabled} value={value}
         className={cn(
-          "p-2 rounded-md border border-miquel-blue-400 bg-miquel-blue-500-a/20 text-white " +
+          "p-2 rounded-md border border-miquel-blue-400 bg-miquel-blue-500-a/20 text-miquel-white-100 " +
           "transform duration-300 flex gap-2 justify-center text-nowrap w-full", 
           { 'border-red-500 bg-red-500/30 placeholder-red-400/80': disabled },
+          { 'border-red-500 bg-red-500/30 placeholder-red-400/80 text-red-500 focus:text-miquel-white-100' : error},
           className
         )}
         onChange={(e) =>{
