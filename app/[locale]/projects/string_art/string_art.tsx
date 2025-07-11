@@ -327,12 +327,12 @@ export function StringArtComponent(){
 
     return () => clearTimeout(timeout)
   }, [numPins, maxLines, lineWidth, imageContrast])
-  useEffect(() => {
-  if (!shake) return
 
-  const timeout = setTimeout(() => setShake(false), CONFIG.shakingTime)
-  return () => clearTimeout(timeout)
-}, [shake])
+  useEffect(() => {
+    if (!shake) return
+    const timeout = setTimeout(() => setShake(false), CONFIG.shakingTime)
+    return () => clearTimeout(timeout)
+  }, [shake])
 
   const onChangeFormValues = (e: React.ChangeEvent<HTMLInputElement>)=>{
     e.preventDefault()
