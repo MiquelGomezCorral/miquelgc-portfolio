@@ -1,3 +1,6 @@
+"use client"
+
+import { useTranslation } from 'react-i18next';
 // =========================================================================
 //                              UTIL FUNCTIONS
 // =========================================================================
@@ -26,11 +29,12 @@ export function getLineKey (a: number, b: number) {
 
 
 export function showAlertCopy(text:string){
+  const {t} = useTranslation("general")
   return () => {
     navigator.clipboard.writeText(text).then(() => {
-      alert(`'${text}' has been copied to clipboard!`);
+      alert(`${t("copied")}\n'${text}'`);
     }).catch(err => {
-      console.error('Failed to copy text: ', err);
+      console.error(t("copied-error"), err);
     });
   };
 }

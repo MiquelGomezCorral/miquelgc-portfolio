@@ -1,3 +1,6 @@
 {
-    "close": "Cerrar"
+    "close": "Cerrar",
+
+    "copied": "Copiado en el portapapeles: ",
+    "copied-error": "Error al copiar el texto: "
 }

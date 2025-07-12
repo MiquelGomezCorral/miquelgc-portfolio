@@ -1,3 +1,7 @@
 {
-    "close": "Close"
+    "close": "Close",
+
+    "copied": "Copied to clipboard: ",
+    "copied-error": "Failed to copy text "
+
 }
