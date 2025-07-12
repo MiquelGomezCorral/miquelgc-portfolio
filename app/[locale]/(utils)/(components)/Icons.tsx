@@ -6,7 +6,7 @@ import cn from 'classnames';
 import GlowingText from "./GlowingText";
 
 import { usePageStackStore } from "@/app/[locale]/(global_state)/state";
-import {showAlertCopy} from "@/app/[locale]/(utils)/(functions)/functionUtils"
+import {ShowAlertCopy} from "@/app/[locale]/(utils)/(functions)/functionUtils"
 
 
 // =================================================================
@@ -79,7 +79,7 @@ interface IconCopyGlowingProps extends IconProps{
 }
 export function IconGlowingCopy({ solid, copyText, ...props}:IconCopyGlowingProps) {
   return (
-    <nav className="relative flex" onClick={showAlertCopy(copyText)}>
+    <nav className="relative flex" onClick={ShowAlertCopy(copyText)}>
       <IconGlowingButton
         {...props} solid={solid} hover
       />
@@ -126,7 +126,7 @@ export function IconCopy({ copyText, ...props}: IconCopyProps) {
   return (
     <button 
       className="relative"
-      onClick={showAlertCopy(copyText)}
+      onClick={ShowAlertCopy(copyText)}
     >
       <Icon {...props} hover/>
     </button>

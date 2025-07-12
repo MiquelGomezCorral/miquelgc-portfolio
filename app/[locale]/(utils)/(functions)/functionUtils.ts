@@ -28,7 +28,7 @@ export function getLineKey (a: number, b: number) {
 }
 
 
-export function showAlertCopy(text:string){
+export function ShowAlertCopy(text:string){
   const {t} = useTranslation("general")
   return () => {
     navigator.clipboard.writeText(text).then(() => {
