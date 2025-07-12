@@ -11,8 +11,8 @@ import { Icon, IconCopy } from '@/app/[locale]/(utils)/(components)/Icons';
 import { Button, Input, ButtonModal } from '@/app/[locale]/(utils)/(components)/Buttons';
 import { Loader } from '@/app/[locale]/(utils)/(components)/Loader';
 
-import { secondsToTime, getLineKey, checkLimits } from '@/app/[locale]/(utils)/(functions)/functionUtils';
-import { pin, point, computePins, precomputeLines } from '@/app/[locale]/(utils)/(functions)/computePins.worker';
+import { secondsToTime, checkLimits} from '@/app/[locale]/(utils)/(functions)/functionUtils';
+import { pin, point, computePins, precomputeLines, computeError, updateComputeImageMatrix, getCroppedImg } from '@/app/[locale]/(utils)/(functions)/computePins.worker';
 import { HeaderButton} from "@/app/[locale]/(utils)/(components)/ButtonsHeader";
 
 import CONFIG from "@/app/[locale]/(utils)/(constants)/configuration";
@@ -22,6 +22,9 @@ import CONFIG from "@/app/[locale]/(utils)/(constants)/configuration";
 export function StringArtComponent(){
   const {t} = useTranslation("projects")
 
+  // ==========================================================================================
+  //                                      VARIABLES
+  // ==========================================================================================
   // ================================ IMAGE ================================
   const [idxDefaultImage, setIdxDefaultImage] = useState(0); 
   const [selectedImage, setSelectedImage] = useState(CONFIG.defaultImages[idxDefaultImage]); 
@@ -29,6 +32,7 @@ export function StringArtComponent(){
   const fileUploadRef = useRef<HTMLInputElement>(null);
   const suggestImage = (e: any)=> {
     e.preventDefault(); 
+    setCroppingCompleted(false)
     setIdxDefaultImage((idxDefaultImage + 1) % CONFIG.defaultImages.length)
   }
   useEffect(() => {
@@ -36,7 +40,6 @@ export function StringArtComponent(){
     setModifiedImage(CONFIG.defaultImages[idxDefaultImage])
   },[idxDefaultImage])
   
-
   const [creatingImage, setCreatingImage] = useState(false);
   const [croppingCompleted, setCroppingCompleted] = useState(false);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
@@ -58,7 +61,6 @@ export function StringArtComponent(){
   const [linesVector, setLinesVector] = useState<number[]>([CONFIG.firstPin]) 
 
   // ================================ TIME ================================
-
   const [loading, setLoading] = useState(false);
   const [initialTime, setInitialTime] = useState(0)
   const [totalTime, setTotalTime] = useState(0)
@@ -66,77 +68,22 @@ export function StringArtComponent(){
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
   // ================================ PINS ================================
   const neighbourtPinMargin = Math.ceil(CONFIG.neighbourtMaring)
   const precomputedLinesRef = useRef<Map<string, point[]>>(new Map())
 
- 
-
-  // ================================ MANAGE CREATING IMAGE ================================
-  useEffect(() => { // checks whether or not the algorith is running, and if nore removes the interval
-    return () => {
-      setCreatingImage((prevCreatingImage)=>{
-        if (intervalRef.current && !prevCreatingImage) 
-          clearInterval(intervalRef.current);
-        
-        return prevCreatingImage
-      })
-    };
-  }, [creatingImage]);
-
-  // ================================ IMAGE UPDATE ================================
-  const handleImageUpload = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault()
-    fileUploadRef.current?.click()
-  }
-
-  const uploadIMageDisplay = (input?: File | React.ChangeEvent<HTMLInputElement>) => {
-    let file: File | undefined
-
-    if (input instanceof File) {
-      file = input
-    } else if (input?.target?.files?.[0]) {
-      file = input.target.files[0]
-    }
-
-    if (!file) return
-      if (!(fileUploadRef.current && fileUploadRef.current.files)) return // No selected file
-
-      const cacheURL = URL.createObjectURL(file)
-      setSelectedImage(cacheURL)
-      setCroppingCompleted(false)  
-      setCreatingImage(false)
-    }
-
-  const handleCropImage = async (cropping: boolean = true) => {
-    if (!croppedAreaPixels)
-      return
-
-    if (!croppingCompleted || !cropping) {
-      const {image, errorMatrix} = await getCroppedImg(selectedImage, croppedAreaPixels, imageContrast);
-      setModifiedImage(image)
-      setErrorMatrix(errorMatrix)    
-      setInUseErrorMatrix(errorMatrix)    
-      
-      setImazeSize(errorMatrix.length)
-      setLinesVector([CONFIG.firstPin])
-    }
-    if (cropping){
-      setCroppingCompleted(!croppingCompleted)
-    }
-  }
-
-  useEffect(() => { // Contrast debounce to update de image.
-    const timeout = setTimeout(() => {
-      handleCropImage(false)
-    }, CONFIG.debounceTime) // ms debounce
-
-    return () => clearTimeout(timeout)
-  }, [imageContrast])
+  // ================================ FORM ================================
+  const [errors, setErrors] = useState({ pins: false, lines: false, width: false , contrast: false})
+  const [shake, setShake] = useState(false)
 
 
+
+
+  // ==========================================================================================
+  //                               USE EFFECT + FUNCTIONS
+  // ==========================================================================================
   // ================ DRAG & DROP ================
-
   useEffect(() => {
     const handlePaste = (e: ClipboardEvent) => {
       const file = e.clipboardData?.files?.[0]
@@ -166,9 +113,139 @@ export function StringArtComponent(){
     }
   }, [])
 
-  // ================================ ALGORITH ================================
-  const workerRef = useRef<Worker>();
 
+  // ================================ MANAGE CREATING IMAGE ================================
+  useEffect(() => { // checks whether or not the algorith is running, and if not removes the interval
+    return () => {
+      setCreatingImage((prevCreatingImage)=>{
+        if (intervalRef.current && !prevCreatingImage) 
+          clearInterval(intervalRef.current);
+        
+        return prevCreatingImage
+      })
+    };
+  }, [creatingImage]);
+
+  // ================================ CANVAS MANAGEMENT ================================
+  useEffect(() => { // Update the canvas with the lines 
+    const canvas = canvasRef.current;
+    if (!canvas || !pinVector.length || !linesVector.length) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    // Clear canva
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.lineWidth = lineWidth / 100;
+    ctx.strokeStyle = "#000";
+
+    // Draw shape
+    ctx.beginPath();
+    for (let i = 1; i < linesVector.length; i++) {
+      const from = pinVector[linesVector[i - 1]];
+      const to = pinVector[linesVector[i]];
+      ctx.moveTo(from.x, from.y);
+      ctx.lineTo(to.x, to.y);
+    }
+    ctx.stroke();
+  }, [pinVector, linesVector, lineWidth]);
+
+
+  // ================================ handleSubmit  ================================
+  useEffect(() => { // Contrast debounce to update de image.
+    const timeout = setTimeout(() => {
+      const fakeFormEvent = { preventDefault: () => {} } as React.ChangeEvent<HTMLInputElement>
+      onChangeFormValues(fakeFormEvent)
+    }, CONFIG.debounceTime * 5) // ms debounce
+
+    return () => clearTimeout(timeout)
+  }, [numPins, maxLines, lineWidth, imageContrast])
+
+  useEffect(() => { // Shake removal
+    if (!shake) return
+    const timeout = setTimeout(() => setShake(false), CONFIG.shakingTime)
+    return () => clearTimeout(timeout)
+  }, [shake])
+
+  // ================== FORM HANDLE =============
+  const onChangeFormValues = (e: React.ChangeEvent<HTMLInputElement>)=>{
+    e.preventDefault()
+
+    // Check email format
+    const {value: valuePins,     valid: validPins}     = checkLimits(numPins,       CONFIG.pinLimits)
+    const {value: valueLines,    valid: validLines}    = checkLimits(maxLines,      CONFIG.linesLimits)
+    const {value: valueWidth,    valid: validWidth}    = checkLimits(lineWidth,     CONFIG.lineWidthLimits)
+    const {value: valueContrast, valid: validContrast} = checkLimits(imageContrast, CONFIG.constrastLimits)
+    
+    const newErrors = {
+      pins: !validPins,
+      lines: !validLines,
+      width: !validWidth,
+      contrast: !validContrast,
+    };
+    setErrors(newErrors);
+    // Check last time sent
+    setShake(Object.values(newErrors).some(e => e))// At least one is truthy
+      
+
+    return newErrors
+  }
+
+  // ================================ IMAGE UPDATE ================================
+  useEffect(() => { // Contrast debounce to update de image.
+    const timeout = setTimeout(() => {
+      handleCropImage(false)
+    }, CONFIG.debounceTime) // ms debounce
+
+    return () => clearTimeout(timeout)
+  }, [imageContrast])
+
+
+  const handleImageUpload = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault()
+    fileUploadRef.current?.click()
+  }
+
+  const uploadIMageDisplay = (input?: File | React.ChangeEvent<HTMLInputElement>) => {
+    let file: File | undefined
+
+    if (input instanceof File) {
+      file = input
+    } else if (input?.target?.files?.[0]) {
+      file = input.target.files[0]
+    }
+
+    if (!file) return
+      if (!(fileUploadRef.current && fileUploadRef.current.files)) return // No selected file
+
+      const cacheURL = URL.createObjectURL(file)
+      setSelectedImage(cacheURL)
+      setCroppingCompleted(false)  
+      setCreatingImage(false)
+  }
+
+  const handleCropImage = async (cropping: boolean = true) => {
+    if (!croppedAreaPixels)
+      return
+
+    if (!croppingCompleted || !cropping) {
+      const {image, errorMatrix} = await getCroppedImg(selectedImage, croppedAreaPixels, imageContrast);
+      setModifiedImage(image)
+      setErrorMatrix(errorMatrix)    
+      setInUseErrorMatrix(errorMatrix)    
+      
+      setImazeSize(errorMatrix.length)
+      setLinesVector([CONFIG.firstPin])
+    }
+    if (cropping){
+      setCroppingCompleted(!croppingCompleted)
+    }
+  }
+
+ 
+  // ==========================================================================================
+  //                                      ALGORITH
+  // ==========================================================================================
+  const workerRef = useRef<Worker>();
   useEffect(() => {
     workerRef.current = new Worker(
       new URL('@/app/[locale]/(utils)/(functions)/computePins.worker', import.meta.url),
@@ -269,7 +346,7 @@ export function StringArtComponent(){
 
       // ============= UPDATE MATRIX WITH THE PIN =============
       // Recopute error matrix
-      computedErrorMatrix = updateComputeImageMatrix(computedErrorMatrix, prevPin, nextPin, precomputedLinesRef.current)
+      computedErrorMatrix = updateComputeImageMatrix(computedErrorMatrix, prevPin, nextPin, lineWidth, precomputedLinesRef.current)
       pins[prevPin].usedWith.add(nextPin)
       pins[nextPin].usedWith.add(prevPin)
 
@@ -286,89 +363,10 @@ export function StringArtComponent(){
     }, 0)
   }
 
-  const updateComputeImageMatrix = (prevErrorMatrix:number[][], pin1Idx: number, pin2Idx: number, precomputedLines: Map<string, point[]>) => {
-    const newMatrix = prevErrorMatrix.map(row => [...row])
-    const key = getLineKey(pin1Idx, pin2Idx)
-    const line = precomputedLines.get(key)
 
-    if (!line) return newMatrix // fallback if no precomputed line
-
-    for (const { x, y } of line) {
-      newMatrix[y][x] = Math.max(newMatrix[y][x] - 255 * lineWidth / 100, 0)
-    }
-
-    return newMatrix
-  }
-
-
-  // ================================ CANVAS MANAGEMENT ================================
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas || !pinVector.length || !linesVector.length) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    // Clear canva
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.lineWidth = lineWidth / 100;
-    ctx.strokeStyle = "#000";
-
-    // Draw shape
-    ctx.beginPath();
-    for (let i = 1; i < linesVector.length; i++) {
-      const from = pinVector[linesVector[i - 1]];
-      const to = pinVector[linesVector[i]];
-      ctx.moveTo(from.x, from.y);
-      ctx.lineTo(to.x, to.y);
-    }
-    ctx.stroke();
-  }, [pinVector, linesVector, lineWidth]);
-
-  
-
-  // ================================ handleSubmit  ================================
-  const [errors, setErrors] = useState({ pins: false, lines: false, width: false , contrast: false})
-  const [shake, setShake] = useState(false)
-  useEffect(() => { // Contrast debounce to update de image.
-    const timeout = setTimeout(() => {
-      const fakeFormEvent = { preventDefault: () => {} } as React.ChangeEvent<HTMLInputElement>
-      onChangeFormValues(fakeFormEvent)
-    }, CONFIG.debounceTime * 5) // ms debounce
-
-    return () => clearTimeout(timeout)
-  }, [numPins, maxLines, lineWidth, imageContrast])
-
-  useEffect(() => {
-    if (!shake) return
-    const timeout = setTimeout(() => setShake(false), CONFIG.shakingTime)
-    return () => clearTimeout(timeout)
-  }, [shake])
-
-  const onChangeFormValues = (e: React.ChangeEvent<HTMLInputElement>)=>{
-    e.preventDefault()
-
-    // Check email format
-    const {value: valuePins,     valid: validPins}     = checkLimits(numPins,       CONFIG.pinLimits)
-    const {value: valueLines,    valid: validLines}    = checkLimits(maxLines,      CONFIG.linesLimits)
-    const {value: valueWidth,    valid: validWidth}    = checkLimits(lineWidth,     CONFIG.lineWidthLimits)
-    const {value: valueContrast, valid: validContrast} = checkLimits(imageContrast, CONFIG.constrastLimits)
-    
-    const newErrors = {
-      pins: !validPins,
-      lines: !validLines,
-      width: !validWidth,
-      contrast: !validContrast,
-    };
-    setErrors(newErrors);
-    // Check last time sent
-    setShake(Object.values(newErrors).some(e => e))// At least one is truthy
-      
-
-    return newErrors
-  }
-
-
-  // ================================ COMPONENT ================================
+  // ==========================================================================================
+  //                                      COMPONENT
+  // ==========================================================================================
   return(
     <section className='w-full flex gap-4 lg:gap-8 flex-col lg:flex-row items-center'>
       <div className='flex flex-col items-center gap-2 relative'>   
@@ -493,7 +491,7 @@ export function StringArtComponent(){
               className='hidden'
               onChange={uploadIMageDisplay}
             />
-            <HeaderButton onClick={suggestImage}>{t("string.suggest")}</HeaderButton>
+            <HeaderButton onClick={suggestImage} disabled={creatingImage}>{t("string.suggest")}</HeaderButton>
           </aside>
 
           <aside className="w-full flex-col lg:h-44 2xl:h-64 justify-center items-center hidden lg:flex ">
@@ -531,7 +529,7 @@ export function StringArtComponent(){
               onChange={uploadIMageDisplay}
             />
 
-            <HeaderButton onClick={suggestImage}>{t("string.suggest")}</HeaderButton>
+            <HeaderButton onClick={suggestImage} disabled={creatingImage}>{t("string.suggest")}</HeaderButton>
           </aside>
 
 
@@ -581,79 +579,3 @@ export function StringArtComponent(){
   )
 }
 
-
-// =========================================================================
-//                        ALGORITHM EXTERNAL FUNCTIONS
-// =========================================================================
-function computeError ( 
-  computedErrorMatrix: number[][],  pin1Idx: number,  pin2Idx: number,  precomputedLines: Map<string, point[]>
-): number {
-  const key = getLineKey(pin1Idx, pin2Idx)
-  const line = precomputedLines.get(key)
-  if (!line) return Infinity // Fall back just in case
-  let error = 0
-  for (const { x, y } of line) {
-    try {
-      error += computedErrorMatrix[y][x]
-    } catch (err) {
-      console.error(`Access error at x=${x}, y=${y}`)
-      // console.error(err)
-    }
-  }
-
-  return error
-}
-
-
-// =========================================================================
-//                              IMAGE FUNCTIONS
-// =========================================================================
-async function getCroppedImg(
-  imageSrc: string, 
-  pixelCrop: { x: number; y: number; width: number; height: number }, 
-  imageConstrast: number
-) {
-  const image = new Image()
-  image.src = imageSrc
-  await new Promise((resolve) => (image.onload = resolve))
-
-  const canvas = document.createElement("canvas")
-  canvas.width = pixelCrop.width
-  canvas.height = pixelCrop.height
-  const ctx = canvas.getContext("2d")!
-
-  // ========= Black and white =========
-  ctx.filter = `grayscale(100%) contrast(${imageConstrast}%)`
-  // ========= Draw image =========
-  ctx.drawImage(
-    image,
-    pixelCrop.x, pixelCrop.y,
-    pixelCrop.width, pixelCrop.height,
-    0, 0,
-    pixelCrop.width, pixelCrop.height
-  );
-
-  // ========= Get image matrix =========
-  const { data } = ctx.getImageData(0, 0, canvas.width, canvas.height);
-  const matrix: number[][] = [];
-
-  for (let y = 0; y < canvas.height; y++) {
-    const row: number[] = [];
-    for (let x = 0; x < canvas.width; x++) {
-      const index = (y * canvas.width + x) * 4;
-      // With grayscale, R, G, and B are equal; use the red channel
-      row.push(data[index])
-    }
-    matrix.push(row);
-  }
-
-  // ========= Create a new matrix for error with the same dimensions =========
-  const errorMatrix: number[][] = matrix.map(row => 
-    row.map(value => {
-      return 255 - value; 
-    })
-  );
-
-
-  return {image: canvas.toDataURL("image/webp"), errorMatrix};
-}

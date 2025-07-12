@@ -14,17 +14,23 @@ import { usePageStackStore } from "@/app/[locale]/(global_state)/state"
 
 interface HeaderButtonProps  {
   className?: string,
+  disabled?: boolean,
   children?: React.ReactNode,
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void,
 }
-export function HeaderButton({className, onClick, ...props}: HeaderButtonProps) {
+export function HeaderButton({className, disabled, onClick, ...props}: HeaderButtonProps) {
   return (
     <button className={
       cn(
         "text-miquel-white text-start text-nowrap miquel-opacity flex items-center drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)]", 
+        {"hover:opacity-70 cursor-not-allowed": disabled},
         className
       )}
-      onClick={onClick}
+      onClick={(e: any) => {
+        e.preventDefault()
+        if(!disabled && onClick) 
+          onClick(e)
+      }}
     >
       {props.children}
     </button>

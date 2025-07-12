@@ -118,3 +118,94 @@ function getVariableForPixelSearch(pinx1: number, piny1: number, pinx2: number, 
 
   return {x1, y1, x2, y2, dx, dy, sx, sy}
 }
+
+
+
+// =========================================================================
+//                   STRING ART  ALGORITHM EXTERNAL FUNCTIONS
+// =========================================================================
+export function computeError ( 
+  computedErrorMatrix: number[][],  pin1Idx: number,  pin2Idx: number,  precomputedLines: Map<string, point[]>
+): number {
+  const key = getLineKey(pin1Idx, pin2Idx)
+  const line = precomputedLines.get(key)
+  if (!line) return Infinity // Fall back just in case
+  let error = 0
+  for (const { x, y } of line) {
+    try {
+      error += computedErrorMatrix[y][x]
+    } catch (err) {
+      console.error(`Access error at x=${x}, y=${y}`)
+      // console.error(err)
+    }
+  }
+
+  return error
+}
+
+export function updateComputeImageMatrix(prevErrorMatrix:number[][], pin1Idx: number, pin2Idx: number, lineWidth: number, precomputedLines: Map<string, point[]>) {
+  const newMatrix = prevErrorMatrix.map(row => [...row])
+  const key = getLineKey(pin1Idx, pin2Idx)
+  const line = precomputedLines.get(key)
+
+  if (!line) return newMatrix // fallback if no precomputed line
+
+  for (const { x, y } of line) {
+    newMatrix[y][x] = Math.max(newMatrix[y][x] - 255 * lineWidth / 100, 0)
+  }
+
+  return newMatrix
+}
+
+// =========================================================================
+//                              IMAGE FUNCTIONS
+// =========================================================================
+export async function getCroppedImg(
+  imageSrc: string, 
+  pixelCrop: { x: number; y: number; width: number; height: number }, 
+  imageConstrast: number
+) {
+  const image = new Image()
+  image.src = imageSrc
+  await new Promise((resolve) => (image.onload = resolve))
+
+  const canvas = document.createElement("canvas")
+  canvas.width = pixelCrop.width
+  canvas.height = pixelCrop.height
+  const ctx = canvas.getContext("2d")!
+
+  // ========= Black and white =========
+  ctx.filter = `grayscale(100%) contrast(${imageConstrast}%)`
+  // ========= Draw image =========
+  ctx.drawImage(
+    image,
+    pixelCrop.x, pixelCrop.y,
+    pixelCrop.width, pixelCrop.height,
+    0, 0,
+    pixelCrop.width, pixelCrop.height
+  );
+
+  // ========= Get image matrix =========
+  const { data } = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  const matrix: number[][] = [];
+
+  for (let y = 0; y < canvas.height; y++) {
+    const row: number[] = [];
+    for (let x = 0; x < canvas.width; x++) {
+      const index = (y * canvas.width + x) * 4;
+      // With grayscale, R, G, and B are equal; use the red channel
+      row.push(data[index])
+    }
+    matrix.push(row);
+  }
+
+  // ========= Create a new matrix for error with the same dimensions =========
+  const errorMatrix: number[][] = matrix.map(row => 
+    row.map(value => {
+      return 255 - value; 
+    })
+  );
+
+
+  return {image: canvas.toDataURL("image/webp"), errorMatrix};
+}
