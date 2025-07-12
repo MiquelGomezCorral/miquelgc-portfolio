@@ -66,6 +66,7 @@
         "stop": "Parar",
         "continue": "Continua",
         "restart": "Reiniciar",
+        "trace": "Trazo",
 
         "pins": "Pines",
         "lines": "Líneas",

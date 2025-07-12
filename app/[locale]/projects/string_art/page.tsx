@@ -6,7 +6,7 @@ import { getProjects } from "@/app/[locale]/(utils)/(constants)/project.text.d"
 
 import { StringArtComponent } from "@/app/[locale]/projects/string_art/string_art";
 
-const i18nNamespaces = ['projects', 'header', 'footer']
+const i18nNamespaces = ['projects', 'header', 'footer', 'general']
 export default async function ProjectPage({ params }: { params: any }) {
   const { locale } = await params;
   const { t, resources } = await initTranslations(locale, i18nNamespaces);

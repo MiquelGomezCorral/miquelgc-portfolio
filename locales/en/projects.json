@@ -66,6 +66,7 @@
         "stop": "Stop",
         "continue": "Continue",
         "restart": "Restart",
+        "trace": "Trace",
 
         "pins": "Pins",
         "lines": "Lines",
