@@ -34,7 +34,7 @@ class Configuration {
 
     public neighbourtMaring    = 5,
     public lastNUsedPinsMargin = 10,
-    public updateEveryNPins = 20,
+    public updateEveryNPins    = 20,
   ) {}
 }
 

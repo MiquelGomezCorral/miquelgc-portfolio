@@ -77,9 +77,6 @@ export function StringArtComponent(){
   const [errors, setErrors] = useState({ pins: false, lines: false, width: false , contrast: false})
   const [shake, setShake] = useState(false)
 
-
-
-
   // ==========================================================================================
   //                               USE EFFECT + FUNCTIONS
   // ==========================================================================================
@@ -260,13 +257,13 @@ export function StringArtComponent(){
     const fakeFormEvent = { preventDefault: () => {} } as React.ChangeEvent<HTMLInputElement>
     const newErrors = onChangeFormValues(fakeFormEvent)
     if (Object.values(newErrors).some(e => e)) // At least one is truthy
-    return
+      return
     
     // ================== GENERAL VARIABLES ==================
     if(intervalRef.current)
       clearInterval(intervalRef.current)
     
-    // if stoped and then continued, aboid reseting always
+    // if stoped and then continued, aboid reseting
     if (linesVector.length <= 1)
       setLinesVector([CONFIG.firstPin])
     setCreatingImage(!creatingImage)
