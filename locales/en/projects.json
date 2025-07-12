@@ -75,7 +75,12 @@
         "drag-image": "Click, drag or drop and image",
 
         "total-time": "Total time",
-        "stimated-time": "Stimated time"
+        "stimated-time": "Stimated time",
+
+        "pins-info": "Number of pins\nMin 2 - Max 1000\nRecomended [300-500]",
+        "lines-info": "Number of lines\nMin 1 - Max Infinite\nRecomended [2500-5000]",
+        "width-info": "Width of the lines\nMin 1 - Max 100\nRecomended [5-30]",
+        "contrast-info": "Contrast of the image\nMin 1 - Max Inf\nRecomended [50-250]"
         
     }
 }

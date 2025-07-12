@@ -526,7 +526,7 @@ export function StringArtComponent(){
 
           <aside className="grid grid-cols-2 gap-4 w-full 2xl:flex 2xl:flex-row">
             <ShakeHard onClick={()=>{}} key={(shake && errors.pins) ? 'shake1' : 'no-shake1'} active={(shake && errors.pins)} fixed>
-              <Input type="number" className="" value={numPins} text={t("string.pins")}  infoText="aaa"
+              <Input type="number" className="" value={numPins} text={t("string.pins")}  infoText={t("string.pins-info")}
                 disabled={!croppingCompleted || creatingImage || (linesVector.length > 1)}
                 error={errors.pins}
                 onChange={(e)=>{
@@ -535,7 +535,7 @@ export function StringArtComponent(){
               />
             </ShakeHard>
             <ShakeHard  onClick={()=>{}} key={(shake && errors.lines) ? 'shake2' : 'no-shake2'} active={(shake && errors.lines)} fixed>
-              <Input type="number" className="" value={maxLines} text={t("string.lines")}  infoText="aaa"
+              <Input type="number" className="" value={maxLines} text={t("string.lines")}  infoText={t("string.lines-info")}
                 disabled={!croppingCompleted || creatingImage || (linesVector.length > 1)}
                 error={errors.lines}
                 onChange={(e)=>{
@@ -544,7 +544,7 @@ export function StringArtComponent(){
               />
             </ShakeHard>
             <ShakeHard  onClick={()=>{}} key={(shake && errors.width) ? 'shake3' : 'no-shake3'} active={(shake && errors.width)} fixed>
-              <Input type="number" className="" value={lineWidth} text={t("string.width")} infoText="aaa"
+              <Input type="number" className="" value={lineWidth} text={t("string.width")} infoText={t("string.width-info")}
                 disabled={!croppingCompleted || creatingImage || (linesVector.length > 1)} 
                 error={errors.width}
                 onChange={(e)=>{
@@ -553,7 +553,7 @@ export function StringArtComponent(){
               />
             </ShakeHard>
             <ShakeHard  onClick={()=>{}} key={(shake && errors.contrast) ? 'shake4' : 'no-shake4'} active={(shake && errors.contrast)} fixed>
-              <Input type="number" className="" value={imageContrast} text={t("string.contrast")} infoText="aaa"
+              <Input type="number" className="" value={imageContrast} text={t("string.contrast")} infoText={t("string.contrast-info")}
                 disabled={!croppingCompleted || creatingImage || (linesVector.length > 1)}
                 error={errors.contrast}
                 onChange={(e)=>{

@@ -43,7 +43,7 @@ export function Input({className, type, disabled, error, onChange, value, text, 
     <div className="grid grid-cols-1 w-full lg:w-fit gap-2">
       <h2 className="w-full flex relative gap-2">
         {text}
-        <InfoPopUp infoText={infoText}/>
+        <InfoPopUp infoText={infoText} onHover/>
       </h2>
       <input type={type} disabled = {disabled} value={value}
         className={cn(
@@ -62,7 +62,7 @@ export function Input({className, type, disabled, error, onChange, value, text, 
   )
 }              
 
-export function InfoPopUp({infoText}: {infoText?: string}){
+export function InfoPopUp({infoText, onHover}: {infoText?: string, onHover?: boolean}){
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
 
@@ -78,7 +78,7 @@ export function InfoPopUp({infoText}: {infoText?: string}){
   }, [open])
 
   return (
-    <div className="relative inline-block" ref={ref}>
+    <div className="relative inline-block group" ref={ref}>
     {infoText && 
       <button className="miquel-opacity flex items-center" onClick={(e) => {e.preventDefault(); setOpen(!open)}}>
         <Icon 
@@ -89,9 +89,22 @@ export function InfoPopUp({infoText}: {infoText?: string}){
           /> 
       </button>
     }
-    {open && (
-      <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-miquel-black-300 text-white text-sm px-2 py-1 rounded shadow z-10">
-        {infoText}
+    {(open || onHover)&& (
+      <div className={cn(
+        "absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-miquel-black-300 text-white text-sm px-2 py-2 rounded shadow z-10 text-nowrap",
+        {"hidden group-hover:block": onHover}
+      )}>
+        {infoText?.split("\n").map((line, idx) => 
+          idx === 0 ? (
+            <span key={idx} className="block font-medium">
+              {line}
+            </span>
+          ) : (
+            <div key={idx} className="text-xs opacity-80">
+              {line}
+            </div>
+          )
+        )}
       </div>
     )}
     </div>
