@@ -107,7 +107,7 @@ export function InfoPopUp({infoText, onHover}: {infoText?: string, onHover?: boo
           src={"question-mark"}
           height={20}
           width={20}
-          title={"question-mark"}
+          title={!onHover ? "Info" : ""} //Avoid the text of the icon to show if hovering
           /> 
       </button>
     }

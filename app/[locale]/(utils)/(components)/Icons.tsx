@@ -137,7 +137,7 @@ interface IconProps {
   width?: number, 
   height?: number, 
   src: string, 
-  title: string,
+  title?: string,
   text?: string,
   disable?: boolean
   hover?: boolean
