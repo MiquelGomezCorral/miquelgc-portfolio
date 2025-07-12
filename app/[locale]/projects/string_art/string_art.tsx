@@ -409,6 +409,7 @@ export function StringArtComponent(){
         </header>
       </div>
 
+
       <nav className='gap-4 lg:gap-8 w-full grid grid-cols-1 items-center lg:flex lg:flex-col flex-grow'>
         <aside className="w-full grid grid-cols-1 2xl:flex 2xl:flex-row gap-4 ">
           <Button
@@ -594,7 +595,6 @@ function computeError (
 // =========================================================================
 //                              IMAGE FUNCTIONS
 // =========================================================================
-
 async function getCroppedImg(
   imageSrc: string, 
   pixelCrop: { x: number; y: number; width: number; height: number }, 
