@@ -204,9 +204,7 @@ export function FormSendEmail(){
         </section>
 
         <section className="w-full flex flex-col gap-1">
-          <Button type='submit' disabled={ !name.trim() || !email.trim() ||  !message.trim()}>
-            {t("send")}
-          </Button>
+          <Button text={t("send")} type='submit' disabled={ !name.trim() || !email.trim() ||  !message.trim()}/>
           <p className="text-red-500 min-h-[1rem] text-xs">{errors.general}</p>
         </section>
 

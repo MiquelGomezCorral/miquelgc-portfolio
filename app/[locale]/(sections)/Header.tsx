@@ -11,7 +11,7 @@ import { usePageStackStore } from '@/app/[locale]/(global_state)/state';
 import { GoBackButton } from '@/app/[locale]/(utils)/(components)/GoBackButton';
 import { CloseMenu, OpenMenu } from "@/app/[locale]/(utils)/(constants)/constants.text.d";
 import LanguageChanger from '@/app/[locale]/(utils)/(components)/LanguageChanger';
-import { ButtonModal, ButtonLink, HeaderButtonIcon} from "@/app/[locale]/(utils)/(components)/ButtonsHeader";
+import { ButtonHeaderModal, ButtonLink, HeaderButtonIcon} from "@/app/[locale]/(utils)/(components)/ButtonsHeader";
 import CONFIG from "@/app/[locale]/(utils)/(constants)/configuration";
 
 
@@ -59,12 +59,12 @@ export default function Header() {
           <DownloadCV>
             <HeaderButtonIcon icon='download-document'> {t("cv")} </HeaderButtonIcon>
           </DownloadCV>
-          <ButtonModal icon='info'>
+          <ButtonHeaderModal icon='info'>
             <div className="w-full flex flex-col justify-center items-start gap-2">
               <h2 className="text-xl font-extrabold">{t("version")} {CONFIG.version}</h2>
               <span className=''>{t("created_by")}</span>
             </div>
-          </ButtonModal>
+          </ButtonHeaderModal>
           <LanguageChanger/>
         </nav>
       </header>
@@ -120,12 +120,12 @@ export default function Header() {
           <DownloadCV>
             <HeaderButtonIcon icon='download-document'> {t("cv")} </HeaderButtonIcon>
           </DownloadCV>
-          <ButtonModal icon='info' text={t("about")}>
+          <ButtonHeaderModal icon='info' text={t("about")}>
             <div className="w-full flex flex-col justify-center items-start gap-2">
               <h2 className="text-xl font-extrabold">{t("version")} {CONFIG.version}</h2>
               <span className=''>{t("created_by")}</span>
             </div>
-          </ButtonModal>
+          </ButtonHeaderModal>
           <LanguageChanger mobile/>
         </nav>
       </header>

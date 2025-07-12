@@ -1,14 +1,14 @@
 "use client"
 
-import { t } from "i18next"
 
 import cn from "classnames"
 import Link from "next/link"
-import { useState, useEffect, useMemo } from "react"
-import { createPortal } from 'react-dom'
+import { useState } from "react"
+import { useTranslation } from 'react-i18next';
 
 import { Icon } from "@/app/[locale]/(utils)/(components)/Icons"
 import { Button } from '@/app/[locale]/(utils)/(components)/Buttons';
+import { Modal } from '@/app/[locale]/(utils)/(components)/Utils';
 import { usePageStackStore } from "@/app/[locale]/(global_state)/state"
 
 
@@ -31,6 +31,8 @@ export function HeaderButton({className, onClick, ...props}: HeaderButtonProps) 
   )
 }
 
+
+
 interface HeaderButtonIconProps extends HeaderButtonProps {
   icon: string,
   onClick?: () => void,
@@ -49,6 +51,7 @@ export function HeaderButtonIcon({icon, className, onClick, ...props}: HeaderBut
     </HeaderButton>
   )
 }
+
 
 
 interface HeaderButtonLinkProps  {
@@ -101,6 +104,7 @@ export function ButtonLink({icon, link, blank, notAddToStack, stayPage, onClick,
 }
 
 
+
 interface HeaderButtonModalProps  {
   icon?: string,
   text?: string,
@@ -108,9 +112,9 @@ interface HeaderButtonModalProps  {
   className?: string
   children?: React.ReactNode,
 }
-export function ButtonModal({icon, text, className, ...props }: HeaderButtonModalProps){
+export function ButtonHeaderModal({icon, text, className, ...props }: HeaderButtonModalProps){
   const [ showModal, setShowModal ] = useState(false)
-  
+  const {t} = useTranslation("general");
   return(
     <>
       {icon ?
@@ -128,7 +132,11 @@ export function ButtonModal({icon, text, className, ...props }: HeaderButtonModa
           {props.children}
         </div>
         <div className="flex justify-end w-full">
-          <Button onClick={() => setShowModal(false)} className="max-w-min">{t("close")} Close</Button>
+          <Button
+            text={t("close")}
+            onClick={() => setShowModal(false)} 
+            className="max-w-min"
+          />
         </div>
       </Modal>
       }
@@ -136,36 +144,3 @@ export function ButtonModal({icon, text, className, ...props }: HeaderButtonModa
   )
 }
 
-interface ModalProps {
-  children: React.ReactNode
-  onClose(): void
-}
-
-export function Modal({ children, onClose }: ModalProps) {
-  const container = useMemo(() => document.createElement('div'), [])
-
-  useEffect(() => {
-    document.body.style.overflow = 'hidden' // disable scroll
-    document.body.appendChild(container)
-    return () => {
-      document.body.style.overflow = '' // re-enable scroll
-      document.body.removeChild(container)
-    }
-  }, [container])
-
-
-  return createPortal(
-    <div
-      className="fixed inset-0 bg-miquel-black-500-a/40 backdrop-blur-md z-50 cursor-pointer flex items-center justify-center"
-      onClick={e => {e.stopPropagation(); onClose()}}
-    >
-      <div 
-        className="max-w-md bg-miquel-black-100-a/80 backdrop-blur-md rounded-xl flex flex-col justify-between p-6 gap-4 cursor-default"
-        onClick={e => e.stopPropagation()}
-      >
-        {children}
-      </div>
-    </div>,
-    container
-  )
-}

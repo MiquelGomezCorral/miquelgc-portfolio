@@ -1,16 +1,22 @@
 import cn from "classnames"
-import { Icon } from '@/app/[locale]/(utils)/(components)/Icons';
+import { useTranslation } from 'react-i18next';
 import { useEffect, useRef, useState } from "react";
 
 
+import { Icon } from '@/app/[locale]/(utils)/(components)/Icons';
+import { Modal } from '@/app/[locale]/(utils)/(components)/Utils';
+
+
 interface ButtonProps {
-  children: React.ReactNode,
+  children?: React.ReactNode,
+  text?:string,
+  icon?:string,
   type?:"button" | "submit" | "reset" | undefined, 
   className?: string,
   disabled?: boolean
   onClick?: (e:any) => void
 }
-export function Button({children, className, type = "button", disabled, onClick}: ButtonProps){
+export function Button({text, children, icon, className, type = "button", disabled, onClick}: ButtonProps){
   return(
     <button type={type} disabled = {disabled} 
       className={cn(
@@ -23,6 +29,15 @@ export function Button({children, className, type = "button", disabled, onClick}
           onClick(e)
       }}
     >
+      {icon &&
+        <Icon 
+          src={icon}
+          height={20}
+          width={20}
+          title={icon}
+        />
+      }
+      {text}
       {children}
     </button>
   )
@@ -108,5 +123,37 @@ export function InfoPopUp({infoText, onHover}: {infoText?: string, onHover?: boo
       </div>
     )}
     </div>
+  )
+}
+
+
+interface ButtonModalProps  {
+  icon?: string,
+  text?: string,
+
+  className?: string
+  children?: React.ReactNode,
+}
+export function ButtonModal({icon, text, className, ...props }: ButtonModalProps){
+  const [ showModal, setShowModal ] = useState(false)
+  const {t} = useTranslation("general");
+  
+  
+  return(
+    <>
+      <Button icon={icon} className={cn("",className)} onClick={() => setShowModal(true)}>
+          {text}
+      </Button>
+      {showModal &&
+      <Modal onClose={() => setShowModal(false)}>
+        <div className="flex flex-col items-center gap-2 justify-center flex-grow">
+          {props.children}
+        </div>
+        <div className="flex justify-end w-full">
+          <Button onClick={() => setShowModal(false)} className="max-w-min">{t("close")} Close</Button>
+        </div>
+      </Modal>
+      }
+    </>
   )
 }

@@ -13,6 +13,7 @@ import { Loader } from '@/app/[locale]/(utils)/(components)/Loader';
 
 import { secondsToTime, getLineKey, checkLimits } from '@/app/[locale]/(utils)/(functions)/functionUtils';
 import { pin, point, computePins, precomputeLines } from '@/app/[locale]/(utils)/(functions)/computePins.worker';
+import { ButtonHeaderModal} from "@/app/[locale]/(utils)/(components)/ButtonsHeader";
 
 import CONFIG from "@/app/[locale]/(utils)/(constants)/configuration";
 
@@ -412,36 +413,26 @@ export function StringArtComponent(){
       <nav className='gap-4 lg:gap-8 w-full grid grid-cols-1 items-center lg:flex lg:flex-col flex-grow'>
         <aside className="w-full grid grid-cols-1 2xl:flex 2xl:flex-row gap-4 ">
           <Button
+            text={croppingCompleted ? t("string.crop") : t("string.accept")}
+            icon={"crop"}
             className="w-full"
             disabled={creatingImage}
             onClick={handleCropImage}
-          > 
-            <Icon 
-              src={"crop"}
-              height={20}
-              width={20}
-              title={"crop"}
-            />
-            {croppingCompleted ? t("string.crop") : t("string.accept")}
-          </Button>
+          /> 
 
           <Button
+            text={creatingImage ? t("string.stop") : (linesVector.length <= 1) ? t("string.start") : t("string.continue")}
+            icon={"star"}
             className="w-full"
             disabled={!croppingCompleted || linesVector.length >= maxLines}
             onClick={()=>{
               startAlgorithm(linesVector.length <= 1) 
             }}
-          > 
-            <Icon 
-              src={"star"}
-              height={20}
-              width={20}
-              title={"star"}
-            />
-            {creatingImage ? t("string.stop") : (linesVector.length <= 1) ? t("string.start") : t("string.continue")}
-          </Button>
+          /> 
 
           <Button
+            text={t("string.restart")}
+            icon={"delete"}
             className="w-full"
             disabled={!croppingCompleted || linesVector.length <= 1}
             onClick={()=>{
@@ -451,14 +442,21 @@ export function StringArtComponent(){
               setInitialTime(0)
               setCreatingImage(false)
             }}
+          /> 
+
+          <Button
+            text={t("string.trace")}
+            icon={"pin"}
+            className="w-full"
+            disabled={linesVector.length < maxLines}
+            onClick={()=>{}}
           > 
-            <Icon 
-              src={"delete"}
-              height={20}
-              width={20}
-              title={"delete"}
-            />
-            {t("string.restart")}
+            <ButtonHeaderModal text="">
+              <div className="w-full flex flex-col justify-center items-start gap-2">
+                <h2 className="text-xl font-extrabold">{t("version")} {CONFIG.version}</h2>
+                <span className=''>{t("created_by")}</span>
+              </div>
+            </ButtonHeaderModal>
           </Button>
         </aside>
 
@@ -469,17 +467,11 @@ export function StringArtComponent(){
           {/* Let's asume the drag and drop is only used for the computer version, in the movile one you just select the image */}
           <aside className="flex w-full justify-center lg:hidden">
             <Button type='submit' className='text-nowrap w-full lg:w-fit'
+              text={t("string.upload")}
+              icon="upload"
               onClick={handleImageUpload}
               disabled={creatingImage}
-            >
-              <Icon 
-                src={"upload"}
-                height={20}
-                width={20}
-                title={"upload"}
-              />
-              {t("string.upload")}
-            </Button>
+            />
             <input type='file' id='file' 
               ref={fileUploadRef} 
               className='hidden'
