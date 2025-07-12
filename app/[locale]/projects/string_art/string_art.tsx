@@ -361,7 +361,6 @@ export function StringArtComponent(){
   // ================================ COMPONENT ================================
   return(
     <section className='w-full flex gap-4 lg:gap-8 flex-col lg:flex-row items-center'>
-      AAAAAAAAAAA
       <div className='flex flex-col items-center gap-2 relative'>   
         <figure 
           className="relative flex justify-center items-center aspect-square rounded-full"
