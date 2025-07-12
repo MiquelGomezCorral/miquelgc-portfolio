@@ -6,8 +6,9 @@ import { FormSendEmail } from "@/app/[locale]/(utils)/(components)/FormSendEmail
 import GlowingText from "@/app/[locale]/(utils)/(components)/GlowingText";
 import { ArrowUp } from "@/app/[locale]/(utils)/(components)/ArrowUp";
 import initTranslations from "@/app/i18n";
+import { footerNameSpaces } from "@/app/[locale]/(utils)/(constants)/nameSpaces.d"
 
-const i18nNamespaces = ["footer"]
+const i18nNamespaces = footerNameSpaces
 export default async function Footer({ params }: { params: { locale: string } }) {
   const {t} = await initTranslations(params.locale, i18nNamespaces)
   return (

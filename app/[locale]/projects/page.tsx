@@ -1,13 +1,14 @@
 
-import Image from "next/image"
 import { getProjects, ProjectType } from "@/app/[locale]/(utils)/(constants)/project.text.d";
 import { Project } from "./elements";
 import Header from "@/app/[locale]/(sections)/Header";
 import Footer from "@/app/[locale]/(sections)/Footer";
+
 import initTranslations from "@/app/i18n"
 import TranslationsProvider from "@/app/[locale]/(utils)/TranslationsProvider"
+import { projectNameSpaces } from "@/app/[locale]/(utils)/(constants)/nameSpaces.d"
 
-const i18nNamespaces = ['projects', 'header', 'footer', 'general']
+const i18nNamespaces = projectNameSpaces
 export default async function ProjectsPage({ params }: { params: any }) {
   const { locale } = await params;
   const { t, resources } = await initTranslations(locale, i18nNamespaces);

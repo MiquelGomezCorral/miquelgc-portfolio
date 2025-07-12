@@ -3,13 +3,14 @@ import cn from 'classnames';
 import GlowingText from "@/app/[locale]/(utils)/(components)/GlowingText";
 
 import initTranslations from "@/app/i18n"
+import { technologiesNameSpaces } from "@/app/[locale]/(utils)/(constants)/nameSpaces.d"
 
 import { Icon } from "@/app/[locale]/(utils)/(components)/Icons";
 import { TechnologyList } from '@/app/[locale]/(utils)/(components)/Technologies';
 import { Section } from '@/app/[locale]/(utils)/(components)/Section';
 import { getTechnologyCathegories, TechnologyCathegoryType } from '@/app/[locale]/(utils)/(constants)/technologies.d';
 
-const i18nNamespaces = ['technologies']
+const i18nNamespaces = technologiesNameSpaces
 export default async function TechnologiesSection({ params }: { params: { locale: string } }) {
   const {t} = await initTranslations(params.locale, i18nNamespaces)
   const TechnologyCathegories = getTechnologyCathegories(t)

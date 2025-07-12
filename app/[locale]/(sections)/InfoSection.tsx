@@ -8,8 +8,9 @@ import { IconGlowingLink, IconCopy, IconGlowingCopy, IconGlowingButton } from "@
 import { Location, Email, Github, GithubLink, Linkedin, LinkedinLink, Curriculum, CurriculumSiglas } from "@/app/[locale]/(utils)/(constants)/constants.text.d"
 
 import initTranslations from "@/app/i18n"
+import { infoSectionNameSpaces } from "@/app/[locale]/(utils)/(constants)/nameSpaces.d"
 
-const i18nNamespaces = ["info-section"]
+const i18nNamespaces = infoSectionNameSpaces
 
 export default async function InfoSection({ params }: { params: { locale: string } }) {
   const {t} = await initTranslations(params.locale, i18nNamespaces)

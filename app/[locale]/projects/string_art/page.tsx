@@ -1,13 +1,13 @@
 import initTranslations from "@/app/i18n"
 import TranslationsProvider from "@/app/[locale]/(utils)/TranslationsProvider"
-import {projectNameSpaces} from "@/app/[locale]/(utils)/(constants)/nameSpaces.d"
+import {projectPagesNameSpaces} from "@/app/[locale]/(utils)/(constants)/nameSpaces.d"
 
 import { ProjectPageTemplate } from "@/app/[locale]/projects/project_template"
 import { getProjects } from "@/app/[locale]/(utils)/(constants)/project.text.d"
 
 import { StringArtComponent } from "@/app/[locale]/projects/string_art/string_art";
 
-const i18nNamespaces = projectNameSpaces
+const i18nNamespaces = projectPagesNameSpaces
 export default async function ProjectPage({ params }: { params: any }) {
   const { locale } = await params;
   const { t, resources } = await initTranslations(locale, i18nNamespaces);
