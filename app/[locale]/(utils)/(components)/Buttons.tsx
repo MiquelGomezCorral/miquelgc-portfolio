@@ -43,6 +43,9 @@ export function Button({text, children, icon, className, type = "button", disabl
   )
 }
 
+
+
+
 interface InputProps {
   type?: React.HTMLInputTypeAttribute,  
   className?: string,
@@ -76,6 +79,10 @@ export function Input({className, type, disabled, error, onChange, value, text, 
     </div>
   )
 }              
+
+
+
+
 
 export function InfoPopUp({infoText, onHover}: {infoText?: string, onHover?: boolean}){
   const [open, setOpen] = useState(false)
@@ -127,30 +134,25 @@ export function InfoPopUp({infoText, onHover}: {infoText?: string, onHover?: boo
 }
 
 
-interface ButtonModalProps  {
-  icon?: string,
-  text?: string,
 
-  className?: string
-  children?: React.ReactNode,
-}
-export function ButtonModal({icon, text, className, ...props }: ButtonModalProps){
+
+export function ButtonModal({children, onClick, ...props }: ButtonProps){
   const [ showModal, setShowModal ] = useState(false)
   const {t} = useTranslation("general");
   
-  
   return(
     <>
-      <Button icon={icon} className={cn("",className)} onClick={() => setShowModal(true)}>
-          {text}
-      </Button>
+      <Button {...props} onClick={(e)=>{
+          e.preventDefault(); setShowModal(true)
+          if (onClick) onClick(e)
+      }}/>
       {showModal &&
       <Modal onClose={() => setShowModal(false)}>
         <div className="flex flex-col items-center gap-2 justify-center flex-grow">
-          {props.children}
+          {children}
         </div>
         <div className="flex justify-end w-full">
-          <Button onClick={() => setShowModal(false)} className="max-w-min">{t("close")} Close</Button>
+          <Button onClick={() => setShowModal(false)} className="max-w-min" text={t("close")}/>
         </div>
       </Modal>
       }

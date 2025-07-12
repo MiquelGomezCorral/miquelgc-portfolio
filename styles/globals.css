@@ -18,20 +18,28 @@
 .hide-scrollbar {
     overflow: -moz-scrollbars-none; /* Old Firefox 
 } */
+
+/* ============================================================
+              SCROLL SMOTH WHEN JUMP
+============================================================*/
 html {
     scroll-behavior: smooth;
 }
+
+/* ============================================================
+                 GENERAL SCROLL BAR CUSTOM
+============================================================*/
 /* Vertical scrollbar */
 ::-webkit-scrollbar {
     width: 8px; /* Vertical scrollbar width */
     height: 8px; /* Horizontal scrollbar height */
-  }
+}
   
-  /* Horizontal scrollbar */
-  ::-webkit-scrollbar:horizontal {
-    height: 8px; /* Horizontal scrollbar height */
-  }
-  
+/* Horizontal scrollbar */
+::-webkit-scrollbar:horizontal {
+  height: 8px; /* Horizontal scrollbar height */
+}
+
 ::-webkit-scrollbar-track{
     background: #00000000;
 }
@@ -44,6 +52,30 @@ html {
     background: #505160;
 }
 
+
+/* ============================================================
+                 SPECIFIC SCROLL BAR CUSTOM
+============================================================*/
+.custom-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+.custom-scroll::-webkit-scrollbar-track {
+  background: #00000000;
+}
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: oklch(79.9% 0.00 275.3);
+  border-radius: 4px;
+  transition: 0.3s ease-in-out;
+}
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+  background: oklch(96.3% 0.00 99.3);
+}
+
+
+
+/* ============================================================
+              CUSTOM CLASS FOR ANIMATION ON HOVER
+============================================================*/
 .miquel-opacity {
   opacity: 0.7;
   transition: opacity 300ms, transform 300ms;
@@ -53,7 +85,9 @@ html {
   opacity: 1;
 }
 
-
+/* ============================================================
+                 CUSTOM CLASS FOR GRADIENT
+============================================================*/
 /* Gradient blackground with smooth transition*/
 @layer components {
   .bg-miquel-gradient {
@@ -67,6 +101,9 @@ html {
   }
 }
 
+/* ============================================================
+                SPINNING LOADING ANIMATION
+============================================================*/
 /* HTML: <div class="loader"></div> */
 .loader {
   width: 80px;

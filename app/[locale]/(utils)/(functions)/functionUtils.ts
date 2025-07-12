@@ -24,3 +24,13 @@ export function getLineKey (a: number, b: number) {
  return a < b ? `${a}-${b}` : `${b}-${a}` // consistent key regardless of order
 }
 
+
+export function showAlertCopy(text:string){
+  return () => {
+    navigator.clipboard.writeText(text).then(() => {
+      alert(`'${text}' has been copied to clipboard!`);
+    }).catch(err => {
+      console.error('Failed to copy text: ', err);
+    });
+  };
+}

@@ -66,8 +66,10 @@
         "stop": "Parar",
         "continue": "Continua",
         "restart": "Reiniciar",
+        
         "trace": "Trazo",
-
+        "trace-header": "Secuencia de líneas encontrados por el algoritmo",
+        
         "pins": "Pines",
         "lines": "Líneas",
         "width": "Grosor",

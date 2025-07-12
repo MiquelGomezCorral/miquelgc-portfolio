@@ -7,13 +7,12 @@ import Cropper from 'react-easy-crop';
 import { useTranslation } from 'react-i18next';
 import { useState, useRef, useEffect } from "react";
 
-import { Icon } from '@/app/[locale]/(utils)/(components)/Icons';
-import { Button, Input } from '@/app/[locale]/(utils)/(components)/Buttons';
+import { Icon, IconCopy } from '@/app/[locale]/(utils)/(components)/Icons';
+import { Button, Input, ButtonModal } from '@/app/[locale]/(utils)/(components)/Buttons';
 import { Loader } from '@/app/[locale]/(utils)/(components)/Loader';
 
 import { secondsToTime, getLineKey, checkLimits } from '@/app/[locale]/(utils)/(functions)/functionUtils';
 import { pin, point, computePins, precomputeLines } from '@/app/[locale]/(utils)/(functions)/computePins.worker';
-import { ButtonHeaderModal} from "@/app/[locale]/(utils)/(components)/ButtonsHeader";
 
 import CONFIG from "@/app/[locale]/(utils)/(constants)/configuration";
 
@@ -444,20 +443,26 @@ export function StringArtComponent(){
             }}
           /> 
 
-          <Button
+          <ButtonModal
             text={t("string.trace")}
             icon={"pin"}
             className="w-full"
             disabled={linesVector.length < maxLines}
             onClick={()=>{}}
           > 
-            <ButtonHeaderModal text="">
-              <div className="w-full flex flex-col justify-center items-start gap-2">
-                <h2 className="text-xl font-extrabold">{t("version")} {CONFIG.version}</h2>
-                <span className=''>{t("created_by")}</span>
-              </div>
-            </ButtonHeaderModal>
-          </Button>
+            <div className="w-full flex flex-col justify-center items-start gap-2">
+              <h2 className="text-xl font-extrabold">{t("string.trace-header")}</h2>
+              <IconCopy
+                src="copy" title={"Copy trace"}
+                width={20} height={20}
+                copyText={linesVector.join(", ")}
+                text={"Copy trace"}
+              />
+              <span className='custom-scroll border-[1px] border-miquel-white-100 rounded-lg p-2 w-full max-h-64 overflow-y-scroll font-mono text-xs'>
+                {linesVector.join(", ")}
+              </span>
+            </div>
+          </ButtonModal>
         </aside>
 
 

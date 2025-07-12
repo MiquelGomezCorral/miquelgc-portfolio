@@ -4,18 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import cn from 'classnames';
 import GlowingText from "./GlowingText";
+
 import { usePageStackStore } from "@/app/[locale]/(global_state)/state";
-
-
-export function showAlertCopy(text:string){
-  return () => {
-    navigator.clipboard.writeText(text).then(() => {
-      alert(`'${text}' has been copied to clipboard!`);
-    }).catch(err => {
-      console.error('Failed to copy text: ', err);
-    });
-  };
-}
+import {showAlertCopy} from "@/app/[locale]/(utils)/(functions)/functionUtils"
 
 
 // =================================================================

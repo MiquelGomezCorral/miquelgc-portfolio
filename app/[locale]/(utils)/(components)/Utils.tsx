@@ -48,7 +48,7 @@ export function Modal({ children, onClose }: ModalProps) {
       onClick={e => {e.stopPropagation(); onClose()}}
     >
       <div 
-        className="max-w-md bg-miquel-black-100-a/80 backdrop-blur-md rounded-xl flex flex-col justify-between p-6 gap-4 cursor-default"
+        className="max-w-xl bg-miquel-black-100-a/80 backdrop-blur-md rounded-xl flex flex-col justify-between p-6 gap-4 cursor-default"
         onClick={e => e.stopPropagation()}
       >
         {children}
