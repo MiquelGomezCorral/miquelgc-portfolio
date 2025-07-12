@@ -9,7 +9,11 @@ class Configuration {
     // =============== String art ===============
     // public defaultImage = "/assets/projects/Robot.webp",
     // public defaultImage = "/assets/projects/Einstein.webp",
-    public defaultImage = "/assets/projects/Noether.webp",
+    public defaultImages = [
+      "/assets/projects/Noether.webp",
+      "/assets/projects/Einstein.webp",
+      "/assets/projects/Robot.webp",
+    ],
     public imageSize = 1900,
     public imageConstrast = 100, //100% is base
     public zoomSmoothFactor = 0.1,

@@ -13,6 +13,7 @@ import { Loader } from '@/app/[locale]/(utils)/(components)/Loader';
 
 import { secondsToTime, getLineKey, checkLimits } from '@/app/[locale]/(utils)/(functions)/functionUtils';
 import { pin, point, computePins, precomputeLines } from '@/app/[locale]/(utils)/(functions)/computePins.worker';
+import { HeaderButton} from "@/app/[locale]/(utils)/(components)/ButtonsHeader";
 
 import CONFIG from "@/app/[locale]/(utils)/(constants)/configuration";
 
@@ -22,9 +23,19 @@ export function StringArtComponent(){
   const {t} = useTranslation("projects")
 
   // ================================ IMAGE ================================
-  const [selectedImage, setSelectedImage] = useState(CONFIG.defaultImage); 
-  const [modifiedImage, setModifiedImage] = useState(CONFIG.defaultImage); 
+  const [idxDefaultImage, setIdxDefaultImage] = useState(0); 
+  const [selectedImage, setSelectedImage] = useState(CONFIG.defaultImages[idxDefaultImage]); 
+  const [modifiedImage, setModifiedImage] = useState(CONFIG.defaultImages[idxDefaultImage]); 
   const fileUploadRef = useRef<HTMLInputElement>(null);
+  const suggestImage = (e: any)=> {
+    e.preventDefault(); 
+    setIdxDefaultImage((idxDefaultImage + 1) % CONFIG.defaultImages.length)
+  }
+  useEffect(() => {
+    setSelectedImage(CONFIG.defaultImages[idxDefaultImage])
+    setModifiedImage(CONFIG.defaultImages[idxDefaultImage])
+  },[idxDefaultImage])
+  
 
   const [creatingImage, setCreatingImage] = useState(false);
   const [croppingCompleted, setCroppingCompleted] = useState(false);
@@ -318,7 +329,6 @@ export function StringArtComponent(){
   // ================================ handleSubmit  ================================
   const [errors, setErrors] = useState({ pins: false, lines: false, width: false , contrast: false})
   const [shake, setShake] = useState(false)
-  const timeoutShakeRef = useRef<NodeJS.Timeout | null>(null);
   useEffect(() => { // Contrast debounce to update de image.
     const timeout = setTimeout(() => {
       const fakeFormEvent = { preventDefault: () => {} } as React.ChangeEvent<HTMLInputElement>
@@ -397,7 +407,7 @@ export function StringArtComponent(){
           )}
         </figure>
         
-        <header className={cn("flex w-full flex-col font-mono ", {"opacity-0": !creatingImage && !(linesVector.length > 1)})}>
+        <footer className={cn("flex w-full flex-col font-mono ", {"opacity-0": !creatingImage && !(linesVector.length > 1)})}>
           <span className="flex w-full justify-between"> 
             <p>{linesVector.length}/{maxLines}</p>
             <p>{((linesVector.length * 100) / maxLines).toFixed(2)}% </p>
@@ -406,7 +416,7 @@ export function StringArtComponent(){
             <p>{t("string.total-time")}: {secondsToTime(totalTime)}</p>
             <p>{t("string.stimated-time")}: {secondsToTime(stimatedTime)}</p>
           </span>
-        </header>
+        </footer>
       </div>
 
 
@@ -417,7 +427,7 @@ export function StringArtComponent(){
             icon={"crop"}
             className="w-full"
             disabled={creatingImage}
-            onClick={handleCropImage}
+            onClick={(e) => handleCropImage()}
           /> 
 
           <Button
@@ -471,7 +481,7 @@ export function StringArtComponent(){
           className="w-full flex gap-4 lg:gap-8 justify-center flex-col lg:h-full min-h-0"
         >
           {/* Let's asume the drag and drop is only used for the computer version, in the movile one you just select the image */}
-          <aside className="flex w-full justify-center lg:hidden">
+          <aside className="flex w-full justify-center flex-col items-center lg:hidden">
             <Button type='submit' className='text-nowrap w-full lg:w-fit'
               text={t("string.upload")}
               icon="upload"
@@ -483,9 +493,10 @@ export function StringArtComponent(){
               className='hidden'
               onChange={uploadIMageDisplay}
             />
+            <HeaderButton onClick={suggestImage}>{t("string.suggest")}</HeaderButton>
           </aside>
 
-          <aside className="w-full lg:h-44 2xl:h-64 justify-center hidden lg:flex ">
+          <aside className="w-full flex-col lg:h-44 2xl:h-64 justify-center items-center hidden lg:flex ">
             <button className={cn(
               "w-full h-full rounded-xl bg-miquel-black-200 hover:bg-miquel-black-150 p-4 cursor-pointer transform duration-300 group", 
               {"bg-miquel-black-300 hover:bg-miquel-black-300 cursor-no-drop": creatingImage}
@@ -519,6 +530,8 @@ export function StringArtComponent(){
               className='hidden'
               onChange={uploadIMageDisplay}
             />
+
+            <HeaderButton onClick={suggestImage}>{t("string.suggest")}</HeaderButton>
           </aside>
 
 

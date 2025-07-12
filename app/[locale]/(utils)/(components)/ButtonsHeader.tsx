@@ -15,7 +15,7 @@ import { usePageStackStore } from "@/app/[locale]/(global_state)/state"
 interface HeaderButtonProps  {
   className?: string,
   children?: React.ReactNode,
-  onClick?: () => void,
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void,
 }
 export function HeaderButton({className, onClick, ...props}: HeaderButtonProps) {
   return (
@@ -35,7 +35,7 @@ export function HeaderButton({className, onClick, ...props}: HeaderButtonProps) 
 
 interface HeaderButtonIconProps extends HeaderButtonProps {
   icon: string,
-  onClick?: () => void,
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void,
 }
 export function HeaderButtonIcon({icon, className, onClick, ...props}: HeaderButtonIconProps) {
   return (

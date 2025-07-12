@@ -14,7 +14,7 @@ interface ButtonProps {
   type?:"button" | "submit" | "reset" | undefined, 
   className?: string,
   disabled?: boolean
-  onClick?: (e:any) => void
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void,
 }
 export function Button({text, children, icon, className, type = "button", disabled, onClick}: ButtonProps){
   return(

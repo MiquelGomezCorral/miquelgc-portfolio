@@ -17,7 +17,7 @@ import {ShowAlertCopy} from "@/app/[locale]/(utils)/(functions)/functionUtils"
 
 interface IconButtonArrow extends IconProps{
   disable?: boolean,
-  onClick?: ()=>void,
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void,
 }
 export function IconButtonArrow({ type, onClick, className, ...props}: IconButtonArrow){
   return(
