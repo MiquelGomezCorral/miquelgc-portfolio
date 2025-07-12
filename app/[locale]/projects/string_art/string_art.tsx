@@ -494,10 +494,10 @@ export function StringArtComponent(){
               disabled={creatingImage}
             >
               <div className={cn(
-                "w-full h-full rounded-xl border-2 border-dashed border-miquel-purple-100 group-hover:border-miquel-purple-200 transform duration-300 " +
-                "p-4 flex justify-center items-center group-hover:animate-pulse ",
-                {"border-red-800 group-hover:border-red-800 cursor-no-drop group-hover:animate-none": creatingImage}
-
+                  "w-full h-full rounded-xl border-2 border-dashed p-4 flex justify-center items-center transform duration-300",
+                  creatingImage
+                    ? "border-red-800 group-hover:border-red-800 cursor-no-drop"
+                    : "border-miquel-purple-100 group-hover:border-miquel-purple-200 group-hover:animate-pulse"
                 )}>
                 <span className={cn(
                   "text-miquel-white-100 miquel-opacity group-hover:opacity-100 flex flex-col gap-2 ",
