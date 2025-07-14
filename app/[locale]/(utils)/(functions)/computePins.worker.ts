@@ -8,36 +8,58 @@ export type point = {
   x: number,
   y: number,
 }
+export type line = {
+  xs: Uint16Array,
+  ys: Uint16Array,
+}
+// export type pixel = {
+//   x:number,
+//   y:number,
+//   w:number
+// }
+// export type pixel = {
+//   xs: Uint16Array;
+//   ys: Uint16Array;
+//   ws: Float32Array;
+// };
+
+
 export type pin = point & {
   usedWith: Set<number>,
 }
+// e.g. linear fade from 0→0.75 at d=[0.5…1.5]
+// const basicWeightFn = (d: number, lineWidth: number) => {
+//   if (d < 0.5)         return lineWidth / 100 // 0.25
+//   if (d < 1.5)         return lineWidth / 100 * (1.5 - d)   // linearly down to 0
+//   return 0
+// }
 
 // =========================================================================
 //                              PINS Sync
 // =========================================================================
 
-type WorkerRequest = {
-  numPins: number
-  imageSize: number
-  radius: number
-  margin: number
-}
-type WorkerResponse = {
-  pins: pin[]
-  lines: Map<string, point[]>
-}
-
+// type WorkerRequest = {
+//   numPins: number
+//   imageSize: number
+//   radius: number
+//   margin: number,
+//   lineWidth: number
+// }
+// type WorkerResponse = {
+//   pins: pin[]
+//   lines: Map<string, pixel[]>
+// }
 // self.onmessage = (event: MessageEvent<WorkerRequest>) => {
-//   const { numPins, imageSize, radius, margin } = event.data
+//   const { numPins, imageSize, radius, margin, lineWidth} = event.data
   
 //   const pins = computePins(numPins, radius, margin);
-//   const lines = precomputeLines(pins, imageSize, radius)
-
+//   const lines = precomputeLines(pins, imageSize, radius, lineWidth, 1.5)
 //   postMessage({ pins, lines })
 // };
 // =========================================================================
 //                              PINS FUNCTIONS
 // =========================================================================
+
 export function computePins (
   numPins: number,
   radius: number,
@@ -58,17 +80,92 @@ export function computePins (
 }//,[numPins, CONFIG.radius, CONFIG.margin])
 
 
+
+// export function precomputeLines(
+//   pinVector: pin[],
+//   imageSize: number,
+//   radius: number,
+//   lineWidth: number,
+//   maxDist: number = 1.5,
+// ): Map<string, pixel> {
+//   const map = new Map<string, pixel>();
+
+//   for (let i = 0; i < pinVector.length; i++) {
+//     for (let j = i + 1; j < pinVector.length; j++) {
+//       const key = getLineKey(i, j);
+
+//       // 1) Bresenham to get 1-pixel path
+//       const { x1, y1, x2, y2, dx, dy, sx, sy } = getVariableForPixelSearch(
+//         pinVector[i].x,
+//         pinVector[i].y,
+//         pinVector[j].x,
+//         pinVector[j].y,
+//         imageSize,
+//         radius * 2,
+//       );
+//       const bresList: { x: number; y: number }[] = [];
+//       let x = x1, y = y1;
+//       let err = dx - dy;
+//       do {
+//         bresList.push({ x, y });
+//         const e2 = err * 2;
+//         if (e2 > -dy) { err -= dy; x += sx; }
+//         if (e2 < dx)  { err += dx; y += sy; }
+//       } while (x !== x2 || y !== y2);
+
+//       // 2) Prepare neighbor scan
+//       const R = Math.ceil(maxDist);
+//       const A = y2 - y1, B = x1 - x2, C = x2 * y1 - x1 * y2;
+//       const invNorm = 1 / Math.hypot(A, B);
+
+//       const xArr: number[] = [];
+//       const yArr: number[] = [];
+//       const wArr: number[] = [];
+
+//       for (const { x: x0, y: y0 } of bresList) {
+//         for (let dyOff = -R; dyOff <= R; dyOff++) {
+//           const yy = y0 + dyOff;
+//           if (yy < 0 || yy >= imageSize) continue;
+//           for (let dxOff = -R; dxOff <= R; dxOff++) {
+//             const xx = x0 + dxOff;
+//             if (xx < 0 || xx >= imageSize) continue;
+
+//             const d = Math.abs(A * xx + B * yy + C) * invNorm;
+//             if (d <= maxDist) {
+//               const w = basicWeightFn(d, lineWidth);
+//               if (w > 0) {
+//                 xArr.push(xx);
+//                 yArr.push(yy);
+//                 wArr.push(w);
+//               }
+//             }
+//           }
+//         }
+//       }
+
+//       // 3) Convert to typed arrays
+//       const xs = Uint16Array.from(xArr);
+//       const ys = Uint16Array.from(yArr);
+//       const ws = Float32Array.from(wArr);
+
+//       map.set(key, { xs, ys, ws });
+//     }
+//   }
+
+//   return map;
+// }
+
+
 export function precomputeLines (
   pinVector: pin[],
   imageSize: number,
   radius: number,
-): Map<string, point[]> {
-  const map = new Map<string, point[]>()
+): Map<string, line> {
+  const map = new Map<string, line>()
   
   for (let i = 0; i < pinVector.length; i++) {
     for (let j = i + 1; j < pinVector.length; j++) {
       const key = getLineKey(i, j)
-
       // Bresenham ALGORITHM
       const { x1, y1, x2, y2, dx, dy, sx, sy } = getVariableForPixelSearch(
         pinVector[i].x, pinVector[i].y,
@@ -78,11 +175,13 @@ export function precomputeLines (
 
       const actual: point = { x: x1, y: y1 }
       let err = dx - dy
-      const line: point[] = []
+      const xArr: number[] = []
+      const yArr: number[] = []
 
       do {
         if (actual.x >= 0 && actual.x < imageSize && actual.y >= 0 && actual.y < imageSize) {
-          line.push({ x: actual.x, y: actual.y })
+          xArr.push(actual.x)
+          yArr.push(actual.y)
         }
 
         const e2 = err * 2
@@ -96,7 +195,9 @@ export function precomputeLines (
         }
       } while (actual.x !== x2 || actual.y !== y2)
 
-      map.set(key, line)
+      const xs = Uint16Array.from(xArr)
+      const ys = Uint16Array.from(yArr)
+      map.set(key, {xs, ys})
     }
   }
 
@@ -119,43 +220,75 @@ function getVariableForPixelSearch(pinx1: number, piny1: number, pinx2: number, 
   return {x1, y1, x2, y2, dx, dy, sx, sy}
 }
 
-
-
 // =========================================================================
 //                   STRING ART  ALGORITHM EXTERNAL FUNCTIONS
 // =========================================================================
-export function computeError ( 
-  computedErrorMatrix: number[][],  pin1Idx: number,  pin2Idx: number,  precomputedLines: Map<string, point[]>
+export function computeLineError ( 
+  computedErrorMatrix: number[][],  pin1Idx: number,  pin2Idx: number,  precomputedLines: Map<string, line>
 ): number {
   const key = getLineKey(pin1Idx, pin2Idx)
   const line = precomputedLines.get(key)
   if (!line) return Infinity // Fall back just in case
   let error = 0
-  for (const { x, y } of line) {
+
+  const { xs, ys } = line 
+  for (let i = 0; i < xs.length; i++){
     try {
-      error += computedErrorMatrix[y][x]
+      error += computedErrorMatrix[ys[i]][xs[i]] //* w[i]
     } catch (err) {
-      console.error(`Access error at x=${x}, y=${y}`)
-      // console.error(err)
+      console.error(`Access error at x=${xs[i]}, y=${ys[i]}`)
     }
   }
 
   return error
 }
 
-export function updateComputeImageMatrix(prevErrorMatrix:number[][], pin1Idx: number, pin2Idx: number, lineWidth: number, precomputedLines: Map<string, point[]>) {
+export function updateComputeImageMatrix(prevErrorMatrix:number[][], pin1Idx: number, pin2Idx: number, lineWidth: number, precomputedLines: Map<string, line>) {
   const newMatrix = prevErrorMatrix.map(row => [...row])
   const key = getLineKey(pin1Idx, pin2Idx)
   const line = precomputedLines.get(key)
 
   if (!line) return newMatrix // fallback if no precomputed line
-
-  for (const { x, y } of line) {
-    newMatrix[y][x] = Math.max(newMatrix[y][x] - 255 * lineWidth / 100, 0)
+  
+  const { xs, ys } = line 
+  for (let i = 0; i < xs.length; i++){
+    newMatrix[ys[i]][xs[i]] = Math.max(newMatrix[ys[i]][xs[i]] - 255 * lineWidth / 100, 0)
   }
 
   return newMatrix
 }
+
+
+export function computeError ( 
+  computedErrorMatrix: number[][]
+): number {
+  let error = 0
+  for (let row of computedErrorMatrix){
+    for (let value of row){
+      error += value
+    }
+  }
+
+  return error
+}
+
+// export function updateComputeImageMatrix(prevErrorMatrix:number[][], pin1Idx: number, pin2Idx: number, lineWidth: number, precomputedLines: Map<string, pixel>) {
+//   const newMatrix = prevErrorMatrix.map(row => [...row])
+//   const key = getLineKey(pin1Idx, pin2Idx)
+//   const line = precomputedLines.get(key)
+
+//   if (!line) return newMatrix // fallback if no precomputed line
+
+//   const { xs, ys, ws } = line 
+//   for (let i = 0; i < xs.length; i++){
+//       newMatrix[ys[i]][xs[i]] = Math.max(
+//       newMatrix[ys[i]][xs[i]] - (255 * ws[i] * ( lineWidth / 100)),
+//       0
+//     )
+//   }
+
+//   return newMatrix
+// }
 
 // =========================================================================
 //                              IMAGE FUNCTIONS

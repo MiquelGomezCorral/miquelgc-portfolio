@@ -12,7 +12,11 @@ import { Button, Input, ButtonModal } from '@/app/[locale]/(utils)/(components)/
 import { Loader } from '@/app/[locale]/(utils)/(components)/Loader';
 
 import { secondsToTime, checkLimits} from '@/app/[locale]/(utils)/(functions)/functionUtils';
-import { pin, point, computePins, precomputeLines, computeError, updateComputeImageMatrix, getCroppedImg } from '@/app/[locale]/(utils)/(functions)/computePins.worker';
+import { 
+  pin, line, computePins, precomputeLines, 
+  computeLineError, updateComputeImageMatrix, 
+  getCroppedImg, computeError
+} from '@/app/[locale]/(utils)/(functions)/computePins.worker';
 import { HeaderButton} from "@/app/[locale]/(utils)/(components)/ButtonsHeader";
 
 import CONFIG from "@/app/[locale]/(utils)/(constants)/configuration";
@@ -71,7 +75,7 @@ export function StringArtComponent(){
 
   // ================================ PINS ================================
   const neighbourtPinMargin = Math.ceil(CONFIG.neighbourtMaring)
-  const precomputedLinesRef = useRef<Map<string, point[]>>(new Map())
+  const precomputedLinesRef = useRef<Map<string, line>>(new Map())
 
   // ================================ FORM ================================
   const [errors, setErrors] = useState({ pins: false, lines: false, width: false , contrast: false})
@@ -278,10 +282,9 @@ export function StringArtComponent(){
     
     if(reset && workerRef.current){
       newLinesVector = [CONFIG.firstPin]
-      t1 = performance.now()
       computedErrorMatrix = errorMatrix.map((row) => [...row]);
       
-      //→ POST to worker and AWAIT response
+      // → POST to worker and AWAIT response
       // const { pins: newPins, lines } = await new Promise<{
       //   pins: pin[]
       //   lines: Map<string, point[]>
@@ -291,13 +294,15 @@ export function StringArtComponent(){
       //     pins: pin[]
       //     lines: Map<string, point[]>
       //   }>) => resolve(e.data)
-      //   w.postMessage({numPins,imageSize,radius: CONFIG.radius,margin: CONFIG.margin})
+      //   w.postMessage({numPins,imageSize, radius: CONFIG.radius, margin: CONFIG.margin, lineWidth})
       // })
+
       const newPins = computePins(numPins, CONFIG.radius, CONFIG.margin);
       // update pins & reconstruct your Map
       pins = newPins
       setPinVector(pins)
-      precomputedLinesRef.current = precomputeLines(pins, imageSize, CONFIG.radius)
+      precomputedLinesRef.current = precomputeLines(pins, imageSize, CONFIG.radius)//, lineWidth, 1.5)
+      t1 = performance.now()
     }
 
     setLinesVector(newLinesVector) 
@@ -308,18 +313,19 @@ export function StringArtComponent(){
     // ========================== EXECUTION ==========================
     intervalRef.current = setInterval(() => {
       // FINISH CHECK 
-      if (newLinesVector.length >= maxLines && intervalRef.current) {
+      if (intervalRef.current && (newLinesVector.length >= maxLines)) {
         clearInterval(intervalRef.current)
         setCreatingImage(false)
+        
         return
       }
-
+      const prevError = computeError(computedErrorMatrix)
       // ============= LOOK FOR NEXT PIN =============
       const prevPin = newLinesVector[newLinesVector.length - 1]
       const last10 = newLinesVector.slice(-CONFIG.lastNUsedPinsMargin)
       
       let nextPin = Math.floor(Math.random() * numPins)
-      let highestScore = computeError(computedErrorMatrix, prevPin, nextPin, precomputedLinesRef.current)
+      let highestScore = computeLineError(computedErrorMatrix, prevPin, nextPin, precomputedLinesRef.current)
 
       for (let i = 0; i < numPins; i++) {
         // Initial check for valid pints
@@ -333,7 +339,7 @@ export function StringArtComponent(){
         ) continue
 
         // Compute and compare score for the candidate 
-        const score = computeError(computedErrorMatrix, prevPin, i, precomputedLinesRef.current)
+        const score = computeLineError(computedErrorMatrix, prevPin, i, precomputedLinesRef.current)
         
         if (score > highestScore) {
           highestScore = score
@@ -371,12 +377,13 @@ export function StringArtComponent(){
           className="relative flex justify-center items-center aspect-square rounded-full"
           style={{ width: `${CONFIG.radius * 2}px`, minWidth: `${CONFIG.radius}px` }} // variable size following config
         >
-          <Loader enable={loading}/>
+          <Loader enable={loading} type="circle"/>
           {!croppingCompleted ? 
             <Cropper
               image={selectedImage}
               crop={crop}
               zoom={zoom}
+              maxZoom={CONFIG.maxZoom}
               zoomSpeed={CONFIG.zoomSmoothFactor} // smoother zoom
               aspect={1} // perfect circle
               onCropChange={setCrop}
@@ -422,7 +429,11 @@ export function StringArtComponent(){
             icon={"crop"}
             className="w-full"
             disabled={creatingImage}
-            onClick={(e) => handleCropImage()}
+            onClick={(e) => {
+              e.preventDefault()
+              handleCropImage()
+              setLoading(false)}
+            }
           /> 
 
           <Button
@@ -430,8 +441,11 @@ export function StringArtComponent(){
             icon={"star"}
             className="w-full"
             disabled={!croppingCompleted || linesVector.length >= maxLines}
-            onClick={()=>{
+            onClick={(e)=>{
+              e.preventDefault()
               startAlgorithm(linesVector.length <= 1) 
+              if (loading)
+                setLoading(false)
             }}
           /> 
 
@@ -446,6 +460,7 @@ export function StringArtComponent(){
               setLinesVector([CONFIG.firstPin]) 
               setInitialTime(0)
               setCreatingImage(false)
+              setLoading(false)
             }}
           /> 
 
@@ -453,7 +468,7 @@ export function StringArtComponent(){
             text={t("string.trace")}
             icon={"pin"}
             className="w-full"
-            disabled={linesVector.length < maxLines}
+            disabled={creatingImage || linesVector.length <= 1}
             onClick={()=>{}}
           > 
             <div className="w-full flex flex-col justify-center items-start gap-2">

@@ -17,6 +17,7 @@ class Configuration {
     public imageSize = 1900,
     public imageConstrast = 100, //100% is base
     public zoomSmoothFactor = 0.1,
+    public maxZoom = 10,
 
     public numPins   = 350,
     public maxLines  = 3500,

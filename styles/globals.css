@@ -105,7 +105,7 @@ html {
                 SPINNING LOADING ANIMATION
 ============================================================*/
 /* HTML: <div class="loader"></div> */
-.loader {
+.loader-blob {
   width: 80px;
   aspect-ratio: 1;
   border: 10px solid #0000;
@@ -116,11 +116,38 @@ html {
     radial-gradient(farthest-side,#fff 98%,#0000) 100% 100%/20px 20px,
     radial-gradient(farthest-side,#fff 98%,#0000) 0 100%/20px 20px,
     linear-gradient(#fff 0 0) 50%/40px 40px,
-    #00000055;
+    #00000022;
   background-repeat:no-repeat;
   filter: blur(4px) contrast(10);
   animation: l12 0.8s infinite;
 }
 @keyframes l12 {
   100%  {background-position:100% 0,100% 100%,0 100%,0 0,center}
+}
+
+/* HTML: <div class="loader"></div> */
+.loader-circle {
+  width: 100px;
+  aspect-ratio: 1;
+  display: grid;
+  border: 8px solid #0000;
+  border-radius: 50%;
+  border-right-color: #000;
+  animation: l15 1s infinite linear;
+}
+.loader-circle::before,
+.loader-circle::after {    
+  content: "";
+  grid-area: 1/1;
+  margin: 2px;
+  border: inherit;
+  border-radius: 50%;
+  animation: l15 2s infinite;
+}
+.loader-circle::after {
+  margin:12px;
+  animation-duration: 3s;
+}
+@keyframes l15{ 
+  100%{transform: rotate(1turn)}
 }
