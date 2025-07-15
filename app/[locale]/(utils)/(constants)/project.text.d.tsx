@@ -165,7 +165,7 @@ export const getProjects = (t: TFunction):  ProjectsObject => {
     descriptionLong:t("string.description_long"),
     technologies: ["html", "css", "react", "typescript", "next", "tailwind", "github"],
     logo: "String Art (1)",
-    screenShoots: Array.from({ length: 3 }, (_, i) => `String Art (${i+1})`),
+    screenShoots: Array.from({ length: 4 }, (_, i) => `String Art (${i+1})`),
     link: ProjectsFolder+"string_art",
     youtube: YouTubeEmbed+"", //video id
     github:  GithubLink+"",

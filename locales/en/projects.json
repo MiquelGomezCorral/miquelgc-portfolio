@@ -57,7 +57,7 @@
     "string": {
         "title": "String art",
         "description_short": "From pixels to lines. This algorithm transforms raw numbers into patterns that resemble art. Start from one point, evaluate all possible lines, and draw the one that improves the image the most. Repeat until you're done!",
-        "description_long": "From pixels to lines. This algorithm turns raw pixel data into beautiful line art. It starts at one pin, checks all possible connections, and draws the line that improves the image best. Then it does it again—until a full pattern emerges. Try it with any photo: drag or paste it in, tweak the settings, and find your perfect result. Just note—some settings may slow down processing or cause artifacts, so experiment carefully!",
+        "description_long": "From pixels to lines. This algorithm turns raw pixel data into beautiful line art. It starts at one pin, checks all possible connections, and draws the line that improves the image best. Then it does it again—until a full pattern emerges. Try it with any photo: drag or paste it in, tweak the settings, and find your perfect result. Just note—some settings may slow down processing or cause artifacts, so experiment carefully! All the galery samples have been created with 900 pins, 7000 lines, 7 of width and different contrast values.",
 
         "upload": "Upload image",
         "crop": "Crop",

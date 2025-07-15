@@ -57,7 +57,7 @@
     "string": {
         "title": "Hiloramas",
         "description_short": "De píxeles a líneas. Este algoritmo transforma datos en bruto en patrones que parecen arte. Comienza desde un punto, evalúa todas las líneas posibles y traza la que más mejora la imagen. Repite el proceso hasta que se quede como te guste :).",
-        "description_long": "De píxeles a líneas. Este algoritmo convierte los datos de una imagen en una obra hecha con hilos. Parte desde un pin, analiza todas las conexiones posibles y dibuja la línea que más mejora el resultado. Luego lo repite, una y otra vez, hasta que surja el diseño completo. Prueba también tu fotos: arrástrala o pégala, ajusta los parámetros y encuentra el resultado ideal. Eso sí, ¡ten en cuenta que algunas configuraciones pueden tardar más o generar artefactos!",
+        "description_long": "De píxeles a líneas. Este algoritmo convierte los datos de una imagen en una obra hecha con hilos. Parte desde un pin, analiza todas las conexiones posibles y dibuja la línea que más mejora el resultado. Luego lo repite, una y otra vez, hasta que surja el diseño completo. Prueba también tu fotos: arrástrala o pégala, ajusta los parámetros y encuentra el resultado ideal. Eso sí, ¡ten en cuenta que algunas configuraciones pueden tardar más o generar artefactos! Todos los ejemplos de la galería han sido creados con 900 pins, 7000 líneas, 7 de grosor y constraste variado.",
 
         "upload": "Subir imagen",
         "crop": "Recortar",
