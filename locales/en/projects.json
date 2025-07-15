@@ -56,9 +56,9 @@
     },
     "string": {
         "title": "String art",
-        "description_short": "The Three-Body Problem, a good Netflix series, shows what can happen in the universe when physics are involved with large objects (planets and stars). Here, I simulate the interaction of some objects using simple Newton's equations implemented in C++. We can enable collisions and make the objects behave like bouncing balls. Super fun.",
-        "description_long": "The Three-Body Problem, a good Netflix series, shows what can happen in the universe when physics are involved with large objects (planets and stars). Here, I simulate the interaction of some objects using simple Newton's equations implemented in C++. We can enable collisions and make the objects behave like bouncing balls. Super fun.",
-        
+        "description_short": "From pixels to lines. This algorithm transforms raw numbers into patterns that resemble art. Start from one point, evaluate all possible lines, and draw the one that improves the image the most. Repeat until you're done!",
+        "description_long": "From pixels to lines. This algorithm turns raw pixel data into beautiful line art. It starts at one pin, checks all possible connections, and draws the line that improves the image best. Then it does it again—until a full pattern emerges. Try it with any photo: drag or paste it in, tweak the settings, and find your perfect result. Just note—some settings may slow down processing or cause artifacts, so experiment carefully!",
+
         "upload": "Upload image",
         "crop": "Crop",
         "accept": "Accept",
@@ -82,9 +82,9 @@
         "total-time": "Total time",
         "stimated-time": "Stimated time",
 
-        "pins-info": "Number of pins\nMin 2 - Max 1000\nRecomended [300-500]",
+        "pins-info": "Number of pins\nMin 2 - Max 1000\nRecomended [300-750]",
         "lines-info": "Number of lines\nMin 1 - Max Infinite\nRecomended [2500-5000]",
-        "width-info": "Width of the lines\nMin 1 - Max 100\nRecomended [5-30]",
+        "width-info": "Width of the lines\nMin 1 - Max 100\nRecomended [5-20]",
         "contrast-info": "Contrast of the image\nMin 1 - Max Inf\nRecomended [50-250]"
         
     }

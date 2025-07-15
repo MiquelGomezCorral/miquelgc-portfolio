@@ -56,9 +56,9 @@
     },
     "string": {
         "title": "Hiloramas",
-        "description_short": "The Three-Body Problem, a good Netflix series, shows what can happen in the universe when physics are involved with large objects (planets and stars). Here, I simulate the interaction of some objects using simple Newton's equations implemented in C++. We can enable collisions and make the objects behave like bouncing balls. Super fun.",
-        "description_long": "The Three-Body Problem, a good Netflix series, shows what can happen in the universe when physics are involved with large objects (planets and stars). Here, I simulate the interaction of some objects using simple Newton's equations implemented in C++. We can enable collisions and make the objects behave like bouncing balls. Super fun.",
-        
+        "description_short": "De píxeles a líneas. Este algoritmo transforma datos en bruto en patrones que parecen arte. Comienza desde un punto, evalúa todas las líneas posibles y traza la que más mejora la imagen. Repite el proceso hasta que se quede como te guste :).",
+        "description_long": "De píxeles a líneas. Este algoritmo convierte los datos de una imagen en una obra hecha con hilos. Parte desde un pin, analiza todas las conexiones posibles y dibuja la línea que más mejora el resultado. Luego lo repite, una y otra vez, hasta que surja el diseño completo. Prueba también tu fotos: arrástrala o pégala, ajusta los parámetros y encuentra el resultado ideal. Eso sí, ¡ten en cuenta que algunas configuraciones pueden tardar más o generar artefactos!",
+
         "upload": "Subir imagen",
         "crop": "Recortar",
         "accept": "Aceptar",
@@ -81,9 +81,9 @@
         "total-time": "Tiempo total",
         "stimated-time": "Tiempo estimado",
 
-        "pins-info": "Número de pines\nMin 2 - Max 1000\nRecomendedado [300-500]",
+        "pins-info": "Número de pines\nMin 2 - Max 1000\nRecomendedado [300-750]",
         "lines-info": "Número de líneas\nMin 1 - Max Infinite\nRecomendedado [2500-5000]",
-        "width-info": "Grosor de la línea\nMin 1 - Max 100\nRecomendedado [5-30]",
+        "width-info": "Grosor de la línea\nMin 1 - Max 100\nRecomendedado [5-20]",
         "contrast-info": "Contrasete de la imágen\nMin 1 - Max Inf\nRecomendedado [50-250]"
     }
 }
