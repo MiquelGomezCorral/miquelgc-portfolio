@@ -7,8 +7,6 @@ class Configuration {
     public shakingTime = 300, // ms
 
     // =============== String art ===============
-    // public defaultImage = "/assets/projects/Robot.webp",
-    // public defaultImage = "/assets/projects/Einstein.webp",
     public defaultImages = [
       "/assets/projects/Noether.webp",
       "/assets/projects/Einstein.webp",
