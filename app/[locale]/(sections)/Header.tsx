@@ -38,22 +38,22 @@ export default function Header() {
         </nav>
 
         <nav className='gap-4 flex'>
-          <ButtonLink icon="user-tick-thick"link="/#header" >
+          <ButtonLink icon="user-tick-thick" link="/#header" >
             {t("about_me")}     
           </ButtonLink>
-          <ButtonLink icon="card-thick"     link="/#experiences"  >
+          <ButtonLink icon="card-thick"      link="/#experiences"  >
             {t("experience")}   
           </ButtonLink>
-          <ButtonLink icon="hat-thick"      link="/#studies"      >
+          <ButtonLink icon="hat-thick"       link="/#studies"      >
             {t("studies")}      
           </ButtonLink>
-          <ButtonLink icon="code-tag-thick" link="/projects" >
+          <ButtonLink icon="code-tag-thick"  link="/projects" >
             {t("projects")}     
           </ButtonLink>
-          <ButtonLink icon="terminal-thick" link="/#technologies" >
+          <ButtonLink icon="terminal-thick"  link="/#technologies" >
             {t("technologies")} 
           </ButtonLink>
-          <ButtonLink icon="email"          link="#footer"        notAddToStack stayPage >
+          <ButtonLink icon="email"           link="#footer"        notAddToStack stayPage >
             {t("contact")}      
           </ButtonLink>
           <DownloadCV>
