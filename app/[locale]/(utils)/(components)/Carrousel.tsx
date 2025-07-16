@@ -73,21 +73,33 @@ export function useCarrousel({list}: {list: object[]}){
 	// ================================== ANIMATION ==================================
 	// Observe the viewe of the user so we can animate the slider when it gets into the veiwe
 	useEffect(() => {
-		if (!scrollContainerRef.current || hasScrolled.current) return;
+		const container = scrollContainerRef.current
+		if (!container || hasScrolled.current) return;
 
-		const observer = new IntersectionObserver(([entry]) => {
+		// Intersection to scroll-to-zero once
+		const io = new IntersectionObserver(([entry]) => {
 			setTimeout(() =>{
-				if (entry.isIntersecting && scrollContainerRef.current) {
-				scrollContainerRef.current.scrollTo({ left: 0, behavior: "smooth" });
+				if (entry.isIntersecting && container) {
+				container.scrollTo({ left: 0, behavior: "smooth" });
 				hasScrolled.current = true;
-				observer.disconnect();
+				io.disconnect();
 			}},100)
 		})
+		io.observe(container);
 
-		observer.observe(scrollContainerRef.current);
-		setCardSize(scrollContainerRef.current?.scrollWidth / list.length)
+		// ResizeObserver to update cardSize whenever container width changes
+		const ro = new ResizeObserver(() => {
+			setCardSize(container.scrollWidth / list.length)
+		})
+		ro.observe(container)
 
-		return () => observer.disconnect();
+		//  initial calc
+		setCardSize(container.scrollWidth / list.length)
+
+		return () => {
+			io.disconnect()
+			ro.disconnect()
+		}
 	}, [scrollContainerRef])
 
 	return { scrollContainerRef, scrollOn: scrollOnIdx, scrollLeft, scrollRight, scrollSlider }
