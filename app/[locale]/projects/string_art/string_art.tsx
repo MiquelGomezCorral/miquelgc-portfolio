@@ -156,7 +156,7 @@ export function StringArtComponent(){
     const timeout = setTimeout(() => {
       const fakeFormEvent = { preventDefault: () => {} } as React.ChangeEvent<HTMLInputElement>
       onChangeFormValues(fakeFormEvent)
-    }, CONFIG.debounceTime * 5) // ms debounce
+    }, CONFIG.debounceTime * 2.5) // ms debounce
 
     return () => clearTimeout(timeout)
   }, [numPins, maxLines, lineWidth, imageContrast])
@@ -195,7 +195,7 @@ export function StringArtComponent(){
   useEffect(() => { // Contrast debounce to update de image.
     const timeout = setTimeout(() => {
       handleCropImage(false)
-    }, CONFIG.debounceTime) // ms debounce
+    }, CONFIG.debounceTime / 3) // ms debounce
 
     return () => clearTimeout(timeout)
   }, [imageContrast])

@@ -3,7 +3,7 @@ class Configuration {
     // =============== General ===============
     public version = "1.1.0",
 
-    public debounceTime = 100, // ms
+    public debounceTime = 300, // ms
     public shakingTime = 300, // ms
 
     // =============== String art ===============
