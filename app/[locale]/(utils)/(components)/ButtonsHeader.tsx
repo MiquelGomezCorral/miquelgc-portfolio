@@ -59,7 +59,7 @@ export function HeaderButtonIcon({icon, className, onClick, ...props}: HeaderBut
 }
 
 
-
+import { useRouter } from "next/navigation"  
 interface HeaderButtonLinkProps  {
   icon?: string,
   
@@ -73,6 +73,7 @@ interface HeaderButtonLinkProps  {
   onClick?: () => void,
 }
 export function ButtonLink({icon, link, blank, notAddToStack, stayPage, onClick, className, ...props }: HeaderButtonLinkProps){
+  const router = useRouter()
   const { goToPageFrom, currentPage } = usePageStackStore()
 
   return (
@@ -85,6 +86,8 @@ export function ButtonLink({icon, link, blank, notAddToStack, stayPage, onClick,
       onClick={() => {        
         console.log("link: " + link)
         console.log("currentPage: " + currentPage)
+        
+        router.push(link)
         if(!notAddToStack)
           if(
             ((currentPage === "/es" || currentPage === "/en" || currentPage === "/") && !link.startsWith("/#")) ||
