@@ -85,6 +85,11 @@ html {
   opacity: 1;
 }
 
+
+.miquel-transition {
+  transition: all 300ms;
+}
+
 /* ============================================================
                  CUSTOM CLASS FOR GRADIENT
 ============================================================*/
@@ -100,6 +105,36 @@ html {
            to-transparent;
   }
 }
+
+
+
+/* ============================================================
+                SMOKING ANIMATION
+============================================================*/
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-200px);
+  }
+}
+
+.animate-float {
+  animation: float linear infinite;
+}
+
+/* @keyframes hidde-opacity{
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.animate-hidde-opacity {
+  animation: hidde-opacity 0.5s ease-in-out forwards;
+} */
 
 /* ============================================================
                 SPINNING LOADING ANIMATION
