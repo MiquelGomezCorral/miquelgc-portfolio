@@ -87,5 +87,10 @@
         "width-info": "Width of the lines\nMin 1 - Max 100\nRecomended [5-20]",
         "contrast-info": "Contrast of the image\nMin 1 - Max Inf\nRecomended [50-250]"
         
+    },
+    "smoking": {
+        "title": "A cigarret?",
+        "description_short": "Chill...",
+        "description_long": "Chill..."
     }
 }

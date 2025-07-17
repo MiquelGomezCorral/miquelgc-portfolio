@@ -26,6 +26,7 @@ type ProjectsObject = {
   OrbitsSimulator: ProjectType;
   AutoImageToAscii: ProjectType;
   StringArt: ProjectType;
+  Smoking: ProjectType
 };
 export const getProjects = (t: TFunction):  ProjectsObject => {
   const Porfolio: ProjectType = {
@@ -142,7 +143,7 @@ export const getProjects = (t: TFunction):  ProjectsObject => {
     screenShoots: Array.from({ length: 9 }, (_, i) => `Boids (${i+1})`),
     link: ProjectsFolder+"portfolio",
     youtube: YouTubeEmbed+"", //video id
-    github:  GithubLink+"/Tetris-JavaFX",
+    github:  GithubLink+"Tetris-JavaFX",
   }
 
   const OrbitsSimulator: ProjectType = {
@@ -160,7 +161,7 @@ export const getProjects = (t: TFunction):  ProjectsObject => {
 
   const StringArt: ProjectType = {
     title: t("string.title"),
-    finished: t("progress"),
+    finished: t("finished"),
     descriptionShort: t("string.description_short"),
     descriptionLong:t("string.description_long"),
     technologies: ["html", "css", "react", "typescript", "next", "tailwind", "github"],
@@ -168,7 +169,20 @@ export const getProjects = (t: TFunction):  ProjectsObject => {
     screenShoots: Array.from({ length: 4 }, (_, i) => `String Art (${i+1})`),
     link: ProjectsFolder+"string_art",
     youtube: YouTubeEmbed+"", //video id
-    github:  GithubLink+"",
+    github:  GithubLink+"miquelgc-portfolio/tree/main/app/%5Blocale%5D/projects/string_art",
+  }
+
+  const Smoking: ProjectType = {
+    title: t("smoking.title"),
+    finished: t("progress"),
+    descriptionShort: t("smoking.description_short"),
+    descriptionLong:t("smoking.description_long"),
+    technologies: ["html", "css", "react", "typescript", "next", "tailwind", "github"],
+    logo: "String Art (1)",
+    screenShoots: [], // Array.from({ length: 0 }, (_, i) => `Smoking (${i+1})`),
+    link: ProjectsFolder+"smoking",
+    youtube: YouTubeEmbed+"", //video id
+    github:  GithubLink+"miquelgc-portfolio/tree/main/app/%5Blocale%5D/projects/smoking",
   }
 
   return {
@@ -183,5 +197,6 @@ export const getProjects = (t: TFunction):  ProjectsObject => {
     // TetrisJavaFX,
     OrbitsSimulator,
     AutoImageToAscii,
+    Smoking
   }
 }

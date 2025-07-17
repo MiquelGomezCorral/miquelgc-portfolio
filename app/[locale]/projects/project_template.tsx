@@ -66,7 +66,8 @@ export function ProjectPageTemplate({object,  t, params, headerDisplay}: {object
               <GlowingText className="text-2xl">{t("technologies")}</GlowingText>
               <TechnologyMarquee technologies={object.technologies} />
             </section>
-
+            
+            {object.screenShoots?.length > 0  &&
             <section className="h-52 sm:h-96 w-full">
               <Marquee pauseOnHover
                 className="[--duration:20s] w-full h-full">
@@ -75,6 +76,7 @@ export function ProjectPageTemplate({object,  t, params, headerDisplay}: {object
                 )}
               </Marquee>
             </section>
+            }
 
           </article>
         </div>

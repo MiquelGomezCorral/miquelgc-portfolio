@@ -85,5 +85,10 @@
         "lines-info": "Número de líneas\nMin 1 - Max Infinite\nRecomendedado [2500-5000]",
         "width-info": "Grosor de la línea\nMin 1 - Max 100\nRecomendedado [5-20]",
         "contrast-info": "Contrasete de la imágen\nMin 1 - Max Inf\nRecomendedado [50-250]"
+    },
+    "smoking": {
+        "title": "¿Un cigarro?",
+        "description_short": "Relajate...",
+        "description_long": "Relajate..."
     }
 }
