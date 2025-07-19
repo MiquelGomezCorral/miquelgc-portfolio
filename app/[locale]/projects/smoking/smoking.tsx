@@ -56,7 +56,7 @@ export function SmokingComponent(){
   return(
     <>
     <SoundPlayer src="fire-low" play={cigaretteHeight > 0} loop/>
-    <SoundPlayer src="fire-high" play={holding && cigaretteHeight > 0} loop/>
+    <SoundPlayer src="fire-high" play={cigaretteHeight > 0 && holding} loop/>
     <SoundPlayer src="ligh-up" play={cigaretteHeight > 0}/>
     <section className='min-h-screen max-h-full w-full flex flex-col justify-start gap-24' 
       onMouseDown={() => setHolding(true)}
