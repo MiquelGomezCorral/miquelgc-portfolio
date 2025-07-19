@@ -5,6 +5,9 @@ class Configuration {
 
     public debounceTime = 300, // ms
     public shakingTime = 300, // ms
+    // =============== String art ===============
+    public cigaretteMaxLength = 2280,
+    public cigaretteBurning = 10,
 
     // =============== String art ===============
     public defaultImages = [
