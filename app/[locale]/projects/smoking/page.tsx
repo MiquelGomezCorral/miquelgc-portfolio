@@ -18,7 +18,7 @@ export default async function ProjectPage({ params }: { params: any }) {
       locale={locale}
       resources={resources}
     >
-      <ProjectPageTemplate object={Smoking} t={t} params={{locale: locale}} headerDisplay={<SmokingComponent/>}/>
+      <ProjectPageTemplate object={Smoking} t={t} params={{locale: locale}} headerDisplay={<SmokingComponent/>} stickyHeader/>
     </TranslationsProvider>
   )
 }

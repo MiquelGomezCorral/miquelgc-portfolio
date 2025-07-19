@@ -18,6 +18,9 @@ export function SmokingComponent(){
   const [cigaretteHeight, setCigaretteHeight] = useState(1) 
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
+  useEffect(() => {
+    window.scrollBy({ top: 100, behavior: "smooth" });
+  }, []);
   
   useEffect(() => {
     timerRef.current = setInterval(() => {
@@ -61,7 +64,7 @@ export function SmokingComponent(){
       onKeyDown={() => setHolding(true)}
       onKeyUp={() => setHolding(false)}
     >
-      <figure className="w-full h-[300px] flex justify-center items-end">
+      <figure className="w-full h-[400px] flex justify-center items-end">
         <div className=" w-full flex flex-col items-center justify-end">
           {cigaretteHeight > 0 &&
             <>

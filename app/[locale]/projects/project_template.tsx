@@ -10,11 +10,17 @@ import Header from "@/app/[locale]/(sections)/Header";
 import Footer from "@/app/[locale]/(sections)/Footer";
 import type { TFunction } from "i18next";
 
-
-export function ProjectPageTemplate({object,  t, params, headerDisplay}: {object: ProjectType, t: TFunction,  params:{locale: string}, headerDisplay?: React.ReactNode}) {
+interface ProjectPageTemplateProps {
+  object: ProjectType, 
+  t: TFunction, 
+  params:{locale: string}, 
+  headerDisplay?: React.ReactNode,
+  stickyHeader?: boolean,
+}
+export function ProjectPageTemplate({object,  t, params, headerDisplay, stickyHeader}: ProjectPageTemplateProps) {
   return (
     <>
-      <Header />
+      <Header sticky={stickyHeader} />
       
       <main className="max-w-[110rem] w-full flex flex-col gap-16 px-4 md:px-10 xl:px-48 2xl:px-64">
         <div className="w-full flex flex-col justify-center gap-10 rounded-xl">

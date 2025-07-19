@@ -15,7 +15,7 @@ import { ButtonHeaderModal, ButtonLink, HeaderButtonIcon} from "@/app/[locale]/(
 import CONFIG from "@/app/[locale]/(utils)/(constants)/configuration";
 
 
-export default function Header() {
+export default function Header({sticky}: {sticky?: boolean}) {
   const {t} = useTranslation("header");
   const [showMenu, setshowMenu] = useState(false)
   const { currentPage } = usePageStackStore()
@@ -27,8 +27,11 @@ export default function Header() {
   return (
     <div className='flex w-full' id="header">
       {/* ================== HORIZONTAL VIEW MENU ==================*/}
-      <header className='fixed hidden lg:flex justify-between z-40 text-xs xl:text-sm px-10 md:px-16 lg:px-20 py-4 w-full h-full sm:h-auto xl:gap-10 top-0
-      backdrop-blur-md border-b-2 border-b-miquel-white-200/50'>
+      <header className={cn("hidden lg:flex justify-between z-40 text-xs xl:text-sm px-10 md:px-16 lg:px-20 py-4 w-full h-full sm:h-auto " +
+        "xl:gap-10 top-0 backdrop-blur-md border-b-2 border-b-miquel-white-200/50",
+        {"fixed": !sticky},
+        {"sticky -translate-y-32": sticky}
+        )}>
         <nav className='w-max flex justify-between gap-4'>
           <GoBackButton />
           
@@ -73,13 +76,22 @@ export default function Header() {
       {/* MENU BUTTON*/}
 
       <div
-        className={cn("fixed flex justify-center items-center lg:hidden z-50 top-4 left-6 rounded-full p-2 1 w-9 border hover:bg-miquel-blue-300 backdrop-blur-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)]", {"hidden": showMenu || currentPage === "/" || currentPage === "/es" })}
+        className={cn("flex justify-center items-center lg:hidden z-50 top-4 left-6 rounded-full p-2 1 w-9 border hover:bg-miquel-blue-300 backdrop-blur-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)]", 
+          {"hidden": showMenu || currentPage === "/" || currentPage === "/es" },
+          {"fixed": !sticky},
+          {"sticky -translate-y-32 ": sticky}
+          
+        )}
       >
         <GoBackButton />
       </div>
 
       <div
-        className="fixed lg:hidden z-50 top-4 right-6 rounded-full p-2 w-9 border hover:bg-miquel-white-200/25 backdrop-blur-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)] transform duration-300"
+        className={cn("lg:hidden z-50 top-4 right-6 rounded-full p-2 w-9 border hover:bg-miquel-white-200/25 backdrop-blur-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)] transform duration-300",
+        {"fixed": !sticky},
+        {"sticky -translate-y-32 ml-auto": sticky}
+          
+        )}
         onClick={() => setshowMenu(!showMenu)}
       >
         <Icon
