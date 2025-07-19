@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useEffect, useRef, useState } from "react";
 
 
-import { Icon } from '@/app/[locale]/(utils)/(components)/Icons';
+import { Icon, IconProps } from '@/app/[locale]/(utils)/(components)/Icons';
 import { Modal } from '@/app/[locale]/(utils)/(components)/Utils';
 
 
@@ -11,12 +11,13 @@ interface ButtonProps {
   children?: React.ReactNode,
   text?:string,
   icon?:string,
+  iconType?: IconProps["type"],
   type?:"button" | "submit" | "reset" | undefined, 
   className?: string,
   disabled?: boolean
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void,
 }
-export function Button({text, children, icon, className, type = "button", disabled, onClick}: ButtonProps){
+export function Button({text, children, icon, iconType, className, type = "button", disabled, onClick}: ButtonProps){
   return(
     <button type={type} disabled = {disabled} 
       className={cn(
@@ -35,6 +36,7 @@ export function Button({text, children, icon, className, type = "button", disabl
           height={20}
           width={20}
           title={icon}
+          type={iconType}
         />
       }
       {text}

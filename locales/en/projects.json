@@ -91,6 +91,11 @@
     "smoking": {
         "title": "A cigarret?",
         "description_short": "Chill...",
-        "description_long": "Chill..."
+        "description_long": "Chill...",
+
+        "another": "Another one?",
+        "intensive": "moking intensively",
+        "slow": "The cigarette is burning slowly, click to smoke..."
+
     }
 }

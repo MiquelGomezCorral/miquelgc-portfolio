@@ -133,7 +133,7 @@ export function IconCopy({ copyText, ...props}: IconCopyProps) {
   )
 }
 
-interface IconProps {
+export interface IconProps {
   width?: number, 
   height?: number, 
   src: string, 

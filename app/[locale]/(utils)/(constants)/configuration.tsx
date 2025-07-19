@@ -1,13 +1,16 @@
 class Configuration {
   constructor(
     // =============== General ===============
-    public version = "1.1.1",
+    public version = "1.2.0",
 
     public debounceTime = 300, // ms
     public shakingTime = 300, // ms
     // =============== String art ===============
-    public cigaretteMaxLength = 2280,
-    public cigaretteBurning = 10,
+    public cigaretteTime = 30, //Num s / 4 for some reason, 120/4 = 30
+    public cigaretteMaxHeight = 230,
+
+    public slowSmokeParticles = 3,
+    public fastSmokeParticles = 10,
 
     // =============== String art ===============
     public defaultImages = [

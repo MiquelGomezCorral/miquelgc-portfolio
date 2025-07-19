@@ -124,17 +124,7 @@ html {
   animation: float linear infinite;
 }
 
-/* @keyframes hidde-opacity{
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-.animate-hidde-opacity {
-  animation: hidde-opacity 0.5s ease-in-out forwards;
-} */
+
 
 /* ============================================================
                 SPINNING LOADING ANIMATION

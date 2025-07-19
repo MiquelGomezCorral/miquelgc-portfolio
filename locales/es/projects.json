@@ -89,6 +89,10 @@
     "smoking": {
         "title": "¿Un cigarro?",
         "description_short": "Relajate...",
-        "description_long": "Relajate..."
+        "description_long": "Relajate...",
+
+        "another": "¿Otro más?",
+        "intensive": "Fumando intensamente",
+        "slow": "El cigarro se está quemando lentamente, haz click para fumar..."
     }
 }
