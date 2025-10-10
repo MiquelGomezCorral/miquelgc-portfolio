@@ -3,7 +3,11 @@
     "icon":"hat",
     "title": "Studies",
 
-
+    "master": {
+        "title": "Master: Master in Artificial Intelligence",
+        "date": "Sep 2025 – Jun 2026",
+        "description": "At the MUIARFID, I have deepened my knowledge in artificial intelligence, machine learning, algorithms, image recognition and other useful skillsets. I have also had the opportunity to work on real-world projects and collaborate with industry professionals."
+    },
     "erasmus": {
         "title": "Erasmus: 4th Year of the Degree",
         "date": "Sep 2024 – Jan 2025",

@@ -4,6 +4,17 @@ import type { TFunction } from "i18next";
 // export const ExperienceFolder = "/projects/"
 export const getStudies = (t: TFunction): CardType[] => {
 
+  const Master: CardType = {
+    title: t("master.title"), 
+    company: "MUIARFID: ETS INF de la UPV", 
+    date: t("master.date"),
+    place: "Valencia, España",
+    description: t("master.description"), 
+    technologies: ["ai", "python", "pandas", "pytorch", "pandas", "plotly", "matplot", "jupyter", "c-sharp", "unity", "numpy"], 
+    logo: "studies/UPV",
+    link: "https://www.upv.es/estudios/master/muiarfid/",
+    silly: ">:("
+  }
   const Erasmus: CardType = {
     title: t("erasmus.title"), 
     company: "Ecole polytechnique de Lausanne (EPFL)", 
@@ -23,7 +34,7 @@ export const getStudies = (t: TFunction): CardType[] => {
     description:  t("upv.description"), 
     technologies: ["ai", "java", "sql" , "c", "sklearn", "jupyter" ,"mathematica",  "risc-v" , "java-fx", "haskell", "prolog", "docker"], 
     logo: "studies/UPV",
-    link: "https://www.upv.es/",
+    link: "https://www.upv.es/titulaciones/GII/",
     silly: ":O"
   }
   const EsoBach: CardType = {
@@ -40,6 +51,7 @@ export const getStudies = (t: TFunction): CardType[] => {
 
 
   return [
+    Master,
     Erasmus,
     Upv,
     EsoBach,
