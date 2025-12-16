@@ -1,3 +1,5 @@
+# VISIT THE WEB
+You can find the deployed working version at [miquelgc.net](https://miquelgc.net)
 # MAKE APP RUN
 For somereason sometimes when you restart the proyect it won't run, '.next' gets glichi and won't work. You have to execute these command
 >  Remove-Item -Recurse -Force .next
