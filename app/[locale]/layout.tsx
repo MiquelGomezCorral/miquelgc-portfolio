@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/styles/globals.css";
+import { ToastContainer } from "@/app/[locale]/(utils)/(components)/Toast";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -57,6 +58,7 @@ export default function RootLayout({children}: {children: React.ReactNode;}) {
         className={`${inter.className} w-full pt-32 gap-20 flex flex-col justify-center items-center bg-miquel-background text-miquel-white-200`}
       >
         {children}
+        <ToastContainer />
       </body>
     </html>
   );

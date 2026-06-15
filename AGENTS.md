@@ -52,6 +52,7 @@ On Windows: `Remove-Item -Recurse -Force .next`
 - **styled-components** v5 also used — components may mix Tailwind classes + styled-components.
 - Custom CSS classes in `styles/globals.css`: `.miquel-opacity`, `.miquel-transition`, `.bg-miquel-gradient`, loader animations (`.loader-blob`, `.loader-circle`), `.animate-float`.
 - **Framer Motion** for animations, **canvas-confetti** for confetti effects, **EmailJS** for contact form.
+- **Toast notifications** via `useToastStore` (Zustand) — use `useToastStore.getState().addToast(msg, 'success'|'error'|'info')` from anywhere. `<ToastContainer />` mounted in root layout.
 
 ## Git workflow
 

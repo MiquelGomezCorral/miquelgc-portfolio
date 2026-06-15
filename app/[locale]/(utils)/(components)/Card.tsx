@@ -3,6 +3,7 @@ import Link from "next/link";
 import { TechnologyMarquee } from '@/app/[locale]/(utils)/(components)/Technologies';
 import GlowingText from "./GlowingText";
 import { IconCopy, IconLink } from "./Icons";
+import { useToastStore } from "./Toast";
 import { TechnologyString } from "@/app/[locale]/(utils)/(constants)/technologies.d";
 
 export type CardType = { 
@@ -76,7 +77,7 @@ export function Card({ object }: { object: CardType }) {
             <div className={
               "h-8 w-8 rounded-full bg-miquel-blue-100 border-miquel-blue-400 border-4 z-20 group-hover/li:animate-spin-slow transition duration-1000"+ 
               " text-transparent group-hover/li:text-black/70 hover:cursor-pointer flex justify-center items-center text-xs "}
-              onClick={() => alert(`YOU FOUND ME! ${object.silly}`)}
+              onClick={() => useToastStore.getState().addToast(`YOU FOUND ME! ${object.silly}`, 'info')}
               >
               {object.silly}
             </div>

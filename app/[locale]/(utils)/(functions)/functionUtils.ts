@@ -1,6 +1,7 @@
 "use client"
 
 import { useTranslation } from 'react-i18next';
+import { useToastStore } from '@/app/[locale]/(utils)/(components)/Toast';
 // =========================================================================
 //                              UTIL FUNCTIONS
 // =========================================================================
@@ -32,9 +33,9 @@ export function ShowAlertCopy(text:string){
   const {t} = useTranslation("general")
   return () => {
     navigator.clipboard.writeText(text).then(() => {
-      alert(`${t("copied")}\n'${text}'`);
+      useToastStore.getState().addToast(`${t("copied")} '${text}'`, 'success')
     }).catch(err => {
-      console.error(t("copied-error"), err);
+      useToastStore.getState().addToast(t("copied-error") + err, 'error')
     });
   };
 }

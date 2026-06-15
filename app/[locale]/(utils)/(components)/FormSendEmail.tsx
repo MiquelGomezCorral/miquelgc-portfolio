@@ -6,6 +6,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/app/[locale]/(utils)/(components)/Buttons';
 import { useTranslation } from "react-i18next";
 import { ShakeHard } from 'reshake'
+import { useToastStore } from '@/app/[locale]/(utils)/(components)/Toast';
 
 import CONFIG from "@/app/[locale]/(utils)/(constants)/configuration";
 
@@ -125,7 +126,7 @@ export function FormSendEmail(){
           // Save last time sent
           localStorage.setItem('lastSubmitTime', currentTime.toString());
 
-          alert(t("alert.success"))
+          useToastStore.getState().addToast(t("alerts.success"), 'success')
           console.log('SUCCESS!');
 
           setName("")
@@ -133,7 +134,7 @@ export function FormSendEmail(){
           setMessage("")
         },
         (error) => {
-          alert(t("alert.failed"))
+          useToastStore.getState().addToast(t("alerts.failed"), 'error')
           console.log('FAILED...', error.text);
         },
       );
