@@ -2,6 +2,17 @@ import { CardType } from "@/app/[locale]/(utils)/(components)/Card"
 import type { TFunction } from "i18next";
 // export const ExperienceFolder = "/projects/"
 export const getExperiences = (t: TFunction): CardType[] => {
+  const VidextAuto: CardType = {
+    title: t("vidext_auto.title"), 
+    company: "Vidext", 
+    date: t("vidext_auto.date"),
+    place: "Valencia, España",
+    description: t("vidext_auto.description"),
+    technologies: ["ai", "python", "fastapi", "docker", "github", "pandas", "numpy"], 
+    logo: "experience/Vidext",
+    link: "https://www.vidext.io",
+    silly: "._."
+  }
   const SolverAI: CardType = {
     title: t("solver.title"), 
     company: "Solver AI", 
@@ -81,9 +92,10 @@ export const getExperiences = (t: TFunction): CardType[] => {
   }
 
   return[
+    VidextAuto,
     SolverAI,
     Vidext,
-    // Laberit,
+    Laberit,
     Fiverr,
     PuntISeguit,
     Karting,

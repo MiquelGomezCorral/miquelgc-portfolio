@@ -3,25 +3,30 @@
     "icon":"card",
     "title": "Experiencias",
 
+    "vidext_auto": {
+        "title": "Ingeniero en automatización IA",
+        "date": "Dic 2025 – Actualidad",
+        "description": "En **Vidext**, he vuelto como experto en **automatizaciones** e inteligencia artificial, desarrollando **pipelines** y **procesos** que permiten a la empresa **automatizar** tareas y **procesos**, ahorrando tiempo y dinero. A la vez, aporto mis conocimientos en IA para mejorar los procesos de la empresa y desarrollar nuevas soluciones."
+    },
     "solver": {
-        "title": "Programador Junior Python",
-        "date": "Feb 2025 - Actualidad",
-        "description": "En Solver cada día uso mis conocimientos en, análisis de datos, Machine learning e IA para implementar soluciones con el fin de resolver los problemas de los clientes de la empresa. Además, he realizado mi TFG, orientado a modelo sin OCR para el procesado automático visual de documentos (VDU)."
+        "title": "Ingeniero en inteligencia artificial",
+        "date": "Ene 2025 – Dic 2025",
+        "description": "En **Solver**, como ingeniero en inteligencia artificial, estudié las necesidades y datos de los clientes de la empresa, desarrollando **modelos de IA** e investigando **tecnologías** que la empresa necesitara."
     },
     "vidext": {
         "title": "Prácticas Universitarias",
         "date": "Jun 2024 – Sep 2024",
-        "description": "En Vidext, he aprendido a desarrollar aplicaciones WEB en React y Next.js. Con ello, he creado la landing page de la empresa y una aplicación para uso interno de los empleados. "
+        "description": "En **Vidext**, he aprendido a desarrollar aplicaciones WEB en **React** y **Next.js**. Con ello, he creado la landing page de la empresa y una aplicación para uso interno de los empleados. "
     },
     "laberit": {
         "title": "Prácticas Universitarias",
         "date": "Sep 2022 – Mar 2023 ", 
-        "description": "Durante los meses de prácticas he aprendido a manejar y desarrollar extensiones del ERP de Microsoft 'Navision'."
+        "description": "Durante los meses de prácticas he aprendido a manejar y desarrollar extensiones del **ERP de Microsoft 'Navision'**."
     },
     "fiverr": {
         "title": "Editor de Imágenes, Freelance", 
         "date": "Ene 2022 – Jun 2024", 
-        "description": "En esta página he puesto a disposición de diversos clientes mis habilidades en la edición de imágenes, coniguiendo clientes de todas partes del mundo. Mis trabajos variaban de un cliente a otro, pero algunos ejemplos son: Imagenes para la promoción de productos, Retoque de fotografías y retratos o Creación de imágenes para marketing digital (Amazon)."
+        "description": "En esta página he puesto a disposición de diversos clientes mis **habilidades en la edición de imágenes**, coniguiendo clientes de todas partes del mundo. Mis trabajos variaban de un cliente a otro, pero algunos ejemplos son: Imagenes para la promoción de productos, Retoque de fotografías y retratos o Creación de imágenes para marketing digital (Amazon)."
     },
     "puntiseguit": {
         "title": "Profesor de repaso", 

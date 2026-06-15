@@ -32,7 +32,7 @@ export function Card({ object }: { object: CardType }) {
                 width={200}
                 height={200}
                 title={object.logo}
-                className="w-10/12 group-hover/img:w-11/12 transform duration-500"
+                className="w-10/12 group-hover/img:w-11/12 transform duration-500 object-contain"
               />
             </Link>
   
@@ -65,7 +65,7 @@ export function Card({ object }: { object: CardType }) {
             </aside>
           </header>
   
-          <p className="opacity-70">{object.description}</p>
+          <p className="opacity-70"><BoldText text={object.description} /></p>
         
         </main>
         
@@ -87,5 +87,14 @@ export function Card({ object }: { object: CardType }) {
   
       </li>
   )}
+
+function BoldText({ text }: { text: string }) {
+  const parts = text.split(/(\*\*[^*]+\*\*)/);
+  return <>{parts.map((part, i) =>
+    part.startsWith('**') && part.endsWith('**')
+      ? <span key={i} className="font-bold text-white">{part.slice(2, -2)}</span>
+      : <span key={i}>{part}</span>
+  )}</>;
+}
   
   

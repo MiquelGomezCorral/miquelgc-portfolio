@@ -3,7 +3,7 @@ import type { TFunction } from "i18next";
 
 // export const ExperienceFolder = "/projects/"
 export const getStudies = (t: TFunction): CardType[] => {
-
+  
   const Master: CardType = {
     title: t("master.title"), 
     company: "MUIARFID: ETS INF de la UPV", 
