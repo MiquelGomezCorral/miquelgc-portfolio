@@ -11,6 +11,10 @@ bun run lint      # ESLint (next/core-web-vitals)
 
 **No tests, no CI, no pre-commit hooks** in this repo.
 
+## React 19 gotcha: `useRef<T>()` requires an initial value
+
+In React 19, `useRef<Worker>()` (no argument) is a type error. Use `useRef<Worker>(null!)` for mutable refs that get assigned later (e.g. in `useEffect`).
+
 ## Known quirk: corrupted `.next`
 
 The `.next` cache sometimes corrupts after restart, causing build failures. Symptom: dev server won't start or renders broken pages.

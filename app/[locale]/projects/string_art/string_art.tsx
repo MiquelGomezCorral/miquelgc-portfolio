@@ -246,7 +246,7 @@ export function StringArtComponent(){
   // ==========================================================================================
   //                                      ALGORITH
   // ==========================================================================================
-  const workerRef = useRef<Worker>();
+  const workerRef = useRef<Worker>(null!);
   useEffect(() => {
     workerRef.current = new Worker(
       new URL('@/app/[locale]/(utils)/(functions)/computePins.worker', import.meta.url),
