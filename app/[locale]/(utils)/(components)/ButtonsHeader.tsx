@@ -22,7 +22,7 @@ export function HeaderButton({className, disabled, onClick, ...props}: HeaderBut
   return (
     <button className={
       cn(
-        "text-miquel-white text-start text-nowrap miquel-opacity flex items-center drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)]", 
+        "text-miquel-white text-start text-nowrap miquel-opacity flex items-center drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)] active:duration-75 active:scale-95", 
         {"hover:opacity-70 cursor-not-allowed text-red-400": disabled},
         className
       )}

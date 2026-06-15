@@ -35,7 +35,7 @@ export default function Header({sticky}: {sticky?: boolean}) {
         <nav className='w-max flex justify-between gap-4'>
           <GoBackButton />
           
-          <Link href="/" scroll={false} className="miquel-opacity">
+          <Link href="/" scroll={false} className="miquel-opacity active:duration-75 active:scale-95">
             Miquel Gómez
           </Link>
         </nav>

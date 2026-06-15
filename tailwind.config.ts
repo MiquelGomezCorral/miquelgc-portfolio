@@ -20,6 +20,8 @@ const config: Config = {
           400: "oklch(23.5% 0.02 281.0)",
           500: "oklch(20.0% 0.02 281.0)",
           "500-a": "oklch(20.0% 0.02 281.0 / <alpha-value>)",
+          600: "oklch(17.0% 0.02 281.0)",
+          700: "oklch(13.0% 0.02 281.0)",
         },
         "miquel-white": {
           100: "oklch(100.0% 0.00 0.00)",
@@ -34,6 +36,7 @@ const config: Config = {
           "400-a": "oklch(65.5% 0.17 250.0 / <alpha-value>)",
           500: "oklch(50.9% 0.17 250.0)",
           "500-a": "oklch(50.9% 0.17 250.0 / <alpha-value>)",
+          700: "oklch(40.1% 0.17 250.0)",
           900: "oklch(33.1% 0.17 250.0)"
         },
         "miquel-purple": {
