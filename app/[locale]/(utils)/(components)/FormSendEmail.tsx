@@ -67,7 +67,7 @@ export function FormSendEmail(){
     }
 
     let errorMessage = ""
-    if (!message.trim() || message.split(" ").length < 3){
+    if (!message.trim() || message.trim().split(/\s+/).length < 3){
       errorMessage = t("error.message")
     }
     
@@ -85,7 +85,7 @@ export function FormSendEmail(){
       // Format minutes and seconds as 00:00
       const formattedTime = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
 
-      errorGeneral = `${t("error.name")}: ${formattedTime} min`
+      errorGeneral = `${t("error.general")}: ${formattedTime} min`
     }
 
     const newErrors = {
@@ -95,7 +95,12 @@ export function FormSendEmail(){
       general: errorGeneral,
     };
     setErrors(newErrors);
-    setShake(Object.values(newErrors).some(e => e))
+
+    const hasErrors = Object.values(newErrors).some(e => e)
+    if (hasErrors) {
+      setShake(true)
+      return
+    }
 
     // ============================================
     //  ALL CHECK PASSED, SENDING THE EMAIL
@@ -112,18 +117,9 @@ export function FormSendEmail(){
       message: message,
     }
 
-
-    localStorage.setItem('lastSubmitTime', currentTime.toString());
-
-    // setName("")
-    // setEmail("")
-    // setMessage("")
-    // return
-
     emailjs.send(serviceId, templateId, templateParams, publicKey)
       .then(
         () => {
-          // Save last time sent
           localStorage.setItem('lastSubmitTime', currentTime.toString());
 
           useToastStore.getState().addToast(t("alerts.success"), 'success')
@@ -147,68 +143,69 @@ export function FormSendEmail(){
   const errorStyle = "border-red-500 bg-red-500-a/30 placeholder-red-400/80 focus:border-red-300"
   return(
     <form onSubmit={handleSubmit} noValidate className='w-full flex flex-col p-4 border-2 border-miquel-blue-400 rounded-md gap-2 relative'>
-      <ShakeHard key={shakedTooMuch ? 'shake' : 'no-shake'} active={shake} fixed onClick={checkShaking}>
-        {shakedTooMuch && <p className="w-full mb-4 text-red-500 absolute -top-12 flex justify-center">
-          AAAAAAAAAAAAAAAAHHHHHHHH!!!!!!
-        </p>}
-        
-        <section className="w-full flex flex-col gap-1">
-          <input 
-            type="text" 
-            placeholder='Isabel Vallés Bertomeu'
-            value={name}
-            autoComplete="additional-name"
-            onChange={(e) => {
-              const newValue = e.target.value
-              setName(newValue)
-            }}
-            className={
-              cn(focusStyle + ' ' + formStyle,
-              {[errorStyle]: errors.name }
-            )}
-          />
-          <p className="text-red-500 min-h-[1rem] text-xs">{errors.name}</p>
-        </section>
-
-        <section className="w-full flex flex-col gap-1">
-          <input 
-            type="email" 
-            placeholder='isabel_vb@eg.company.com'
-            value={email}
-            autoComplete="email"
-            onChange={(e) => {
-              const newValue = e.target.value;
-              setEmail(newValue);
-            }}
-            className={
-              cn(focusStyle + ' ' + formStyle,
-              {[errorStyle]: errors.email }
-            )}
-          />
-          <p className="text-red-500 min-h-[1rem] text-xs">{errors.email}</p>
-        </section>
+      <ShakeHard active={shake} fixed>
+        <div className="w-full flex flex-col gap-2">
+          {shakedTooMuch && <p className="w-full mb-4 text-red-500 absolute -top-12 flex justify-center">
+            AAAAAAAAAAAAAAAAHHHHHHHH!!!!!!
+          </p>}
           
-        <section className="w-full flex flex-col gap-1">
-          <textarea 
-            placeholder={t("placeholder")}
-            value={message}
-            onChange={(e) => {
-              const newValue = e.target.value
-              setMessage(newValue)
-            }}
-            className={
-              cn(focusStyle + ' ' + formStyle + ' h-64 w-full',
-              {[errorStyle]: errors.message }
-            )}
-          />
-          <p className="text-red-500 min-h-[1rem] text-xs">{errors.message}</p>
-        </section>
+          <section className="w-full flex flex-col gap-1">
+            <input 
+              type="text" 
+              placeholder='Isabel Vallés Bertomeu'
+              value={name}
+              autoComplete="additional-name"
+              onChange={(e) => {
+                const newValue = e.target.value
+                setName(newValue)
+              }}
+              className={
+                cn(focusStyle + ' ' + formStyle,
+                {[errorStyle]: errors.name }
+              )}
+            />
+            <p className="text-red-500 min-h-[1rem] text-xs">{errors.name}</p>
+          </section>
 
-        <section className="w-full flex flex-col gap-1">
-          <Button text={t("send")} type='submit' disabled={ !name.trim() || !email.trim() ||  !message.trim()}/>
-          <p className="text-red-500 min-h-[1rem] text-xs">{errors.general}</p>
-        </section>
+          <section className="w-full flex flex-col gap-1">
+            <input 
+              type="email" 
+              placeholder='isabel_vb@eg.company.com'
+              value={email}
+              autoComplete="email"
+              onChange={(e) => {
+                const newValue = e.target.value;
+                setEmail(newValue);
+              }}
+              className={
+                cn(focusStyle + ' ' + formStyle,
+                {[errorStyle]: errors.email }
+              )}
+            />
+            <p className="text-red-500 min-h-[1rem] text-xs">{errors.email}</p>
+          </section>
+            
+          <section className="w-full flex flex-col gap-1">
+            <textarea 
+              placeholder={t("placeholder")}
+              value={message}
+              onChange={(e) => {
+                const newValue = e.target.value
+                setMessage(newValue)
+              }}
+              className={
+                cn(focusStyle + ' ' + formStyle + ' h-64 w-full',
+                {[errorStyle]: errors.message }
+              )}
+            />
+            <p className="text-red-500 min-h-[1rem] text-xs">{errors.message}</p>
+          </section>
 
+          <section className="w-full flex flex-col gap-1">
+            <Button text={t("send")} type='submit' disabled={ !name.trim() || !email.trim() ||  !message.trim()} onClick={checkShaking}/>
+            <p className="text-red-500 min-h-[1rem] text-xs">{errors.general}</p>
+          </section>
+        </div>
       </ShakeHard>
     </form>
   )
