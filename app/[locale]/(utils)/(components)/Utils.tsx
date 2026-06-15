@@ -9,15 +9,18 @@ import { useEffect, useMemo } from "react"
 export function DownloadCV({ className, ...props }: { className?: string, children: React.ReactNode}) {
   const { i18n } = useTranslation("header")
   const locale = i18n.language
-  
+
+  const handleClick = () => {
+    const a = document.createElement('a')
+    a.href = `/assets/miquel/cv_${locale}-2026-06-15.pdf`
+    a.download = ''
+    a.click()
+  }
+
   return (
-    <a
-      href={`assets/miquel/curriculum-${locale}-2025-03-01.pdf`}
-      download={`assets/miquel/curriculum-${locale}-2025-03-01.pdf`}
-      className={cn("", className)}
-    >
+    <div onClick={handleClick} className={cn("", className)}>
       {props.children}
-    </a>
+    </div>
   )
 }
 
