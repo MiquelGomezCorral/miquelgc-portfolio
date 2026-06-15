@@ -39,7 +39,13 @@ export default async function InfoSection({ params }: { params: { locale: string
             />
           </span>
 
-          {t("description")}
+          <span>
+            {t("description").split(/(\*\*[^*]+\*\*)/).map((part: string, i: number) =>
+              part.startsWith('**') && part.endsWith('**')
+                ? <span key={i} className="font-bold text-miquel-white-200">{part.slice(2, -2)}</span>
+                : part
+            )}
+          </span>
         </p>
 
 
