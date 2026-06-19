@@ -56,6 +56,9 @@ export default function Header({sticky}: {sticky?: boolean}) {
           <ButtonLink icon="terminal-thick"  link="/#technologies" >
             {t("technologies")} 
           </ButtonLink>
+          <ButtonLink icon="certifications-thick"  link="/#certifications" >
+            {t("certifications")} 
+          </ButtonLink>
           <ButtonLink icon="email"           link="#footer"        notAddToStack stayPage >
             {t("contact")}      
           </ButtonLink>
@@ -125,6 +128,9 @@ export default function Header({sticky}: {sticky?: boolean}) {
           </ButtonLink>
           <ButtonLink onClick={()=>setshowMenu(false)} icon="terminal-thick" link="/#technologies" >
             {t("technologies")} 
+          </ButtonLink>
+          <ButtonLink onClick={()=>setshowMenu(false)} icon="certifications-thick" link="/#certifications" >
+            {t("certifications")} 
           </ButtonLink>
           <ButtonLink onClick={()=>setshowMenu(false)} icon="email"          link="#footer"         notAddToStack stayPage>
             {t("contact")}      

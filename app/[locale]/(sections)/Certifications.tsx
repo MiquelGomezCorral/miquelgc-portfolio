@@ -30,7 +30,7 @@ export default function CertificationsSection() {
 
         <div className='flex gap-4'>
           <IconButtonArrow width={20} height={20} src={'chevron-left'} title={'left'}
-            disable={scrollOn === 0}
+            disable={scrollOn === 0 || Certifications.length <= 1}
             onClick={scrollLeft}
             className={cn(
               "xl:absolute xl:-left-12 xl:top-1/2 xl:-translate-y-1/2 " + // Large screens
@@ -41,7 +41,7 @@ export default function CertificationsSection() {
           />
           <IconButtonArrow width={20} height={20} src={'chevron-right'} title={'right'} 
             onClick={scrollRight}
-            disable={scrollOn === 2}
+            disable={scrollOn === 2 || Certifications.length <= 1}
             className={cn(
               "xl:absolute xl:-right-12 xl:top-1/2 xl:-translate-y-1/2 " + // Large screens
               "static order-last transform duration-300 xl:group-hover:scale-125 " + // Small screens

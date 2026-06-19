@@ -38,7 +38,7 @@ export function Technology({ src }: { src: string }) {
         case "jupyter": return "Jupyter"
         case "matplot": return "Matplot"
         case "numpy": return "NumPy"
-        case "pytorch": return "pytorch"
+        case "pytorch": return "PyTorch"
         case "reinforcement-learning": return "Reinforcement Learning"
         case "sklearn": return "Sklearn"
         case "xg-boost": return "XG Boost"
@@ -60,7 +60,7 @@ export function Technology({ src }: { src: string }) {
           width={20}
           height={20}
           title={Title(src)}
-          type="tec-white"
+          type="tech-white"
         />
         <p className="opacity-80 text-nowrap">{Title(src)}</p>
       </section>

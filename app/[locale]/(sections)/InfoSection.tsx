@@ -74,7 +74,7 @@ export default async function InfoSection({ params }: { params: { locale: string
             src="github" title={Github}
             width={20} height={20}
             link={GithubLink}
-            blank type="tec-white"
+            blank type="tech-white"
           />
         </footer>
       </aside>

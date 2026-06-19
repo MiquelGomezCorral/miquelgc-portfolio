@@ -1,11 +1,11 @@
 {
     "id":"certifications",
-    "icon":"hat",
+    "icon":"certifications",
     "title": "Certifications",
 
     "master": {
         "title": "HuggingFace: Reinforcement Learning",
         "date": "Ago 2025",
-        "description": "Curso gratuito y de código abierto que cubre **Deep Reinforcement Learning** desde principiante hasta experto. Explora teoría y práctica con librerías como **Stable Baselines3** y **CleanRL**, entrenando agentes en entornos únicos y publicándolos en el **HuggingFace Hub**."
+        "description": "Curso centrado en **Deep Reinforcement Learning** desde principiante hasta experto. Explora teoría y práctica con librerías como **Stable Baselines3** y **CleanRL**, entrenando agentes en entornos gym (**Gymnasium**) y publicándolos en el **HuggingFace Hub**."
     }
 }
