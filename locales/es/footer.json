@@ -4,7 +4,9 @@
     "up": "¡Llevame arriba!",
     "projects": "O... ¡Mira mis proyectos!",
     "discover": "O... ¡Enterate bien de quién soy!",
-    "placeholder": "¡Hola!\n\nSoy Isabel Vallés, de la empresa ...",
+    "placeholderName": "Juan Pérez",
+    "placeholderEmail": "juan@ejemplo.com",
+    "placeholder": "¡Hola!\n\nCuéntame algo interesante...",
     "send": "Enviar email",
 
     "error":{

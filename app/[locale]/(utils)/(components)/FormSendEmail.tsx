@@ -152,7 +152,7 @@ export function FormSendEmail(){
           <section className="w-full flex flex-col gap-1">
             <input 
               type="text" 
-              placeholder='Isabel Vallés Bertomeu'
+              placeholder={t("placeholderName")}
               value={name}
               autoComplete="additional-name"
               onChange={(e) => {
@@ -170,7 +170,7 @@ export function FormSendEmail(){
           <section className="w-full flex flex-col gap-1">
             <input 
               type="email" 
-              placeholder='isabel_vb@eg.company.com'
+              placeholder={t("placeholderEmail")}
               value={email}
               autoComplete="email"
               onChange={(e) => {
