@@ -5,42 +5,42 @@
 
     "vidext_auto": {
         "title": "AI Automation Engineer",
-        "date": "Dec 2025 – Present",
-        "description": "At **Vidext**, I returned as an **AI automation expert**, developing **pipelines** and **processes** that allow the company to **automate** tasks, saving time and money. I also contribute my **AI knowledge** to improve company processes and develop new solutions."
+        "date": "Dec 2025 - Present",
+        "description": "As an **AI automation expert**, building **pipelines** and automation processes that save the company time and money.\n\n**Agent orchestration**, **LLM integration**, and file management across production workflows.\n\nContribute **AI knowledge** to improve existing company processes and develop new solutions."
     },
     "solver": {
         "title": "AI Engineer",
-        "date": "Jan 2025 – Dec 2025",
-        "description": "At **Solver**, I studied client needs and data, developing **AI models** and researching **technologies** needed by the company. I also completed my thesis focused on **OCR-Free models** for visual document understanding (**VDU**)."
+        "date": "Jan 2025 - Dec 2025",
+        "description": "Studied client needs and data, developing **AI models** from scratch and researching **technologies** the company required.\n\n**Fine-tuning** of language models and computer vision systems.\n\nCompleted my bachelor's thesis on **OCR models** and document information extraction."
     },
     "vidext": {
         "title": "University Internship",
-        "date": "Jun 2024 – Sep 2024",
+        "date": "Jun 2024 - Sep 2024",
         "description": "At **Vidext**, I learned to develop web applications using **React** and **Next.js**. I created the company's **landing page** and an **internal application** for employees."
     },
     "laberit": {
         "title": "University Internship",
-        "date": "Sep 2022 – Mar 2023", 
+        "date": "Sep 2022 - Mar 2023", 
         "description": "During my internship, I learned to manage and develop extensions for **Microsoft's ERP 'Navision'**."
     },
     "fiverr": {
         "title": "Freelance Image Editor", 
-        "date": "Jan 2022 – Jun 2024", 
+        "date": "Jan 2022 - Jun 2024", 
         "description": "On this page I have made my **image editing skills** available to a variety of clients, with clients from all over the world. My work varied from client to client, but some examples are: Images for product promotion, photo and portrait retouching or image creation for digital marketing (Amazon)."
     },
     "puntiseguit": {
         "title": "Tutoring Teacher", 
-        "date": "Sep 2023 – Jun 2024", 
+        "date": "Sep 2023 - Jun 2024", 
         "description": "At Punt I Seguit, I had the opportunity to teach students from 1st year of ESO to 2nd year of Bachillerato, reinforcing their learning to improve their grades. In addition to that, and motivated to teach, since I entered university I have taught other classmates in a formal way."
     },
     "karting": {
         "title": "Waiter", 
-        "date": "Jun 2022 – Sep 2022", 
+        "date": "Jun 2022 - Sep 2022", 
         "description": "During the summer months, I worked as a waiter at the karting restaurant in my hometown."
     },
     "papibeach": {
         "title": "Kitchen Assistant", 
-        "date": "Jun 2021 – Sep 2021", 
+        "date": "Jun 2021 - Sep 2021", 
         "description": "During the summer months, I worked as a kitchen assistant at the Papi Beach snack bar in my hometown."
     }
 }

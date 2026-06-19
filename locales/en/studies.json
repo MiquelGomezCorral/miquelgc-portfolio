@@ -5,22 +5,22 @@
 
     "master": {
         "title": "Master: AI, Computer Vision",
-        "date": "Sep 2025 – Dec 2026",
+        "date": "Sep 2025 - Dec 2026",
         "description": "At the **MUIARFID**, I have deepened my knowledge in **artificial intelligence**, **machine learning**, **computer vision**, **pattern recognition** and other advanced AI skills. I have also had the opportunity to work on real-world projects and collaborate with industry professionals."
     },
     "erasmus": {
         "title": "Erasmus: 4th Year of the Degree",
-        "date": "Sep 2024 – Jan 2025",
+        "date": "Sep 2024 - Jan 2025",
         "description": "During my academic exchange in Switzerland, I learned how to create **AI models**, **advanced algorithms**, and **data analysis**. All with a practical as well as a theoretical approach. At the same time, I have been able to practice and improve my **English** by interacting with people from all over the world."
     },
     "upv": {
         "title": "Degree in Computer Engineering",
-        "date": "Sep 2021 – Jun 2025",
+        "date": "Sep 2021 - Jun 2025",
         "description": "At **UPV**, I have learned everything from the basic concepts of computing to how to develop applications and use **artificial intelligence**. All of this, while achieving excellent grades and receiving awards for it. During this process, I have participated in various university activities such as sports championships, student delegation, or as a tutor."
     },
     "eso_bach": {
         "title": "Secondary Education and Baccalaureate",
-        "date": "Sep 2015 – Jun 2021",
+        "date": "Sep 2015 - Jun 2021",
         "description": "During my adolescence, I studied at **IES Almenara**, the institute in my town. I completed compulsory secondary education (ESO) and the scientific **baccalaureate** with the aim of taking the university entrance exams."
     }
 }
