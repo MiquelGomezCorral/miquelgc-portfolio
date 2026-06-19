@@ -12,7 +12,8 @@ export function DownloadCV({ className, ...props }: { className?: string, childr
 
   const handleClick = () => {
     const a = document.createElement('a')
-    a.href = `/assets/miquel/cv_${locale}-2026-06-15.pdf`
+    //a.href = `/assets/miquel/cv_${locale}-2026-06-15.pdf`
+    a.href = `https://raw.githubusercontent.com/MiquelGomezCorral/Curriculum/main/cv_${locale}.pdf`
     a.download = ''
     a.click()
   }
