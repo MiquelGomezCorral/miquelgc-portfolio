@@ -1,0 +1,11 @@
+{
+    "id":"certifications",
+    "icon":"hat",
+    "title": "Certifications",
+
+    "master": {
+        "title": "HuggingFace: Deep Reinforcement Learning Course",
+        "date": "Ago 2025",
+        "description": "Free and open-source course covering **Deep Reinforcement Learning** from beginner to expert. Explores theory and practice using libraries like **Stable Baselines3** and **CleanRL**, training agents in unique environments and publishing them on the **HuggingFace Hub**."
+    }
+}

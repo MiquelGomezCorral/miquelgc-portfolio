@@ -4,6 +4,7 @@ import Projects from "./(sections)/Projects"
 import Experience from "./(sections)/Experience"
 import TechnologiesSection from "./(sections)/Technologies"
 import StudiesSection from "./(sections)/Studies"
+import CertificationsSection from "./(sections)/Certifications"
 import Header from "@/app/[locale]/(sections)/Header";
 import Footer from "@/app/[locale]/(sections)/Footer";
 // import { useTranslation } from "react-i18next"
@@ -30,6 +31,7 @@ export default async function App({ params }: { params: Promise<{ locale: string
         <StudiesSection/> 
         <Projects params={{locale: locale}}/>
         <TechnologiesSection params={{locale: locale}}/>
+        <CertificationsSection/> 
       </main>
       
       <div id="footer" className="w-full bg-gradient-to-b from-miquel-background to-black flex justify-center ">

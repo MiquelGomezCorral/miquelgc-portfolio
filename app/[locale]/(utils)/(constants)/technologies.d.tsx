@@ -39,6 +39,7 @@ export function Technology({ src }: { src: string }) {
         case "matplot": return "Matplot"
         case "numpy": return "NumPy"
         case "pytorch": return "pytorch"
+        case "reinforcement-learning": return "Reinforcement Learning"
         case "sklearn": return "Sklearn"
         case "xg-boost": return "XG Boost"
         case "pandas": return "Pandas"
@@ -98,7 +99,8 @@ export type TechnologyString = (
   "plotly" |
   "github" |
   "ai" |
-  "photoshop"
+  "photoshop" |
+  "reinforcement-learning"
 );
 
 
