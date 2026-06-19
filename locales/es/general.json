@@ -2,5 +2,7 @@
     "close": "Cerrar",
 
     "copied": "Copiado en el portapapeles: ",
-    "copied-error": "Error al copiar el texto: "
+    "copied-error": "Error al copiar el texto: ",
+
+    "youFoundMe": "¡ME HAS PILLADO AAAHH!"
 }

@@ -1,3 +1,6 @@
+"use client"
+
+import { useTranslation } from 'react-i18next';
 import Image from "next/image";
 import Link from "next/link";
 import { TechnologyMarquee } from '@/app/[locale]/(utils)/(components)/Technologies';
@@ -19,6 +22,7 @@ export type CardType = {
 }
 
 export function Card({ object }: { object: CardType }) {
+    const { t } = useTranslation("general")
     return( 
       <li className="group/li md:w-[45rem] w-[25rem] h-full rounded-xl gap-4 p-4 flex flex-col justify-between list-none bg-miquel-gradient" >
         <main className="flex flex-col gap-4">
@@ -77,7 +81,7 @@ export function Card({ object }: { object: CardType }) {
             <div className={
               "h-8 w-8 rounded-full bg-miquel-blue-100 border-miquel-blue-400 border-4 z-20 group-hover/li:animate-spin-slow transition duration-1000"+ 
               " text-transparent group-hover/li:text-black/70 hover:cursor-pointer flex justify-center items-center text-xs "}
-              onClick={() => useToastStore.getState().addToast(`YOU FOUND ME! ${object.silly}`, 'info')}
+              onClick={() => useToastStore.getState().addToast(`${t("youFoundMe")} ${object.silly}`, 'info')}
               >
               {object.silly}
             </div>
