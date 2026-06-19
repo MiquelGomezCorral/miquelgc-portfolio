@@ -12,10 +12,9 @@ import { getExperiences } from "@/app/[locale]/(utils)/(constants)/experience.te
 
 export default function Experience() {
   const {t} = useTranslation("experiences")
-  
   const Experiences = getExperiences(t)
   const  { scrollContainerRef, scrollOn, scrollLeft, scrollRight, scrollSlider } = useCarrousel({list: Experiences})
- 
+
   return (
     <Section id={t("id")} title={t("title")} iconName={t("icon")}>
       <main className="flex relative flex-col xl:flex-row items-center gap-4">
