@@ -69,7 +69,7 @@ export function Card({ object }: { object: CardType }) {
             </aside>
           </header>
   
-          <p className="opacity-70"><BoldText text={object.description} /></p>
+          <div className="opacity-70"><BoldText text={object.description} /></div>
         
         </main>
         
@@ -92,12 +92,31 @@ export function Card({ object }: { object: CardType }) {
       </li>
   )}
 
-function BoldText({ text }: { text: string }) {
-  const parts = text.split(/(\*\*[^*]+\*\*)/);
-  return <>{parts.map((part, i) =>
+function formatBold(text: string) {
+  return text.split(/(\*\*[^*]+\*\*)/).map((part, i) =>
     part.startsWith('**') && part.endsWith('**')
       ? <span key={i} className="font-bold text-white">{part.slice(2, -2)}</span>
       : <span key={i}>{part}</span>
+  );
+}
+
+function BoldText({ text }: { text: string }) {
+  const lines = text.split('\n');
+  const groups: { type: 'text' | 'bullet', lines: string[] }[] = [];
+  for (const line of lines) {
+    const isBullet = line.startsWith('- ');
+    const content = isBullet ? line.slice(2) : line;
+    const prev = groups[groups.length - 1];
+    if (prev && prev.type === (isBullet ? 'bullet' : 'text')) {
+      prev.lines.push(content);
+    } else {
+      groups.push({ type: isBullet ? 'bullet' : 'text', lines: [content] });
+    }
+  }
+  return <>{groups.map((g, gi) =>
+    g.type === 'bullet'
+      ? <ul key={gi} className="list-disc list-inside">{g.lines.map((l, li) => <li key={li}>{formatBold(l)}</li>)}</ul>
+      : <div key={gi}>{g.lines.map((l, li) => <span key={li}>{li > 0 && <br />}{formatBold(l)}</span>)}</div>
   )}</>;
 }
   

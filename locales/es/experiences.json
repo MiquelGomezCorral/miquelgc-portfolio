@@ -8,25 +8,25 @@
         "company": "Vidext",
         "date": "Dic 2025 - Actualidad",
         "place": "Valencia, España",
-        "description": "Como experto en **automatizaciones** e inteligencia artificial, desarrollando **pipelines** y procesos que ahorran tiempo y dinero a la empresa.\n\n**Orquestación de agentes**, **integración de LLMs**  con gestión de archivos.\n\nAporto mis conocimientos en **IA** para mejorar los procesos existentes y desarrollar nuevas soluciones."
+        "description": "- Desarrollo de **pipelines** y procesos que ahorran tiempo y dinero a la empresa.\n- **Orquestación de agentes**, **integración de LLMs**  con gestión de archivos.\n- Aporto mis conocimientos en **IA** para mejorar los procesos existentes y desarrollar nuevas soluciones."
     },
     "solver": {
         "title": "Ingeniero en inteligencia artificial",
         "company": "Solver AI",
         "date": "Ene 2025 - Dic 2025",
         "place": "Valencia, España",
-        "description": "Estudio de las necesidades y datos de los clientes, desarrollando **modelos de IA** desde cero e investigando **tecnologías** que la empresa necesitase.\n\n**Fine-tuning** de modelos de lenguaje y visión por computador.\n\n También hice el TFG sobre **modelos OCR** y extracción de información de documentos."
+        "description": "- Estudio de las necesidades y datos de los clientes.\n- desarrollando **modelos de IA** desde cero.\n- investigando **tecnologías** que la empresa necesitase.\n- **Fine-tuning** de modelos de lenguaje y visión por computador.\n- También hice el TFG sobre **modelos OCR** y extracción de información de documentos."
     },
     "vidext": {
         "title": "Prácticas Universitarias",
         "company": "Vidext",
         "date": "Jun 2024 - Sep 2024",
         "place": "Valencia, España",
-        "description": "En **Vidext**, he aprendido a desarrollar aplicaciones WEB en **React** y **Next.js**. Con ello, he creado la landing page de la empresa y una aplicación para uso interno de los empleados. "
+        "description": "- Desarrollar aplicaciones WEB en **React** y **Next.js**.\n- Manejo de componentes y librerías.\n\nCon ello, he creado la landing page de la empresa y una aplicación para uso interno de los empleados. "
     },
     "laberit": {
         "title": "Prácticas Universitarias",
-        "company": "L&atilde;berit Sistemas",
+        "company": "Lãberit Sistemas",
         "date": "Sep 2022 - Mar 2023 ",
         "place": "Valencia, España",
         "description": "Durante los meses de prácticas he aprendido a manejar y desarrollar extensiones del **ERP de Microsoft 'Navision'**."

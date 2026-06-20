@@ -21,9 +21,9 @@ export const getCertifications = (t: TFunction): CardType[] => {
     place: t("awards.place"),
     description: t("awards.description"), 
     technologies: [], 
-    logo: "certifications/HF-Face",
+    logo: "certifications/UPV",
     link: "https://huggingface.co/learn/deep-rl-course/en/unit0/introduction",
-    silly: "🤗"
+    silly: "0_o"
   }
 
   return [

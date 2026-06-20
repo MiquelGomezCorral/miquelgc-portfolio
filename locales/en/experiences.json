@@ -8,25 +8,25 @@
         "company": "Vidext",
         "date": "Dec 2025 - Present",
         "place": "Valencia, Spain",
-        "description": "As an **AI automation expert**, building **pipelines** and automation processes that save the company time and money.\n\n**Agent orchestration**, **LLM integration**, and file management across production workflows.\n\nContribute **AI knowledge** to improve existing company processes and develop new solutions."
+        "description": "- Build **pipelines** and automation processes that save the company time and money.\n- **Agent orchestration**, **LLM integration**, and file management across production workflows.\n- Contribute **AI knowledge** to improve existing company processes and develop new solutions."
     },
     "solver": {
         "title": "AI Engineer",
         "company": "Solver AI",
         "date": "Jan 2025 - Dec 2025",
         "place": "Valencia, Spain",
-        "description": "Studied client needs and data, developing **AI models** from scratch and researching **technologies** the company required.\n\n**Fine-tuning** of language models and computer vision systems.\n\nCompleted my bachelor's thesis on **OCR models** and document information extraction."
+        "description": "- Studied client needs and data.\n-  developing **AI models** from scratch.\n-  researching **technologies** the company required.\n- **Fine-tuning** of language models and computer vision systems.\n- Completed my bachelor's thesis on **OCR models** and document information extraction."
     },
     "vidext": {
         "title": "University Internship",
         "company": "Vidext",
         "date": "Jun 2024 - Sep 2024",
         "place": "Valencia, Spain",
-        "description": "At **Vidext**, I learned to develop web applications using **React** and **Next.js**. I created the company's **landing page** and an **internal application** for employees."
+        "description": "- Develop web applications using **React** and **Next.js**.\n- Component and library management.\n\n I created the company's **landing page** and an **internal application** for employees."
     },
     "laberit": {
         "title": "University Internship",
-        "company": "L&atilde;berit Sistemas",
+        "company": "Lãberit Sistemas",
         "date": "Sep 2022 - Mar 2023",
         "place": "Valencia, Spain",
         "description": "During my internship, I learned to manage and develop extensions for **Microsoft's ERP 'Navision'**."
@@ -35,28 +35,28 @@
         "title": "Freelance Image Editor",
         "company": "Fiverr",
         "date": "Jan 2022 - Jun 2024",
-        "place": "Almenara, Castell&oacute;n",
+        "place": "Almenara, Castellón",
         "description": "On this page I have made my **image editing skills** available to a variety of clients, with clients from all over the world. My work varied from client to client, but some examples are: Images for product promotion, photo and portrait retouching or image creation for digital marketing (Amazon)."
     },
     "puntiseguit": {
         "title": "Tutoring Teacher",
         "company": "Punt I Seguit",
         "date": "Sep 2023 - Jun 2024",
-        "place": "Almenara, Castell&oacute;n",
+        "place": "Almenara, Castellón",
         "description": "At Punt I Seguit, I had the opportunity to teach students from 1st year of ESO to 2nd year of Bachillerato, reinforcing their learning to improve their grades. In addition to that, and motivated to teach, since I entered university I have taught other classmates in a formal way."
     },
     "karting": {
         "title": "Waiter",
         "company": "Karting ERK",
         "date": "Jun 2022 - Sep 2022",
-        "place": "Almenara, Castell&oacute;n",
+        "place": "Almenara, Castellón",
         "description": "During the summer months, I worked as a waiter at the karting restaurant in my hometown."
     },
     "papibeach": {
         "title": "Kitchen Assistant",
         "company": "Papi Beach",
         "date": "Jun 2021 - Sep 2021",
-        "place": "Almenara, Castell&oacute;n",
+        "place": "Almenara, Castellón",
         "description": "During the summer months, I worked as a kitchen assistant at the Papi Beach snack bar in my hometown."
     }
 }
