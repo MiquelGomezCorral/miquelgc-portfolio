@@ -1,0 +1,25 @@
+title:
+  en: Web Portfolio
+  es: Portafolio Web
+finished: progress
+descriptionShort:
+  en: This is the website you are visiting right now! My personal, self-developed web portfolio. Here I applied all my knowledge of React and Next.js to create this page as an online CV to showcase my projects. My entire professional background is summarized here, so if you want to know more about me, just keep exploring!
+  es: Es donde estás ahora mismo! Mi portafolio personal, desarrollado por mí desde cero, donde he aplicado todo lo que sé sobre React y Next.js para crear un CV online con mis proyectos. Si quieres saber más sobre mí, ¡sigue explorando!
+descriptionLong:
+  en: |
+    This is the website you are visiting right now! My personal, self-developed web portfolio. Here I applied all my knowledge of React and Next.js to create this page as an online CV to showcase my projects, experiences, and entire professional career. The web app is deployed on www.vercel.com, an online hosting service that uses AWS. I develop the website locally using React, Next.js, Tailwind, custom hooks, components, etc., and via GitHub Actions it is automatically deployed on Vercel.
+  es: |
+    Es donde estás ahora mismo! Mi portafolio personal, desarrollado completamente por mí, en el que he aplicado mis conocimientos de React y Next.js para crear un CV online donde muestro mis proyectos, experiencia y trayectoria profesional. La web está hosteada en www.vercel.com, un servicio de hosting online que utiliza AWS. La desarrollo localmente con React, Next.js, Tailwind, custom hooks y components, y se despliega automáticamente en Vercel mediante GitHub Actions.
+technologies: [react, next, tailwind, typescript]
+tags: [other]
+logo: readme_images/Portfolio (1).webp
+screenShoots:
+  - readme_images/Portfolio (1).webp
+  - readme_images/Portfolio (2).webp
+  - readme_images/Portfolio (3).webp
+  - readme_images/Portfolio (4).webp
+  - readme_images/Portfolio (5).webp
+  - readme_images/Portfolio (6).webp
+slug: miquelgc-portfolio
+order: 20
+featured: false
