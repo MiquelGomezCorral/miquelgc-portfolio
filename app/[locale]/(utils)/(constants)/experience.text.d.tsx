@@ -8,7 +8,7 @@ export const getExperiences = (t: TFunction): CardType[] => {
     date: t("vidext_auto.date"),
     place: "Valencia, España",
     description: t("vidext_auto.description"),
-    technologies: ["ai", "python", "fastapi", "docker", "github", "pandas", "numpy"], 
+    technologies: ["ai", 'react', 'typescript', 'next', 'tailwind', 'github', 'vercel-ai', 'prompt-engineering', 'braintrust', 'agents', 'mcp'], 
     logo: "experience/Vidext",
     link: "https://www.vidext.io",
     silly: "._."

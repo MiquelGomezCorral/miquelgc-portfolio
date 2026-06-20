@@ -2,20 +2,21 @@
     "id":"technologies",
     "icon":"terminal",
     "title": "Technologies",
+    "all": "All",
+    "search": "Search technologies...",
     "languages":{
-        "title": "Programming Languages",
-        "description":"Programming Languages for web, mobile and systems development. This ranges from functional to high-level languages"
+        "title": "Programming Languages"
     },
     "tools":{
-        "title": "Frameworks and development Tools",
-        "description":"Modern tools for rapid development, design and integration: Web, Apps and Games."
+        "title": "Frameworks and development Tools"
     },
     "data":{
-        "title": "Data Analisys and Processing ",
-        "description":"Solutions for manipulation, analisys, processing and visualization of data with Python and other backend frameworks."
+        "title": "Data Analisys and Processing "
     },
     "ai":{
-        "title": "Artificial Intelligence and Models",
-        "description":"Frameworks for building and training AI models, traditional machine learning and deep learning."
+        "title": "Artificial Intelligence and Models"
+    },
+    "others":{
+        "title": "Others"
     }
 }
