@@ -1,11 +1,21 @@
 {
     "id":"certifications",
     "icon":"certifications",
-    "title": "Certifications",
+    "title": "Certifications & Awards",
 
-    "master": {
+    "hf": {
         "title": "HuggingFace: Reinforcement Learning",
+        "company": "Hugging Face",
         "date": "Ago 2025",
+        "place": "Online",
         "description": "Course covering **Deep Reinforcement Learning** from beginner to expert. Explores theory and practice using libraries like **Stable Baselines3** and **CleanRL**, training agents in unique gym (**Gymnasium**) environments and publishing them on the **HuggingFace Hub**."
+    },
+    
+    "awards": {
+        "title": "Awards: UPV",
+        "company": "UPV",
+        "date": "Sep 2021 - Dec 2026",
+        "place": "Valencia, Spain",
+        "description": "- **Best academic record award** in my cohort for the 2022--23 academic year.\n- **ARA distinction** (High Academic Performance) in the degree programme.\n- **+20 honours distinctions** in my Bachelor's and Master's degrees.\n- **Honours mention** for the Bachelor's thesis (TFG)."
     }
 }

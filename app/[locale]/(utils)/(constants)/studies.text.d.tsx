@@ -6,9 +6,9 @@ export const getStudies = (t: TFunction): CardType[] => {
   
   const Master: CardType = {
     title: t("master.title"), 
-    company: "MUIARFID: ETS INF de la UPV", 
+    company: t("master.company"), 
     date: t("master.date"),
-    place: "Valencia, España",
+    place: t("master.place"),
     description: t("master.description"), 
     technologies: ["ai", "python", "pandas", "pytorch", "pandas", "plotly", "matplot", "jupyter", "c-sharp", "unity", "numpy"], 
     logo: "studies/UPV",
@@ -17,9 +17,9 @@ export const getStudies = (t: TFunction): CardType[] => {
   }
   const Erasmus: CardType = {
     title: t("erasmus.title"), 
-    company: "Ecole polytechnique de Lausanne (EPFL)", 
+    company: t("erasmus.company"), 
     date: t("erasmus.date"),
-    place: "Lausanne, Suiza",
+    place: t("erasmus.place"),
     description: t("erasmus.description"), 
     technologies: ["python", "ai", "pandas", "pytorch", "pandas", "plotly", "matplot", "jupyter"], 
     logo: "studies/EPFL",
@@ -28,8 +28,8 @@ export const getStudies = (t: TFunction): CardType[] => {
   }
   const Upv: CardType = {
     title: t("upv.title"), 
-    company: "Universitat Politècnica de València (UPV) ", 
-    place: "Valencia, España",
+    company: t("upv.company"), 
+    place: t("upv.place"),
     date: t("upv.date"), 
     description:  t("upv.description"), 
     technologies: ["ai", "java", "sql" , "c", "sklearn", "jupyter" ,"mathematica",  "risc-v" , "java-fx", "haskell", "prolog", "docker"], 
@@ -39,8 +39,8 @@ export const getStudies = (t: TFunction): CardType[] => {
   }
   const EsoBach: CardType = {
     title: t("eso_bach.title"), 
-    company: "IES Almenara", 
-    place: "Almenara, Castellón",
+    company: t("eso_bach.company"), 
+    place: t("eso_bach.place"),
     date: t("eso_bach.date"), 
     description:  t("eso_bach.description"), 
     technologies: [], 

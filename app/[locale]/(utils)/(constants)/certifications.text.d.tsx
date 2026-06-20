@@ -4,19 +4,30 @@ import type { TFunction } from "i18next";
 export const getCertifications = (t: TFunction): CardType[] => {
   
   const HF: CardType = {
-    title: t("master.title"), 
-    company: "HuggingFace", 
-    date: t("master.date"),
-    place: "Online",
-    description: t("master.description"), 
+    title: t("hf.title"), 
+    company: t("hf.company"), 
+    date: t("hf.date"),
+    place: t("hf.place"),
+    description: t("hf.description"), 
     technologies: ["python", "pytorch", "reinforcement-learning", 'ai', "numpy"], 
     logo: "certifications/HF-Face",
     link: "https://huggingface.co/learn/deep-rl-course/en/unit0/introduction",
     silly: "🤗"
   }
-
+  const awards: CardType = {
+    title: t("awards.title"), 
+    company: t("awards.company"), 
+    date: t("awards.date"),
+    place: t("awards.place"),
+    description: t("awards.description"), 
+    technologies: [], 
+    logo: "certifications/HF-Face",
+    link: "https://huggingface.co/learn/deep-rl-course/en/unit0/introduction",
+    silly: "🤗"
+  }
 
   return [
     HF,
+    awards
   ]
 }

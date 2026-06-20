@@ -29,9 +29,9 @@ export default async function App({ params }: { params: Promise<{ locale: string
         <InfoSection params={{locale: locale}}/>
         <Experience/> 
         <StudiesSection/> 
+        <CertificationsSection/> 
         <Projects params={{locale: locale}}/>
         <TechnologiesSection params={{locale: locale}}/>
-        <CertificationsSection/> 
       </main>
       
       <div id="footer" className="w-full bg-gradient-to-b from-miquel-background to-black flex justify-center ">

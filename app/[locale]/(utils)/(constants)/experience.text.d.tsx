@@ -4,9 +4,9 @@ import type { TFunction } from "i18next";
 export const getExperiences = (t: TFunction): CardType[] => {
   const VidextAuto: CardType = {
     title: t("vidext_auto.title"), 
-    company: "Vidext", 
+    company: t("vidext_auto.company"), 
     date: t("vidext_auto.date"),
-    place: "Valencia, España",
+    place: t("vidext_auto.place"),
     description: t("vidext_auto.description"),
     technologies: ["ai", 'react', 'typescript', 'next', 'tailwind', 'github', 'vercel-ai', 'prompt-engineering', 'braintrust', 'agents', 'mcp'], 
     logo: "experience/Vidext",
@@ -15,9 +15,9 @@ export const getExperiences = (t: TFunction): CardType[] => {
   }
   const SolverAI: CardType = {
     title: t("solver.title"), 
-    company: "Solver AI", 
+    company: t("solver.company"), 
     date: t("solver.date"),
-    place: "Valencia, España",
+    place: t("solver.place"),
     description: t("solver.description"),
     technologies: ["python", "ai", "github", "pandas", "numpy", "fastapi", "jupyter", "pytorch", "sklearn", "xg-boost" ,"plotly", "matplot", "docker"], 
     logo: "experience/Solver",
@@ -26,8 +26,8 @@ export const getExperiences = (t: TFunction): CardType[] => {
   }
   const Vidext: CardType = {
     title: t("vidext.title"), 
-    company: "Vidext", 
-    place: "Valencia, España",
+    company: t("vidext.company"), 
+    place: t("vidext.place"),
     date: t("vidext.date"), 
     description: t("vidext.description"),  
     technologies: ["html", "css", "react", "typescript", "next", "tailwind", "github"], 
@@ -37,8 +37,8 @@ export const getExperiences = (t: TFunction): CardType[] => {
   }
   const Laberit: CardType = {
     title: t("laberit.title"), 
-    company: "Lãberit Sistemas", 
-    place: "Valencia, España",
+    company: t("laberit.company"), 
+    place: t("laberit.place"),
     date: t("laberit.date"), //
     description: t("laberit.description"),  
     technologies: ["html", "css", "react", "typescript", "next", "tailwind", "github"], 
@@ -48,9 +48,9 @@ export const getExperiences = (t: TFunction): CardType[] => {
   }
   const Fiverr: CardType = {
     title: t("fiverr.title"),
-    company: "Fiverr", 
+    company: t("fiverr.company"), 
     date: t("fiverr.date"), 
-    place: "Almenara, Castellón",
+    place: t("fiverr.place"),
     description: t("fiverr.description"),  
     technologies: ["photoshop"], 
     logo: "experience/Fiverr",
@@ -59,8 +59,8 @@ export const getExperiences = (t: TFunction): CardType[] => {
   }
   const PuntISeguit: CardType = {
     title: t("puntiseguit.title"), 
-    company: "Punt I Seguit", 
-    place: "Almenara, Castellón",
+    company: t("puntiseguit.company"), 
+    place: t("puntiseguit.place"),
     date: t("puntiseguit.date"), 
     description: t("puntiseguit.description"),  
     technologies: [], 
@@ -70,9 +70,9 @@ export const getExperiences = (t: TFunction): CardType[] => {
   }
   const Karting: CardType = {
     title: t("karting.title"), 
-    company: "Karting ERK", 
+    company: t("karting.company"), 
     date: t("karting.date"), 
-    place: "Almenara, Castellón",
+    place: t("karting.place"),
     description: t("karting.description"),
     technologies: [], 
     logo: "experience/EKR",
@@ -81,9 +81,9 @@ export const getExperiences = (t: TFunction): CardType[] => {
   }
   const PapiBeach: CardType = {
     title: t("papibeach.title"),
-    company: "Papi Beach", 
+    company: t("papibeach.company"), 
     date: t("papibeach.date"), 
-    place: "Almenara, Castellón",
+    place: t("papibeach.place"),
     description: t("papibeach.description"),  
     technologies: [], 
     logo: "experience/PapiBeach",
