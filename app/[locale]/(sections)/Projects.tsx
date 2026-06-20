@@ -3,13 +3,15 @@ import { projectNameSpaces } from "@/app/[locale]/(utils)/(constants)/nameSpaces
 
 import { Section } from '@/app/[locale]/(utils)/(components)/Section';
 import { SeeMoreProject, Project } from "@/app/[locale]/projects/elements";
-import { getProjects } from "@/app/[locale]/(utils)/(constants)/project.text.d";
+import { getGithubProjects } from "@/app/[locale]/(utils)/(constants)/github-projects";
+// import { getProjects } from "@/app/[locale]/(utils)/(constants)/project.text.d";
 
 const i18nNamespaces = projectNameSpaces
 export default async function Projects({ params }: { params: any }) {
   const { locale } = await params;
   const { t } = await initTranslations(locale, i18nNamespaces);
-  const ProjectS = Object.values(getProjects(t))
+  // const ProjectS = Object.values(getProjects(t))
+  const ProjectS = await getGithubProjects(locale as "en" | "es")
 
   const num_project = 4
   return (

@@ -1,0 +1,26 @@
+# This is a sample .portfolio.yaml file for a project
+# This is a .portfolio.yaml file for the project to be displayed on my portfolio website at miquelgc.net
+title:
+  en: Procedural Animations
+  es: Animaciones Procedurales
+finished: finished           # or "progress" 
+descriptionShort:
+  en: Short one-liner
+  es: Una línea corta
+descriptionLong:
+  en: |
+    Longer multi-paragraph
+    description here.
+  es: |
+    Descripción más larga
+    aquí.
+technologies: [python, pygame, numpy]
+tags: [other] # [other, class, competition]
+logo: assets/logo.png        # repo-relative path
+screenShoots:                # repo-relative paths
+  - assets/shot1.png
+  - assets/shot2.png
+youtube: DXGSoyjN9PA         # video id only, like you already do
+slug: procedural-animations  # used for /projects/<slug> URL
+order: 2                     # optional, for sorting in the list
+featured: true               # optional, controls homepage inclusion
