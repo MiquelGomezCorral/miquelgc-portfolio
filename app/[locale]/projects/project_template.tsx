@@ -39,7 +39,8 @@ export function ProjectPageTemplate({object,  t, params, headerDisplay, stickyHe
                   ></iframe>
                   :
                   <Image
-                  src={`/assets/projects/${object.logo}.webp`}
+                  // src={`/assets/projects/${object.logo}.webp`}
+                  src={object.logo}
                   alt={object.title}
                   fill
                   className="rounded-xl"

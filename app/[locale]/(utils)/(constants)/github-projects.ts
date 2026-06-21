@@ -1,7 +1,7 @@
 import { load } from "js-yaml"
 import type { ProjectType } from "./project.text.d"
 import { TechnologyString } from "./technologies.d"
-import { GithubUser, YouTubeEmbed, Seconds24h} from "./constants.text.d"
+import { GithubUser, YouTubeEmbed, Seconds24h, ProjectsFolder} from "./constants.text.d"
 
 const GH_TOKEN = process.env.GITHUB_TOKEN  // fine-grained PAT, public repo read
 
@@ -53,7 +53,7 @@ async function fetchRepos(): Promise<GhRepo[]> {
 }
 
 async function fetchPortfolioYml(repo: GhRepo): Promise<PortfolioYml | null> {
-  const url = rawUrl(repo.name, repo.default_branch, ".portfolio.yml")
+  const url = rawUrl(repo.name, repo.default_branch, ".portfolio.yaml")
   const res = await fetch(url, { next: { revalidate: Seconds24h } })
   if (!res.ok) return null
   try {
@@ -68,31 +68,32 @@ export async function getGithubProjects(locale: Locale): Promise<ProjectType[]> 
 
   const settled = await Promise.all(
     repos.map(async repo => {
-      const yml = await fetchPortfolioYml(repo)
-      if (!yml) return null
+      const yaml = await fetchPortfolioYml(repo)
+      if (!yaml) return null
 
       const branch = repo.default_branch
 
       const project: ProjectType & { _order: number; _featured: boolean } = {
-        title: pick(yml.title, locale),
-        finished: yml.finished,
-        descriptionShort: pick(yml.descriptionShort, locale),
-        descriptionLong: pick(yml.descriptionLong, locale),
-        technologies: yml.technologies ?? [],
-        logo: yml.logo ? rawUrl(repo.name, branch, yml.logo) : "",
-        screenShoots: (yml.screenShoots ?? []).map(p => rawUrl(repo.name, branch, p)),
-        link: `/projects/${yml.slug}`,
-        youtube: yml.youtube ? YouTubeEmbed + yml.youtube : "",
+        title: pick(yaml.title, locale),
+        finished: yaml.finished,
+        descriptionShort: pick(yaml.descriptionShort, locale),
+        descriptionLong: pick(yaml.descriptionLong, locale),
+        technologies: yaml.technologies ?? [],
+        logo: yaml.logo ? rawUrl(repo.name, branch, yaml.logo) : "",
+        screenShoots: (yaml.screenShoots ?? []).map(p => rawUrl(repo.name, branch, p)),
+        link: `${ProjectsFolder}${yaml.slug}`,
+        youtube: yaml.youtube ? YouTubeEmbed + yaml.youtube : "",
         github: repo.html_url,
-        _order: yml.order ?? 999,
-        _featured: yml.featured ?? false,
+        _order: yaml.order ?? 999,
+        _featured: yaml.featured ?? false,
       }
 
       return project
     })
   )
 
+  
   return settled
     .filter((p): p is NonNullable<typeof p> => p !== null)
-    .sort((a, b) => a._order - b._order)
+    .sort((a, b) => b._order - a._order)
 }

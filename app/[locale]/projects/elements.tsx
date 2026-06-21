@@ -28,7 +28,8 @@ export function Project({ object, disabled, seeMore }: { object: ProjectType, di
         onClick={() => goToPageFrom(window.location.pathname, object.link)}
       >
         <Image
-          src={`/assets/projects/${object.logo}.webp`}
+          // src={`/assets/projects/${object.logo}.webp`}
+          src={object.logo}
           alt={object.title}
           // fill
           width={800}

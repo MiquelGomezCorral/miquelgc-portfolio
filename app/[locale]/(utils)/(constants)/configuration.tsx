@@ -5,6 +5,10 @@ class Configuration {
 
     public debounceTime = 300, // ms
     public shakingTime = 300, // ms
+
+    // =============== General ===============
+    public numProjectsLanding = 40,
+
     // =============== String art ===============
     public cigaretteTime = 30, //Num s / 4 for some reason, 120/4 = 30
     public cigaretteMaxHeight = 230,

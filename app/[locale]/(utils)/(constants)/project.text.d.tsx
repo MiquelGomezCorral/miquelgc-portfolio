@@ -1,8 +1,7 @@
 import type { TFunction } from "i18next";
-import { GithubLink, YouTubeEmbed } from "./constants.text.d"
+import { GithubLink, YouTubeEmbed, ProjectsFolder } from "./constants.text.d"
 import { TechnologyString } from "./technologies.d"
 
-export const ProjectsFolder = "/projects/"
 export type ProjectType = { 
   title: string, 
   finished: string, 

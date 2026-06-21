@@ -1,3 +1,5 @@
+export const ProjectsFolder = "/projects/"
+
 export const Email = "miquelgc2003@gmail.com";
 
 export const Linkedin = "@Miquel Gómez Corral";
