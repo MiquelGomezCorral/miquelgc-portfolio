@@ -8,6 +8,8 @@ class Configuration {
 
     // =============== General ===============
     public numProjectsLanding = 40,
+    public projectOtherTag = "other" as const,
+    public projectTags = ["class", "other", "competition"] as const,
 
     // =============== String art ===============
     public cigaretteTime = 30, //Num s / 4 for some reason, 120/4 = 30

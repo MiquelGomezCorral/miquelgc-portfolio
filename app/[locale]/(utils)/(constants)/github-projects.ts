@@ -3,11 +3,13 @@ import type { TFunction } from "i18next";
 import type { ProjectType } from "./project.text.d"
 import { TechnologyString } from "./technologies.d"
 import { GithubUser, YouTubeEmbed, Seconds24h, ProjectsFolder} from "./constants.text.d"
+import CONFIG from "./configuration"
 
 const GH_TOKEN = process.env.GITHUB_TOKEN  // fine-grained PAT, public repo read
 
 type Locale = "en" | "es"
 type I18nField = string | { en: string; es: string }
+type ProjectFilter = "all" | "main" | (typeof CONFIG.projectTags)[number]
 
 type PortfolioYml = {
   title: I18nField
@@ -21,6 +23,7 @@ type PortfolioYml = {
   slug: string
   order?: number
   featured?: boolean
+  tags?: string[]
 }
 
 type GhRepo = {
@@ -37,6 +40,10 @@ if (GH_TOKEN) authHeaders.Authorization = `Bearer ${GH_TOKEN}`
 
 function pick(f: I18nField, locale: Locale): string {
   return typeof f === "string" ? f : f[locale] ?? f.en
+}
+
+function normalizeTags(tags: string[] | string | undefined): string[] {
+  return Array.isArray(tags) ? tags : tags ? [tags] : []
 }
 
 function rawUrl(repo: string, branch: string, path: string): string {
@@ -64,13 +71,17 @@ async function fetchPortfolioYml(repo: GhRepo): Promise<PortfolioYml | null> {
   }
 }
 
-export async function getGithubProjects(locale: Locale, t: TFunction): Promise<ProjectType[]> {
+export async function getGithubProjects(locale: Locale, t: TFunction, filter: ProjectFilter = "all"): Promise<ProjectType[]> {
   const repos = await fetchRepos()
 
   const settled = await Promise.all(
     repos.map(async repo => {
       const yaml = await fetchPortfolioYml(repo)
       if (!yaml) return null
+
+      const tags = normalizeTags(yaml.tags)
+      if (filter === "main" && tags.includes(CONFIG.projectOtherTag)) return null
+      if (filter !== "all" && filter !== "main" && !tags.includes(filter)) return null
 
       const branch = repo.default_branch
 

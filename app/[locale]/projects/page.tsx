@@ -1,6 +1,7 @@
 
-import { getProjects, ProjectType } from "@/app/[locale]/(utils)/(constants)/project.text.d";
 import { Project } from "./elements";
+import { OthersCarousel } from "./others-carousel";
+import { Divider } from "@/app/[locale]/(utils)/(components)/Divider";
 import Header from "@/app/[locale]/(sections)/Header";
 import Footer from "@/app/[locale]/(sections)/Footer";
 
@@ -14,8 +15,8 @@ export default async function ProjectsPage({ params }: { params: any }) {
   const { locale } = await params;
   const { t, resources } = await initTranslations(locale, i18nNamespaces);
   // const Projects = Object.values(getProjects(t))
-  const Projects = await getGithubProjects(locale, t)
-  console.log(Projects);
+  const Projects = await getGithubProjects(locale, t, "main")
+  const Others = await getGithubProjects(locale, t, "other")
   
   return (
     <TranslationsProvider
@@ -42,6 +43,14 @@ export default async function ProjectsPage({ params }: { params: any }) {
               <Project object={object} key={idx}/>
             )}
           </main>
+
+          {Others.length > 0 &&
+            <>
+              <Divider />
+
+              <OthersCarousel projects={Others} />
+            </>
+          }
         </section>
       </main>
 

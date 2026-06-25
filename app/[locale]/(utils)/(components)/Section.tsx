@@ -3,6 +3,7 @@ import cn from "classnames"
 import { ButtonLink } from "@/app/[locale]/(utils)/(components)/ButtonsHeader";
 import GlowingText from "@/app/[locale]/(utils)/(components)/GlowingText";
 import { Icon } from "@/app/[locale]/(utils)/(components)/Icons";
+import { Divider } from "@/app/[locale]/(utils)/(components)/Divider";
 
 
 export function Section({id, title, iconName, link, classname, ...props}:{id: string, title: string, iconName: string, link?: string, classname?: string, children: React.ReactNode}){
@@ -37,11 +38,7 @@ export function SectionHeader({title, iconName, adjustIcon}:{title: string, icon
         {title}
       </section>
 
-      <figure className="my-4 flex gap-2">
-        <div className="h-2 w-2 bg-indigo-300/40 rounded-full"/>
-        <div className="h-2 w-2 bg-indigo-300/40 rounded-full"/>
-        <div className="h-2 w-full bg-indigo-300/40 rounded-full"/>
-      </figure>
+      <Divider />
     </header>
   )
 }
