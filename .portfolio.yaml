@@ -20,10 +20,14 @@ screenShoots:
   - readme_images/Portfolio (4).webp
   - readme_images/Portfolio (5).webp
   - readme_images/Portfolio (6).webp
+date:
+  en: Aug 2024
+  es: Ago 2024
 keywords:
   en: [personal portfolio, web CV, online resume, project showcase, React portfolio, Next.js website, Vercel deployment, developer portfolio, miquel gomez, software engineer CV, i18n]
   es: [portafolio personal, CV web, currículum online, muestra de proyectos, portafolio React, sitio Next.js, despliegue en Vercel, portafolio de desarrollador, miquel gomez, CV ingeniero software, i18n]
 slug: miquelgc-portfolio
 order: 20
 featured: false
+
 
