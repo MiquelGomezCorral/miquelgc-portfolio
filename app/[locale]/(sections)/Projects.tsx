@@ -14,7 +14,7 @@ export default async function Projects({ params }: { params: any }) {
   const { locale } = await params;
   const { t } = await initTranslations(locale, i18nNamespaces);
   // const ProjectS = Object.values(getProjects(t))
-  const Projects = await getGithubProjects(locale as "en" | "es")
+  const Projects = await getGithubProjects(locale as "en" | "es", t)
 
   return (
     <Section id={t("id")} title={t("title")} iconName={t("icon")} link="/projects" classname="group/proyects">

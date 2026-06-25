@@ -14,7 +14,7 @@ export default async function ProjectPage({ params }: { params: any }) {
   const { locale, slug } = await params
   const { t, resources } = await initTranslations(locale, i18nNamespaces);
 
-  const projects = await getGithubProjects(locale)
+  const projects = await getGithubProjects(locale, t)
   const project = projects.find(p => p.link.endsWith(`/${slug}`))
   if (!project) notFound()
     
@@ -30,6 +30,7 @@ export default async function ProjectPage({ params }: { params: any }) {
 }
 
 export async function generateStaticParams() {
-  const projects = await getGithubProjects("en")
+  const { t, resources } = await initTranslations('en', i18nNamespaces);
+  const projects = await getGithubProjects("en", t); // Use a dummy translation function for generating static params
   return projects.map(p => ({ slug: p.link.split("/").pop()! }))
 }

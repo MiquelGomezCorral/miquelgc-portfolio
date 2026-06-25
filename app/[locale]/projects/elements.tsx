@@ -27,15 +27,16 @@ export function Project({ object, disabled, seeMore }: { object: ProjectType, di
         } // bg-gradient-to-r from-miquel-blue-400 to-indigo-400
         onClick={() => goToPageFrom(window.location.pathname, object.link)}
       >
+        {object.logo &&
         <Image
-          // src={`/assets/projects/${object.logo}.webp`}
-          src={object.logo}
+          src={object.logo.startsWith("http") ? object.logo : `/assets/projects/${object.logo}.webp`}
           alt={object.title}
           // fill
           width={800}
           height={450}
           className="rounded-xl w-[95%] lg:w-10/12 group-hover/img:lg:w-11/12 lg:translate-x-4 transform duration-500 aspect-video outline outline-miquel-white-500-a/40"
         />
+        }
       </Link>
 
       <article className="flex flex-col gap-2 justify-between col-span-1 lg:col-start-5 lg:col-span-8">

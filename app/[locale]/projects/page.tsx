@@ -7,12 +7,16 @@ import Footer from "@/app/[locale]/(sections)/Footer";
 import initTranslations from "@/app/i18n"
 import TranslationsProvider from "@/app/[locale]/(utils)/TranslationsProvider"
 import { projectNameSpaces } from "@/app/[locale]/(utils)/(constants)/nameSpaces.d"
+import { getGithubProjects } from "@/app/[locale]/(utils)/(constants)/github-projects";
 
 const i18nNamespaces = projectNameSpaces
 export default async function ProjectsPage({ params }: { params: any }) {
   const { locale } = await params;
   const { t, resources } = await initTranslations(locale, i18nNamespaces);
-  const Projects = Object.values(getProjects(t))
+  // const Projects = Object.values(getProjects(t))
+  const Projects = await getGithubProjects(locale, t)
+  console.log(Projects);
+  
   return (
     <TranslationsProvider
       namespaces={i18nNamespaces}

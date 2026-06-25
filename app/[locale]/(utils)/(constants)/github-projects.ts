@@ -1,4 +1,5 @@
 import { load } from "js-yaml"
+import type { TFunction } from "i18next";
 import type { ProjectType } from "./project.text.d"
 import { TechnologyString } from "./technologies.d"
 import { GithubUser, YouTubeEmbed, Seconds24h, ProjectsFolder} from "./constants.text.d"
@@ -63,7 +64,7 @@ async function fetchPortfolioYml(repo: GhRepo): Promise<PortfolioYml | null> {
   }
 }
 
-export async function getGithubProjects(locale: Locale): Promise<ProjectType[]> {
+export async function getGithubProjects(locale: Locale, t: TFunction): Promise<ProjectType[]> {
   const repos = await fetchRepos()
 
   const settled = await Promise.all(
@@ -75,7 +76,7 @@ export async function getGithubProjects(locale: Locale): Promise<ProjectType[]> 
 
       const project: ProjectType & { _order: number; _featured: boolean } = {
         title: pick(yaml.title, locale),
-        finished: yaml.finished,
+        finished: yaml.finished == 'progress' ? t("progress") : t("finished"),
         descriptionShort: pick(yaml.descriptionShort, locale),
         descriptionLong: pick(yaml.descriptionLong, locale),
         technologies: yaml.technologies ?? [],
