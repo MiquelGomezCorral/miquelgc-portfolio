@@ -7,7 +7,7 @@ class Configuration {
     public shakingTime = 300, // ms
 
     // =============== General ===============
-    public numProjectsLanding = 40,
+    public numProjectsLanding = 5,
     public projectOtherTag = "other" as const,
     public projectTags = ["class", "other", "competition"] as const,
 

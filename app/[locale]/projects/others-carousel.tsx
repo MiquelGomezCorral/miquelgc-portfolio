@@ -16,7 +16,7 @@ export function OthersCarousel({ projects }: { projects: ProjectType[] }) {
     <main className="flex relative flex-col xl:flex-row items-center gap-4 group">
       <Carrousel scrollContainerRef={scrollContainerRef} scrollSlider={scrollSlider}>
         {projects.map((object, idx) =>
-          <Project key={idx} object={object}/>
+          <Project key={idx} object={object} descriptionBelow/>
         )}
       </Carrousel>
 

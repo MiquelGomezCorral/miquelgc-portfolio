@@ -5,6 +5,7 @@ import { TechnologyString } from "./technologies.d"
 export type ProjectType = { 
   title: string, 
   finished: string, 
+  date?: string,
   descriptionShort: string, 
   descriptionLong: string, 
   technologies: TechnologyString[], 

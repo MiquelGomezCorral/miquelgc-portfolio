@@ -14,6 +14,7 @@ type ProjectFilter = "all" | "main" | (typeof CONFIG.projectTags)[number]
 type PortfolioYml = {
   title: I18nField
   finished: string
+  date?: I18nField
   descriptionShort: I18nField
   descriptionLong: I18nField
   technologies: TechnologyString[]
@@ -88,6 +89,7 @@ export async function getGithubProjects(locale: Locale, t: TFunction, filter: Pr
       const project: ProjectType & { _order: number; _featured: boolean } = {
         title: pick(yaml.title, locale),
         finished: yaml.finished == 'progress' ? t("progress") : t("finished"),
+        date: yaml.date ? pick(yaml.date, locale) : undefined,
         descriptionShort: pick(yaml.descriptionShort, locale),
         descriptionLong: pick(yaml.descriptionLong, locale),
         technologies: yaml.technologies ?? [],

@@ -65,7 +65,10 @@ export function ProjectPageTemplate({object,  t, params, headerDisplay, stickyHe
                     />
                   }
                 </header>
-                <p className="opacity-50 text-xl">{object.finished}</p>
+                <span className="flex w-full gap-4 opacity-50 text-xl">
+                  {object.date && <p>{object.date}</p>}
+                  <p>{object.finished}</p>
+                </span>
               </span>
 
               <p className="opacity-70">{object.descriptionLong}</p>
