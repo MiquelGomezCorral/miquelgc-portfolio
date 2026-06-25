@@ -8,6 +8,14 @@
     "progress": "En progreso",
     "finished": "Finalizado",
     "technologies": "Tecnologías",
+    "search": "Busca por nombre, tecnología, etiqueta o descripción...",
+    "no-projects-filter": "Ningún proyecto coincide con los filtros actuales.",
+    "tags": {
+        "title": "Etiquetas",
+        "class": "Clase",
+        "other": "Otros",
+        "competition": "Competición"
+    },
 
     "portfolio": {
         "title": "Portafolio Web",

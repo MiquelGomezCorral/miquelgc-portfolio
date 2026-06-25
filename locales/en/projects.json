@@ -8,6 +8,14 @@
     "progress": "In progress",
     "finished": "Finished",
     "technologies": "Technologies",
+    "search": "Search by name, technology, tag or description...",
+    "no-projects-filter": "No projects match the current filters.",
+    "tags": {
+        "title": "Tags",
+        "class": "Class",
+        "other": "Other",
+        "competition": "Competition"
+    },
 
     "portfolio": {
         "title": "Web Portfolio",

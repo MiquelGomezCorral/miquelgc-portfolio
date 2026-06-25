@@ -1,6 +1,6 @@
 import { load } from "js-yaml"
 import type { TFunction } from "i18next";
-import type { ProjectType } from "./project.text.d"
+import type { LocaleText, ProjectType } from "./project.text.d"
 import { TechnologyString } from "./technologies.d"
 import { GithubUser, YouTubeEmbed, Seconds24h, ProjectsFolder} from "./constants.text.d"
 import CONFIG from "./configuration"
@@ -15,6 +15,7 @@ type PortfolioYml = {
   title: I18nField
   finished: string
   date?: I18nField
+  keywords?: I18nField
   descriptionShort: I18nField
   descriptionLong: I18nField
   technologies: TechnologyString[]
@@ -41,6 +42,12 @@ if (GH_TOKEN) authHeaders.Authorization = `Bearer ${GH_TOKEN}`
 
 function pick(f: I18nField, locale: Locale): string {
   return typeof f === "string" ? f : f[locale] ?? f.en
+}
+
+function toPair(f?: I18nField): LocaleText {
+  if (!f) return { en: "", es: "" }
+  if (typeof f === "string") return { en: f, es: f }
+  return { en: f.en ?? f.es ?? "", es: f.es ?? f.en ?? "" }
 }
 
 function normalizeTags(tags: string[] | string | undefined): string[] {
@@ -98,6 +105,12 @@ export async function getGithubProjects(locale: Locale, t: TFunction, filter: Pr
         link: `${ProjectsFolder}${yaml.slug}`,
         youtube: yaml.youtube ? YouTubeEmbed + yaml.youtube : "",
         github: repo.html_url,
+        tags,
+        _search: {
+          title: toPair(yaml.title),
+          description: toPair(yaml.descriptionLong),
+          keywords: toPair(yaml.keywords),
+        },
         _order: yaml.order ?? 999,
         _featured: yaml.featured ?? false,
       }

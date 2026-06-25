@@ -10,6 +10,19 @@ class Configuration {
     public numProjectsLanding = 5,
     public projectOtherTag = "other" as const,
     public projectTags = ["class", "other", "competition"] as const,
+    public projectSearchScores = {
+      titleSame: 10,
+      titleOther: 5,
+      keywordSame: 10,
+      keywordOther: 5,
+      techOrCategory: 3,
+      descriptionSame: 2,
+      descriptionOther: 1,
+    } as const,
+    public searchStopWords = [
+      "a", "an", "and", "are", "as", "at", "be", "by", "for", "from", "in", "is", "it", "of", "on", "or", "the", "to", "with",
+      "de", "del", "el", "en", "es", "la", "las", "los", "o", "para", "por", "que", "se", "un", "una", "y",
+    ],
 
     // =============== String art ===============
     public cigaretteTime = 30, //Num s / 4 for some reason, 120/4 = 30

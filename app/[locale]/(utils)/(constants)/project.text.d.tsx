@@ -2,6 +2,8 @@ import type { TFunction } from "i18next";
 import { GithubLink, YouTubeEmbed, ProjectsFolder } from "./constants.text.d"
 import { TechnologyString } from "./technologies.d"
 
+export type LocaleText = { en: string; es: string }
+
 export type ProjectType = { 
   title: string, 
   finished: string, 
@@ -14,6 +16,12 @@ export type ProjectType = {
   link: string 
   youtube: string
   github: string
+  tags?: string[]
+  _search?: {
+    title: LocaleText
+    description: LocaleText
+    keywords: LocaleText
+  }
 }
 type ProjectsObject = {
   DoublePendulum: ProjectType;
