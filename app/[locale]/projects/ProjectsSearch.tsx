@@ -101,11 +101,11 @@ function DefaultProjects({ main, others }: { main: ProjectType[], others: Projec
       </main>
 
       {others.length > 0 &&
-        <>
+        <div className="mt-16">
           <Divider />
 
           <OthersCarousel projects={others} />
-        </>
+        </div>
       }
     </>
   )

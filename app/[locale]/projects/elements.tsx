@@ -9,20 +9,23 @@ import { usePageStackStore } from "@/app/[locale]/(global_state)/state";
 import GlowingText from "@/app/[locale]/(utils)/(components)/GlowingText";
 import { TechnologyMarquee } from "@/app/[locale]/(utils)/(components)/Technologies";
 
-export function Project({ object, disabled, seeMore, descriptionBelow }: { object: ProjectType, disabled?: boolean, seeMore?: boolean, descriptionBelow?: boolean}) {
+export function Project({ object, disabled, seeMore, descriptionBelow, linkGit = false }: { object: ProjectType, disabled?: boolean, seeMore?: boolean, descriptionBelow?: boolean, linkGit?: boolean }) {
   const { goToPageFrom } = usePageStackStore()
 
   if (descriptionBelow) {
     return (
       <li className="relative flex flex-col gap-4 p-4 rounded-xl transform duration-300 transition-all group/proyect bg-miquel-gradient">
-        <main className="grid gird-cols-1 lg:grid-cols-12 gap-4">
-          <Link href={object.link} className={
+          <main className="grid gird-cols-1 lg:grid-cols-12 gap-4">
+          {object.logo &&
+          <Link href={linkGit ? object.github : object.link} 
+            target={linkGit ? "_blank": ""}
+            
+            className={
             "group/img relative w-full rounded-xl aspect-video col-span-1 flex justify-center lg:justify-end items-center overflow-hidden " +
             "lg:max-h-64 lg:col-span-4 bg-gradient-to-r from-miquel-blue-400 to-indigo-400 hover:outline-miquel-black-100"
             }
-            onClick={() => goToPageFrom(window.location.pathname, object.link)}
+            onClick={() =>{if(!linkGit) goToPageFrom(window.location.pathname, object.link)}}
           >
-            {object.logo &&
             <Image
               src={object.logo.startsWith("http") ? object.logo : `/assets/projects/${object.logo}.webp`}
               alt={object.title}
@@ -30,13 +33,18 @@ export function Project({ object, disabled, seeMore, descriptionBelow }: { objec
               height={450}
               className="rounded-xl w-[95%] lg:w-10/12 group-hover/img:lg:w-11/12 lg:translate-x-4 transform duration-500 aspect-video outline outline-miquel-white-500-a/40"
             />
-            }
           </Link>
+          }
 
-          <article className="flex flex-col gap-2 justify-center col-span-1 lg:col-start-5 lg:col-span-8">
+          <article className={cn("flex flex-col gap-2 justify-center col-span-1", {
+            "lg:col-start-5 lg:col-span-8": object.logo,
+            "lg:col-span-12": !object.logo,
+          })}>
             <header className="flex items-end gap-3">
               <Link
-                href={object.link} onClick={() => goToPageFrom(window.location.pathname, object.link)} 
+                href={linkGit ? object.github : object.link} 
+                target={linkGit ? "_blank": ""}
+                onClick={() => {if(!linkGit) goToPageFrom(window.location.pathname, object.link)}} 
                 className="opacity-90 hover:opacity-100 transform duration-300"  
               >
                 <GlowingText bold className="text-2xl">{object.title}</GlowingText>
@@ -71,11 +79,13 @@ export function Project({ object, disabled, seeMore, descriptionBelow }: { objec
           "pt-1 h-16 overflow-hidden blur-sm": seeMore
       })} // hover:scale-105
     >
-      <Link href={object.link} className={
+      <Link href={linkGit ? object.github : object.link}
+        target={linkGit ? "_blank": ""}
+        className={
         "group/img relative w-full rounded-xl aspect-video col-span-1 flex justify-center lg:justify-end items-center overflow-hidden " +
         "lg:max-h-64 lg:col-span-4 bg-gradient-to-r from-miquel-blue-400 to-indigo-400 hover:outline-miquel-black-100" //from-blue-500 to-orange-500
         } // bg-gradient-to-r from-miquel-blue-400 to-indigo-400
-        onClick={() => goToPageFrom(window.location.pathname, object.link)}
+        onClick={() => {if(!linkGit) goToPageFrom(window.location.pathname, object.link)}}
       >
         {object.logo &&
         <Image
@@ -93,7 +103,9 @@ export function Project({ object, disabled, seeMore, descriptionBelow }: { objec
         <span>
           <header className="flex items-end gap-3">
             <Link
-              href={object.link} onClick={() => goToPageFrom(window.location.pathname, object.link)} 
+              href={linkGit ? object.github : object.link}
+              target={linkGit ? "_blank": ""}
+              onClick={() => {if(!linkGit) goToPageFrom(window.location.pathname, object.link)}} 
               className="opacity-90 hover:opacity-100 transform duration-300"  
             >
               <GlowingText bold className="text-2xl">{object.title}</GlowingText>
