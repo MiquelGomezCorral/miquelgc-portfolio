@@ -95,11 +95,11 @@ export function ProjectsSearch({ main, others, locale }: { main: ProjectType[], 
 function DefaultProjects({ main, others }: { main: ProjectType[], others: ProjectType[] }) {
   return (
     <>
-      <main className="flex flex-col justify-center gap-6">
+      <div className="flex flex-col justify-center gap-6">
         {main.map((object, idx) =>
           <Project object={object} key={idx}/>
         )}
-      </main>
+      </div>
 
       {others.length > 0 &&
         <div className="mt-16">
@@ -114,7 +114,7 @@ function DefaultProjects({ main, others }: { main: ProjectType[], others: Projec
 
 function FilteredProjects({ projects, emptyText }: { projects: ProjectType[], emptyText: string }) {
   return (
-    <motion.main layout className="flex flex-col justify-center gap-6">
+    <div className="flex flex-col justify-center gap-6">
       <AnimatePresence mode="popLayout">
         {projects.length > 0 ? projects.map(project =>
           <motion.div
@@ -139,7 +139,7 @@ function FilteredProjects({ projects, emptyText }: { projects: ProjectType[], em
           </motion.p>
         }
       </AnimatePresence>
-    </motion.main>
+    </div>
   )
 }
 
