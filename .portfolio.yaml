@@ -12,7 +12,6 @@ descriptionLong:
     Es donde estás ahora mismo! Mi portafolio personal, desarrollado completamente por mí, en el que he aplicado mis conocimientos de React y Next.js para crear un CV online donde muestro mis proyectos, experiencia y trayectoria profesional. La web está hosteada en www.vercel.com, un servicio de hosting online que utiliza AWS. La desarrollo localmente con React, Next.js, Tailwind, custom hooks y components, y se despliega automáticamente en Vercel mediante GitHub Actions.
 technologies: [react, next, tailwind, typescript, git]
 tags: [other]
-logo: readme_images/Portfolio (1).webp
 date:
   en: Aug 2024
   es: Ago 2024
