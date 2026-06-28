@@ -1,7 +1,7 @@
 "use client"
 
 import type { ReactNode } from "react"
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import cn from "classnames"
 import { Icon } from "./Icons"
@@ -31,17 +31,25 @@ type SearchFilterProps<T> = {
   facets: SearchFacet<T>[]
   placeholder: string
   stopWords?: string[]
+  debounceMs?: number
   render: (items: T[], filtering: boolean) => ReactNode
 }
 
 const buttonBase = "rounded-full px-4 py-1 text-xs border transition-colors"
 
-export function SearchFilter<T>({ items, locale, fields, facets, placeholder, stopWords = [], render }: SearchFilterProps<T>) {
+export function SearchFilter<T>({ items, locale, fields, facets, placeholder, stopWords = [], debounceMs = 0, render }: SearchFilterProps<T>) {
   const [query, setQuery] = useState("")
+  const [debouncedQuery, setDebouncedQuery] = useState("")
   const [selected, setSelected] = useState<Record<string, string[]>>({})
 
+  useEffect(() => {
+    if (debounceMs <= 0) { setDebouncedQuery(query); return }
+    const id = setTimeout(() => setDebouncedQuery(query), debounceMs)
+    return () => clearTimeout(id)
+  }, [query, debounceMs])
+
   const stopWordSet = useMemo(() => new Set(stopWords.map(normalizeText)), [stopWords])
-  const tokens = useMemo(() => tokenize(query, stopWordSet), [query, stopWordSet])
+  const tokens = useMemo(() => tokenize(debouncedQuery, stopWordSet), [debouncedQuery, stopWordSet])
 
   const filtering = tokens.length > 0 || facets.some(facet => (selected[facet.key] ?? []).length > 0)
 

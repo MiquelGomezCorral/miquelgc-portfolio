@@ -4,6 +4,7 @@ class Configuration {
     public version = "1.4.3",
 
     public debounceTime = 300, // ms
+    public debounceTimeShort = 100, // ms
     public shakingTime = 300, // ms
 
     // =============== General ===============
