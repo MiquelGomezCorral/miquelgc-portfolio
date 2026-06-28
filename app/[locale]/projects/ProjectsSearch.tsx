@@ -20,8 +20,6 @@ export function ProjectsSearch({ main, others, locale }: { main: ProjectType[], 
   const { t: tProjects } = useTranslation("projects")
   const { t: tTech } = useTranslation("technologies")
 
-  const allProjects = useMemo(() => [...main, ...others], [main, others])
-
   const { categoryByTech, categoryLabelByTech } = useMemo(() => {
     const byTech = new Map<string, TechCategoryKey>()
     const labelByTech = new Map<string, string>()
@@ -51,8 +49,8 @@ export function ProjectsSearch({ main, others, locale }: { main: ProjectType[], 
   }, [categoryLabelByTech])
 
   const facets = useMemo<SearchFacet<ProjectType>[]>(() => {
-    const technologies = unique(allProjects.flatMap(project => project.technologies)).sort((a, b) => getTechTitle(a).localeCompare(getTechTitle(b)))
-    const tags = unique(allProjects.flatMap(project => project.tags ?? [])).sort()
+    const technologies = unique(main.flatMap(project => project.technologies)).sort((a, b) => getTechTitle(a).localeCompare(getTechTitle(b)))
+    const tags = unique(main.flatMap(project => project.tags ?? [])).sort()
 
     return [
       {
@@ -73,11 +71,11 @@ export function ProjectsSearch({ main, others, locale }: { main: ProjectType[], 
         render: value => tProjects(`tags.${value}`, { defaultValue: labelize(value) }),
       },
     ]
-  }, [allProjects, categoryByTech, tProjects])
+  }, [main, categoryByTech, tProjects])
 
   return (
     <SearchFilter
-      items={allProjects}
+      items={main}
       locale={locale}
       fields={fields}
       facets={facets}
