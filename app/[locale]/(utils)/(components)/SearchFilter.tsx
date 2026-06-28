@@ -32,12 +32,14 @@ type SearchFilterProps<T> = {
   placeholder: string
   stopWords?: string[]
   debounceMs?: number
+  fuzzyWeight?: number
+  fuzzyDistance?: number
   render: (items: T[], filtering: boolean) => ReactNode
 }
 
 const buttonBase = "rounded-full px-4 py-1 text-xs border transition-colors"
 
-export function SearchFilter<T>({ items, locale, fields, facets, placeholder, stopWords = [], debounceMs = 0, render }: SearchFilterProps<T>) {
+export function SearchFilter<T>({ items, locale, fields, facets, placeholder, stopWords = [], debounceMs = 0, fuzzyWeight = 0, fuzzyDistance = 1, render }: SearchFilterProps<T>) {
   const [query, setQuery] = useState("")
   const [debouncedQuery, setDebouncedQuery] = useState("")
   const [selected, setSelected] = useState<Record<string, string[]>>({})
@@ -54,10 +56,10 @@ export function SearchFilter<T>({ items, locale, fields, facets, placeholder, st
   const filtering = tokens.length > 0 || facets.some(facet => (selected[facet.key] ?? []).length > 0)
 
   const shown = useMemo(() => items
-    .map((item, index) => ({ item, index, score: scoreItem(item, locale, tokens, fields) }))
-    .filter(({ item }) => passesFacets(item, facets, selected) && (tokens.length === 0 || passesTokens(item, locale, tokens, fields)))
+    .map((item, index) => ({ item, index, ...evaluateItem(item, locale, tokens, fields, fuzzyWeight, fuzzyDistance) }))
+    .filter(({ item, passes }) => passesFacets(item, facets, selected) && (tokens.length === 0 || passes))
     .sort((a, b) => b.score - a.score || a.index - b.index)
-    .map(({ item }) => item), [items, locale, fields, facets, selected, tokens])
+    .map(({ item }) => item), [items, locale, fields, facets, selected, tokens, fuzzyWeight, fuzzyDistance])
 
   function toggle(facetKey: string, value: string) {
     setSelected(current => {
@@ -126,18 +128,87 @@ function passesFacets<T>(item: T, facets: SearchFacet<T>[], selected: Record<str
   })
 }
 
-function passesTokens<T>(item: T, locale: SearchLocale, tokens: string[], fields: SearchField<T>[]) {
-  return tokens.every(token =>
-    fields.some(field => normalizeText(field.text(item, locale)).includes(token))
-  )
+function evaluateItem<T>(item: T, locale: SearchLocale, tokens: string[], fields: SearchField<T>[], fuzzyWeight: number, fuzzyDistance: number) {
+  if (tokens.length === 0) return { score: 0, passes: true }
+
+  const tokenPassed = new Array<boolean>(tokens.length).fill(false)
+  let score = 0
+
+  for (let t = 0; t < tokens.length; t++) {
+    const token = tokens[t]
+    for (const field of fields) {
+      const normalized = normalizeText(field.text(item, locale))
+      if (normalized.includes(token)) {
+        score += field.score
+        tokenPassed[t] = true
+        continue
+      }
+      if (fuzzyWeight <= 0) continue
+      const words = splitWords(normalized)
+      for (const word of words) {
+        if (levenshtein(token, word, fuzzyDistance)) {
+          score += field.score * fuzzyWeight
+          tokenPassed[t] = true
+          break
+        }
+      }
+    }
+  }
+
+  return { score, passes: tokenPassed.every(Boolean) }
 }
 
-function scoreItem<T>(item: T, locale: SearchLocale, tokens: string[], fields: SearchField<T>[]) {
-  if (tokens.length === 0) return 0
+function levenshtein(a: string, b: string, maxDistance: number): boolean {
+  if (Math.abs(a.length - b.length) > maxDistance) return false
+  if (a === b) return true
+  if (maxDistance === 1) return levenshtein1(a, b)
+  return levenshteinDP(a, b, maxDistance)
+}
 
-  return tokens.reduce((score, token) => score + fields.reduce((fieldScore, field) => {
-    return normalizeText(field.text(item, locale)).includes(token) ? fieldScore + field.score : fieldScore
-  }, 0), 0)
+function levenshtein1(a: string, b: string): boolean {
+  const la = a.length, lb = b.length
+  if (la === lb) {
+    let diffs = 0
+    for (let i = 0; i < la; i++) { if (a[i] !== b[i] && ++diffs > 1) return false }
+    return diffs === 1
+  }
+  const longer = la > lb ? a : b
+  const shorter = la > lb ? b : a
+  let i = 0, j = 0, skipped = false
+  while (i < longer.length && j < shorter.length) {
+    if (longer[i] !== shorter[j]) {
+      if (skipped) return false
+      skipped = true
+      i++
+    } else { i++; j++ }
+  }
+  return true
+}
+
+function levenshteinDP(a: string, b: string, maxDistance: number): boolean {
+  const la = a.length, lb = b.length
+  let prev = new Uint8Array(lb + 1)
+  for (let j = 0; j <= lb; j++) prev[j] = j
+  for (let i = 1; i <= la; i++) {
+    let prevDiag = prev[0]
+    prev[0] = i
+    let rowMin = i
+    for (let j = 1; j <= lb; j++) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1
+      const entry = Math.min(prevDiag + cost, prev[j] + 1, prev[j - 1] + 1)
+      prevDiag = prev[j]
+      prev[j] = entry
+      if (entry < rowMin) rowMin = entry
+    }
+    if (rowMin > maxDistance) return false
+  }
+  return prev[lb] <= maxDistance
+}
+
+const WORD_SPLIT_RE = /[^\p{L}\p{N}+#.-]+/u
+
+function splitWords(text: string): string[] {
+  return text.split(WORD_SPLIT_RE).filter(Boolean)
 }
 
 function tokenize(query: string, stopWords: Set<string>) {

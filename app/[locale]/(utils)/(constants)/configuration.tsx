@@ -24,6 +24,8 @@ class Configuration {
       "a", "an", "and", "are", "as", "at", "be", "by", "for", "from", "in", "is", "it", "of", "on", "or", "the", "to", "with",
       "de", "del", "el", "en", "es", "la", "las", "los", "o", "para", "por", "que", "se", "un", "una", "y",
     ],
+    public projectFuzzyWeight = 0.1,
+    public projectFuzzyDistance = 1,
 
     // =============== String art ===============
     public cigaretteTime = 30, //Num s / 4 for some reason, 120/4 = 30

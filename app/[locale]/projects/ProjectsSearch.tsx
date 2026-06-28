@@ -84,6 +84,8 @@ export function ProjectsSearch({ main, others, locale }: { main: ProjectType[], 
       placeholder={tProjects("search")}
       stopWords={CONFIG.searchStopWords}
       debounceMs={CONFIG.debounceTimeShort}
+      fuzzyWeight={CONFIG.projectFuzzyWeight}
+      fuzzyDistance={CONFIG.projectFuzzyDistance}
       render={(projects, filtering) => filtering
         ? <FilteredProjects projects={projects} emptyText={tProjects("no-projects-filter")} />
         : <DefaultProjects main={main} others={others} />
