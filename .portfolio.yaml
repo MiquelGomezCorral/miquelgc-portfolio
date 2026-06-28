@@ -10,7 +10,7 @@ descriptionLong:
     This is the website you are visiting right now! My personal, self-developed web portfolio. Here I applied all my knowledge of React and Next.js to create this page as an online CV to showcase my projects, experiences, and entire professional career. The web app is deployed on www.vercel.com, an online hosting service that uses AWS. I develop the website locally using React, Next.js, Tailwind, custom hooks, components, etc., and via GitHub Actions it is automatically deployed on Vercel.
   es: |
     Es donde estás ahora mismo! Mi portafolio personal, desarrollado completamente por mí, en el que he aplicado mis conocimientos de React y Next.js para crear un CV online donde muestro mis proyectos, experiencia y trayectoria profesional. La web está hosteada en www.vercel.com, un servicio de hosting online que utiliza AWS. La desarrollo localmente con React, Next.js, Tailwind, custom hooks y components, y se despliega automáticamente en Vercel mediante GitHub Actions.
-technologies: [react, next, tailwind, typescript, git]
+technologies: [git, javascript, next, react, tailwind, typescript]
 tags: [other]
 date:
   en: Aug 2024
@@ -21,6 +21,7 @@ keywords:
 slug: miquelgc-portfolio
 order: 20
 featured: false
+
 
 
 
