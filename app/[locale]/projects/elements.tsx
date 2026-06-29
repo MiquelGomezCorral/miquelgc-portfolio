@@ -15,10 +15,11 @@ export function Project({ object, disabled, seeMore, descriptionBelow, linkGit =
   if (descriptionBelow) {
     return (
       <li className="relative flex flex-col gap-4 p-4 rounded-xl transform duration-300 transition-all group/proyect bg-miquel-gradient">
-          <main className="grid gird-cols-1 lg:grid-cols-12 gap-4">
+          <main className="grid grid-cols-1 lg:grid-cols-12 gap-4">
           {object.logo &&
           <Link href={linkGit ? object.github : object.link} 
             target={linkGit ? "_blank": ""}
+            rel={linkGit ? "noopener noreferrer" : undefined}
             
             className={
             "group/img relative w-full rounded-xl aspect-video col-span-1 flex justify-center lg:justify-end items-center overflow-hidden " +
@@ -44,6 +45,7 @@ export function Project({ object, disabled, seeMore, descriptionBelow, linkGit =
               <Link
                 href={linkGit ? object.github : object.link} 
                 target={linkGit ? "_blank": ""}
+                rel={linkGit ? "noopener noreferrer" : undefined}
                 onClick={() => {if(!linkGit) goToPageFrom(window.location.pathname, object.link)}} 
                 className="opacity-90 hover:opacity-100 transform duration-300"  
               >
@@ -73,7 +75,7 @@ export function Project({ object, disabled, seeMore, descriptionBelow, linkGit =
   return (
     <li
       className={cn(
-        "relative grid gird-cols-1 lg:max-h-64 lg:grid-cols-12 gap-4 p-4 rounded-xl transform duration-300 transition-all group/proyect",
+        "relative grid grid-cols-1 lg:max-h-64 lg:grid-cols-12 gap-4 p-4 rounded-xl transform duration-300 transition-all group/proyect",
         {
           "bg-miquel-gradient" : !disabled, 
           "pt-1 h-16 overflow-hidden blur-sm": seeMore
@@ -81,6 +83,7 @@ export function Project({ object, disabled, seeMore, descriptionBelow, linkGit =
     >
       <Link href={linkGit ? object.github : object.link}
         target={linkGit ? "_blank": ""}
+        rel={linkGit ? "noopener noreferrer" : undefined}
         className={
         "group/img relative w-full rounded-xl aspect-video col-span-1 flex justify-center lg:justify-end items-center overflow-hidden " +
         "lg:max-h-64 lg:col-span-4 bg-gradient-to-r from-miquel-blue-400 to-indigo-400 hover:outline-miquel-black-100" //from-blue-500 to-orange-500
@@ -105,6 +108,7 @@ export function Project({ object, disabled, seeMore, descriptionBelow, linkGit =
             <Link
               href={linkGit ? object.github : object.link}
               target={linkGit ? "_blank": ""}
+              rel={linkGit ? "noopener noreferrer" : undefined}
               onClick={() => {if(!linkGit) goToPageFrom(window.location.pathname, object.link)}} 
               className="opacity-90 hover:opacity-100 transform duration-300"  
             >
