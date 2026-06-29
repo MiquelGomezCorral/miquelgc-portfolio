@@ -8,7 +8,7 @@
     "progress": "In progress",
     "finished": "Finished",
     "technologies": "Technologies",
-    "search": "Search by name, technology, tag or description...",
+    "search": "Translation and Machine Learning...",
     "sort-relevancy": "Relevancy",
     "sort-time": "Time",
     "no-projects-filter": "No projects match the current filters.",
@@ -24,21 +24,7 @@
         "description_short": "From pixels to lines. This algorithm transforms raw numbers into patterns that resemble art. Start from one point, evaluate all possible lines, and draw the one that improves the image the most. Repeat until you're done!",
         "description_long": "From pixels to lines. This algorithm turns raw pixel data into beautiful line art. It starts at one pin, checks all possible connections, and draws the line that improves the image best. Then it does it again—until a full pattern emerges. Try it with any photo: drag or paste it in, tweak the settings, and find your perfect result. Just note—some settings may slow down processing or cause artifacts, so experiment carefully! All the galery samples have been created with 900 pins, 7000 lines, 7 of width and different contrast values.",
         "date": "Feb 2025",
-        "tags": ["git", "javascript", "next", "react", "tailwind", "typescript"],
-        "search": {
-            "title": {
-                "en": "String Art",
-                "es": "Hiloramas"
-            },
-            "description": {
-                "en": "From pixels to lines. Transform images into beautiful string art using an iterative algorithm that picks the best thread from each pin until a full portrait emerges.",
-                "es": "De píxeles a líneas. Convierte imágenes en arte con hilos usando un algoritmo iterativo que elige el mejor hilo desde cada pin hasta que el retrato emerge por completo."
-            },
-            "keywords": {
-                "en": ["string art", "thread art", "image to lines", "generative art", "pixel to string", "portrait", "pin art", "line algorithm", "creative coding", "canvas"],
-                "es": ["arte con hilos", "hilorama", "imagen a líneas", "arte generativo", "retrato", "pines", "algoritmo de líneas", "creative coding", "canvas"]
-            }
-        },
+        
 
         "upload": "Upload image",
         "crop": "Crop",
@@ -73,21 +59,8 @@
         "title": "A cigarret?",
         "description_short": "Chill...",
         "description_long": "Chill...",
-        "tags": ["git", "javascript", "next", "react", "tailwind", "typescript"],
-        "search": {
-            "title": {
-                "en": "A Cigarette?",
-                "es": "¿Un cigarro?"
-            },
-            "description": {
-                "en": "Take a break. A virtual cigarette that burns slowly on your screen — click to smoke, watch it fade, then light another one.",
-                "es": "Tómate un descanso. Un cigarro virtual que se quema lentamente en tu pantalla — haz clic para fumar, míralo consumirse, y enciende otro."
-            },
-            "keywords": {
-                "en": ["cigarette", "smoke", "interactive", "relaxing", "animation", "chill", "fun", "virtual", "web toy"],
-                "es": ["cigarro", "humo", "interactivo", "relajante", "animación", "chill", "diversión", "virtual", "web toy"]
-            }
-        },
+        "date": "Mar 2025",
+        "technologies": "git, javascript, next, react, tailwind, typescript",
         
         "another": "Another one?",
         "intensive": "Smoking intensively...",

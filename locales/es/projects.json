@@ -8,7 +8,7 @@
     "progress": "En progreso",
     "finished": "Finalizado",
     "technologies": "Tecnologías",
-    "search": "Busca por nombre, tecnología, etiqueta o descripción...",
+    "search": "Traducción y Aprendizaje Automático...",
     "sort-relevancy": "Relevancia",
     "sort-time": "Fecha",
     "no-projects-filter": "Ningún proyecto coincide con los filtros actuales.",
@@ -24,7 +24,8 @@
         "description_short": "De píxeles a líneas. Este algoritmo transforma datos en bruto en patrones que parecen arte. Comienza desde un punto, evalúa todas las líneas posibles y traza la que más mejora la imagen. Repite el proceso hasta que se quede como te guste :).",
         "description_long": "De píxeles a líneas. Este algoritmo convierte los datos de una imagen en una obra hecha con hilos. Parte desde un pin, analiza todas las conexiones posibles y dibuja la línea que más mejora el resultado. Luego lo repite, una y otra vez, hasta que surja el diseño completo. Prueba también tu fotos: arrástrala o pégala, ajusta los parámetros y encuentra el resultado ideal. Eso sí, ¡ten en cuenta que algunas configuraciones pueden tardar más o generar artefactos! Todos los ejemplos de la galería han sido creados con 900 pins, 7000 líneas, 7 de grosor y constraste variado.",
         "date": "Feb 2025",
-        "tags": ["git", "javascript", "next", "react", "tailwind", "typescript"],
+        "technologies": "git, javascript, next, react, tailwind, typescript",
+        "tags": "interactive, personal",
         "search": {
             "title": {
                 "en": "String Art",
@@ -71,21 +72,8 @@
         "title": "¿Un cigarro?",
         "description_short": "Relajate...",
         "description_long": "Relajate...",
-        "tags": ["git", "javascript", "next", "react", "tailwind", "typescript"],
-        "search": {
-            "title": {
-                "en": "A Cigarette?",
-                "es": "¿Un cigarro?"
-            },
-            "description": {
-                "en": "Take a break. A virtual cigarette that burns slowly on your screen — click to smoke, watch it fade, then light another one.",
-                "es": "Tómate un descanso. Un cigarro virtual que se quema lentamente en tu pantalla — haz clic para fumar, míralo consumirse, y enciende otro."
-            },
-            "keywords": {
-                "en": ["cigarette", "smoke", "interactive", "relaxing", "animation", "chill", "fun", "virtual", "web toy"],
-                "es": ["cigarro", "humo", "interactivo", "relajante", "animación", "chill", "diversión", "virtual", "web toy"]
-            }
-        },
+        "date": "Mar 2025",
+      
 
         "another": "¿Otro más?",
         "intensive": "Fumando intensamente...",

@@ -75,8 +75,8 @@ export function SearchFilter<T>({ items, locale, fields, facets, placeholder, st
   return (
     <>
       <section className="w-full flex flex-col gap-4">
-        <div className="flex items-center gap-3">
-          <div className="relative flex-1 flex items-center">
+        <div className="flex sm:flex-row flex-col items-center gap-3 w-full">
+          <div className="relative flex-1 flex items-center w-full">
             <Icon src="clue" type="white" width={18} height={18} title="search" className="absolute left-4 opacity-50 pointer-events-none" />
             <input
               value={query}

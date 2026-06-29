@@ -171,28 +171,28 @@ export const getProjects = (t: TFunction):  ProjectType[] => {
     descriptionShort: t("string.description_short"),
     date: t("string.date"),
     descriptionLong:t("string.description_long"),
-    technologies: ["html", "css", "react", "typescript", "next", "tailwind", "github"],
-    tags: ["smoking", "smoke", "particles", "react", "typescript", "nextjs", "tailwindcss"],
     logo: "String Art (1)",
     screenShoots: Array.from({ length: 4 }, (_, i) => `String Art (${i+1})`),
     link: ProjectsFolder+"string_art",
     youtube: YouTubeEmbed+"", //video id
     github:  GithubLink+"miquelgc-portfolio/tree/main/app/%5Blocale%5D/projects/string_art",
     relevancy: 90,
+    technologies: ["git", "javascript", "next", "react", "tailwind", "typescript"],
+    tags: ["interactive", "personal"],
     search: {
-      title: {
-        en: t("string.title"),
-        es: t("string.title"),
-      },
-      description: {
-        en: t("string.description_short"),
-        es: t("string.description_short"),
-      },
-      keywords: {
-        en: t("string.keywords"),
-        es: t("string.keywords"),
-      },
-    }
+        title: {
+            en: "String Art",
+            es: "Hiloramas"
+        },
+        description: {
+            en: "From pixels to lines. Transform images into beautiful string art using an iterative algorithm that picks the best thread from each pin until a full portrait emerges.",
+            es: "De píxeles a líneas. Convierte imágenes en arte con hilos usando un algoritmo iterativo que elige el mejor hilo desde cada pin hasta que el retrato emerge por completo."
+        },
+        keywords: {
+            en: ["string art", "thread art", "image to lines", "generative art", "pixel to string", "portrait", "pin art", "line algorithm", "creative coding", "canvas"].join(", "),
+            es: ["arte con hilos", "hilorama", "imagen a líneas", "arte generativo", "retrato", "pines", "algoritmo de líneas", "creative coding", "canvas"].join(", ")
+        }
+    },
   }
 
   const Smoking: ProjectType = {
@@ -201,28 +201,28 @@ export const getProjects = (t: TFunction):  ProjectType[] => {
     descriptionShort: t("smoking.description_short"),
     date: t("smoking.date"),
     descriptionLong:t("smoking.description_long"),
-    technologies: ["html", "css", "react", "typescript", "next", "tailwind", "github"],
-    tags: ["smoking", "smoke", "particles", "react", "typescript", "nextjs", "tailwindcss"],
     logo: "Smoking",
     screenShoots: [], // Array.from({ length: 0 }, (_, i) => `Smoking (${i+1})`),
     link: ProjectsFolder+"smoking",
     youtube: YouTubeEmbed+"", //video id
     github:  GithubLink+"miquelgc-portfolio/tree/main/app/%5Blocale%5D/projects/smoking",
     relevancy: 25,
+    technologies: ["git", "javascript", "next", "react", "tailwind", "typescript"],
+    tags: ["interactive", "personal"],
     search: {
-      title: {
-        en: t("smoking.title"),
-        es: t("smoking.title"),
+        title: {
+            en: "A Cigarette?",
+            es: "¿Un cigarro?"
+        },
+        description: {
+            en: "Take a break. A virtual cigarette that burns slowly on your screen — click to smoke, watch it fade, then light another one.",
+            es: "Tómate un descanso. Un cigarro virtual que se quema lentamente en tu pantalla — haz clic para fumar, míralo consumirse, y enciende otro."
+        },
+        keywords: {
+            en: ["cigarette", "smoke", "interactive", "relaxing", "animation", "chill", "fun", "virtual", "web toy"].join(", "),
+            es: ["cigarro", "humo", "interactivo", "relajante", "animación", "chill", "diversión", "virtual", "web toy"].join(", ")
+        }
       },
-      description: {
-        en: t("smoking.description_short"),
-        es: t("smoking.description_short"),
-      },
-      keywords: {
-        en: t("smoking.keywords"),
-        es: t("smoking.keywords"),
-      },
-    }
   }
 
   return [
