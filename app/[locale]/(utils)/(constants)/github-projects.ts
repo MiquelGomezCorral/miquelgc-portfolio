@@ -105,6 +105,7 @@ export async function getGithubProjects(locale: Locale, t: TFunction, filter: Pr
         link: `${ProjectsFolder}${yaml.slug}`,
         youtube: yaml.youtube ? YouTubeEmbed + yaml.youtube : "",
         github: repo.html_url,
+        order: yaml.order ?? -1,
         tags,
         _search: {
           title: toPair(yaml.title),

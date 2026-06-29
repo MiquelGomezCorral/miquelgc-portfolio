@@ -25,6 +25,20 @@ export function ProjectsSearch({ main, others, locale }: { main: ProjectType[], 
   const [sortMode, setSortMode] = useState<"relevancy" | "time">("relevancy")
   const [sortDir, setSortDir] = useState<"asc" | "desc">("desc")
 
+  const sortFn = (projects: ProjectType[]) => {
+    if (sortMode === "relevancy"){
+      return [...projects].sort((a, b) => {
+        return sortDir === "asc" ? a.order - b.order : b.order - a.order
+      })
+    }else{
+      return [...projects].sort((a, b) => {
+        const da = new Date(a._search?.rawDate ?? "").getTime(), db = new Date(b._search?.rawDate ?? "").getTime()
+        const va = isNaN(da) ? 0 : da, vb = isNaN(db) ? 0 : db
+        return sortDir === "asc" ? va - vb : vb - va
+      })
+    }
+  }
+
   const { categoryByTech, categoryLabelByTech } = useMemo(() => {
     const byTech = new Map<string, TechCategoryKey>()
     const labelByTech = new Map<string, string>()
@@ -107,16 +121,10 @@ export function ProjectsSearch({ main, others, locale }: { main: ProjectType[], 
         </div>
       }
       render={(projects, filtering) => {
-        const sorted = sortMode === "relevancy"
-          ? projects
-          : [...projects].sort((a, b) => {
-              const da = new Date(a._search?.rawDate ?? "").getTime(), db = new Date(b._search?.rawDate ?? "").getTime()
-              const va = isNaN(da) ? 0 : da, vb = isNaN(db) ? 0 : db
-              return sortDir === "asc" ? va - vb : vb - va
-            })
+        const sorted = sortFn(projects)
         return filtering
           ? <FilteredProjects projects={sorted} emptyText={tProjects("no-projects-filter")} />
-          : <DefaultProjects main={main} others={others} />
+          : <DefaultProjects main={sorted} others={others} />
       }}
     />
   )

@@ -16,6 +16,7 @@ export type ProjectType = {
   link: string 
   youtube: string
   github: string
+  order: number
   tags?: string[]
   _search?: {
     title: LocaleText
@@ -49,6 +50,7 @@ export const getProjects = (t: TFunction):  ProjectsObject => {
     link: ProjectsFolder+"portfolio",
     youtube: "", //video id
     github: GithubLink+"miquelgc-portfolio",
+    order: 1,
   }
 
   const ProceduralAnimations: ProjectType = {
@@ -62,6 +64,7 @@ export const getProjects = (t: TFunction):  ProjectsObject => {
     link: ProjectsFolder+"procedural_animations",
     youtube: YouTubeEmbed+"DXGSoyjN9PA", //video id
     github: GithubLink+"Procedural_Animations",
+    order: 2,
   }
 
   const InverseKinematics: ProjectType = {
@@ -75,6 +78,7 @@ export const getProjects = (t: TFunction):  ProjectsObject => {
     link: ProjectsFolder+"incerse_kinematics",
     youtube: YouTubeEmbed+"fmYzdNtMQSY", //video id
     github: GithubLink+"Inverse_Kinematics",
+    order: 2,
   }
 
   const DoublePendulum: ProjectType = {
@@ -88,6 +92,7 @@ export const getProjects = (t: TFunction):  ProjectsObject => {
     link: ProjectsFolder+"double_pendulum",
     youtube: YouTubeEmbed+"Gw-FDuWRabM", //video id
     github: GithubLink+"Double-pendulum",
+    order: 2,
   }
 
   const BoidsSimulator: ProjectType = {
@@ -101,6 +106,7 @@ export const getProjects = (t: TFunction):  ProjectsObject => {
     link: ProjectsFolder+"boids_simulator",
     youtube: YouTubeEmbed+"ExgxrMtjV3M", //video id
     github:  GithubLink+"Boids-simulator",
+    order: 2,
   }
 
   const MazeGeneratorSolver: ProjectType = {
@@ -114,6 +120,7 @@ export const getProjects = (t: TFunction):  ProjectsObject => {
     link: ProjectsFolder+"maze_generator_solver",
     youtube: YouTubeEmbed+"bZt4bsz9n9Q", //video id
     github:  GithubLink+"Maze-Generator-Solver",
+    order: 2,
   }
 
   const TheCubeElJueguito: ProjectType = {
@@ -127,6 +134,7 @@ export const getProjects = (t: TFunction):  ProjectsObject => {
     link: ProjectsFolder+"the_cube_el_jueguito",
     youtube: YouTubeEmbed+"J6wj_w_J8AU", //video id
     github:  GithubLink+"The-Cube-ElJueguito",
+    order: 2,
   }
 
   const AutoImageToAscii: ProjectType = {
@@ -140,6 +148,7 @@ export const getProjects = (t: TFunction):  ProjectsObject => {
     link: ProjectsFolder+"auto_image_to_ascii",
     youtube: YouTubeEmbed+"ta2pDyuCPKc", //video id
     github:  GithubLink+"Auto-image-to-Ascii",
+    order: 2,
   }
 
   const TetrisJavaFX: ProjectType = {
@@ -153,6 +162,7 @@ export const getProjects = (t: TFunction):  ProjectsObject => {
     link: ProjectsFolder+"portfolio",
     youtube: YouTubeEmbed+"", //video id
     github:  GithubLink+"Tetris-JavaFX",
+    order: 2,
   }
 
   const OrbitsSimulator: ProjectType = {
@@ -166,6 +176,7 @@ export const getProjects = (t: TFunction):  ProjectsObject => {
     link: ProjectsFolder+"orbits",
     youtube: YouTubeEmbed+"UPl4bBSgKtM", //video id
     github:  GithubLink+"Orbits-Simulator",
+    order: 2,
   }
 
   const StringArt: ProjectType = {
@@ -179,6 +190,7 @@ export const getProjects = (t: TFunction):  ProjectsObject => {
     link: ProjectsFolder+"string_art",
     youtube: YouTubeEmbed+"", //video id
     github:  GithubLink+"miquelgc-portfolio/tree/main/app/%5Blocale%5D/projects/string_art",
+    order: 2,
   }
 
   const Smoking: ProjectType = {
@@ -192,6 +204,7 @@ export const getProjects = (t: TFunction):  ProjectsObject => {
     link: ProjectsFolder+"smoking",
     youtube: YouTubeEmbed+"", //video id
     github:  GithubLink+"miquelgc-portfolio/tree/main/app/%5Blocale%5D/projects/smoking",
+    order: 2,
   }
 
   return {
