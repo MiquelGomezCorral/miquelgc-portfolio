@@ -23,7 +23,7 @@ type PortfolioYml = {
   screenShoots?: string[]
   youtube?: string
   slug: string
-  order?: number
+  relevancy?: number
   featured?: boolean
   tags?: string[]
 }
@@ -105,7 +105,7 @@ export async function getGithubProjects(locale: Locale, t: TFunction, filter: Pr
         link: `${ProjectsFolder}${yaml.slug}`,
         youtube: yaml.youtube ? YouTubeEmbed + yaml.youtube : "",
         github: repo.html_url,
-        order: yaml.order ?? -1,
+        relevancy: yaml.relevancy ?? -1,
         tags,
         _search: {
           title: toPair(yaml.title),
@@ -113,7 +113,7 @@ export async function getGithubProjects(locale: Locale, t: TFunction, filter: Pr
           keywords: toPair(yaml.keywords),
           rawDate: yaml.date ? pick(yaml.date, "en") : undefined,
         },
-        _order: yaml.order ?? 999,
+        _order: yaml.relevancy ?? 999,
         _featured: yaml.featured ?? false,
       }
 

@@ -28,7 +28,7 @@ export function ProjectsSearch({ main, others, locale }: { main: ProjectType[], 
   const sortFn = (projects: ProjectType[]) => {
     if (sortMode === "relevancy"){
       return [...projects].sort((a, b) => {
-        return sortDir === "asc" ? a.order - b.order : b.order - a.order
+        return sortDir === "asc" ? a.relevancy - b.relevancy : b.relevancy - a.relevancy
       })
     }else{
       return [...projects].sort((a, b) => {
