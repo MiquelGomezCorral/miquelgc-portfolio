@@ -1,14 +1,17 @@
 "use client"
 
-import { useMemo } from "react"
+import { useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { AnimatePresence, motion } from "framer-motion"
+import cn from "classnames"
 
 import CONFIG from "@/app/[locale]/(utils)/(constants)/configuration"
 import type { ProjectType } from "@/app/[locale]/(utils)/(constants)/project.text.d"
 import { getTechnologyCathegories, getTechTitle, techCategoryStyle, type TechCategoryKey, type TechnologyString } from "@/app/[locale]/(utils)/(constants)/technologies.d"
 import { Divider } from "@/app/[locale]/(utils)/(components)/Divider"
+import { Icon } from "@/app/[locale]/(utils)/(components)/Icons"
 import { SearchFilter, type SearchFacet, type SearchField } from "@/app/[locale]/(utils)/(components)/SearchFilter"
+import { MultiChoice } from "@/app/[locale]/(utils)/(components)/Buttons"
 import { Project } from "./elements"
 import { OthersCarousel } from "./others-carousel"
 
@@ -19,6 +22,8 @@ const offClass = "bg-transparent border-miquel-black-300 opacity-70 hover:opacit
 export function ProjectsSearch({ main, others, locale }: { main: ProjectType[], others: ProjectType[], locale: Locale }) {
   const { t: tProjects } = useTranslation("projects")
   const { t: tTech } = useTranslation("technologies")
+  const [sortMode, setSortMode] = useState<"relevancy" | "time">("relevancy")
+  const [sortDir, setSortDir] = useState<"asc" | "desc">("desc")
 
   const { categoryByTech, categoryLabelByTech } = useMemo(() => {
     const byTech = new Map<string, TechCategoryKey>()
@@ -84,10 +89,35 @@ export function ProjectsSearch({ main, others, locale }: { main: ProjectType[], 
       debounceMs={CONFIG.debounceTimeShort}
       fuzzyWeight={CONFIG.projectFuzzyWeight}
       fuzzyDistance={CONFIG.projectFuzzyDistance}
-      render={(projects, filtering) => filtering
-        ? <FilteredProjects projects={projects} emptyText={tProjects("no-projects-filter")} />
-        : <DefaultProjects main={main} others={others} />
+      controls={
+        <div className="flex items-center gap-2 shrink-0">
+          <MultiChoice
+            options={{ relevancy: tProjects("sort-relevancy"), time: tProjects("sort-time") }}
+            value={sortMode}
+            onChange={setSortMode}
+          />
+          <button
+            type="button"
+            onClick={() => setSortDir(d => d === "asc" ? "desc" : "asc")}
+            className="p-2 rounded-full bg-miquel-blue-400 hover:bg-miquel-blue-500 transition-colors"
+          >
+            <Icon src="chevron-down" type="white" width={20} height={20}
+              className={cn("transform duration-300", sortDir === "asc" && "rotate-180")} />
+          </button>
+        </div>
       }
+      render={(projects, filtering) => {
+        const sorted = sortMode === "relevancy"
+          ? projects
+          : [...projects].sort((a, b) => {
+              const da = new Date(a._search?.rawDate ?? "").getTime(), db = new Date(b._search?.rawDate ?? "").getTime()
+              const va = isNaN(da) ? 0 : da, vb = isNaN(db) ? 0 : db
+              return sortDir === "asc" ? va - vb : vb - va
+            })
+        return filtering
+          ? <FilteredProjects projects={sorted} emptyText={tProjects("no-projects-filter")} />
+          : <DefaultProjects main={main} others={others} />
+      }}
     />
   )
 }

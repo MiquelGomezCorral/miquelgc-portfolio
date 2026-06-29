@@ -34,12 +34,13 @@ type SearchFilterProps<T> = {
   debounceMs?: number
   fuzzyWeight?: number
   fuzzyDistance?: number
+  controls?: ReactNode
   render: (items: T[], filtering: boolean) => ReactNode
 }
 
 const buttonBase = "rounded-full px-4 py-1 text-xs border transition-colors"
 
-export function SearchFilter<T>({ items, locale, fields, facets, placeholder, stopWords = [], debounceMs = 0, fuzzyWeight = 0, fuzzyDistance = 1, render }: SearchFilterProps<T>) {
+export function SearchFilter<T>({ items, locale, fields, facets, placeholder, stopWords = [], debounceMs = 0, fuzzyWeight = 0, fuzzyDistance = 1, controls, render }: SearchFilterProps<T>) {
   const [query, setQuery] = useState("")
   const [debouncedQuery, setDebouncedQuery] = useState("")
   const [selected, setSelected] = useState<Record<string, string[]>>({})
@@ -74,14 +75,17 @@ export function SearchFilter<T>({ items, locale, fields, facets, placeholder, st
   return (
     <>
       <section className="w-full flex flex-col gap-4">
-        <div className="relative w-full flex items-center">
-          <Icon src="clue" type="white" width={18} height={18} title="search" className="absolute left-4 opacity-50 pointer-events-none" />
-          <input
-            value={query}
-            onChange={e => setQuery(e.target.value)}
-            placeholder={placeholder}
-            className="w-full rounded-full bg-miquel-black-300 -ml-4 pl-10 pr-4 py-2 text-sm outline-none"
-          />
+        <div className="flex items-center gap-3">
+          <div className="relative flex-1 flex items-center">
+            <Icon src="clue" type="white" width={18} height={18} title="search" className="absolute left-4 opacity-50 pointer-events-none" />
+            <input
+              value={query}
+              onChange={e => setQuery(e.target.value)}
+              placeholder={placeholder}
+              className="w-full rounded-full bg-miquel-black-300 -ml-4 pl-10 pr-4 py-2 text-sm outline-none"
+            />
+          </div>
+          {controls}
         </div>
 
         {facets.map(facet =>
@@ -213,7 +217,7 @@ function splitWords(text: string): string[] {
 
 function tokenize(query: string, stopWords: Set<string>) {
   return normalizeText(query)
-    .split(/[^\p{L}\p{N}+#.-]+/u)
+    .split(WORD_SPLIT_RE)
     .filter(token => token && !stopWords.has(token))
 }
 

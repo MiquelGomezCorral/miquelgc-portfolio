@@ -21,6 +21,7 @@ export type ProjectType = {
     title: LocaleText
     description: LocaleText
     keywords: LocaleText
+    rawDate?: string
   }
 }
 type ProjectsObject = {

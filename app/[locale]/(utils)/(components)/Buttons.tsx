@@ -161,3 +161,27 @@ export function ButtonModal({children, onClick, ...props }: ButtonProps){
     </>
   )
 }
+
+interface MultiChoiceProps<T extends string> {
+  options: Record<string, string>
+  value: T
+  onChange: (value: T) => void
+  className?: string
+}
+export function MultiChoice<T extends string>({ options, value, onChange, className }: MultiChoiceProps<T>) {
+  return (
+    <div className={cn("h-full flex rounded-full bg-miquel-black-300 p-0.5", className)}>
+      {Object.entries(options).map(([key, text]) => (
+        <button
+          key={key}
+          type="button"
+          onClick={() => onChange(key as T)}
+          className={cn("rounded-full px-3 py-2 text-sm transition-colors",
+            value === key ? "bg-miquel-blue-400" : "opacity-60 hover:opacity-100")}
+        >
+          {text}
+        </button>
+      ))}
+    </div>
+  )
+}

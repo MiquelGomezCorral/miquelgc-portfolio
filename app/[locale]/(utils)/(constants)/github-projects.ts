@@ -110,6 +110,7 @@ export async function getGithubProjects(locale: Locale, t: TFunction, filter: Pr
           title: toPair(yaml.title),
           description: toPair(yaml.descriptionLong),
           keywords: toPair(yaml.keywords),
+          rawDate: yaml.date ? pick(yaml.date, "en") : undefined,
         },
         _order: yaml.order ?? 999,
         _featured: yaml.featured ?? false,

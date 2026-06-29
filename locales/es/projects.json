@@ -9,6 +9,8 @@
     "finished": "Finalizado",
     "technologies": "Tecnologías",
     "search": "Busca por nombre, tecnología, etiqueta o descripción...",
+    "sort-relevancy": "Relevancia",
+    "sort-time": "Fecha",
     "no-projects-filter": "Ningún proyecto coincide con los filtros actuales.",
     "tags": {
         "title": "Etiquetas",
