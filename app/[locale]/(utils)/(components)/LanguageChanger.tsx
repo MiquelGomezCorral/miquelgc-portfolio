@@ -61,30 +61,31 @@ export default function LanguageChanger({mobile}: {mobile?: boolean}) {
     <div ref={dropdownRef} className="relative inline-block ">
       <button
         onClick={() => setOpen(!open)}
-        className={
-          cn("flex items-center lg:px-5 gap-2 miquel-opacity ",
-            {"px-0": mobile}
-        )}>
+        className="flex items-center gap-2 miquel-opacity text-nowrap">
         <Icon 
           src={currentLang.iconSrc} 
-          width={15} height={15} 
+          width={20} height={20} 
           type="country" title={currentLang.label} 
         />
-        <span className="">{currentLang.label}</span>
+        <span className={cn(!mobile && "hidden xl:inline")}>{currentLang.label}</span>
       </button>
       {open && (
         <div className={
-          cn("absolute mt-2 bg-miquel-background shadow-md z-10 w-full border border-b-2 border-b-miquel-white-200/50 border-t-0 rounded-md rounder-t rounded-t-none",
-          {"bg-transparent -translate-x-5":mobile}
-        )}>
+          cn("absolute mt-2 z-10 rounded-md rounded-t-none",
+            mobile
+              ? "left-0 w-full bg-transparent shadow-none border-0 -translate-x-5"
+              : "right-0 p-2 w-max bg-miquel-background shadow-md border border-b-2 border-b-miquel-white-200/50 border-t-0"
+          )}>
           {languages.map(lang => (
             <div
               key={lang.locale}
               onClick={() => handleChange(lang.locale)}
               className={
-              cn("flex items-center cursor-pointer px-4 py-2 gap-2 hover:bg-miquel-black-100 w-full",
-              {"hover:bg-miquel-black-100/40 miquel-opacity":mobile}
-            )}>
+              cn("flex items-center cursor-pointer px-4 py-2 gap-2 w-full",
+                mobile
+                  ? "hover:bg-miquel-black-100/40 miquel-opacity"
+                  : "justify-center hover:bg-miquel-black-100"
+              )}>
               <Icon src={lang.iconSrc} 
                 width={15} height={15} 
                 type="country" title={lang.label} 

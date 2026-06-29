@@ -27,8 +27,8 @@ export default function Header({sticky}: {sticky?: boolean}) {
   return (
     <div className='flex w-full' id="header">
       {/* ================== HORIZONTAL VIEW MENU ==================*/}
-      <header className={cn("hidden lg:flex justify-between z-40 text-xs xl:text-sm px-10 md:px-16 lg:px-20 py-4 w-full h-full sm:h-auto " +
-        "xl:gap-10 top-0 backdrop-blur-md border-b-2 border-b-miquel-white-200/50",
+      <header className={cn("hidden lg:flex justify-between z-40 text-xs 2xl:text-sm px-0 lg:px-2 xl:px-20 py-4 w-full h-full sm:h-auto " +
+        "2xl:gap-10 top-0 backdrop-blur-md border-b-2 border-b-miquel-white-200/50",
         {"fixed": !sticky},
         {"sticky -translate-y-32": sticky}
         )}>
