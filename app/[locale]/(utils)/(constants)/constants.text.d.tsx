@@ -21,4 +21,5 @@ export const CurriculumSiglas = "C.V."
 export const OpenMenu = "Open Menu"
 export const CloseMenu = "Close Menu"
 
+export const Seconds1h  = 60 * 60          // 1h
 export const Seconds24h = 60 * 60 * 24    // 24h

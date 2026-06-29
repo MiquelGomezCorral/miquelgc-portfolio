@@ -2,7 +2,7 @@ import { load } from "js-yaml"
 import type { TFunction } from "i18next";
 import type { LocaleText, ProjectType } from "./project.text.d"
 import { TechnologyString } from "./technologies.d"
-import { GithubUser, YouTubeEmbed, Seconds24h, ProjectsFolder} from "./constants.text.d"
+import { GithubUser, YouTubeEmbed, Seconds1h, ProjectsFolder} from "./constants.text.d"
 import CONFIG from "./configuration"
 
 const GH_TOKEN = process.env.GITHUB_TOKEN  // fine-grained PAT, public repo read
@@ -61,7 +61,7 @@ function rawUrl(repo: string, branch: string, path: string): string {
 async function fetchRepos(): Promise<GhRepo[]> {
   const res = await fetch(
     `https://api.github.com/users/${GithubUser}/repos?per_page=100&sort=pushed`,
-    { headers: authHeaders, next: { revalidate: Seconds24h } }
+    { headers: authHeaders, next: { revalidate: Seconds1h, tags: ["github-projects"] } }
   )
   if (!res.ok) throw new Error(`GitHub repos: ${res.status}`)
   const repos: GhRepo[] = await res.json()
@@ -70,7 +70,7 @@ async function fetchRepos(): Promise<GhRepo[]> {
 
 async function fetchPortfolioYml(repo: GhRepo): Promise<PortfolioYml | null> {
   const url = rawUrl(repo.name, repo.default_branch, ".portfolio.yaml")
-  const res = await fetch(url, { next: { revalidate: Seconds24h } })
+  const res = await fetch(url, { next: { revalidate: Seconds1h, tags: ["github-projects"] } })
   if (!res.ok) return null
   try {
     return load(await res.text()) as PortfolioYml
