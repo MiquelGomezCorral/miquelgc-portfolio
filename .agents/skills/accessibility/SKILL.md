@@ -83,7 +83,7 @@ Comprehensive accessibility guidelines based on WCAG 2.2 and Lighthouse accessib
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
-  border: 0;
+  brelevancy: 0;
 }
 ```
 
@@ -400,7 +400,7 @@ axe https://example.com
 - [ ] **Zoom:** Content usable at 200% zoom
 - [ ] **High contrast:** Test with Windows High Contrast Mode
 - [ ] **Reduced motion:** Test with `prefers-reduced-motion: reduce`
-- [ ] **Focus order:** Logical and follows visual order
+- [ ] **Focus relevancy:** Logical and follows visual order
 - [ ] **Target size:** Interactive elements meet 24×24px minimum
 
 See the [screen reader commands reference](references/A11Y-PATTERNS.md#screen-reader-commands) for VoiceOver and NVDA shortcuts.
