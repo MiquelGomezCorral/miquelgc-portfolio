@@ -14,9 +14,9 @@ export default async function ProjectPage({ params }: { params: any }) {
   const { locale, slug } = await params
   const { t, resources } = await initTranslations(locale, i18nNamespaces);
 
-  const projects = await getGithubProjects(locale, t)
-  const project = projects.find(p => p.link.endsWith(`/${slug}`))
-  if (!project) notFound()
+  const Projects = await getGithubProjects(locale, t)
+  const Project = Projects.find(p => p.link.endsWith(`/${slug}`))
+  if (!Project) notFound()
     
   return (
       <TranslationsProvider
@@ -24,7 +24,7 @@ export default async function ProjectPage({ params }: { params: any }) {
         locale={locale}
         resources={resources}
       >
-        <ProjectPageTemplate object={project} t={t} params={{locale: locale}}/>
+        <ProjectPageTemplate object={Project} t={t} params={{locale: locale}}/>
       </TranslationsProvider>
     )
 }

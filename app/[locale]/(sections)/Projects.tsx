@@ -7,25 +7,27 @@ import { getGithubProjects } from "@/app/[locale]/(utils)/(constants)/github-pro
 import CONFIG from "@/app/[locale]/(utils)/(constants)/configuration";
 
 
-// import { getProjects } from "@/app/[locale]/(utils)/(constants)/project.text.d";
+import { getProjects } from "@/app/[locale]/(utils)/(constants)/project.text.d";
 
 const i18nNamespaces = projectNameSpaces
 export default async function Projects({ params }: { params: any }) {
   const { locale } = await params;
   const { t } = await initTranslations(locale, i18nNamespaces);
-  // const ProjectS = Object.values(getProjects(t))
+  const ProjectsWeb = getProjects(t)
   const Projects = await getGithubProjects(locale as "en" | "es", t, "main")
+
+  const bestProjects = [...ProjectsWeb, ...Projects].sort((a, b) => (b.relevancy ?? 0) - (a.relevancy ?? 0)).slice(0, CONFIG.numProjectsLanding)
 
   return (
     <Section id={t("id")} title={t("title")} iconName={t("icon")} link="/projects" classname="group/proyects">
     
       <main className="flex flex-col justify-center gap-6">
-        {Projects.slice(0, CONFIG.numProjectsLanding).map((object, idx) =>
+        {bestProjects.map((object, idx) =>
           <Project key={idx} object={object}/>
         )}
       </main>
       
-      <SeeMoreProject object={Projects[Math.min(CONFIG.numProjectsLanding, Projects.length - 1)]} text={t("see-more")} />
+      <SeeMoreProject object={bestProjects[Math.min(CONFIG.numProjectsLanding, bestProjects.length - 1)]} text={t("see-more")} />
 
     </Section>
   )

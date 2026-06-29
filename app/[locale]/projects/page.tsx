@@ -7,12 +7,13 @@ import initTranslations from "@/app/i18n"
 import TranslationsProvider from "@/app/[locale]/(utils)/TranslationsProvider"
 import { projectNameSpaces } from "@/app/[locale]/(utils)/(constants)/nameSpaces.d"
 import { getGithubProjects } from "@/app/[locale]/(utils)/(constants)/github-projects";
+import { getProjects } from "@/app/[locale]/(utils)/(constants)/project.text.d";
 
 const i18nNamespaces = projectNameSpaces
 export default async function ProjectsPage({ params }: { params: any }) {
   const { locale } = await params;
   const { t, resources } = await initTranslations(locale, i18nNamespaces);
-  // const Projects = Object.values(getProjects(t))
+  const ProjectsWeb = getProjects(t)
   const Projects = await getGithubProjects(locale, t, "main")
   const Others = await getGithubProjects(locale, t, "other")
   
@@ -36,7 +37,7 @@ export default async function ProjectsPage({ params }: { params: any }) {
             </h1>
           </header>
 
-          <ProjectsSearch main={Projects} others={Others} locale={locale} />
+          <ProjectsSearch main={[...ProjectsWeb, ...Projects]} others={Others} locale={locale} />
         </section>
       </main>
 

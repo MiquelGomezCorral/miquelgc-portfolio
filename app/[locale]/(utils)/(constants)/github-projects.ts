@@ -96,7 +96,7 @@ export async function getGithubProjects(locale: Locale, t: TFunction, filter: Pr
       const project: ProjectType & { _order: number; _featured: boolean } = {
         title: pick(yaml.title, locale),
         finished: yaml.finished == 'progress' ? t("progress") : t("finished"),
-        date: yaml.date ? pick(yaml.date, locale) : undefined,
+        date: yaml.date ? pick(yaml.date, locale) : '',
         descriptionShort: pick(yaml.descriptionShort, locale),
         descriptionLong: pick(yaml.descriptionLong, locale),
         technologies: yaml.technologies ?? [],
@@ -107,11 +107,11 @@ export async function getGithubProjects(locale: Locale, t: TFunction, filter: Pr
         github: repo.html_url,
         relevancy: yaml.relevancy ?? -1,
         tags,
-        _search: {
+        search: {
           title: toPair(yaml.title),
           description: toPair(yaml.descriptionLong),
           keywords: toPair(yaml.keywords),
-          rawDate: yaml.date ? pick(yaml.date, "en") : undefined,
+
         },
         _order: yaml.relevancy ?? 999,
         _featured: yaml.featured ?? false,

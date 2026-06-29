@@ -32,7 +32,7 @@ export function ProjectsSearch({ main, others, locale }: { main: ProjectType[], 
       })
     }else{
       return [...projects].sort((a, b) => {
-        const da = new Date(a._search?.rawDate ?? "").getTime(), db = new Date(b._search?.rawDate ?? "").getTime()
+        const da = new Date(a.date ?? "").getTime(), db = new Date(b.date ?? "").getTime()
         const va = isNaN(da) ? 0 : da, vb = isNaN(db) ? 0 : db
         return sortDir === "asc" ? va - vb : vb - va
       })
@@ -57,13 +57,13 @@ export function ProjectsSearch({ main, others, locale }: { main: ProjectType[], 
     const scores = CONFIG.projectSearchScores
 
     return [
-      { key: "titleSame", score: scores.titleSame, text: (project, current) => project._search?.title[current] ?? project.title },
-      { key: "titleOther", score: scores.titleOther, text: (project, current) => project._search?.title[otherLocale(current)] ?? "" },
-      { key: "keywordSame", score: scores.keywordSame, text: (project, current) => project._search?.keywords[current] ?? "" },
-      { key: "keywordOther", score: scores.keywordOther, text: (project, current) => project._search?.keywords[otherLocale(current)] ?? "" },
+      { key: "titleSame", score: scores.titleSame, text: (project, current) => project.search?.title[current] ?? project.title },
+      { key: "titleOther", score: scores.titleOther, text: (project, current) => project.search?.title[otherLocale(current)] ?? "" },
+      { key: "keywordSame", score: scores.keywordSame, text: (project, current) => project.search?.keywords[current] ?? "" },
+      { key: "keywordOther", score: scores.keywordOther, text: (project, current) => project.search?.keywords[otherLocale(current)] ?? "" },
       { key: "techOrCategory", score: scores.techOrCategory, text: project => project.technologies.map(tech => `${getTechTitle(tech)} ${categoryLabelByTech.get(tech) ?? ""}`).join(" ") },
-      { key: "descriptionSame", score: scores.descriptionSame, text: (project, current) => project._search?.description[current] ?? project.descriptionLong },
-      { key: "descriptionOther", score: scores.descriptionOther, text: (project, current) => project._search?.description[otherLocale(current)] ?? "" },
+      { key: "descriptionSame", score: scores.descriptionSame, text: (project, current) => project.search?.description[current] ?? project.descriptionLong },
+      { key: "descriptionOther", score: scores.descriptionOther, text: (project, current) => project.search?.description[otherLocale(current)] ?? "" },
     ]
   }, [categoryLabelByTech])
 
