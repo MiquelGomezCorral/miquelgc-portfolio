@@ -22,8 +22,10 @@ export type ProjectType = {
     title: LocaleText
     description: LocaleText
     keywords: LocaleText
-  }
+  },
+  id?: string
 }
+
 export const getProjects = (t: TFunction):  ProjectType[] => {
   // const Porfolio: ProjectType = {
   //   title: t("portfolio.title"),
@@ -166,6 +168,7 @@ export const getProjects = (t: TFunction):  ProjectType[] => {
   // }
 
   const StringArt: ProjectType = {
+    id: "string-art",
     title: t("string.title"),
     finished: t("finished"),
     descriptionShort: t("string.description_short"),
@@ -196,6 +199,7 @@ export const getProjects = (t: TFunction):  ProjectType[] => {
   }
 
   const Smoking: ProjectType = {
+    id: "smoking",
     title: t("smoking.title"),
     finished: t("progress"),
     descriptionShort: t("smoking.description_short"),
