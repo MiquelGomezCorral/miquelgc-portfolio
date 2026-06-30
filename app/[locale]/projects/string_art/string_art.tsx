@@ -5,7 +5,7 @@ import NextImage from "next/image";
 import { ShakeHard } from 'reshake'
 import Cropper from 'react-easy-crop';
 import { useTranslation } from 'react-i18next';
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 
 import { Icon, IconCopy } from '@/app/[locale]/(utils)/(components)/Icons';
 import { Button, Input, ButtonModal } from '@/app/[locale]/(utils)/(components)/Buttons';
@@ -151,27 +151,10 @@ export function StringArtComponent(){
   }, [pinVector, linesVector, lineWidth]);
 
 
-  // ================================ handleSubmit  ================================
-  useEffect(() => { // Contrast debounce to update de image.
-    const timeout = setTimeout(() => {
-      const fakeFormEvent = { preventDefault: () => {} } as React.ChangeEvent<HTMLInputElement>
-      onChangeFormValues(fakeFormEvent)
-    }, CONFIG.debounceTime * 2.5) // ms debounce
-
-    return () => clearTimeout(timeout)
-  }, [numPins, maxLines, lineWidth, imageContrast])
-
-  useEffect(() => { // Shake removal
-    if (!shake) return
-    const timeout = setTimeout(() => setShake(false), CONFIG.shakingTime)
-    return () => clearTimeout(timeout)
-  }, [shake])
-
   // ================== FORM HANDLE =============
-  const onChangeFormValues = (e: React.ChangeEvent<HTMLInputElement>)=>{
+  const onChangeFormValues = useCallback((e: React.ChangeEvent<HTMLInputElement>)=>{
     e.preventDefault()
 
-    // Check email format
     const {value: valuePins,     valid: validPins}     = checkLimits(numPins,       CONFIG.pinLimits)
     const {value: valueLines,    valid: validLines}    = checkLimits(maxLines,      CONFIG.linesLimits)
     const {value: valueWidth,    valid: validWidth}    = checkLimits(lineWidth,     CONFIG.lineWidthLimits)
@@ -184,21 +167,53 @@ export function StringArtComponent(){
       contrast: !validContrast,
     };
     setErrors(newErrors);
-    // Check last time sent
-    setShake(Object.values(newErrors).some(e => e))// At least one is truthy
-      
+    setShake(Object.values(newErrors).some(e => e))
 
     return newErrors
-  }
+  }, [numPins, maxLines, lineWidth, imageContrast])
+
+  // ================================ handleSubmit  ================================
+  useEffect(() => { // Contrast debounce to update de image.
+    const timeout = setTimeout(() => {
+      const fakeFormEvent = { preventDefault: () => {} } as React.ChangeEvent<HTMLInputElement>
+      onChangeFormValues(fakeFormEvent)
+    }, CONFIG.debounceTime * 2.5) // ms debounce
+
+    return () => clearTimeout(timeout)
+  }, [onChangeFormValues])
+
+  useEffect(() => { // Shake removal
+    if (!shake) return
+    const timeout = setTimeout(() => setShake(false), CONFIG.shakingTime)
+    return () => clearTimeout(timeout)
+  }, [shake])
 
   // ================================ IMAGE UPDATE ================================
+  const handleCropImage = useCallback(async (cropping: boolean = true) => {
+    if (!croppedAreaPixels)
+      return
+
+    if (!croppingCompleted || !cropping) {
+      const {image, errorMatrix} = await getCroppedImg(selectedImage, croppedAreaPixels, imageContrast);
+      setModifiedImage(image)
+      setErrorMatrix(errorMatrix)    
+      setInUseErrorMatrix(errorMatrix)    
+      
+      setImazeSize(errorMatrix.length)
+      setLinesVector([CONFIG.firstPin])
+    }
+    if (cropping){
+      setCroppingCompleted(!croppingCompleted)
+    }
+  }, [croppedAreaPixels, croppingCompleted, selectedImage, imageContrast])
+
   useEffect(() => { // Contrast debounce to update de image.
     const timeout = setTimeout(() => {
       handleCropImage(false)
     }, CONFIG.debounceTime / 3) // ms debounce
 
     return () => clearTimeout(timeout)
-  }, [imageContrast])
+  }, [handleCropImage])
 
 
   const handleImageUpload = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -216,7 +231,7 @@ export function StringArtComponent(){
     }
 
     if (!file) return
-      if (!(fileUploadRef.current && fileUploadRef.current.files)) return // No selected file
+      if (!(fileUploadRef.current && fileUploadRef.current.files)) return
 
       const cacheURL = URL.createObjectURL(file)
       setSelectedImage(cacheURL)
@@ -224,25 +239,7 @@ export function StringArtComponent(){
       setCreatingImage(false)
   }
 
-  const handleCropImage = async (cropping: boolean = true) => {
-    if (!croppedAreaPixels)
-      return
 
-    if (!croppingCompleted || !cropping) {
-      const {image, errorMatrix} = await getCroppedImg(selectedImage, croppedAreaPixels, imageContrast);
-      setModifiedImage(image)
-      setErrorMatrix(errorMatrix)    
-      setInUseErrorMatrix(errorMatrix)    
-      
-      setImazeSize(errorMatrix.length)
-      setLinesVector([CONFIG.firstPin])
-    }
-    if (cropping){
-      setCroppingCompleted(!croppingCompleted)
-    }
-  }
-
- 
   // ==========================================================================================
   //                                      ALGORITH
   // ==========================================================================================

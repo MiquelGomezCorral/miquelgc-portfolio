@@ -1,10 +1,10 @@
 "use client"
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function WritingText({list}: {list: string[]}){
   const [quality, setQuality] = useState("Creativo")
-  const [indexQuality, setIndexQuality] = useState(0)
   const [isWriting, setIsWriting] = useState(false)
+  const indexQualityRef = useRef(0)
   useEffect(() => {
     const deletingTime = 25
     const writingTime = 150
@@ -14,8 +14,8 @@ export function WritingText({list}: {list: string[]}){
         setQuality(prev => prev.slice(0, -1))
       } else {
         setIsWriting(true)
-        const nextIndext = (indexQuality + 1) % list.length
-        setIndexQuality(nextIndext)
+        const nextIndext = (indexQualityRef.current + 1) % list.length
+        indexQualityRef.current = nextIndext
 
         let i = 0
         const intervalWrite = setInterval(() => {
@@ -30,7 +30,7 @@ export function WritingText({list}: {list: string[]}){
       }
     }, deletingTime)
     return () => clearInterval(intervalDel)
-  }, [quality, isWriting])
+  }, [quality, isWriting, list])
   return (
     <>{quality}</>
   )
