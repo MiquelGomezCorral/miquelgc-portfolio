@@ -8,56 +8,38 @@
     "progress": "En progreso",
     "finished": "Finalizado",
     "technologies": "Tecnologías",
+    "search": "Traducción y Aprendizaje Automático...",
+    "sort-relevancy": "Relevancia",
+    "sort-time": "Fecha",
+    "no-projects-filter": "Ningún proyecto coincide con los filtros actuales.",
+    "tags": {
+        "title": "Etiquetas",
+        "class": "Clase",
+        "other": "Otros",
+        "competition": "Competición"
+    },
 
-    "portfolio": {
-        "title": "Portafolio Web",
-        "description_short": "Es donde estás ahora mismo! Mi portafolio personal, desarrollado por mí desde cero, donde he aplicado todo lo que sé sobre React y Next.js para crear un CV online con mis proyectos. Si quieres saber más sobre mí, ¡sigue explorando!",
-        "description_long": "Es donde estás ahora mismo! Mi portafolio personal, desarrollado completamente por mí, en el que he aplicado mis conocimientos de React y Next.js para crear un CV online donde muestro mis proyectos, experiencia y trayectoria profesional. La web está hosteada en www.vercel.com, un servicio de hosting online que utiliza AWS. La desarrollo localmente con React, Next.js, Tailwind, custom hooks y components, y se despliega automáticamente en Vercel mediante GitHub Actions."
-    },
-    "procedural": {
-        "title": "Animaciones Procedurales",
-        "description_short": "En este proyecto he usado el concepto de cero keyframes: en lugar de usar imágenes como texturas, se dibujan y renderizan los fotogramas de una criatura en movimiento para que parezca viva. La idea era crear criaturas parecidas a peces, con aletas y ojos saltones. Después incorporé parte de mi trabajo previo en Inverse Kinematics para generar las patas. El resultado son imágenes impresionantes de criaturas que se mueven como si tuvieran vida y te sigue!",
-        "description_long": "Utilizando Python, Pygame y NumPy, he aplicado el concepto de cero keyframes: en lugar de usar imágenes como texturas, se dibujan y renderizan los fotogramas de una criatura en movimiento para que parezca viva. La idea era crear criaturas parecidas a peces, con aletas y ojos saltones, y luego añadí parte de mi trabajo en Inverse Kinematics para darles patas. Con algunas técnicas de suavizado logré que las formas se vieran más fluidas y naturales. El resultado son imágenes sorprendentes de criaturas que se mueven como si estuvieran vivas y siguen el cursor."
-    },
-    "kinematics": {
-        "title": "Cinemática Inversa",
-        "description_short": "Este es un proyecto simple y rápido que desarrollé en un solo día. Después de ver algunos vídeos en YouTube, decidí probarlo. Las matemáticas detrás son bastante sencillas, solo operaciones con ángulos. El resultado es bastante bueno, aunque hay mucho margen de mejora que se deja al espectador como ejercicio ;).",
-        "description_long": "Desarrollé este proyecto en un día utilizando Python, Pygame y NumPy. Después de ver algunos vídeos en YouTube, decidí probarlo, ya que las matemáticas que implica son bastante básicas y solo requieren cálculos con ángulos. El resultado es bueno, aunque se pueden hacer muchas mejoras. La parte de las arañas fue un experimento para aplicarlo a algo en movimiento, simulando la animación de una criatura caminando. La perspectiva no es la mejor y a veces las patas se quedan atascadas en posiciones aleatorias, pero para lo simple que es el código, el resultado es bastante impresionante."
-    },
-    "pendulum": {
-        "title": "Doble Péndulo",
-        "description_short": "Este proyecto iba a ser una prueba rápida de un día, pero terminé jugando con los resultados durante tres. El caos generado por un sistema de doble péndulo es realmente fascinante. Las matemáticas detrás son relativamente simples, con solo dos ecuaciones (aunque algo largas), y los resultados visuales pueden llegar a ser hipnóticos si se ajustan bien.",
-        "description_long": "Este proyecto iba a ser una prueba rápida de un día con Python, Pygame y NumPy, pero al final estuve experimentando con él durante tres días. El caos que genera un sistema de doble péndulo es realmente interesante. Las matemáticas son relativamente simples, basadas en dos ecuaciones algo largas, pero los resultados visuales pueden ser alucinantes. La simulación es personalizable con algunos botones y, si te animas, puedes modificar el código para seguir mejorándolo."
-    },
-    "boids": {
-        "title": "Simulador de Boids",
-        "description_short": "Los boids, o bandadas, son agentes que imitan el comportamiento de algunos animales. Se pueden utilizar para simular el movimiento de aves o insectos. Con tres reglas simples —Cohesion, Alignment y Separation— se puede recrear este comportamiento de forma sorprendente. Los colores cambian según la dirección, creando efectos visuales espectaculares.",
-        "description_long": "En este proyecto, desarrollado con Python y Pygame, muestro cómo los boids pueden imitar el comportamiento de ciertos animales, como aves o insectos, mediante tres reglas simples: Cohesion, Alignment y Separation. Aunque no terminé la versión en NumPy por falta de experiencia, el resultado sigue siendo muy llamativo. Los boids son en 2D, pero el mismo concepto se puede aplicar a una simulación en 3D para representar criaturas marinas. Además, los colores varían según la dirección en la que se mueven, aunque también podrían implementarse texturas o animaciones procedurales como en mis otros proyectos."
-    },
-    "maze": {
-        "title": "Generador y Solucionador de Laberintos",
-        "description_short": "Los laberintos son una aplicación muy interesante de la teoría de grafos y algoritmos. Se pueden representar de muchas maneras, pero el objetivo siempre es el mismo: encontrar el camino desde el punto de inicio hasta la salida. Aquí utilizo algoritmos como A* o Greedy para resolverlos paso a paso. ¡Haz clic y descubre cómo funcionan!",
-        "description_long": "En este proyecto exploro la teoría de grafos aplicada a los laberintos, donde el objetivo es siempre encontrar la ruta más eficiente desde la entrada hasta la salida. Usando Python, Pygame y NumPy, he implementado algoritmos como A* y Greedy para resolverlos. También he utilizado dos métodos para generarlos: Origin Shift y DFS. Este último es algo aburrido, por lo que estaría bien implementar otros y compararlo. Modificar le código es sencillo, si tienes ideas o quieres contribuir con nuevas mejoras, ¡eres más que bienvenido!"
-    },
-    "the_cube": {
-        "title": "The Cube: El Jueguito",
-        "description_short": "The Cube, también conocido como El Jueguito, fue mi primer proyecto 'grande' de programación. Lo empecé para aprender C# y Unity (graficos incluidos, hechos por mi). La idea es sencilla: proteger un cubo de los enemigos. Cada ronda aparecen más y más, y cuando no puedas resistir más, puedes gastar el dinero que ganas en mejorar tu personaje para seguir sobreviviendo.",
-        "description_long": "The Cube, o El Jueguito, fue mi primer proyecto 'grande' de programación. Lo empecé con el objetivo de aprender C# y Unity. También hice los gráficos y assets en Photoshop, lo que le dio un buen acabado visual. La mecánica es sencilla: tienes que defender un cubo de oleadas de enemigos, que se vuelven más fuertes con cada ronda. Al derrotarlos ganas dinero, que puedes invertir en mejorar tus weapons para aguantar más tiempo."
-    },
-    "ascii": {
-        "title": "Conversor Automático de Imagen a ASCII",
-        "description_short": "Este proyecto surge de la idea de convertir imágenes en otro formato: ¡TEXTO! Utilizando una aplicación de terceros (con la referencia correspondiente) y mi propia interfaz, puedes transformar cualquier vídeo, GIF o imagen en texto. Hay varios modos disponibles y puedes guardar los resultados.",
-        "description_long": "Este proyecto nació de la idea de convertir imágenes en otro formato: ¡TEXTO! Usando una aplicación de terceros (debidamente acreditada) y mi interfaz, puedes transformar vídeos, GIFs o imágenes en texto. Hay distintos modos disponibles y puedes guardar los resultados. Eso sí, la forma en la que está integrado el código de terceros no es la mejor, y a veces puede activar tu firewall, pero es una herramienta curiosa y los resultados son visualmente muy atractivos."
-    },
-    "orbits": {
-        "title": "Simulador de Órbitas",
-        "description_short": "El problema de los tres cuerpos, una buena serie de Netflix, muestra lo que puede suceder en el universo cuando la física interviene con objetos grandes (planetas y estrellas). Aquí, simulo la interacción de algunos objetos utilizando las ecuaciones de Newton implementadas en C++. Podemos habilitar colisiones y hacer que los objetos se comporten como pelotas que rebotan. Súper divertido.",
-        "description_long": "El problema de los tres cuerpos, una buena serie de Netflix, muestra lo que puede suceder en el universo cuando la física interviene con objetos grandes (planetas y estrellas). Aquí, simulo la interacción de algunos objetos utilizando las ecuaciones de Newton implementadas en C++. Podemos habilitar colisiones y hacer que los objetos se comporten como pelotas que rebotan. Súper divertido."
-    },
     "string": {
         "title": "Hiloramas",
         "description_short": "De píxeles a líneas. Este algoritmo transforma datos en bruto en patrones que parecen arte. Comienza desde un punto, evalúa todas las líneas posibles y traza la que más mejora la imagen. Repite el proceso hasta que se quede como te guste :).",
         "description_long": "De píxeles a líneas. Este algoritmo convierte los datos de una imagen en una obra hecha con hilos. Parte desde un pin, analiza todas las conexiones posibles y dibuja la línea que más mejora el resultado. Luego lo repite, una y otra vez, hasta que surja el diseño completo. Prueba también tu fotos: arrástrala o pégala, ajusta los parámetros y encuentra el resultado ideal. Eso sí, ¡ten en cuenta que algunas configuraciones pueden tardar más o generar artefactos! Todos los ejemplos de la galería han sido creados con 900 pins, 7000 líneas, 7 de grosor y constraste variado.",
+        "date": "Feb 2025",
+        "technologies": "git, javascript, next, react, tailwind, typescript",
+        "tags": "interactive, personal",
+        "search": {
+            "title": {
+                "en": "String Art",
+                "es": "Hiloramas"
+            },
+            "description": {
+                "en": "From pixels to lines. Transform images into beautiful string art using an iterative algorithm that picks the best thread from each pin until a full portrait emerges.",
+                "es": "De píxeles a líneas. Convierte imágenes en arte con hilos usando un algoritmo iterativo que elige el mejor hilo desde cada pin hasta que el retrato emerge por completo."
+            },
+            "keywords": {
+                "en": ["string art", "thread art", "image to lines", "generative art", "pixel to string", "portrait", "pin art", "line algorithm", "creative coding", "canvas"],
+                "es": ["arte con hilos", "hilorama", "imagen a líneas", "arte generativo", "retrato", "pines", "algoritmo de líneas", "creative coding", "canvas"]
+            }
+        },
 
         "upload": "Subir imagen",
         "crop": "Recortar",
@@ -90,6 +72,8 @@
         "title": "¿Un cigarro?",
         "description_short": "Relajate...",
         "description_long": "Relajate...",
+        "date": "Mar 2025",
+      
 
         "another": "¿Otro más?",
         "intensive": "Fumando intensamente...",

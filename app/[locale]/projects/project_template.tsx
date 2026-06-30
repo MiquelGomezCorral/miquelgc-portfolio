@@ -27,7 +27,7 @@ export function ProjectPageTemplate({object,  t, params, headerDisplay, stickyHe
           <header className="w-full h-full flex justify-center">
             {headerDisplay ||
               <div className="relative max-w-3xl w-full h-full aspect-video">
-                {object.youtube ? 
+                {object.youtube ?
                   <iframe
                   // width="560"
                   // height="315"
@@ -37,13 +37,14 @@ export function ProjectPageTemplate({object,  t, params, headerDisplay, stickyHe
                   allowFullScreen
                   className="rounded-xl w-full h-full"
                   ></iframe>
-                  :
+                  : object.logo ?
                   <Image
-                  src={`/assets/projects/${object.logo}.webp`}
+                  src={object.logo.startsWith("http") ? object.logo : `/assets/projects/${object.logo}.webp`}
                   alt={object.title}
                   fill
                   className="rounded-xl"
-                  /> 
+                  />
+                  : null
                 }
               </div>
             }
@@ -64,7 +65,10 @@ export function ProjectPageTemplate({object,  t, params, headerDisplay, stickyHe
                     />
                   }
                 </header>
-                <p className="opacity-50 text-xl">{object.finished}</p>
+                <span className="flex w-full gap-4 opacity-50 text-xl">
+                  {object.date && <p>{object.date}</p>}
+                  <p>{object.finished}</p>
+                </span>
               </span>
 
               <p className="opacity-70">{object.descriptionLong}</p>
@@ -100,10 +104,13 @@ export function ProjectPageTemplate({object,  t, params, headerDisplay, stickyHe
 // =============================================
 
 export function CarrouselItem({ screenShoot }: { screenShoot: string}) {
+  const src = screenShoot.startsWith("http")
+    ? screenShoot
+    : `/assets/projects/${screenShoot}.webp`;
   return (
     <figure className="relative h-full aspect-video" aria-label={screenShoot}>
       <Image
-        src={`/assets/projects/${screenShoot}.webp`}
+        src={src}
         alt={screenShoot}
         fill
         loading="eager"

@@ -15,41 +15,42 @@ export function TechnologyList({technologies, className}: {technologies: Technol
 }
 
 export function TechnologyMarquee({technologies, className}: {technologies: TechnologyString[], className?: string}){
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [fits, setFits] = useState(true);
+  const containerRef = useRef<HTMLDivElement>(null)
+  const measureRef = useRef<HTMLDivElement>(null)
+  const [fits, setFits] = useState(true)
 
   useLayoutEffect(() => {
-    if (containerRef.current) {
-      const container = containerRef.current;
-      setFits(container.scrollWidth <= container.clientWidth);
+    if (containerRef.current && measureRef.current) {
+      setFits(measureRef.current.scrollWidth <= containerRef.current.clientWidth)
     }
-  }, []);
+  }, [technologies])
 
   useEffect(() => {
     const handleResize = () => {
-      if (containerRef.current) {
-        const container = containerRef.current;
-        setFits(container.scrollWidth <= container.clientWidth);
+      if (containerRef.current && measureRef.current) {
+        setFits(measureRef.current.scrollWidth <= containerRef.current.clientWidth)
       }
-    };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+    }
+    window.addEventListener("resize", handleResize)
+    return () => window.removeEventListener("resize", handleResize)
+  }, [technologies])
+
+  const pills = technologies.map((tech, idx) =>
+    <Technology key={idx} src={tech} />
+  )
 
   return(
-    <figure ref={containerRef} className={cn("",className)}>
-      {fits ? 
+    <figure ref={containerRef} className={cn("w-full overflow-hidden", className)}>
+      <div ref={measureRef} className="flex gap-2 w-max h-0 overflow-hidden invisible" aria-hidden>
+        {pills}
+      </div>
+      {fits ?
         <div className='flex gap-2 flex-wrap w-max'>
-          {technologies.map((tech, idx) =>
-            <Technology key={idx} src={tech} />
-          )}
+          {pills}
         </div>
       :
-        <Marquee
-          className="[--duration:20s] w-full py-0">
-          {technologies.map((tech, idx) =>
-            <Technology key={idx} src={tech} />
-          )}
+        <Marquee className="[--duration:20s] w-full py-0">
+          {pills}
         </Marquee>
       }
     </figure>

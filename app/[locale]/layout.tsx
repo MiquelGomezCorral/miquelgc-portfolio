@@ -56,7 +56,7 @@ export default function RootLayout({children}: {children: React.ReactNode;}) {
   return (
     <html lang="en">
       <body
-        className={`${inter.className} w-full pt-32 gap-20 flex flex-col justify-center items-center bg-miquel-background text-miquel-white-200`}
+        className={`${inter.className} w-full sm:pt-32 gap-20 flex flex-col justify-center items-center bg-miquel-background text-miquel-white-200`}
       >
         <StyledComponentsRegistry>
           {children}

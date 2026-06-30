@@ -42,7 +42,7 @@ export function IconGlowingButton({ solid, ...props}: IconGlowingProps){
       <div className={cn(`relative gap-2 text-xs flex items-center rounded-full p-2 transform duration-300 active:scale-95 active:duration-75`,
         {'px-4': props.text},
         {'border border-miquel-blue-400 bg-miquel-black-500 hover:bg-miquel-black-300 active:bg-miquel-black-700': !solid},
-        {'bg-miquel-blue-500 hover:bg-miquel-blue-400 active:bg-miquel-blue-700': solid},
+        {'bg-miquel-blue-400 hover:bg-miquel-blue-500 active:bg-miquel-blue-700': solid},
       )}>
         <Icon {...props}/>
       </div>

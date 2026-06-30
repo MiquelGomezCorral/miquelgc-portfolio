@@ -52,6 +52,7 @@ export function getTechTitle(src: string) {
     case "prompt-engineering": return "Prompt Engineering"
     case "braintrust": return "Braintrust"
     case "agents": return "Agents"
+    case "latex": return "LaTeX"
     case "mcp": return "MCP"
     default: return "Missing Technology 🚫"
   }
@@ -121,7 +122,8 @@ export type TechnologyString = (
   "prompt-engineering" |
   "braintrust" |
   "agents" |
-  "mcp"
+  "mcp" |
+  "latex"
 );
 
 
@@ -156,7 +158,7 @@ export function getTechnologyCathegories(t: TFunction): TechnologyCathegoryType[
   {
     key: "others",
     title: t("others.title"),
-    techs: ["haskell", "prolog", "risc-v", "unity", "pygame", "java-fx", "photoshop", "premiere", "mathematica"],
+    techs: ["haskell", "prolog", "risc-v", "unity", "pygame", "java-fx", "photoshop", "premiere", "mathematica", "latex"],
   }
 ]
 }
@@ -166,7 +168,7 @@ export const techCategoryStyle: Record<TechCategoryKey, string> = {
   data:      "bg-miquel-green-900 border border-miquel-green-700",
   languages: "bg-miquel-blue-900 border border-miquel-blue-700",
   tools:     "bg-miquel-purple-900 border border-miquel-purple-700",
-  others:    "bg-miquel-black-400 border border-miquel-black-200",
+  others:    "bg-miquel-black-150 border border-miquel-black-200",
 }
 
 export type TechIndexItem = { src: TechnologyString, primary: TechCategoryKey, cats: TechCategoryKey[] }

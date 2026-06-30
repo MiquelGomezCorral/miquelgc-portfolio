@@ -40,4 +40,3 @@ export default async function App({ params }: { params: Promise<{ locale: string
     </TranslationsProvider>
   )
 }
-
