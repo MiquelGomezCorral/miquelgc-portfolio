@@ -660,20 +660,20 @@ function ImageUploadControls({
 
       <aside className="w-full flex-col lg:h-44 2xl:h-64 justify-center items-center hidden lg:flex">
         <button className={cn(
-          "w-full h-full rounded-xl bg-miquel-black-300 hover:bg-miquel-black-400 p-4 cursor-pointer transform duration-300 group",
-          {"bg-miquel-black-400 hover:bg-miquel-black-500 cursor-no-drop": creatingImage}
+          "w-full h-full rounded-xl bg-miquel-black-300 hover:bg-miquel-black-400 p-4 cursor-pointer transition-[background-color,transform] duration-300 group active:scale-[0.98]",
+          {"bg-miquel-black-400 hover:bg-miquel-black-400 cursor-no-drop active:scale-100": creatingImage}
         )}
           onClick={handleImageUpload}
           disabled={creatingImage}
         >
           <div className={cn(
-              "w-full h-full rounded-xl border-2 border-dashed p-4 flex justify-center items-center transform duration-300",
+              "w-full h-full rounded-xl border-2 border-dashed p-4 flex justify-center items-center transition-[border-color,transform] duration-300",
               creatingImage
                 ? "border-red-800 group-hover:border-red-800 cursor-no-drop"
                 : "border-miquel-purple-100 group-hover:border-miquel-purple-200 group-hover:animate-pulse"
             )}>
             <span className={cn(
-              "text-miquel-white-100 miquel-opacity group-hover:opacity-100 flex flex-col gap-2",
+              "text-miquel-white-100 miquel-opacity group-hover:opacity-100 flex flex-col items-center gap-2 text-center",
               {"text-red-400 group-hover:opacity-70": creatingImage}
             )}>
               {t("string.drag-image")}
