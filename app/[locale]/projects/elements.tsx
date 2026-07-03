@@ -14,7 +14,7 @@ export function Project({ object, disabled, seeMore, descriptionBelow, linkGit =
 
   if (descriptionBelow) {
     return (
-      <li className="relative flex flex-col gap-4 p-4 rounded-xl transform duration-300 transition-all group/proyect bg-miquel-gradient">
+      <li className="relative flex flex-col gap-4 p-4 rounded-xl transform duration-300 transition-[background-position] group/proyect bg-miquel-gradient">
           <main className="grid grid-cols-1 lg:grid-cols-12 gap-4">
           {object.logo &&
           <Link href={linkGit ? object.github : object.link} 
@@ -75,7 +75,7 @@ export function Project({ object, disabled, seeMore, descriptionBelow, linkGit =
   return (
     <li
       className={cn(
-        "relative grid grid-cols-1 lg:max-h-64 lg:grid-cols-12 gap-4 p-4 rounded-xl transform duration-300 transition-all group/proyect",
+        "relative grid grid-cols-1 lg:max-h-64 lg:grid-cols-12 gap-4 p-4 rounded-xl transform duration-300 transition-[background-position,height,padding,filter] group/proyect",
         {
           "bg-miquel-gradient" : !disabled, 
           "pt-1 h-16 overflow-hidden blur-sm": seeMore
