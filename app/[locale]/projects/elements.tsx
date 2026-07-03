@@ -47,7 +47,7 @@ export function Project({ object, disabled, seeMore, descriptionBelow, linkGit =
                 target={linkGit ? "_blank": ""}
                 rel={linkGit ? "noopener noreferrer" : undefined}
                 onClick={() => {if(!linkGit) goToPageFrom(window.location.pathname, object.link)}} 
-                className="opacity-90 hover:opacity-100 transform duration-300"  
+                className="opacity-90 hover:opacity-100 transition-opacity duration-300"  
               >
                 <GlowingText bold className="text-2xl">{object.title}</GlowingText>
               </Link>
@@ -55,7 +55,7 @@ export function Project({ object, disabled, seeMore, descriptionBelow, linkGit =
                 src="external-link" title={object.title}
                 width={25} height={25}
                 link={object.github} blank
-                className="opacity-0 group-hover/proyect:opacity-100 transform duration-300"
+                className="opacity-0 group-hover/proyect:opacity-100 transition-opacity duration-300"
               />
             </header>
             <span className="flex w-full gap-4 opacity-50">
@@ -110,7 +110,7 @@ export function Project({ object, disabled, seeMore, descriptionBelow, linkGit =
               target={linkGit ? "_blank": ""}
               rel={linkGit ? "noopener noreferrer" : undefined}
               onClick={() => {if(!linkGit) goToPageFrom(window.location.pathname, object.link)}} 
-              className="opacity-90 hover:opacity-100 transform duration-300"  
+              className="opacity-90 hover:opacity-100 transition-opacity duration-300"  
             >
               <GlowingText bold className="text-2xl">{object.title}</GlowingText>
             </Link>
@@ -118,7 +118,7 @@ export function Project({ object, disabled, seeMore, descriptionBelow, linkGit =
               src="external-link" title={object.title}
               width={25} height={25}
               link={object.github} blank
-              className="opacity-0 group-hover/proyect:opacity-100 transform duration-300"
+              className="opacity-0 group-hover/proyect:opacity-100 transition-opacity duration-300"
             />
           </header>
           <span className="flex w-full gap-4 opacity-50">

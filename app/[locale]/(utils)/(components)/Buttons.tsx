@@ -21,7 +21,7 @@ export function Button({text, children, icon, iconType, className, type = "butto
   return(
     <button type={type} disabled = {disabled} 
       className={cn(
-        "p-2 px-4 rounded-md bg-miquel-blue-400 hover:bg-miquel-blue-500 transform duration-300 flex gap-2 justify-center text-nowrap active:duration-75 active:scale-95", 
+        "p-2 px-4 rounded-md bg-miquel-blue-400 hover:bg-miquel-blue-500 transition-[background-color,transform] duration-300 flex gap-2 justify-center text-nowrap active:duration-75 active:scale-95", 
         {"bg-red-500/40 hover:bg-red-500/40 cursor-not-allowed": disabled},
         className
       )}
