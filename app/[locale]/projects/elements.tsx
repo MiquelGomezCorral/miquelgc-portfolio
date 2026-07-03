@@ -22,8 +22,8 @@ export function Project({ object, disabled, seeMore, descriptionBelow, linkGit =
             rel={linkGit ? "noopener noreferrer" : undefined}
             
             className={
-            "group/img relative w-full rounded-xl aspect-video col-span-1 flex justify-center lg:justify-end items-center overflow-hidden " +
-            "lg:max-h-64 lg:col-span-4 bg-gradient-to-r from-miquel-blue-400 to-indigo-400 hover:outline-miquel-black-100"
+            "group/img relative w-full rounded-xl aspect-video col-span-1 flex justify-center lg:justify-end items-center overflow-hidden ring-1 ring-inset ring-white/20 hover:outline hover:outline-1 hover:outline-miquel-black-100 transition-[outline-color] " +
+            "lg:max-h-64 lg:col-span-4 bg-gradient-to-r from-miquel-blue-400 to-indigo-400"
             }
             onClick={() =>{if(!linkGit) goToPageFrom(window.location.pathname, object.link)}}
           >
@@ -32,7 +32,7 @@ export function Project({ object, disabled, seeMore, descriptionBelow, linkGit =
               alt={object.title}
               width={800}
               height={450}
-              className="rounded-xl w-[95%] lg:w-10/12 group-hover/img:lg:w-11/12 lg:translate-x-4 transform duration-500 aspect-video outline outline-miquel-white-500-a/40"
+              className="rounded-xl w-[95%] lg:w-10/12 group-hover/img:lg:w-11/12 lg:translate-x-4 transform duration-500 aspect-video outline outline-1 -outline-offset-1 outline-white/20"
             />
           </Link>
           }
@@ -55,7 +55,7 @@ export function Project({ object, disabled, seeMore, descriptionBelow, linkGit =
                 src="external-link" title={object.title}
                 width={25} height={25}
                 link={object.github} blank
-                className="opacity-0 group-hover/proyect:opacity-100 transition-opacity duration-300"
+                className="opacity-0 group-hover/proyect:opacity-100 transition-opacity duration-300 -translate-y-1"
               />
             </header>
             <span className="flex w-full gap-4 opacity-50">
@@ -85,8 +85,8 @@ export function Project({ object, disabled, seeMore, descriptionBelow, linkGit =
         target={linkGit ? "_blank": ""}
         rel={linkGit ? "noopener noreferrer" : undefined}
         className={
-        "group/img relative w-full rounded-xl aspect-video col-span-1 flex justify-center lg:justify-end items-center overflow-hidden " +
-        "lg:max-h-64 lg:col-span-4 bg-gradient-to-r from-miquel-blue-400 to-indigo-400 hover:outline-miquel-black-100" //from-blue-500 to-orange-500
+        "group/img relative w-full rounded-xl aspect-video col-span-1 flex justify-center lg:justify-end items-center overflow-hidden ring-1 ring-inset ring-white/20 hover:outline hover:outline-1 hover:outline-miquel-black-100 transition-[outline-color] " +
+        "lg:max-h-64 lg:col-span-4 bg-gradient-to-r from-miquel-blue-400 to-indigo-400" //from-blue-500 to-orange-500
         } // bg-gradient-to-r from-miquel-blue-400 to-indigo-400
         onClick={() => {if(!linkGit) goToPageFrom(window.location.pathname, object.link)}}
       >
@@ -97,7 +97,7 @@ export function Project({ object, disabled, seeMore, descriptionBelow, linkGit =
           // fill
           width={800}
           height={450}
-          className="rounded-xl w-[95%] lg:w-10/12 group-hover/img:lg:w-11/12 lg:translate-x-4 transform duration-500 aspect-video outline outline-miquel-white-500-a/40"
+          className="rounded-xl w-[95%] lg:w-10/12 group-hover/img:lg:w-11/12 lg:translate-x-4 transform duration-500 aspect-video outline outline-1 -outline-offset-1 outline-white/20"
         />
         }
       </Link>
@@ -118,7 +118,7 @@ export function Project({ object, disabled, seeMore, descriptionBelow, linkGit =
               src="external-link" title={object.title}
               width={25} height={25}
               link={object.github} blank
-              className="opacity-0 group-hover/proyect:opacity-100 transition-opacity duration-300"
+              className="opacity-0 group-hover/proyect:opacity-100 transition-opacity duration-300 -translate-y-1"
             />
           </header>
           <span className="flex w-full gap-4 opacity-50">

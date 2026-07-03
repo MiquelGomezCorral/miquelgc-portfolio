@@ -29,7 +29,7 @@ export function Card({ object }: { object: CardType }) {
           <header className="w-full h-full flex md:flex-row flex-col md:justify-start justify-center md:items-start items-center gap-4">
             <Link href={object.link} target="_blank" className={
               "group/img relative md:w-1/3 md:h-[6rem] w-full rounded-xl aspect-video col-span-1 flex justify-center items-center overflow-hidden p-6 py-10"
-              +" lg:col-span-5 bg-gradient-to-r from-miquel-white-200 to-miquel-white-100 hover:outline hover:outline-miquel-black-100" 
+              +" lg:col-span-5 bg-gradient-to-r from-miquel-white-200 to-miquel-white-100 ring-1 ring-inset ring-black/10 hover:outline hover:outline-1 hover:outline-miquel-black-100 transition-[outline-color]" 
             }>
               <Image 
                 src={`/assets/${object.logo}.svg`} alt={object.logo}
@@ -51,7 +51,7 @@ export function Card({ object }: { object: CardType }) {
                     width={25} height={25}
                     link={object.link}
                     blank
-                    className="opacity-0 group-hover/li:opacity-100 transition-opacity duration-300 md:block hidden"
+                    className="opacity-0 group-hover/li:opacity-100 transition-opacity duration-300 md:block hidden -translate-y-1"
                   />
                 </h2>
                 <i className="text-xl flex md:justify-start justify-center">{object.company}</i>
