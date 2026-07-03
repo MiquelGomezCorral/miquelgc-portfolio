@@ -41,7 +41,7 @@ export function TechnologyMarquee({technologies, className}: {technologies: Tech
 
   return(
     <figure ref={containerRef} className={cn("relative w-full overflow-hidden", className)}>
-      <div ref={measureRef} className="absolute flex gap-2 w-full invisible pointer-events-none overflow-hidden" aria-hidden>
+      <div ref={measureRef} className="fixed left-0 top-0 flex w-max gap-2 invisible pointer-events-none" aria-hidden>
         {pills}
       </div>
       {fits ?

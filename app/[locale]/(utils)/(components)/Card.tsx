@@ -24,7 +24,7 @@ export type CardType = {
 export function Card({ object }: { object: CardType }) {
     const { t } = useTranslation("general")
     return( 
-      <li className="group/li md:w-[45rem] w-[25rem] h-full rounded-xl gap-4 p-4 flex flex-col justify-between list-none bg-miquel-gradient" >
+      <li className="group/li md:w-[45rem] w-[25rem] h-full rounded-xl gap-4 p-4 flex flex-col justify-between list-none transition-[background-color] duration-300 hover:bg-miquel-black-400" >
         <main className="flex flex-col gap-4">
           <header className="w-full h-full flex md:flex-row flex-col md:justify-start justify-center md:items-start items-center gap-4">
             <Link href={object.link} target="_blank" className={

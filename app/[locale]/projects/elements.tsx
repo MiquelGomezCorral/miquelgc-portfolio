@@ -16,7 +16,7 @@ export function Project({ object, disabled, seeMore, descriptionBelow, linkGit =
 
   if (descriptionBelow) {
     return (
-      <li className="relative flex flex-col gap-4 p-4 rounded-xl transition-[background-position] duration-300 group/proyect bg-miquel-gradient">
+      <li className="relative flex h-full flex-col gap-4 p-4 rounded-xl transition-[background-position,background-color] duration-300 group/proyect hover:bg-miquel-black-400">
           <main className="grid grid-cols-1 lg:grid-cols-12 gap-4">
           {object.logo &&
           <Link href={linkGit ? object.github : projectLink}
@@ -65,7 +65,7 @@ export function Project({ object, disabled, seeMore, descriptionBelow, linkGit =
           </article>
         </main>
 
-        <p className="opacity-70 text-pretty">{object.descriptionShort}</p>
+        <p className="flex-1 opacity-70 text-pretty">{object.descriptionShort}</p>
 
         <TechnologyMarquee technologies={object.technologies} />
       </li>
@@ -75,9 +75,9 @@ export function Project({ object, disabled, seeMore, descriptionBelow, linkGit =
   return (
     <li
       className={cn(
-        "relative grid grid-cols-1 lg:max-h-64 lg:grid-cols-12 gap-4 p-4 rounded-xl transition-[background-position,height,padding,filter] duration-300 group/proyect",
+        "relative grid grid-cols-1 lg:max-h-64 lg:grid-cols-12 gap-4 p-4 rounded-xl transition-[background-position,background-color,height,padding,filter] duration-300 group/proyect",
         {
-          "bg-miquel-gradient" : !disabled,
+          "hover:bg-miquel-black-400" : !disabled,
           "pt-1 h-16 overflow-hidden blur-sm": seeMore
       })} // hover:scale-105
     >
