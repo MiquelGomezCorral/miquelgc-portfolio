@@ -29,7 +29,7 @@ export default async function ProjectsPage({ params }: { params: any }) {
         <section className="w-full h-full flex flex-col gap-6 bg-miquel-background text-white ">
           <header className="w-full pb-12 xs:pb-20 flex justify-center">
             <h1 
-              className="text-8xl font-bold 
+              className="text-7xl sm:text-8xl font-bold 
               bg-[length:200%_100%] bg-gradient-to-r from-miquel-blue-400 via-indigo-700 to-miquel-blue-400 
               bg-clip-text text-transparent animate-shimmer pb-2"
             > 

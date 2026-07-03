@@ -481,8 +481,8 @@ function StringArtPreview({
   return (
     <div className='flex flex-col items-center gap-2 relative'>
       <figure
-        className="relative flex justify-center items-center aspect-square rounded-full"
-        style={{ width: `${CONFIG.radius * 2}px`, minWidth: `${CONFIG.radius}px` }}
+        className="relative flex justify-center items-center aspect-square rounded-full overflow-hidden"
+        style={{ width: `min(${CONFIG.radius * 2}px, calc(100vw - 2rem))` }}
       >
         <Loader enable={loading} type="circle"/>
         {!croppingCompleted ?
@@ -503,14 +503,14 @@ function StringArtPreview({
             alt={modifiedImage}
             width={CONFIG.radius * 2}
             height={CONFIG.radius * 2}
-            className="rounded-full object-contain"
+            className="w-full h-full rounded-full object-contain"
           />
           :
           <canvas
             ref={canvasRef}
             width={CONFIG.radius * 2}
             height={CONFIG.radius * 2}
-            className="bg-miquel-white-200 rounded-full"
+            className="w-full h-full bg-miquel-white-200 rounded-full"
           />
         )}
       </figure>
