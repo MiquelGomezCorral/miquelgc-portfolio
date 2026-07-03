@@ -2,12 +2,12 @@
 
 import cn from 'classnames';
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useTranslation } from 'react-i18next';
 
 import { Icon } from "@/app/[locale]/(utils)/(components)/Icons";
 import { DownloadCV } from "@/app/[locale]/(utils)/(components)/Utils";
-import { usePageStackStore } from '@/app/[locale]/(global_state)/state';
 import { GoBackButton } from '@/app/[locale]/(utils)/(components)/GoBackButton';
 import { CloseMenu, OpenMenu } from "@/app/[locale]/(utils)/(constants)/constants.text.d";
 import LanguageChanger from '@/app/[locale]/(utils)/(components)/LanguageChanger';
@@ -18,7 +18,8 @@ import CONFIG from "@/app/[locale]/(utils)/(constants)/configuration";
 export default function Header({sticky}: {sticky?: boolean}) {
   const {t} = useTranslation("header");
   const [showMenu, setshowMenu] = useState(false)
-  const { currentPage } = usePageStackStore()
+  const pathname = usePathname()
+  const isLanding = pathname === "/" || pathname === "/es"
 
   useEffect(() => {
     document.body.style.overflow = showMenu ? 'hidden' : '' // disable / enbale scroll
@@ -80,7 +81,7 @@ export default function Header({sticky}: {sticky?: boolean}) {
 
       <div
         className={cn("flex justify-center items-center lg:hidden z-50 top-4 left-6 rounded-full p-2 1 w-9 border hover:bg-miquel-blue-300 backdrop-blur-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)] transition-colors duration-300", 
-          {"hidden": showMenu || currentPage === "/" || currentPage === "/es" },
+          {"hidden": showMenu || isLanding },
           {"fixed": !sticky},
           {"sticky -translate-y-32 ": sticky}
           

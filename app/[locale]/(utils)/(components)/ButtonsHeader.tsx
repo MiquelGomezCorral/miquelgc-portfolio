@@ -3,13 +3,13 @@
 
 import cn from "classnames"
 import Link from "next/link"
+import { usePathname, useRouter } from "next/navigation"
 import { useState } from "react"
 import { useTranslation } from 'react-i18next';
 
 import { Icon } from "@/app/[locale]/(utils)/(components)/Icons"
 import { Button } from '@/app/[locale]/(utils)/(components)/Buttons';
 import { Modal } from '@/app/[locale]/(utils)/(components)/Utils';
-import { usePageStackStore } from "@/app/[locale]/(global_state)/state"
 
 
 interface HeaderButtonProps  {
@@ -22,13 +22,13 @@ export function HeaderButton({className, disabled, onClick, ...props}: HeaderBut
   return (
     <button className={
       cn(
-        "text-miquel-white text-start text-nowrap miquel-opacity flex items-center drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)] active:duration-75 active:scale-95", 
+        "text-miquel-white text-start text-nowrap miquel-opacity flex items-center drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)] active:duration-75 active:scale-95",
         {"hover:opacity-70 cursor-not-allowed text-red-400": disabled},
         className
       )}
       onClick={(e: any) => {
         e.preventDefault()
-        if(!disabled && onClick) 
+        if(!disabled && onClick)
           onClick(e)
       }}
     >
@@ -50,19 +50,17 @@ export function HeaderButtonIcon({icon, className, onClick, ...props}: HeaderBut
         src={icon} title={icon}
         type={"white"}
         glowing
-        hover 
-        width={20} height={20}  
+        hover
+        width={20} height={20}
       />
       {props.children}
     </HeaderButton>
   )
 }
 
-
-import { useRouter } from "next/navigation"  
 interface HeaderButtonLinkProps  {
   icon?: string,
-  
+
   link: string,
   blank?: boolean,
   notAddToStack?: boolean,
@@ -74,27 +72,20 @@ interface HeaderButtonLinkProps  {
 }
 export function ButtonLink({icon, link, blank, notAddToStack, stayPage, onClick, className, ...props }: HeaderButtonLinkProps){
   const router = useRouter()
-  const { goToPageFrom, currentPage } = usePageStackStore()
+  const pathname = usePathname()
+  const href = stayPage ? `${pathname === "/" ? "" : pathname}/${link}` : link
 
   return (
-    <Link 
-      href={
-        (stayPage && currentPage !== "") ? `${currentPage}/${link}` : link
-      }
+    <Link
+      href={href}
       target={blank ? "_blank": ""}
       className="group"
-      onClick={() => {        
-        console.log("link: " + link)
-        console.log("currentPage: " + currentPage)
-        
-        router.push(link)
-        if(!notAddToStack)
-          if(
-            ((currentPage === "/es" || currentPage === "/en" || currentPage === "/") && !link.startsWith("/#")) ||
-            ( currentPage !== "/es" && currentPage !== "/en" && currentPage !== "/") 
-          ){
-            goToPageFrom(window.location.pathname, link)
-          }
+      onClick={(e) => {
+        e.preventDefault()
+        if(blank)
+          window.open(href, "_blank", "noopener,noreferrer")
+        else
+          router.push(href)
         if(onClick)
           onClick()
       }}
@@ -143,7 +134,7 @@ export function ButtonHeaderModal({icon, text, className, ...props }: HeaderButt
         <div className="flex justify-end w-full">
           <Button
             text={t("close")}
-            onClick={() => setShowModal(false)} 
+            onClick={() => setShowModal(false)}
             className="max-w-min"
           />
         </div>
