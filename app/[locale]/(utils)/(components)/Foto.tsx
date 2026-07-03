@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import Image from "next/image";
 import confetti from 'canvas-confetti';
+import CONFIG from "@/app/[locale]/(utils)/(constants)/configuration";
 
 export function Foto() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -10,14 +11,18 @@ export function Foto() {
   const handleClick = () => {
     if (sectionRef.current) {
       const rect = sectionRef.current.getBoundingClientRect();
+      const x = (rect.left + rect.right) / 2;
+      const y = (rect.top + rect.bottom) / 2;
+
       confetti({
         particleCount: 100,
         spread: 80,
         origin: {
-          x: (rect.left + rect.right) / 2 / window.innerWidth, // X position in relative percentage
+          x: x / window.innerWidth, // X position in relative percentage
           y: (rect.top + rect.bottom + 400) / 2 / window.innerHeight  // Y position in relative percentage
         }
       });
+      window.dispatchEvent(new CustomEvent(CONFIG.physicsBallsCreateEvent, { detail: { x, y } }));
     }
   };
 

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/styles/globals.css";
 import { ToastContainer } from "@/app/[locale]/(utils)/(components)/Toast";
+import PhysicsBalls from "@/app/[locale]/(utils)/(components)/PhysicsBalls";
 import StyledComponentsRegistry from "@/app/lib/styled-components-registry";
 
 
@@ -59,6 +60,7 @@ export default function RootLayout({children}: {children: React.ReactNode;}) {
         className={`${inter.className} w-full sm:pt-32 gap-20 flex flex-col justify-center items-center bg-miquel-background text-miquel-white-200`}
       >
         <StyledComponentsRegistry>
+          <PhysicsBalls />
           {children}
           <ToastContainer />
         </StyledComponentsRegistry>

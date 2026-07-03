@@ -63,6 +63,30 @@ class Configuration {
     public neighbourtMaring    = 5,
     public lastNUsedPinsMargin = 10,
     public updateEveryNPins    = 20,
+
+    // =============== Physics balls ===============
+    public physicsBallsCreateEvent = "physics-ball:create",
+    public physicsBallsPointerRadius = 150,
+    public physicsBallsCount = 0,
+    public physicsBallsDrag = 0.992,
+    public physicsBallsBounce = 0.9,
+    public physicsBallsCollisionRestitution = 1,
+    public physicsBallsKickWindow = 160,
+    public physicsBallsMinImpulse = 2.5,
+    public physicsBallsImpulseMultiplier = 1.15,
+    public physicsBallsShadowBlur = 10,
+    public physicsBallsBorderWidth = 2,
+    public physicsBallsRadiusLimits = [10, 20] as const,
+    public physicsBallsSpeedLimits = [1.7, 2.4] as const,
+    public physicsBallsSpawnAttempts = 80,
+    public physicsBallsPalette = [
+      154,
+      228,
+      304,
+      92,
+      18,
+      258,
+    ] as const,
   ) {}
 }
 
