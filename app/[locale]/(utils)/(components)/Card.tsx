@@ -42,7 +42,7 @@ export function Card({ object }: { object: CardType }) {
   
             <aside className="flex flex-col justify-between"> 
               <header className="flex flex-col">
-                <h2 className="text-2xl flex items-end md:justify-start justify-center gap-3">
+                <h2 className="text-2xl text-balance flex items-end md:justify-start justify-center gap-3">
                   <Link href={object.link} target="_blank" className="opacity-90 hover:opacity-100 transition-opacity duration-300">
                     <GlowingText bold nowrap>{object.title}</GlowingText>
                   </Link>
@@ -69,7 +69,7 @@ export function Card({ object }: { object: CardType }) {
             </aside>
           </header>
   
-          <div className="opacity-70"><BoldText text={object.description} /></div>
+              <div className="opacity-70 text-pretty"><BoldText text={object.description} /></div>
         
         </main>
         

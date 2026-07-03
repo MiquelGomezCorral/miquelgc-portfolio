@@ -49,7 +49,7 @@ export function Project({ object, disabled, seeMore, descriptionBelow, linkGit =
                 onClick={() => {if(!linkGit) goToPageFrom(window.location.pathname, object.link)}} 
                 className="opacity-90 hover:opacity-100 transition-opacity duration-300"  
               >
-                <GlowingText bold className="text-2xl">{object.title}</GlowingText>
+                <GlowingText bold className="text-2xl text-balance">{object.title}</GlowingText>
               </Link>
               <IconLink
                 src="external-link" title={object.title}
@@ -65,7 +65,7 @@ export function Project({ object, disabled, seeMore, descriptionBelow, linkGit =
           </article>
         </main>
 
-        <p className="opacity-70">{object.descriptionShort}</p>
+        <p className="opacity-70 text-pretty">{object.descriptionShort}</p>
 
         <TechnologyMarquee technologies={object.technologies} />
       </li>
@@ -112,7 +112,7 @@ export function Project({ object, disabled, seeMore, descriptionBelow, linkGit =
               onClick={() => {if(!linkGit) goToPageFrom(window.location.pathname, object.link)}} 
               className="opacity-90 hover:opacity-100 transition-opacity duration-300"  
             >
-              <GlowingText bold className="text-2xl">{object.title}</GlowingText>
+              <GlowingText bold className="text-2xl text-balance">{object.title}</GlowingText>
             </Link>
             <IconLink
               src="external-link" title={object.title}
@@ -127,7 +127,7 @@ export function Project({ object, disabled, seeMore, descriptionBelow, linkGit =
           </span>
         </span>
 
-        <p className="opacity-70 ">{object.descriptionShort}</p>
+        <p className="opacity-70 text-pretty">{object.descriptionShort}</p>
 
         <TechnologyMarquee technologies={object.technologies} />
       </article>
