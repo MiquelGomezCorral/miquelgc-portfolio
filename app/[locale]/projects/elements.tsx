@@ -16,7 +16,7 @@ export function Project({ object, disabled, seeMore, descriptionBelow, linkGit =
 
   if (descriptionBelow) {
     return (
-      <li className="relative flex h-full flex-col gap-4 p-4 rounded-xl transition-[background-position,background-color] duration-300 group/proyect hover:bg-miquel-black-400">
+      <li className="relative flex h-full flex-col gap-4 p-4 rounded-xl transition-[background-position,background-color] duration-300 group/proyect hover:bg-miquel-black-500">
           <main className="grid grid-cols-1 lg:grid-cols-12 gap-4">
           {object.logo &&
           <Link href={linkGit ? object.github : projectLink}
@@ -77,7 +77,7 @@ export function Project({ object, disabled, seeMore, descriptionBelow, linkGit =
       className={cn(
         "relative grid grid-cols-1 lg:max-h-64 lg:grid-cols-12 gap-4 p-4 rounded-xl transition-[background-position,background-color,height,padding,filter] duration-300 group/proyect",
         {
-          "hover:bg-miquel-black-400" : !disabled,
+          "hover:bg-miquel-black-500" : !disabled,
           "pt-1 h-16 overflow-hidden blur-sm": seeMore
       })} // hover:scale-105
     >
@@ -135,7 +135,7 @@ export function Project({ object, disabled, seeMore, descriptionBelow, linkGit =
 
 export function SeeMoreProject({ object, text }: { object: ProjectType, text: string }) {
   return (
-    <div className="relative rounded-xl miquel-opacity hover:bg-miquel-black-300/20 cursor-pointer"> 
+    <div className="relative rounded-xl miquel-opacity cursor-pointer"> 
       <Link
         href="/projects"
         className="absolute z-20 inset-0"
