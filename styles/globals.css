@@ -136,7 +136,7 @@ html {
            bg-[position:0%_100%] 
            hover:bg-[position:0%_0%]
            bg-gradient-to-b 
-           from-miquel-black-500 
+           from-miquel-black-400 
            to-transparent;
     transition-property: background-position;
   }
