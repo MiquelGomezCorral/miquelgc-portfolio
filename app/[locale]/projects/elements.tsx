@@ -22,7 +22,7 @@ export function Project({ object, disabled, seeMore, descriptionBelow, linkGit =
             rel={linkGit ? "noopener noreferrer" : undefined}
             
             className={
-            "group/img relative w-full rounded-xl aspect-video col-span-1 flex justify-center lg:justify-end items-center overflow-hidden ring-1 ring-inset ring-white/20 hover:outline hover:outline-1 hover:outline-miquel-black-100 transition-[outline-color] " +
+            "group/img relative w-full rounded-xl aspect-video col-span-1 flex justify-center lg:justify-end items-center overflow-hidden miquel-frame-dark " +
             "lg:max-h-64 lg:col-span-4 bg-gradient-to-r from-miquel-blue-400 to-indigo-400"
             }
             onClick={() =>{if(!linkGit) goToPageFrom(window.location.pathname, object.link)}}
@@ -85,7 +85,7 @@ export function Project({ object, disabled, seeMore, descriptionBelow, linkGit =
         target={linkGit ? "_blank": ""}
         rel={linkGit ? "noopener noreferrer" : undefined}
         className={
-        "group/img relative w-full rounded-xl aspect-video col-span-1 flex justify-center lg:justify-end items-center overflow-hidden ring-1 ring-inset ring-white/20 hover:outline hover:outline-1 hover:outline-miquel-black-100 transition-[outline-color] " +
+        "group/img relative w-full rounded-xl aspect-video col-span-1 flex justify-center lg:justify-end items-center overflow-hidden miquel-frame-dark " +
         "lg:max-h-64 lg:col-span-4 bg-gradient-to-r from-miquel-blue-400 to-indigo-400" //from-blue-500 to-orange-500
         } // bg-gradient-to-r from-miquel-blue-400 to-indigo-400
         onClick={() => {if(!linkGit) goToPageFrom(window.location.pathname, object.link)}}

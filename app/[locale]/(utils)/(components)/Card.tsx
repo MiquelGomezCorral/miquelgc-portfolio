@@ -29,7 +29,7 @@ export function Card({ object }: { object: CardType }) {
           <header className="w-full h-full flex md:flex-row flex-col md:justify-start justify-center md:items-start items-center gap-4">
             <Link href={object.link} target="_blank" className={
               "group/img relative md:w-1/3 md:h-[6rem] w-full rounded-xl aspect-video col-span-1 flex justify-center items-center overflow-hidden p-6 py-10"
-              +" lg:col-span-5 bg-gradient-to-r from-miquel-white-200 to-miquel-white-100 ring-1 ring-inset ring-black/10 hover:outline hover:outline-1 hover:outline-miquel-black-100 transition-[outline-color]" 
+              +" lg:col-span-5 bg-gradient-to-r from-miquel-white-200 to-miquel-white-100 miquel-frame-light" 
             }>
               <Image 
                 src={`/assets/${object.logo}.svg`} alt={object.logo}
