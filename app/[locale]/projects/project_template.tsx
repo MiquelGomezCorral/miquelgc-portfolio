@@ -54,7 +54,7 @@ export function ProjectPageTemplate({object,  t, params, headerDisplay, stickyHe
             <section className="flex flex-col gap-6 col-span-7">
               <span>
                 <header className="flex items-end gap-3">
-                  <h2 className="text-5xl">{object.title}</h2>
+                  <h2 className="text-5xl text-balance">{object.title}</h2>
 
                   {object.github &&
                     <IconLink
@@ -71,7 +71,7 @@ export function ProjectPageTemplate({object,  t, params, headerDisplay, stickyHe
                 </span>
               </span>
 
-              <p className="opacity-70">{object.descriptionLong}</p>
+              <p className="opacity-70 text-pretty">{object.descriptionLong}</p>
 
               <GlowingText className="text-2xl">{t("technologies")}</GlowingText>
               <TechnologyMarquee technologies={object.technologies} />

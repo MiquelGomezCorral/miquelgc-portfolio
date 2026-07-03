@@ -22,7 +22,7 @@ export default function CardCarousel({ namespace, getData }: CardCarouselProps) 
 
   return (
     <Section id={t("id")} title={t("title")} iconName={t("icon")}>
-      <main className="flex relative flex-col xl:flex-row items-center gap-4">
+      <main className="flex relative flex-col xl:flex-row items-center gap-4 group">
         <div 
           className="grid grid-flow-col md:auto-cols-[minmax(45rem,1fr)] auto-cols-[minmax(25rem,1fr)] gap-2 w-full h-full overflow-x-scroll"
           ref={scrollContainerRef}
@@ -39,7 +39,7 @@ export default function CardCarousel({ namespace, getData }: CardCarouselProps) 
             onClick={scrollLeft}
             className={cn(
               "xl:absolute xl:-left-12 xl:top-1/2 xl:-translate-y-1/2 " +
-              "static order-last transform duration-300 xl:group-hover:scale-125 " +
+              "static order-last transition-[background-color,opacity,transform] duration-300 xl:group-hover:scale-125 " +
               " xl:py-24 flex justify-center hover:bg-miquel-black-100/20 rounded-md md:opacity-100 opacity-0 xl:animate-pulse hover:animate-none",
               {"xl:hidden hover:bg-miquel-black-100/0 cursor-not-allowed": scrollOn === 0}
             )}
@@ -49,7 +49,7 @@ export default function CardCarousel({ namespace, getData }: CardCarouselProps) 
             disable={scrollOn === 2 || items.length <= 1}
             className={cn(
               "xl:absolute xl:-right-12 xl:top-1/2 xl:-translate-y-1/2 " +
-              "static order-last transform duration-300 xl:group-hover:scale-125 " +
+              "static order-last transition-[background-color,opacity,transform] duration-300 xl:group-hover:scale-125 " +
               " xl:py-24 flex justify-center hover:bg-miquel-black-100/20 rounded-md md:opacity-100 opacity-0 xl:animate-pulse hover:animate-none",
               {"xl:hidden hover:bg-miquel-black-100/0 cursor-not-allowed": scrollOn === 2},
             )}

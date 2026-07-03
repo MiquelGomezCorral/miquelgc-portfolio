@@ -121,7 +121,7 @@ export function Input({className, type, disabled, error, onChange, value, step =
         <input type={type} disabled = {disabled} value={value} step={step} min={min} max={max}
           className={cn(
             "p-2 rounded-md border border-miquel-blue-400 bg-miquel-blue-500-a/20 text-miquel-white-100 " +
-            "transform duration-300 flex gap-2 justify-center text-nowrap w-full outline-none focus:outline-none focus:ring-0", 
+            "transition-[border-color,background-color] duration-300 flex gap-2 justify-center text-nowrap w-full outline-none focus:outline-none focus:ring-0", 
             { 'no-spinner pr-9': isNumber },
             { 'border-red-500 bg-red-500/30 placeholder-red-400/80': disabled },
             { 'border-red-500 bg-red-500/30 placeholder-red-400/80 text-red-500 focus:text-miquel-white-100' : error},
@@ -263,7 +263,7 @@ export function MultiChoice<T extends string>({ options, value, onChange, classN
           key={key}
           type="button"
           onClick={() => onChange(key as T)}
-          className={cn("rounded-full px-3 py-2 text-sm transition-colors",
+          className={cn("rounded-full px-3 py-2 text-sm transition-[background-color,opacity]",
             value === key ? "bg-miquel-blue-400" : "opacity-60 hover:opacity-100")}
         >
           {text}

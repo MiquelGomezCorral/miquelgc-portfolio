@@ -46,8 +46,8 @@ class Configuration {
     public zoomSmoothFactor = 0.1,
     public maxZoom = 10,
 
-    public numPins   = 350,
-    public maxLines  = 3250,
+    public numPins   = 450,
+    public maxLines  = 3500,
     public lineWidth = 15,
     public firstPin  = 0, // //Math.floor(Math.random() * numPins)
 

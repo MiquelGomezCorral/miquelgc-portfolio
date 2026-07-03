@@ -22,7 +22,7 @@ export default async function Footer({ params }: { params: { locale: string } })
             <h1 className="flex gap-1 text-4xl font-bold text-nowrap">
               {t("contact")}<GlowingText bold>!</GlowingText>
             </h1>
-            <p className="opacity-70">{t("shy")}</p>
+            <p className="opacity-70 text-pretty">{t("shy")}</p>
           </header>
           
           <nav className="flex flex-col gap-4  md:items-start items-center w-full">

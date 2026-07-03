@@ -79,7 +79,7 @@ export default function Header({sticky}: {sticky?: boolean}) {
       {/* MENU BUTTON*/}
 
       <div
-        className={cn("flex justify-center items-center lg:hidden z-50 top-4 left-6 rounded-full p-2 1 w-9 border hover:bg-miquel-blue-300 backdrop-blur-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)]", 
+        className={cn("flex justify-center items-center lg:hidden z-50 top-4 left-6 rounded-full p-2 1 w-9 border hover:bg-miquel-blue-300 backdrop-blur-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)] transition-colors duration-300", 
           {"hidden": showMenu || currentPage === "/" || currentPage === "/es" },
           {"fixed": !sticky},
           {"sticky -translate-y-32 ": sticky}
@@ -90,7 +90,7 @@ export default function Header({sticky}: {sticky?: boolean}) {
       </div>
 
       <div
-        className={cn("lg:hidden z-50 top-4 right-6 rounded-full p-2 w-9 border hover:bg-miquel-white-200/25 backdrop-blur-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)] transform duration-300",
+        className={cn("lg:hidden z-50 top-4 right-6 rounded-full p-2 w-9 border hover:bg-miquel-white-200/25 backdrop-blur-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)] transition-[background-color,transform] duration-300",
         {"fixed": !sticky},
         {"sticky -translate-y-32 ml-auto": sticky}
           

@@ -20,7 +20,7 @@ export default async function InfoSection({ params }: { params: { locale: string
       <Foto />
 
       <aside className="flex flex-col gap-6 max-w-3xl text-center xl:text-start">
-        <h1 className='text-3xl sm:text-5xl flex flex-col md:flex-row justify-center xl:justify-start gap-4 font-bold whitespace-nowrap'>
+        <h1 className='text-3xl sm:text-5xl text-balance flex flex-col md:flex-row justify-center xl:justify-start gap-4 font-bold whitespace-nowrap'>
           {t("salute")} <GlowingText>Miquel Gómez!</GlowingText>
         </h1>
         <h2 className="text-lg sm:text-2xl flex justify-center items-center xl:justify-start gap-2 text-nowrap overflow-hidden">

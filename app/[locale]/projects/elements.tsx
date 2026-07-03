@@ -14,7 +14,7 @@ export function Project({ object, disabled, seeMore, descriptionBelow, linkGit =
 
   if (descriptionBelow) {
     return (
-      <li className="relative flex flex-col gap-4 p-4 rounded-xl transform duration-300 transition-[background-position] group/proyect bg-miquel-gradient">
+      <li className="relative flex flex-col gap-4 p-4 rounded-xl transition-[background-position] duration-300 group/proyect bg-miquel-gradient">
           <main className="grid grid-cols-1 lg:grid-cols-12 gap-4">
           {object.logo &&
           <Link href={linkGit ? object.github : object.link} 
@@ -32,7 +32,7 @@ export function Project({ object, disabled, seeMore, descriptionBelow, linkGit =
               alt={object.title}
               width={800}
               height={450}
-              className="rounded-xl w-[95%] lg:w-10/12 group-hover/img:lg:w-11/12 lg:translate-x-4 transform duration-500 aspect-video outline outline-1 -outline-offset-1 outline-white/20"
+              className="rounded-xl w-[95%] lg:w-10/12 group-hover/img:lg:w-11/12 lg:translate-x-4 transition-[width,transform] duration-500 aspect-video"
             />
           </Link>
           }
@@ -75,7 +75,7 @@ export function Project({ object, disabled, seeMore, descriptionBelow, linkGit =
   return (
     <li
       className={cn(
-        "relative grid grid-cols-1 lg:max-h-64 lg:grid-cols-12 gap-4 p-4 rounded-xl transform duration-300 transition-[background-position,height,padding,filter] group/proyect",
+        "relative grid grid-cols-1 lg:max-h-64 lg:grid-cols-12 gap-4 p-4 rounded-xl transition-[background-position,height,padding,filter] duration-300 group/proyect",
         {
           "bg-miquel-gradient" : !disabled, 
           "pt-1 h-16 overflow-hidden blur-sm": seeMore
@@ -97,7 +97,7 @@ export function Project({ object, disabled, seeMore, descriptionBelow, linkGit =
           // fill
           width={800}
           height={450}
-          className="rounded-xl w-[95%] lg:w-10/12 group-hover/img:lg:w-11/12 lg:translate-x-4 transform duration-500 aspect-video outline outline-1 -outline-offset-1 outline-white/20"
+          className="rounded-xl w-[95%] lg:w-10/12 group-hover/img:lg:w-11/12 lg:translate-x-4 transition-[width,transform] duration-500 aspect-video"
         />
         }
       </Link>

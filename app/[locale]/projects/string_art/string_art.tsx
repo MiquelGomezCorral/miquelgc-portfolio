@@ -515,7 +515,7 @@ function StringArtPreview({
         )}
       </figure>
 
-      <footer className={cn("flex w-full flex-col font-mono", {"opacity-0": !creatingImage && !(linesVector.length > 1)})}>
+      <footer className={cn("flex w-full flex-col font-mono transition-opacity duration-300", {"opacity-0": !creatingImage && !(linesVector.length > 1)})}>
         <span className="flex w-full justify-between">
           <p>{linesVector.length}/{maxLines}</p>
           <p>{((linesVector.length * 100) / maxLines).toFixed(2)}% </p>
@@ -769,4 +769,3 @@ function StringArtSettings({
     </aside>
   )
 }
-

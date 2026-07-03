@@ -17,7 +17,7 @@ import { OthersCarousel } from "./others-carousel"
 
 type Locale = "en" | "es"
 
-const offClass = "bg-transparent border-miquel-black-300 opacity-70 hover:opacity-100"
+const offClass = "bg-transparent border-miquel-black-300 opacity-70 hover:opacity-100 transition-opacity"
 
 export function ProjectsSearch({ main, others, locale }: { main: ProjectType[], others: ProjectType[], locale: Locale }) {
   const { t: tProjects } = useTranslation("projects")
@@ -116,7 +116,7 @@ export function ProjectsSearch({ main, others, locale }: { main: ProjectType[], 
             className="p-2 rounded-full bg-miquel-blue-400 hover:bg-miquel-blue-500 transition-colors"
           >
             <Icon src="chevron-down" type="white" width={20} height={20}
-              className={cn("transform duration-300", sortDir === "asc" && "rotate-180")} />
+              className={cn("transition-transform duration-300", sortDir === "asc" && "rotate-180")} />
           </button>
         </div>
       }

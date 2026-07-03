@@ -24,7 +24,7 @@ export function Section({id, title, iconName, link, classname, ...props}:{id: st
 
 export function SectionHeader({title, iconName, adjustIcon}:{title: string, iconName: string, adjustIcon?: boolean}){
   return(
-    <header className="w-full text-5xl font-bold transform duration-300 flex-col gap-4">{/*  border-b-2 border-b-miquel-white-200/50 */}
+    <header className="w-full text-5xl text-balance font-bold flex-col gap-4">{/*  border-b-2 border-b-miquel-white-200/50 */}
       <section className="flex w-full gap-4">
         <GlowingText className="relative inline-block" adjust={adjustIcon}>
           <Icon 

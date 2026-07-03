@@ -8,7 +8,7 @@ export default function Skills() {
 
   return (
     <section id="skills" className="w-full flex flex-col gap-6 group">
-      <header className="w-full py-4 border-b-2 border-b-miquel-white-200/50 text-5xl font-bold transform duration-300 flex gap-2">
+      <header className="w-full py-4 border-b-2 border-b-miquel-white-200/50 text-5xl text-balance font-bold flex gap-2">
         <GlowingText>
           <Icon 
             src={`miscelanea`}

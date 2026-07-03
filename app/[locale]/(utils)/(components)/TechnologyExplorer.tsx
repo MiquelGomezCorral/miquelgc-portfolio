@@ -54,7 +54,7 @@ function Tab({ label, catKey, on, onClick }:
   { label: string, catKey?: TechCategoryKey, on: boolean, onClick: () => void }) {
   return (
     <button onClick={onClick} className={cn(
-      "rounded-full px-4 py-1 text-xs border transition-colors",
+      "rounded-full px-4 py-1 text-xs border transition-[border-color,background-color,opacity]",
       on ? (catKey ? techCategoryStyle[catKey] : "bg-miquel-black-100 border-transparent")
         : "bg-transparent border-miquel-black-300 opacity-70 hover:opacity-100"
     )}>{label}</button>

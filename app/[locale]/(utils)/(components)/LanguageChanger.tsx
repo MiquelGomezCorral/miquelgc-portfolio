@@ -81,10 +81,10 @@ export default function LanguageChanger({mobile}: {mobile?: boolean}) {
               key={lang.locale}
               onClick={() => handleChange(lang.locale)}
               className={
-              cn("flex items-center cursor-pointer px-4 py-2 gap-2 w-full",
+              cn("flex items-center cursor-pointer px-4 py-2 gap-2 w-full transition-colors duration-300",
                 mobile
                   ? "hover:bg-miquel-black-100/40 miquel-opacity"
-                  : "justify-center hover:bg-miquel-black-100"
+                  : "justify-start hover:bg-miquel-black-100"
               )}>
               <Icon src={lang.iconSrc} 
                 width={15} height={15} 

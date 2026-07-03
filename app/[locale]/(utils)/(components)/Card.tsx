@@ -36,7 +36,7 @@ export function Card({ object }: { object: CardType }) {
                 width={200}
                 height={200}
                 title={object.logo}
-                className="w-10/12 group-hover/img:w-11/12 transform duration-500 object-contain"
+                className="w-10/12 group-hover/img:w-11/12 transition-[width] duration-500 object-contain"
               />
             </Link>
   

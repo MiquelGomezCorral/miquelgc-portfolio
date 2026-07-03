@@ -39,7 +39,7 @@ export function IconGlowingButton({ solid, ...props}: IconGlowingProps){
   return(
     <button className="relative">
       <div className="absolute rounded-full flex h-full w-full bg-miquel-blue-400/50 blur-md" />
-      <div className={cn(`relative gap-2 text-xs flex items-center rounded-full p-2 transform duration-300 active:scale-95 active:duration-75`,
+      <div className={cn(`relative gap-2 text-xs flex items-center rounded-full p-2 transition-[background-color,transform] duration-300 active:scale-95 active:duration-75`,
         {'px-4': props.text},
         {'border border-miquel-blue-400 bg-miquel-black-500 hover:bg-miquel-black-300 group-hover:bg-miquel-black-300 active:bg-miquel-black-700': !solid},
         {'bg-miquel-blue-400 hover:bg-miquel-blue-500 group-hover:bg-miquel-blue-500 active:bg-miquel-blue-700': solid},
@@ -148,7 +148,7 @@ export interface IconProps {
 export function Icon({width, height, src, title, text, hover, disable, type = "white", glowing, className}: IconProps){
   return (
     <figure className={
-      cn("relative flex items-center justify-center rounded-full transform duration-300 gap-2 active:duration-75 active:scale-95", 
+      cn("relative flex items-center justify-center rounded-full transition-[opacity,transform] duration-300 gap-2 active:duration-75 active:scale-95", 
       className, 
       {"hover:opacity-100 group-hover:opacity-100": !disable},
       {"opacity-70": hover},
