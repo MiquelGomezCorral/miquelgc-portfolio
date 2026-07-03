@@ -369,222 +369,404 @@ export function StringArtComponent(){
   // ==========================================================================================
   return(
     <section className='w-full flex gap-4 lg:gap-8 flex-col lg:flex-row items-center'>
-      <div className='flex flex-col items-center gap-2 relative'>   
-        <figure 
-          className="relative flex justify-center items-center aspect-square rounded-full"
-          style={{ width: `${CONFIG.radius * 2}px`, minWidth: `${CONFIG.radius}px` }} // variable size following config
-        >
-          <Loader enable={loading} type="circle"/>
-          {!croppingCompleted ? 
-            <Cropper
-              image={selectedImage}
-              crop={crop}
-              zoom={zoom}
-              maxZoom={CONFIG.maxZoom}
-              zoomSpeed={CONFIG.zoomSmoothFactor} // smoother zoom
-              aspect={1} // perfect circle
-              onCropChange={setCrop}
-              onZoomChange={setZoom}
-              onCropComplete={(_, croppedArea) => setCroppedAreaPixels(croppedArea)}
-            />
-            : ((!creatingImage && linesVector.length <= 1) ?
-            <NextImage
-              src={modifiedImage}
-              alt={modifiedImage}
-              width={CONFIG.radius * 2}
-              height={CONFIG.radius * 2}
-              className="rounded-full object-contain"
-              
-            />
-            :
-            <canvas
-              ref={canvasRef}
-              width={CONFIG.radius * 2}
-              height={CONFIG.radius * 2}
-              className="bg-miquel-white-200 rounded-full"
-            />
-          )}
-        </figure>
-        
-        <footer className={cn("flex w-full flex-col font-mono ", {"opacity-0": !creatingImage && !(linesVector.length > 1)})}>
-          <span className="flex w-full justify-between"> 
-            <p>{linesVector.length}/{maxLines}</p>
-            <p>{((linesVector.length * 100) / maxLines).toFixed(2)}% </p>
-          </span>
-          <span className="flex w-full justify-between">
-            <p>{t("string.total-time")}: {secondsToTime(totalTime)}</p>
-            <p>{t("string.stimated-time")}: {secondsToTime(stimatedTime)}</p>
-          </span>
-        </footer>
-      </div>
+      <StringArtPreview
+        loading={loading}
+        croppingCompleted={croppingCompleted}
+        selectedImage={selectedImage}
+        crop={crop}
+        zoom={zoom}
+        setCrop={setCrop}
+        setZoom={setZoom}
+        setCroppedAreaPixels={setCroppedAreaPixels}
+        creatingImage={creatingImage}
+        linesVector={linesVector}
+        modifiedImage={modifiedImage}
+        canvasRef={canvasRef}
+        maxLines={maxLines}
+        totalTime={totalTime}
+        stimatedTime={stimatedTime}
+        t={t}
+      />
 
 
       <nav className='gap-4 lg:gap-8 w-full grid grid-cols-1 items-center lg:flex lg:flex-col flex-grow'>
-        <aside className="w-full grid grid-cols-1 2xl:flex 2xl:flex-row gap-4 ">
-          <Button
-            text={croppingCompleted ? t("string.crop") : t("string.accept")}
-            icon={"crop"}
-            className="w-full"
-            disabled={creatingImage}
-            onClick={(e) => {
-              e.preventDefault()
-              handleCropImage()
-              setLoading(false)}
-            }
-          /> 
-
-          <Button
-            text={creatingImage ? t("string.stop") : (linesVector.length <= 1) ? t("string.start") : t("string.continue")}
-            icon={"star"}
-            className="w-full"
-            disabled={!croppingCompleted || linesVector.length >= maxLines}
-            onClick={(e)=>{
-              e.preventDefault()
-              startAlgorithm(linesVector.length <= 1) 
-              if (loading)
-                setLoading(false)
-            }}
-          /> 
-
-          <Button
-            text={t("string.restart")}
-            icon={"delete"}
-            className="w-full"
-            disabled={!croppingCompleted || linesVector.length <= 1}
-            onClick={()=>{
-              if(intervalRef.current)
-                clearInterval(intervalRef.current)
-              setLinesVector([CONFIG.firstPin]) 
-              setInitialTime(0)
-              setCreatingImage(false)
-              setLoading(false)
-            }}
-          /> 
-
-          <ButtonModal
-            text={t("string.trace")}
-            icon={"pin"}
-            className="w-full"
-            disabled={creatingImage || linesVector.length <= 1}
-            onClick={()=>{}}
-          > 
-            <div className="w-full flex flex-col justify-center items-start gap-2">
-              <h2 className="text-xl font-extrabold">{t("string.trace-header")}</h2>
-              <IconCopy
-                src="copy" title={"Copy trace"}
-                width={20} height={20}
-                copyText={linesVector.join(", ")}
-                text={"Copy trace"}
-              />
-              <span className='custom-scroll border-[1px] border-miquel-white-100 rounded-lg p-2 w-full max-h-64 overflow-y-scroll font-mono text-xs'>
-                {linesVector.join(", ")}
-              </span>
-            </div>
-          </ButtonModal>
-        </aside>
+        <StringArtActions
+          croppingCompleted={croppingCompleted}
+          creatingImage={creatingImage}
+          linesVector={linesVector}
+          maxLines={maxLines}
+          loading={loading}
+          handleCropImage={handleCropImage}
+          startAlgorithm={startAlgorithm}
+          intervalRef={intervalRef}
+          setLinesVector={setLinesVector}
+          setInitialTime={setInitialTime}
+          setCreatingImage={setCreatingImage}
+          setLoading={setLoading}
+          t={t}
+        />
 
 
         <form id='form' encType='multipart/form-data' action="" noValidate
           className="w-full flex gap-4 lg:gap-8 justify-center flex-col lg:h-full min-h-0"
         >
-          {/* Let's asume the drag and drop is only used for the computer version, in the movile one you just select the image */}
-          <aside className="flex w-full justify-center flex-col items-center lg:hidden">
-            <Button type='submit' className='text-nowrap w-full lg:w-fit'
-              text={t("string.upload")}
-              icon="upload"
-              onClick={handleImageUpload}
-              disabled={creatingImage}
-            />
-            <input type='file' id='file' 
-              ref={fileUploadRef} 
-              className='hidden'
-              onChange={uploadIMageDisplay}
-            />
-            <HeaderButton onClick={suggestImage} disabled={creatingImage}>{t("string.suggest")}</HeaderButton>
-          </aside>
+          <ImageUploadControls
+            creatingImage={creatingImage}
+            fileUploadRef={fileUploadRef}
+            handleImageUpload={handleImageUpload}
+            suggestImage={suggestImage}
+            uploadIMageDisplay={uploadIMageDisplay}
+            t={t}
+          />
 
-          <aside className="w-full flex-col lg:h-44 2xl:h-64 justify-center items-center hidden lg:flex ">
-            <button className={cn(
-              "w-full h-full rounded-xl bg-miquel-black-200 hover:bg-miquel-black-150 p-4 cursor-pointer transform duration-300 group", 
-              {"bg-miquel-black-300 hover:bg-miquel-black-300 cursor-no-drop": creatingImage}
-            )}
-              onClick={handleImageUpload}
-              disabled={creatingImage}
-            >
-              <div className={cn(
-                  "w-full h-full rounded-xl border-2 border-dashed p-4 flex justify-center items-center transform duration-300",
-                  creatingImage
-                    ? "border-red-800 group-hover:border-red-800 cursor-no-drop"
-                    : "border-miquel-purple-100 group-hover:border-miquel-purple-200 group-hover:animate-pulse"
-                )}>
-                <span className={cn(
-                  "text-miquel-white-100 miquel-opacity group-hover:opacity-100 flex flex-col gap-2 ",
-                  {"text-red-400 group-hover:opacity-70": creatingImage}
-                )}>
-                  {t("string.drag-image")} 
-                  <Icon 
-                    src={"upload"}
-                    height={20}
-                    width={20}
-                    title={"upload"}
-                    type={creatingImage ? "color" : "white"}
-                  />
-                </span>
-              </div>
-            </button>
-            <input type='file' id='file' 
-              ref={fileUploadRef} 
-              className='hidden'
-              onChange={uploadIMageDisplay}
-            />
-
-            <HeaderButton onClick={suggestImage} disabled={creatingImage}>{t("string.suggest")}</HeaderButton>
-          </aside>
-
-
-          <aside className="grid grid-cols-2 gap-4 w-full 2xl:flex 2xl:flex-row">
-            <ShakeHard onClick={()=>{}} key={(shake && errors.pins) ? 'shake1' : 'no-shake1'} active={(shake && errors.pins)} fixed>
-              <Input type="number" className="" value={numPins} text={t("string.pins")}  infoText={t("string.pins-info")}
-                disabled={!croppingCompleted || creatingImage || (linesVector.length > 1)}
-                error={errors.pins}
-                onChange={(e)=>{
-                  e.preventDefault(); setNumPins(e.target.value)
-                }} 
-              />
-            </ShakeHard>
-            <ShakeHard  onClick={()=>{}} key={(shake && errors.lines) ? 'shake2' : 'no-shake2'} active={(shake && errors.lines)} fixed>
-              <Input type="number" className="" value={maxLines} text={t("string.lines")}  infoText={t("string.lines-info")}
-                disabled={!croppingCompleted || creatingImage || (linesVector.length > 1)}
-                error={errors.lines}
-                onChange={(e)=>{
-                  e.preventDefault(); setMaxLines(e.target.value)
-                }} 
-              />
-            </ShakeHard>
-            <ShakeHard  onClick={()=>{}} key={(shake && errors.width) ? 'shake3' : 'no-shake3'} active={(shake && errors.width)} fixed>
-              <Input type="number" className="" value={lineWidth} text={t("string.width")} infoText={t("string.width-info")}
-                disabled={!croppingCompleted || creatingImage || (linesVector.length > 1)} 
-                error={errors.width}
-                onChange={(e)=>{
-                  e.preventDefault(); setLineWidth(e.target.value)
-                }} 
-              />
-            </ShakeHard>
-            <ShakeHard  onClick={()=>{}} key={(shake && errors.contrast) ? 'shake4' : 'no-shake4'} active={(shake && errors.contrast)} fixed>
-              <Input type="number" className="" value={imageContrast} text={t("string.contrast")} infoText={t("string.contrast-info")}
-                disabled={!croppingCompleted || creatingImage || (linesVector.length > 1)}
-                error={errors.contrast}
-                onChange={(e)=>{
-                  e.preventDefault(); setImageContrast(e.target.value)
-                }} 
-              />
-            </ShakeHard>
-          </aside>
+          <StringArtSettings
+            croppingCompleted={croppingCompleted}
+            creatingImage={creatingImage}
+            linesVector={linesVector}
+            shake={shake}
+            errors={errors}
+            numPins={numPins}
+            maxLines={maxLines}
+            lineWidth={lineWidth}
+            imageContrast={imageContrast}
+            setNumPins={setNumPins}
+            setMaxLines={setMaxLines}
+            setLineWidth={setLineWidth}
+            setImageContrast={setImageContrast}
+            t={t}
+          />
 
         </form>
       </nav>
 
     </section>
+  )
+}
+
+function StringArtPreview({
+  loading,
+  croppingCompleted,
+  selectedImage,
+  crop,
+  zoom,
+  setCrop,
+  setZoom,
+  setCroppedAreaPixels,
+  creatingImage,
+  linesVector,
+  modifiedImage,
+  canvasRef,
+  maxLines,
+  totalTime,
+  stimatedTime,
+  t,
+}: {
+  loading: boolean
+  croppingCompleted: boolean
+  selectedImage: string
+  crop: { x: number, y: number }
+  zoom: number
+  setCrop: React.Dispatch<React.SetStateAction<{ x: number, y: number }>>
+  setZoom: React.Dispatch<React.SetStateAction<number>>
+  setCroppedAreaPixels: React.Dispatch<React.SetStateAction<{ x: number; y: number; width: number; height: number } | null>>
+  creatingImage: boolean
+  linesVector: number[]
+  modifiedImage: string
+  canvasRef: React.RefObject<HTMLCanvasElement | null>
+  maxLines: number
+  totalTime: number
+  stimatedTime: number
+  t: any
+}) {
+  return (
+    <div className='flex flex-col items-center gap-2 relative'>
+      <figure
+        className="relative flex justify-center items-center aspect-square rounded-full"
+        style={{ width: `${CONFIG.radius * 2}px`, minWidth: `${CONFIG.radius}px` }}
+      >
+        <Loader enable={loading} type="circle"/>
+        {!croppingCompleted ?
+          <Cropper
+            image={selectedImage}
+            crop={crop}
+            zoom={zoom}
+            maxZoom={CONFIG.maxZoom}
+            zoomSpeed={CONFIG.zoomSmoothFactor}
+            aspect={1}
+            onCropChange={setCrop}
+            onZoomChange={setZoom}
+            onCropComplete={(_, croppedArea) => setCroppedAreaPixels(croppedArea)}
+          />
+          : ((!creatingImage && linesVector.length <= 1) ?
+          <NextImage
+            src={modifiedImage}
+            alt={modifiedImage}
+            width={CONFIG.radius * 2}
+            height={CONFIG.radius * 2}
+            className="rounded-full object-contain"
+          />
+          :
+          <canvas
+            ref={canvasRef}
+            width={CONFIG.radius * 2}
+            height={CONFIG.radius * 2}
+            className="bg-miquel-white-200 rounded-full"
+          />
+        )}
+      </figure>
+
+      <footer className={cn("flex w-full flex-col font-mono", {"opacity-0": !creatingImage && !(linesVector.length > 1)})}>
+        <span className="flex w-full justify-between">
+          <p>{linesVector.length}/{maxLines}</p>
+          <p>{((linesVector.length * 100) / maxLines).toFixed(2)}% </p>
+        </span>
+        <span className="flex w-full justify-between">
+          <p>{t("string.total-time")}: {secondsToTime(totalTime)}</p>
+          <p>{t("string.stimated-time")}: {secondsToTime(stimatedTime)}</p>
+        </span>
+      </footer>
+    </div>
+  )
+}
+
+function StringArtActions({
+  croppingCompleted,
+  creatingImage,
+  linesVector,
+  maxLines,
+  loading,
+  handleCropImage,
+  startAlgorithm,
+  intervalRef,
+  setLinesVector,
+  setInitialTime,
+  setCreatingImage,
+  setLoading,
+  t,
+}: {
+  croppingCompleted: boolean
+  creatingImage: boolean
+  linesVector: number[]
+  maxLines: number
+  loading: boolean
+  handleCropImage: () => void
+  startAlgorithm: (reset: boolean) => void
+  intervalRef: React.RefObject<ReturnType<typeof setInterval> | null>
+  setLinesVector: React.Dispatch<React.SetStateAction<number[]>>
+  setInitialTime: React.Dispatch<React.SetStateAction<number>>
+  setCreatingImage: React.Dispatch<React.SetStateAction<boolean>>
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  t: any
+}) {
+  return (
+    <aside className="w-full grid grid-cols-1 2xl:flex 2xl:flex-row gap-4">
+      <Button
+        text={croppingCompleted ? t("string.crop") : t("string.accept")}
+        icon={"crop"}
+        className="w-full"
+        disabled={creatingImage}
+        onClick={(e) => {
+          e.preventDefault()
+          handleCropImage()
+          setLoading(false)
+        }}
+      />
+
+      <Button
+        text={creatingImage ? t("string.stop") : (linesVector.length <= 1) ? t("string.start") : t("string.continue")}
+        icon={"star"}
+        className="w-full"
+        disabled={!croppingCompleted || linesVector.length >= maxLines}
+        onClick={(e)=>{
+          e.preventDefault()
+          startAlgorithm(linesVector.length <= 1)
+          if (loading) setLoading(false)
+        }}
+      />
+
+      <Button
+        text={t("string.restart")}
+        icon={"delete"}
+        className="w-full"
+        disabled={!croppingCompleted || linesVector.length <= 1}
+        onClick={()=>{
+          if(intervalRef.current) clearInterval(intervalRef.current)
+          setLinesVector([CONFIG.firstPin])
+          setInitialTime(0)
+          setCreatingImage(false)
+          setLoading(false)
+        }}
+      />
+
+      <ButtonModal
+        text={t("string.trace")}
+        icon={"pin"}
+        className="w-full"
+        disabled={creatingImage || linesVector.length <= 1}
+        onClick={()=>{}}
+      >
+        <div className="w-full flex flex-col justify-center items-start gap-2">
+          <h2 className="text-xl font-extrabold">{t("string.trace-header")}</h2>
+          <IconCopy
+            src="copy" title={"Copy trace"}
+            width={20} height={20}
+            copyText={linesVector.join(", ")}
+            text={"Copy trace"}
+          />
+          <span className='custom-scroll border-[1px] border-miquel-white-100 rounded-lg p-2 w-full max-h-64 overflow-y-scroll font-mono text-xs'>
+            {linesVector.join(", ")}
+          </span>
+        </div>
+      </ButtonModal>
+    </aside>
+  )
+}
+
+function ImageUploadControls({
+  creatingImage,
+  fileUploadRef,
+  handleImageUpload,
+  suggestImage,
+  uploadIMageDisplay,
+  t,
+}: {
+  creatingImage: boolean
+  fileUploadRef: React.RefObject<HTMLInputElement | null>
+  handleImageUpload: (event: React.MouseEvent<HTMLButtonElement>) => void
+  suggestImage: (e: any) => void
+  uploadIMageDisplay: (input?: File | React.ChangeEvent<HTMLInputElement>) => void
+  t: any
+}) {
+  const hiddenInput = (
+    <input type='file' id='file'
+      ref={fileUploadRef}
+      className='hidden'
+      onChange={uploadIMageDisplay}
+    />
+  )
+
+  return (
+    <>
+      <aside className="flex w-full justify-center flex-col items-center lg:hidden">
+        <Button type='submit' className='text-nowrap w-full lg:w-fit'
+          text={t("string.upload")}
+          icon="upload"
+          onClick={handleImageUpload}
+          disabled={creatingImage}
+        />
+        {hiddenInput}
+        <HeaderButton onClick={suggestImage} disabled={creatingImage}>{t("string.suggest")}</HeaderButton>
+      </aside>
+
+      <aside className="w-full flex-col lg:h-44 2xl:h-64 justify-center items-center hidden lg:flex">
+        <button className={cn(
+          "w-full h-full rounded-xl bg-miquel-black-300 hover:bg-miquel-black-400 p-4 cursor-pointer transform duration-300 group",
+          {"bg-miquel-black-400 hover:bg-miquel-black-500 cursor-no-drop": creatingImage}
+        )}
+          onClick={handleImageUpload}
+          disabled={creatingImage}
+        >
+          <div className={cn(
+              "w-full h-full rounded-xl border-2 border-dashed p-4 flex justify-center items-center transform duration-300",
+              creatingImage
+                ? "border-red-800 group-hover:border-red-800 cursor-no-drop"
+                : "border-miquel-purple-100 group-hover:border-miquel-purple-200 group-hover:animate-pulse"
+            )}>
+            <span className={cn(
+              "text-miquel-white-100 miquel-opacity group-hover:opacity-100 flex flex-col gap-2",
+              {"text-red-400 group-hover:opacity-70": creatingImage}
+            )}>
+              {t("string.drag-image")}
+              <Icon
+                src={"upload"}
+                height={20}
+                width={20}
+                title={"upload"}
+                type={creatingImage ? "color" : "white"}
+              />
+            </span>
+          </div>
+        </button>
+        {hiddenInput}
+
+        <HeaderButton onClick={suggestImage} disabled={creatingImage}>{t("string.suggest")}</HeaderButton>
+      </aside>
+    </>
+  )
+}
+
+function StringArtSettings({
+  croppingCompleted,
+  creatingImage,
+  linesVector,
+  shake,
+  errors,
+  numPins,
+  maxLines,
+  lineWidth,
+  imageContrast,
+  setNumPins,
+  setMaxLines,
+  setLineWidth,
+  setImageContrast,
+  t,
+}: {
+  croppingCompleted: boolean
+  creatingImage: boolean
+  linesVector: number[]
+  shake: boolean
+  errors: { pins: boolean, lines: boolean, width: boolean, contrast: boolean }
+  numPins: number
+  maxLines: number
+  lineWidth: number
+  imageContrast: number
+  setNumPins: React.Dispatch<React.SetStateAction<number>>
+  setMaxLines: React.Dispatch<React.SetStateAction<number>>
+  setLineWidth: React.Dispatch<React.SetStateAction<number>>
+  setImageContrast: React.Dispatch<React.SetStateAction<number>>
+  t: any
+}) {
+  const disabled = !croppingCompleted || creatingImage || (linesVector.length > 1)
+
+  return (
+    <aside className="grid grid-cols-2 gap-4 w-full 2xl:flex 2xl:flex-row">
+      <ShakeHard onClick={()=>{}} key={(shake && errors.pins) ? 'shake1' : 'no-shake1'} active={(shake && errors.pins)} fixed>
+        <Input type="number" className="" value={numPins} step={10} min={10} text={t("string.pins")} infoText={t("string.pins-info")}
+          disabled={disabled}
+          error={errors.pins}
+          onChange={(e)=>{
+            e.preventDefault(); setNumPins(e.target.value)
+          }}
+        />
+      </ShakeHard>
+      <ShakeHard  onClick={()=>{}} key={(shake && errors.lines) ? 'shake2' : 'no-shake2'} active={(shake && errors.lines)} fixed>
+        <Input type="number" className="" value={maxLines} step={100} min={500} text={t("string.lines")} infoText={t("string.lines-info")}
+          disabled={disabled}
+          error={errors.lines}
+          onChange={(e)=>{
+            e.preventDefault(); setMaxLines(e.target.value)
+          }}
+        />
+      </ShakeHard>
+      <ShakeHard  onClick={()=>{}} key={(shake && errors.width) ? 'shake3' : 'no-shake3'} active={(shake && errors.width)} fixed>
+        <Input type="number" className="" value={lineWidth} step={1} min={1} text={t("string.width")} infoText={t("string.width-info")}
+          disabled={disabled}
+          error={errors.width}
+          onChange={(e)=>{
+            e.preventDefault(); setLineWidth(e.target.value)
+          }}
+        />
+      </ShakeHard>
+      <ShakeHard  onClick={()=>{}} key={(shake && errors.contrast) ? 'shake4' : 'no-shake4'} active={(shake && errors.contrast)} fixed>
+        <Input type="number" className="" value={imageContrast} step={10} min={10} text={t("string.contrast")} infoText={t("string.contrast-info")}
+          disabled={disabled}
+          error={errors.contrast}
+          onChange={(e)=>{
+            e.preventDefault(); setImageContrast(e.target.value)
+          }}
+        />
+      </ShakeHard>
+    </aside>
   )
 }
 

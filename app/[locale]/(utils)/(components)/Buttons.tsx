@@ -54,30 +54,116 @@ interface InputProps {
   disabled?: boolean,
   error?: boolean,
   value?: string | number | readonly string[] | undefined,
+  step?: number,
+  min?: number,
+  max?: number,
   text?: string,
   infoText?: string,
   onChange?: (e:any) => void,
 }
-export function Input({className, type, disabled, error, onChange, value, text, infoText}: InputProps){
+export function Input({className, type, disabled, error, onChange, value, step = 1, min, max, text, infoText}: InputProps){
+  const repeatTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const repeatIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const valueRef = useRef(value)
+  const isNumber = type === "number"
+
+  useEffect(() => {
+    valueRef.current = value
+  }, [value])
+
+  const stopStepping = () => {
+    if (repeatTimeoutRef.current) clearTimeout(repeatTimeoutRef.current)
+    if (repeatIntervalRef.current) clearInterval(repeatIntervalRef.current)
+    repeatTimeoutRef.current = null
+    repeatIntervalRef.current = null
+  }
+
+  useEffect(() => stopStepping, [])
+
+  const getNextValue = (direction: 1 | -1) => {
+    const currentValue = Array.isArray(valueRef.current) ? valueRef.current[0] : valueRef.current
+    const currentNumber = Number(currentValue || 0)
+    const steppedValue = Number.isFinite(currentNumber) ? currentNumber + direction * step : direction * step
+    if (max !== undefined && steppedValue > max) return null
+    if (min !== undefined && steppedValue < min) return null
+
+    return steppedValue
+  }
+
+  const changeByStep = (direction: 1 | -1) => {
+    if (!onChange || disabled) return
+    const nextValue = getNextValue(direction)
+    if (nextValue === null) return
+
+    valueRef.current = nextValue
+
+    onChange({
+      preventDefault: () => {},
+      target: { value: String(nextValue) },
+    })
+  }
+
+  const startStepping = (direction: 1 | -1) => {
+    stopStepping()
+    changeByStep(direction)
+    repeatTimeoutRef.current = setTimeout(() => {
+      repeatIntervalRef.current = setInterval(() => changeByStep(direction), 80)
+    }, 350)
+  }
+
   return(
     <div className="grid grid-cols-1 w-full lg:w-fit gap-2">
       <h2 className="w-full flex relative gap-2">
         {text}
         <InfoPopUp infoText={infoText} onHover/>
       </h2>
-      <input type={type} disabled = {disabled} value={value}
-        className={cn(
-          "p-2 rounded-md border border-miquel-blue-400 bg-miquel-blue-500-a/20 text-miquel-white-100 " +
-          "transform duration-300 flex gap-2 justify-center text-nowrap w-full", 
-          { 'border-red-500 bg-red-500/30 placeholder-red-400/80': disabled },
-          { 'border-red-500 bg-red-500/30 placeholder-red-400/80 text-red-500 focus:text-miquel-white-100' : error},
-          className
-        )}
-        onChange={(e) =>{
-          if(onChange) 
-            onChange(e)
-        }}
-      />
+      <div className="relative w-full">
+        <input type={type} disabled = {disabled} value={value} step={step} min={min} max={max}
+          className={cn(
+            "p-2 rounded-md border border-miquel-blue-400 bg-miquel-blue-500-a/20 text-miquel-white-100 " +
+            "transform duration-300 flex gap-2 justify-center text-nowrap w-full outline-none focus:outline-none focus:ring-0", 
+            { 'no-spinner pr-9': isNumber },
+            { 'border-red-500 bg-red-500/30 placeholder-red-400/80': disabled },
+            { 'border-red-500 bg-red-500/30 placeholder-red-400/80 text-red-500 focus:text-miquel-white-100' : error},
+            className
+          )}
+          onChange={(e) =>{
+            if(onChange) 
+              onChange(e)
+          }}
+        />
+        {isNumber &&
+          <div className="number-stepper absolute right-1 top-1/2 flex -translate-y-1/2 flex-col overflow-hidden rounded">
+            {[1, -1].map(direction => (
+              <button
+                key={direction}
+                type="button"
+                aria-label={direction === 1 ? "Increase value" : "Decrease value"}
+                disabled={disabled}
+                className="flex h-4 w-6 touch-none items-center justify-center opacity-70 transition-[opacity,background-color] outline-none focus:outline-none focus:ring-0 hover:bg-miquel-blue-400-a/20 hover:opacity-100 disabled:cursor-not-allowed disabled:opacity-30"
+                onPointerDown={(e) => { e.preventDefault(); startStepping(direction as 1 | -1) }}
+                onPointerUp={stopStepping}
+                onPointerCancel={stopStepping}
+                onPointerLeave={stopStepping}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault()
+                    changeByStep(direction as 1 | -1)
+                  }
+                }}
+              >
+                <Icon
+                  src={direction === 1 ? "chevron-up" : "chevron-down"}
+                  height={10}
+                  width={10}
+                  title={direction === 1 ? "Increase" : "Decrease"}
+                  type="white"
+                />
+              </button>
+            ))}
+          </div>
+        }
+      </div>
     </div>
   )
 }              
@@ -104,7 +190,7 @@ export function InfoPopUp({infoText, onHover}: {infoText?: string, onHover?: boo
   return (
     <div className="relative inline-block group" ref={ref}>
     {infoText && 
-      <button className="miquel-opacity flex items-center" onClick={(e) => {e.preventDefault(); setOpen(!open)}}>
+      <button type="button" className="miquel-opacity flex items-center" onClick={(e) => {e.preventDefault(); setOpen(!open)}}>
         <Icon 
           src={"question-mark"}
           height={20}
@@ -113,10 +199,11 @@ export function InfoPopUp({infoText, onHover}: {infoText?: string, onHover?: boo
           /> 
       </button>
     }
-    {(open || onHover)&& (
+    {infoText && (
       <div className={cn(
-        "absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-miquel-black-300 text-white text-sm px-2 py-2 rounded shadow z-10 text-nowrap",
-        {"hidden group-hover:block": onHover}
+        "absolute bottom-full mb-2 left-1/2 -translate-x-1/2 translate-y-1 scale-95 bg-miquel-black-300 text-white text-sm px-2 py-2 rounded shadow z-10 text-nowrap opacity-0 pointer-events-none transition-[opacity,transform] duration-150 ease-out",
+        {"opacity-100 translate-y-0 scale-100": open && !onHover},
+        {"group-hover:opacity-100 group-hover:translate-y-0 group-hover:scale-100": onHover}
       )}>
         {infoText?.split("\n").map((line, idx) => 
           idx === 0 ? (
