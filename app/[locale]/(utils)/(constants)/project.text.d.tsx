@@ -11,6 +11,7 @@ export type ProjectType = {
   descriptionShort: string, 
   descriptionLong: string, 
   technologies: TechnologyString[], 
+  gif?: string,
   logo: string,
   screenShoots: string[] 
   link: string 

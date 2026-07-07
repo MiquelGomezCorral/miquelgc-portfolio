@@ -19,6 +19,7 @@ type PortfolioYml = {
   descriptionShort: I18nField
   descriptionLong: I18nField
   technologies: TechnologyString[]
+  gif?: string
   logo?: string
   screenShoots?: string[]
   youtube?: string
@@ -100,6 +101,7 @@ export async function getGithubProjects(locale: Locale, t: TFunction, filter: Pr
         descriptionShort: pick(yaml.descriptionShort, locale),
         descriptionLong: pick(yaml.descriptionLong, locale),
         technologies: yaml.technologies ?? [],
+        gif: yaml.gif ? rawUrl(repo.name, branch, yaml.gif) : "",
         logo: yaml.logo ? rawUrl(repo.name, branch, yaml.logo) : "",
         screenShoots: (yaml.screenShoots ?? []).map(p => rawUrl(repo.name, branch, p)),
         link: `${ProjectsFolder}${yaml.slug}`,

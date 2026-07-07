@@ -13,61 +13,90 @@ export function Project({ object, disabled, seeMore, descriptionBelow, linkGit =
   const pathname = usePathname()
   const fromProjects = pathname === "/projects" || pathname === "/es/projects"
   const projectLink = fromProjects ? `${object.link}?from=projects` : object.link
+  const cardLink = linkGit ? object.github : projectLink
+  const linkTarget = linkGit ? "_blank" : undefined
+  const linkRel = linkGit ? "noopener noreferrer" : undefined
+
+  const image = object.logo && (
+    <Link
+      href={cardLink}
+      target={linkTarget}
+      rel={linkRel}
+      className={
+        "group/img relative w-full rounded-xl aspect-video col-span-1 flex justify-center lg:justify-end items-center overflow-hidden miquel-frame-dark " +
+        "lg:max-h-64 lg:col-span-4 bg-gradient-to-r from-miquel-blue-400 to-indigo-400"
+      }
+    >
+      <Image
+        src={object.logo.startsWith("http") ? object.logo : `/assets/projects/${object.logo}.webp`}
+        alt={object.title}
+        width={800}
+        height={450}
+        className={cn("rounded-xl w-[95%] lg:w-10/12 group-hover/img:lg:w-11/12 lg:translate-x-4 transition-[width,transform] duration-500 aspect-video",{
+          'hover:opacity-0': object.gif !== undefined, 
+          // '': object.gif === undefined
+        }
+        )}
+      />
+      {object.gif && (
+        <Image
+        src={object.gif.startsWith("http") ? object.gif : `/assets/projects/${object.gif}.webp`}
+        alt={object.title}
+        width={800}
+        height={450}
+        className={"rounded-xl w-[95%] lg:w-10/12 group-hover/img:lg:w-11/12 lg:translate-x-4 transition-[width,transform] duration-500 aspect-video"}
+        />
+      )}
+    </Link>
+  )
+
+  const title = (
+    <header className="flex items-end gap-3">
+      <Link
+        href={cardLink}
+        target={linkTarget}
+        rel={linkRel}
+        className="opacity-90 hover:opacity-100 transition-opacity duration-300"
+      >
+        <GlowingText bold className="text-2xl text-balance">{object.title}</GlowingText>
+      </Link>
+      <IconLink
+        src="external-link" title={object.title}
+        width={25} height={25}
+        link={object.github} blank
+        className="opacity-0 group-hover/proyect:opacity-100 transition-opacity duration-300 -translate-y-1"
+      />
+    </header>
+  )
+
+  const meta = (
+    <span className="flex w-full gap-4 opacity-50">
+      {object.date && <p>{object.date}</p>}
+      <p>{object.finished}</p>
+    </span>
+  )
+
+  const description = <p className="opacity-70 text-pretty">{object.descriptionShort}</p>
+  const technologies = <TechnologyMarquee technologies={object.technologies} />
 
   if (descriptionBelow) {
     return (
       <li className="relative flex h-full flex-col gap-4 p-4 rounded-xl transition-[background-position,background-color] duration-300 group/proyect hover:bg-miquel-black-500">
-          <main className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-          {object.logo &&
-          <Link href={linkGit ? object.github : projectLink}
-            target={linkGit ? "_blank": ""}
-            rel={linkGit ? "noopener noreferrer" : undefined}
-            
-            className={
-            "group/img relative w-full rounded-xl aspect-video col-span-1 flex justify-center lg:justify-end items-center overflow-hidden miquel-frame-dark " +
-            "lg:max-h-64 lg:col-span-4 bg-gradient-to-r from-miquel-blue-400 to-indigo-400"
-            }
-          >
-            <Image
-              src={object.logo.startsWith("http") ? object.logo : `/assets/projects/${object.logo}.webp`}
-              alt={object.title}
-              width={800}
-              height={450}
-              className="rounded-xl w-[95%] lg:w-10/12 group-hover/img:lg:w-11/12 lg:translate-x-4 transition-[width,transform] duration-500 aspect-video"
-            />
-          </Link>
-          }
+        <main className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+          {image}
 
           <article className={cn("flex flex-col gap-2 justify-center col-span-1", {
             "lg:col-start-5 lg:col-span-8": object.logo,
             "lg:col-span-12": !object.logo,
           })}>
-            <header className="flex items-end gap-3">
-              <Link
-                href={linkGit ? object.github : projectLink}
-                target={linkGit ? "_blank": ""}
-                rel={linkGit ? "noopener noreferrer" : undefined}
-                className="opacity-90 hover:opacity-100 transition-opacity duration-300"
-              >
-                <GlowingText bold className="text-2xl text-balance">{object.title}</GlowingText>
-              </Link>
-              <IconLink
-                src="external-link" title={object.title}
-                width={25} height={25}
-                link={object.github} blank
-                className="opacity-0 group-hover/proyect:opacity-100 transition-opacity duration-300 -translate-y-1"
-              />
-            </header>
-            <span className="flex w-full gap-4 opacity-50">
-              {object.date && <p>{object.date}</p>}
-              <p>{object.finished}</p>
-            </span>
+            {title}
+            {meta}
           </article>
         </main>
 
         <p className="flex-1 opacity-70 text-pretty">{object.descriptionShort}</p>
 
-        <TechnologyMarquee technologies={object.technologies} />
+        {technologies}
       </li>
     )
   }
@@ -81,53 +110,20 @@ export function Project({ object, disabled, seeMore, descriptionBelow, linkGit =
           "pt-1 h-16 overflow-hidden blur-sm": seeMore
       })} // hover:scale-105
     >
-      <Link href={linkGit ? object.github : projectLink}
-        target={linkGit ? "_blank": ""}
-        rel={linkGit ? "noopener noreferrer" : undefined}
-        className={
-        "group/img relative w-full rounded-xl aspect-video col-span-1 flex justify-center lg:justify-end items-center overflow-hidden miquel-frame-dark " +
-        "lg:max-h-64 lg:col-span-4 bg-gradient-to-r from-miquel-blue-400 to-indigo-400" //from-blue-500 to-orange-500
-        } // bg-gradient-to-r from-miquel-blue-400 to-indigo-400
-      >
-        {object.logo &&
-        <Image
-          src={object.logo.startsWith("http") ? object.logo : `/assets/projects/${object.logo}.webp`}
-          alt={object.title}
-          // fill
-          width={800}
-          height={450}
-          className="rounded-xl w-[95%] lg:w-10/12 group-hover/img:lg:w-11/12 lg:translate-x-4 transition-[width,transform] duration-500 aspect-video"
-        />
-        }
-      </Link>
+      {image}
 
-      <article className="flex flex-col gap-2 justify-between col-span-1 lg:col-start-5 lg:col-span-8">
+      <article className={cn("flex flex-col gap-2 justify-between col-span-1", {
+        "lg:col-start-5 lg:col-span-8": object.logo,
+        "lg:col-span-12": !object.logo,
+      })}>
         <span>
-          <header className="flex items-end gap-3">
-            <Link
-              href={linkGit ? object.github : projectLink}
-              target={linkGit ? "_blank": ""}
-              rel={linkGit ? "noopener noreferrer" : undefined}
-              className="opacity-90 hover:opacity-100 transition-opacity duration-300"
-            >
-              <GlowingText bold className="text-2xl text-balance">{object.title}</GlowingText>
-            </Link>
-            <IconLink
-              src="external-link" title={object.title}
-              width={25} height={25}
-              link={object.github} blank
-              className="opacity-0 group-hover/proyect:opacity-100 transition-opacity duration-300 -translate-y-1"
-            />
-          </header>
-          <span className="flex w-full gap-4 opacity-50">
-            {object.date && <p>{object.date}</p>}
-            <p>{object.finished}</p>
-          </span>
+          {title}
+          {meta}
         </span>
 
-        <p className="opacity-70 text-pretty">{object.descriptionShort}</p>
+        {description}
 
-        <TechnologyMarquee technologies={object.technologies} />
+        {technologies}
       </article>
     </li>
   )
