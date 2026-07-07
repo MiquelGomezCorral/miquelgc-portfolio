@@ -10,6 +10,8 @@ import { ProjectPageTemplate } from "@/app/[locale]/projects/project_template"
 import { getGithubProjects } from "@/app/[locale]/(utils)/(constants)/github-projects"
 
 const i18nNamespaces = projectNameSpaces
+const locales = ["en", "es"] as const
+
 export default async function ProjectPage({ params }: { params: any }) {
   const { locale, slug } = await params
   const { t, resources } = await initTranslations(locale, i18nNamespaces);
@@ -30,7 +32,9 @@ export default async function ProjectPage({ params }: { params: any }) {
 }
 
 export async function generateStaticParams() {
-  const { t, resources } = await initTranslations('en', i18nNamespaces);
+  const { t } = await initTranslations('en', i18nNamespaces);
   const projects = await getGithubProjects("en", t); // Use a dummy translation function for generating static params
-  return projects.map(p => ({ slug: p.link.split("/").pop()! }))
+  return locales.flatMap(locale =>
+    projects.map(p => ({ locale, slug: p.link.split("/").pop()! }))
+  )
 }

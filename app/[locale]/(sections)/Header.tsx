@@ -3,7 +3,7 @@
 import cn from 'classnames';
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
+import { Suspense, useState, useEffect } from "react";
 import { useTranslation } from 'react-i18next';
 
 import { Icon } from "@/app/[locale]/(utils)/(components)/Icons";
@@ -34,7 +34,9 @@ export default function Header({sticky}: {sticky?: boolean}) {
         {"sticky -translate-y-32": sticky}
         )}>
         <nav className='w-max flex justify-between gap-4'>
-          <GoBackButton />
+          <Suspense fallback={null}>
+            <GoBackButton />
+          </Suspense>
           
           <Link href="/" scroll={false} className="miquel-opacity active:duration-75 active:scale-95">
             Miquel Gómez
@@ -87,7 +89,9 @@ export default function Header({sticky}: {sticky?: boolean}) {
           
         )}
       >
-        <GoBackButton />
+        <Suspense fallback={null}>
+          <GoBackButton />
+        </Suspense>
       </div>
 
       <div
