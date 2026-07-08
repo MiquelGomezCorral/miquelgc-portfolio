@@ -27,18 +27,18 @@ export function Foto() {
   };
 
   return (
-    <section 
-      ref={sectionRef} 
-      className="relative flex justify-center w-full max-w-[400px] lg:min-w-[300px] aspect-square hover:cursor-pointer"
+    <section
+      ref={sectionRef}
+      className="relative z-0 flex justify-center w-full max-w-[400px] lg:min-w-[300px] aspect-square hover:cursor-pointer active:scale-95 active:duration-75 transition-[scale]"
       onClick={handleClick}
     >
-      <div className="absolute bg-miquel-blue-400 rounded-full blur-md w-full h-full" />
+      <div className="absolute z-10 bg-miquel-blue-400 rounded-full blur-md w-full h-full" />
       <Image
         src="/assets/miquel/Vidext_cutout.webp"
         alt="Miquel Gómez Corral"
         fill
         sizes="(max-width: 768px) 100vw, 50vw"
-        className="rounded-full bg-miquel-blue-400 object-cover"
+        className="z-20 rounded-full bg-miquel-blue-400 object-cover"
       />
     </section>
   );
