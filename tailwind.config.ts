@@ -55,6 +55,7 @@ const config: Config = {
           "500-a": "oklch(50.9% 0.17 170.0 / <alpha-value>)",
           700: "oklch(45.0% 0.15 170.0)",
           900: "oklch(30.0% 0.10 170.0)",
+          "900-a": "oklch(30.0% 0.10 170.0 / <alpha-value>)",
         },
         "miquel-amber": {
           900: "oklch(30.0% 0.10 70.0)",

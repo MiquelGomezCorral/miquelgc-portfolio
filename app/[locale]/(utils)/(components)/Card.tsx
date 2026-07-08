@@ -30,7 +30,7 @@ export function Card({ object }: { object: CardType }) {
     return(
       <li className={cn(
         "group/li md:w-[45rem] w-[25rem] h-full rounded-xl gap-4 p-4 flex flex-col justify-between list-none transition-[background-color] duration-300",
-        current ? "hover:bg-miquel-green-900/20" : "hover:bg-miquel-black-500"
+        current ? "hover:bg-miquel-green-900-a/20" : "hover:bg-miquel-black-500"
       )}>
         <main className="flex flex-col gap-4">
           <header className="w-full h-full flex md:flex-row flex-col md:justify-start justify-center md:items-start items-center gap-4">
