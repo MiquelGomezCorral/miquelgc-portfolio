@@ -85,10 +85,9 @@ export default async function Footer({ params }: { params: { locale: string } })
 
       <section className="w-full h-full flex md:hidden flex-col items-center justify-end gap-2 pt-10">
         <ArrowUp />
-
       </section>
 
-      <p className="md:col-span-11 flex items-start justify-center gap-1 pt-4 text-xs text-miquel-white-200 opacity-50">
+      <p className="md:col-span-10 flex items-start justify-center gap-1 pt-4 text-xs text-miquel-white-200 opacity-50">
         <Icon src="copyright" title="Copyright" width={12} height={12} />
         {CopyrighYear} {FullName}
       </p>
