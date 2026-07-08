@@ -77,6 +77,7 @@ class Configuration {
     public physicsBallsImpulseMultiplier = 1.15,
     public physicsBallsShadowBlur = 10,
     public physicsBallsBorderWidth = 2,
+    public physicsBallsLifetime = 20000,
     public physicsBallsRadiusLimits = [10, 20] as const,
     public physicsBallsSpeedLimits = [1.7, 2.4] as const,
     public physicsBallsSpawnAttempts = 80,

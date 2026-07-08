@@ -9,6 +9,7 @@ type Ball = {
   y: number
   vx: number
   vy: number
+  createdAt: number
   radius: number
   mass: number
   fill: string
@@ -54,6 +55,7 @@ function createBall(width: number, height: number, balls: Ball[], spawn?: BallSp
     y,
     vx: Math.cos(angle) * speed,
     vy: Math.sin(angle) * speed,
+    createdAt: performance.now(),
     radius,
     mass: radius ** 2,
     fill: `oklch(${randomBetween(78, 86)}% ${randomBetween(0.055, 0.1)} ${hue} / ${randomBetween(0.62, 0.76)})`,
@@ -182,6 +184,7 @@ export default function PhysicsBalls() {
       lastTime = time
 
       context.clearRect(0, 0, width, height)
+      balls = balls.filter((ball) => time - ball.createdAt < CONFIG.physicsBallsLifetime)
 
       for (const ball of balls) {
         ball.x += ball.vx * delta
