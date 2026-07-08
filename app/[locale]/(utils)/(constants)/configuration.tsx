@@ -26,6 +26,7 @@ class Configuration {
     ],
     public projectFuzzyWeight = 0.1,
     public projectFuzzyDistance = 1,
+    public currentDateWords = ["present", "actualidad"] as const,
 
     // =============== String art ===============
     public cigaretteTime = 30, //Num s / 4 for some reason, 120/4 = 30

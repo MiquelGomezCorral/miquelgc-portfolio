@@ -3,11 +3,13 @@
 import { useTranslation } from 'react-i18next';
 import Image from "next/image";
 import Link from "next/link";
+import cn from 'classnames';
 import { TechnologyMarquee } from '@/app/[locale]/(utils)/(components)/Technologies';
 import GlowingText from "./GlowingText";
 import { IconCopy, IconLink } from "./Icons";
 import { useToastStore } from "./Toast";
 import { TechnologyString } from "@/app/[locale]/(utils)/(constants)/technologies.d";
+import CONFIG from "@/app/[locale]/(utils)/(constants)/configuration";
 
 export type CardType = { 
     title: string, 
@@ -23,8 +25,13 @@ export type CardType = {
 
 export function Card({ object }: { object: CardType }) {
     const { t } = useTranslation("general")
-    return( 
-      <li className="group/li md:w-[45rem] w-[25rem] h-full rounded-xl gap-4 p-4 flex flex-col justify-between list-none transition-[background-color] duration-300 hover:bg-miquel-black-500" >
+    const current = CONFIG.currentDateWords.some(word => object.date.toLowerCase().includes(word.toLowerCase()))
+
+    return(
+      <li className={cn(
+        "group/li md:w-[45rem] w-[25rem] h-full rounded-xl gap-4 p-4 flex flex-col justify-between list-none transition-[background-color] duration-300",
+        current ? "hover:bg-miquel-green-900/20" : "hover:bg-miquel-black-500"
+      )}>
         <main className="flex flex-col gap-4">
           <header className="w-full h-full flex md:flex-row flex-col md:justify-start justify-center md:items-start items-center gap-4">
             <Link href={object.link} target="_blank" className={
@@ -44,7 +51,7 @@ export function Card({ object }: { object: CardType }) {
               <header className="flex flex-col">
                 <h2 className="text-2xl text-balance flex items-end md:justify-start justify-center gap-3">
                   <Link href={object.link} target="_blank" className="opacity-90 hover:opacity-100 transition-opacity duration-300">
-                    <GlowingText bold nowrap>{object.title}</GlowingText>
+                    <GlowingText bold nowrap color={current ? "green" : "blue"}>{object.title}</GlowingText>
                   </Link>
                   <IconLink
                     src="external-link" title={object.title}
@@ -79,13 +86,17 @@ export function Card({ object }: { object: CardType }) {
   
           <figure className="w-full flex items-center opacity-80 group-hover/li:opacity-100 transition duration-300">
             <div className={
-              "h-8 w-8 rounded-full bg-miquel-blue-100 border-miquel-blue-400 border-4 z-20 group-hover/li:animate-spin-slow transition duration-1000"+ 
+              cn("h-8 w-8 rounded-full border-4 z-20 group-hover/li:animate-spin-slow transition duration-1000",
+              current ? "bg-miquel-green-100 border-miquel-green-400" : "bg-miquel-blue-100 border-miquel-blue-400")+
               " text-transparent group-hover/li:text-black/70 hover:cursor-pointer flex justify-center items-center text-xs "}
               onClick={() => useToastStore.getState().addToast(`${t("youFoundMe")} ${object.silly}`, 'info')}
               >
               {object.silly}
             </div>
-            <div className="h-1 w-full -ml-1 rounded-md bg-miquel-white-100 border-miquel-blue-400 border-[2.5px] z-10" />
+            <div className={cn(
+              "h-1 w-full -ml-1 rounded-md bg-miquel-white-100 border-[2.5px] z-10",
+              current ? "border-miquel-green-400" : "border-miquel-blue-400"
+            )} />
           </figure>
         </footer>
   
