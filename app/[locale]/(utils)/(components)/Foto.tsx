@@ -29,7 +29,7 @@ export function Foto() {
   return (
     <section
       ref={sectionRef}
-      className="relative z-0 flex justify-center w-full max-w-[400px] lg:min-w-[300px] aspect-square hover:cursor-pointer active:scale-95 active:duration-75 transition-[scale]"
+      className="relative z-0 flex justify-center w-full max-w-[400px] lg:min-w-[300px] aspect-square hover:cursor-pointer active:scale-95 active:duration-75 transition-[transform]"
       onClick={handleClick}
     >
       <div className="absolute z-10 bg-miquel-blue-400 rounded-full blur-md w-full h-full" />
