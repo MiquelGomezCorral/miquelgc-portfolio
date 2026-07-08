@@ -2,7 +2,7 @@ import { load } from "js-yaml"
 import type { TFunction } from "i18next";
 import type { LocaleText, ProjectType } from "./project.text.d"
 import { TechnologyString } from "./technologies.d"
-import { GithubUser, YouTubeEmbed, Seconds1h, ProjectsFolder} from "./constants.text.d"
+import { GithubUser, YoutubeEmbed, Seconds1h, ProjectsFolder} from "./constants.text.d"
 import CONFIG from "./configuration"
 
 const GH_TOKEN = process.env.GITHUB_TOKEN  // fine-grained PAT, public repo read
@@ -105,7 +105,7 @@ export async function getGithubProjects(locale: Locale, t: TFunction, filter: Pr
         logo: yaml.logo ? rawUrl(repo.name, branch, yaml.logo) : "",
         screenShoots: (yaml.screenShoots ?? []).map(p => rawUrl(repo.name, branch, p)),
         link: `${ProjectsFolder}${yaml.slug}`,
-        youtube: yaml.youtube ? YouTubeEmbed + yaml.youtube : "",
+        youtube: yaml.youtube ? YoutubeEmbed + yaml.youtube : "",
         github: repo.html_url,
         relevancy: yaml.relevancy ?? -1,
         tags,
@@ -123,7 +123,7 @@ export async function getGithubProjects(locale: Locale, t: TFunction, filter: Pr
     })
   )
 
-  
+
   return settled
     .filter((p): p is NonNullable<typeof p> => p !== null)
     .sort((a, b) => b._order - a._order)

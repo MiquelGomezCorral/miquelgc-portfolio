@@ -1,20 +1,20 @@
 import type { TFunction } from "i18next";
-import { GithubLink, YouTubeEmbed, ProjectsFolder } from "./constants.text.d"
+import { GithubLink, YoutubeEmbed, ProjectsFolder } from "./constants.text.d"
 import { TechnologyString } from "./technologies.d"
 
 export type LocaleText = { en: string; es: string }
 
-export type ProjectType = { 
-  title: string, 
-  finished: string, 
+export type ProjectType = {
+  title: string,
+  finished: string,
   date: string,
-  descriptionShort: string, 
-  descriptionLong: string, 
-  technologies: TechnologyString[], 
+  descriptionShort: string,
+  descriptionLong: string,
+  technologies: TechnologyString[],
   gif?: string,
   logo: string,
-  screenShoots: string[] 
-  link: string 
+  screenShoots: string[]
+  link: string
   youtube: string
   github: string
   relevancy: number
@@ -178,7 +178,7 @@ export const getProjects = (t: TFunction):  ProjectType[] => {
     logo: "String Art (1)",
     screenShoots: Array.from({ length: 4 }, (_, i) => `String Art (${i+1})`),
     link: ProjectsFolder+"string_art",
-    youtube: YouTubeEmbed+"", //video id
+    youtube: YoutubeEmbed+"", //video id
     github:  GithubLink+"miquelgc-portfolio/tree/main/app/%5Blocale%5D/projects/string_art",
     relevancy: 90,
     technologies: ["git", "javascript", "next", "react", "tailwind", "typescript"],
@@ -209,7 +209,7 @@ export const getProjects = (t: TFunction):  ProjectType[] => {
     logo: "Smoking",
     screenShoots: [], // Array.from({ length: 0 }, (_, i) => `Smoking (${i+1})`),
     link: ProjectsFolder+"smoking",
-    youtube: YouTubeEmbed+"", //video id
+    youtube: YoutubeEmbed+"", //video id
     github:  GithubLink+"miquelgc-portfolio/tree/main/app/%5Blocale%5D/projects/smoking",
     relevancy: 25,
     technologies: ["git", "javascript", "next", "react", "tailwind", "typescript"],

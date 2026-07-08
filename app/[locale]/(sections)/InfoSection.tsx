@@ -5,7 +5,7 @@ import GlowingText from "@/app/[locale]/(utils)/(components)/GlowingText";
 import { WritingText } from "@/app/[locale]/(utils)/(components)/TypingText";
 import { qualitiesEN, qualitiesES} from "@/app/[locale]/(utils)/(constants)/infosSection.text"
 import { IconGlowingLink, IconCopy, IconGlowingCopy, IconGlowingButton } from "@/app/[locale]/(utils)/(components)/Icons";
-import { Location, Email, Github, GithubLink, Linkedin, LinkedinLink, Curriculum, CurriculumSiglas } from "@/app/[locale]/(utils)/(constants)/constants.text.d"
+import { Location, Email, Github, GithubLink, Linkedin, LinkedinLink, Curriculum, CurriculumSiglas, Youtube, YoutubeLink } from "@/app/[locale]/(utils)/(constants)/constants.text.d"
 
 import initTranslations from "@/app/i18n"
 import { infoSectionNameSpaces } from "@/app/[locale]/(utils)/(constants)/nameSpaces.d"
@@ -14,7 +14,7 @@ const i18nNamespaces = infoSectionNameSpaces
 
 export default async function InfoSection({ params }: { params: { locale: string } }) {
   const {t} = await initTranslations(params.locale, i18nNamespaces)
-  
+
   return (
     <section id="Info-Section" className='w-full flex flex-col xl:flex-row-reverse justify-between items-center gap-24 xl:gap-10'>
       <Foto />
@@ -24,9 +24,9 @@ export default async function InfoSection({ params }: { params: { locale: string
           {t("salute")} <GlowingText>Miquel Gómez!</GlowingText>
         </h1>
         <h2 className="text-lg sm:text-2xl flex justify-center items-center xl:justify-start gap-2 text-nowrap overflow-hidden">
-          {t("student")}  
-          <GlowingText> 
-            <WritingText list={params.locale === "en" ? qualitiesEN : qualitiesES}/> <WritingBar /> 
+          {t("student")}
+          <GlowingText>
+            <WritingText list={params.locale === "en" ? qualitiesEN : qualitiesES}/> <WritingBar />
           </GlowingText>
         </h2>
         <p className="text-sm sm:text-base text-miquel-white-500 flex flex-col gap-2">
@@ -75,6 +75,12 @@ export default async function InfoSection({ params }: { params: { locale: string
             width={20} height={20}
             link={GithubLink}
             blank type="tech-white"
+          />
+          <IconGlowingLink
+            src="youtube" title={Youtube}
+            width={20} height={20}
+            link={YoutubeLink}
+            blank type="white"
           />
         </footer>
       </aside>

@@ -9,9 +9,9 @@ export const GithubUser = "MiquelGomezCorral";
 export const Github = `@${GithubUser}`;
 export const GithubLink = `https://github.com/${GithubUser}/`;
 
-export const YouTube = "TurboCodingMaikol";
-export const YouTubeLink = "https://www.youtube.com/@TurboCodingMaikol" 
-export const YouTubeEmbed = "https://www.youtube.com/embed/"
+export const Youtube = "@TurboCodingMaikol";
+export const YoutubeLink = "https://www.youtube.com/@TurboCodingMaikol"
+export const YoutubeEmbed = "https://www.youtube.com/embed/"
 
 export const Location = "Almenara, Valencia, España"
 

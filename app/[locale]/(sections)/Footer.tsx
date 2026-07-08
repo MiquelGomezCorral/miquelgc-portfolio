@@ -1,7 +1,7 @@
 
 import { IconLink, IconCopy, Icon} from "@/app/[locale]/(utils)/(components)/Icons";
 import { DownloadCV } from "@/app/[locale]/(utils)/(components)/Utils";
-import { Curriculum, Email, Github, GithubLink, Linkedin, LinkedinLink } from "@/app/[locale]/(utils)/(constants)/constants.text.d";
+import { CopyrighYear, Curriculum, Email, FullName, Github, GithubLink, Linkedin, LinkedinLink, YoutubeLink, Youtube } from "@/app/[locale]/(utils)/(constants)/constants.text.d";
 import { FormSendEmail } from "@/app/[locale]/(utils)/(components)/FormSendEmail";
 import GlowingText from "@/app/[locale]/(utils)/(components)/GlowingText";
 import { ArrowUp } from "@/app/[locale]/(utils)/(components)/ArrowUp";
@@ -15,48 +15,58 @@ export default async function Footer({ params }: { params: { locale: string } })
     <footer id="footer" className={
       "pt-10 pb-20 w-full grid md:grid-rows-1 md:grid-cols-11 grid-cols-1 place-items-center gap-4 max-w-[120rem] px-4 md:px-10 xl:px-48 2xl:px-64"
     }>
-      
+
       <section className="md:col-span-4 flex md:justify-start justify-center items-center">
         <div className="flex flex-col items-center justify-center gap-6 p-4">
-          <header className="flex flex-col md:items-start items-center gap-2"> 
+          <header className="flex flex-col md:items-start items-center gap-2">
             <h1 className="flex gap-1 text-4xl font-bold text-nowrap">
               {t("contact")}<GlowingText bold>!</GlowingText>
             </h1>
             <p className="opacity-70 text-pretty">{t("shy")}</p>
           </header>
-          
+
           <nav className="flex flex-col gap-4  md:items-start items-center w-full">
             <DownloadCV>
-              <Icon 
+              <Icon
                 src="download-document" title={Curriculum}
-                width={20} height={20}  
+                width={20} height={20}
                 text={Curriculum}
                 hover type={"color"} glowing
               />
             </DownloadCV>
-            <IconCopy 
+            <IconCopy
               src="email" title={Email}
-              width={20} height={20} 
+              width={20} height={20}
               copyText={Email}
               text={Email}
               type={"color"}
               glowing
             />
-            <IconLink 
+            <IconLink
               src="linkedin" title={Linkedin}
-              width={20} height={20}  
+              width={20} height={20}
               link={LinkedinLink}
               text={Linkedin}
-              blank         
+              blank
               type={"color"}
               glowing
             />
-            <IconLink 
+            <IconLink
               src="github" title={Github}
-              width={20} height={20} 
-              link={GithubLink}            
+              width={20} height={20}
+              link={GithubLink}
               text={Github}
-              blank         
+              blank
+              type={"color"}
+              glowing
+              className="gap-2"
+            />
+            <IconLink
+              src="youtube" title={Youtube}
+              width={20} height={20}
+              link={YoutubeLink}
+              text={Youtube}
+              blank
               type={"color"}
               glowing
               className="gap-2"
@@ -77,6 +87,11 @@ export default async function Footer({ params }: { params: { locale: string } })
         <ArrowUp />
 
       </section>
+
+      <p className="md:col-span-11 flex items-start justify-center gap-1 pt-4 text-xs text-miquel-white-200 opacity-50">
+        <Icon src="copyright" title="Copyright" width={12} height={12} />
+        {CopyrighYear} {FullName}
+      </p>
 
     </footer>
   )
