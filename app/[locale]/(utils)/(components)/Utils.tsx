@@ -51,7 +51,7 @@ export function Modal({ children, onClose }: ModalProps) {
     <AnimatePresence>
       <motion.div
         key="backdrop"
-        className="fixed inset-0 bg-miquel-black-500-a/40 backdrop-blur-md z-50 cursor-pointer flex items-center justify-center"
+        className="fixed inset-0 bg-miquel-black-500-a/40 backdrop-blur-md z-app-overlay cursor-pointer flex items-center justify-center"
         onClick={e => {e.stopPropagation(); onClose()}}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

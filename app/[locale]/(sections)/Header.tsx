@@ -28,7 +28,7 @@ export default function Header({sticky}: {sticky?: boolean}) {
   return (
     <div className='flex w-full' id="header">
       {/* ================== HORIZONTAL VIEW MENU ==================*/}
-      <header className={cn("hidden lg:flex justify-between z-40 text-xs 2xl:text-sm px-0 lg:px-2 xl:px-20 py-4 w-full h-full sm:h-auto " +
+      <header className={cn("hidden lg:flex justify-between z-app-header text-xs 2xl:text-sm px-0 lg:px-2 xl:px-20 py-4 w-full h-full sm:h-auto " +
         "2xl:gap-10 top-0 backdrop-blur-md border-b-2 border-b-miquel-white-200/50",
         {"fixed": !sticky},
         {"sticky -translate-y-32": sticky}
@@ -82,7 +82,7 @@ export default function Header({sticky}: {sticky?: boolean}) {
       {/* MENU BUTTON*/}
 
       <div
-        className={cn("flex justify-center items-center lg:hidden z-50 top-4 left-6 rounded-full p-2 1 w-9 border hover:bg-miquel-blue-300 backdrop-blur-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)] transition-colors duration-300", 
+        className={cn("flex justify-center items-center lg:hidden z-app-overlay top-4 left-6 rounded-full p-2 1 w-9 border hover:bg-miquel-blue-300 backdrop-blur-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)] transition-colors duration-300", 
           {"hidden": showMenu || isLanding },
           {"fixed": !sticky},
           {"sticky -translate-y-32 ": sticky}
@@ -95,7 +95,7 @@ export default function Header({sticky}: {sticky?: boolean}) {
       </div>
 
       <div
-        className={cn("lg:hidden z-50 top-4 right-6 rounded-full p-2 w-9 border hover:bg-miquel-white-200/25 backdrop-blur-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)] transition-[background-color,transform] duration-300",
+        className={cn("lg:hidden z-app-overlay top-4 right-6 rounded-full p-2 w-9 border hover:bg-miquel-white-200/25 backdrop-blur-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)] transition-[background-color,transform] duration-300",
         {"fixed": !sticky},
         {"sticky -translate-y-32 ml-auto": sticky}
           
@@ -111,7 +111,7 @@ export default function Header({sticky}: {sticky?: boolean}) {
 
       {/* MENU */}
 
-      <header className={cn('z-40 fixed gap-4 lg:hidden flex flex-col w-full h-full top-0 left-0 py-4 backdrop-blur-md text-miquel-white-200', { "hidden": !showMenu })}>
+      <header className={cn('z-app-header fixed gap-4 lg:hidden flex flex-col w-full h-full top-0 left-0 py-4 backdrop-blur-md text-miquel-white-200', { "hidden": !showMenu })}>
         <Link href="/" className="pl-4 miquel-opacity text-2xl font-semibold">
           <h3>Miquel Gómez</h3>
         </Link>
