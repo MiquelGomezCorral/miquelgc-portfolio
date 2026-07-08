@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 import cn from 'classnames';
 import { IconLink } from "@/app/[locale]/(utils)/(components)/Icons";
 import { ProjectType } from "@/app/[locale]/(utils)/(constants)/project.text.d";
@@ -16,12 +17,14 @@ export function Project({ object, disabled, seeMore, descriptionBelow, linkGit =
   const cardLink = linkGit ? object.github : projectLink
   const linkTarget = linkGit ? "_blank" : undefined
   const linkRel = linkGit ? "noopener noreferrer" : undefined
+  const [gifKey, setGifKey] = useState(0)
 
   const image = object.logo && (
     <Link
       href={cardLink}
       target={linkTarget}
       rel={linkRel}
+      onMouseEnter={() => setGifKey(key => key + 1)}
       className={
         "group/img relative w-full rounded-xl aspect-video col-span-1 flex justify-center lg:justify-end items-center overflow-hidden miquel-frame-dark " +
         "lg:max-h-64 lg:col-span-4 bg-gradient-to-r from-miquel-blue-400 to-indigo-400"
@@ -32,19 +35,22 @@ export function Project({ object, disabled, seeMore, descriptionBelow, linkGit =
         alt={object.title}
         width={800}
         height={450}
-        className={cn("rounded-xl w-[95%] lg:w-10/12 group-hover/img:lg:w-11/12 lg:translate-x-4 transition-[width,transform] duration-500 aspect-video",{
-          'hover:opacity-0': object.gif !== undefined, 
+        className={cn("rounded-xl w-[95%] lg:w-10/12 group-hover/img:lg:w-11/12 lg:translate-x-4 transition-[width,transform, opacity] duration-500 aspect-video",{
+          'group-hover/img:opacity': object.gif, 
           // '': object.gif === undefined
         }
         )}
       />
       {object.gif && (
         <Image
+        key={gifKey}
         src={object.gif.startsWith("http") ? object.gif : `/assets/projects/${object.gif}.webp`}
         alt={object.title}
         width={800}
         height={450}
-        className={"rounded-xl w-[95%] lg:w-10/12 group-hover/img:lg:w-11/12 lg:translate-x-4 transition-[width,transform] duration-500 aspect-video"}
+        className={"absolute rounded-xl w-[95%] lg:w-10/12 group-hover/img:lg:w-11/12 lg:translate-x-4 transition-[width,transform,opacity] duration-500 aspect-video group-hover/img:opacity-100 opacity-0"
+
+        }
         />
       )}
     </Link>
@@ -145,5 +151,4 @@ export function SeeMoreProject({ object, text }: { object: ProjectType, text: st
 
   )
 }
-
 
