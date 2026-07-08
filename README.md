@@ -52,9 +52,11 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 ## Gallery
 
 <p align="center">
-  <img src="readme_images/Portfolio%20(1)_169.webp" width="48%" />
-  <img src="readme_images/Portfolio%20(2)_169.webp" width="48%" />
-  <img src="readme_images/Portfolio%20(3)_169.webp" width="48%" />
-  <img src="readme_images/Portfolio%20(4)_169.webp" width="48%" />
+  <img src="readme_images/Portfolio%20(1)_169.webp" alt="Portfolio (1)" width="48%" />
+  <img src="readme_images/Portfolio%20(2)_169.webp" alt="Portfolio (2)" width="48%" />
+  <img src="readme_images/Portfolio%20(3)_169.webp" alt="Portfolio (3)" width="48%" />
+  <img src="readme_images/Portfolio%20(4)_169.webp" alt="Portfolio (4)" width="48%" />
+  <img src="readme_images/Portfolio%20(5)_169.webp" alt="Portfolio (5)" width="48%" />
+  <img src="readme_images/Portfolio%20(6)_169.webp" alt="Portfolio (6)" width="48%" />
 </p>
 <!-- portfolio-gallery:end -->
