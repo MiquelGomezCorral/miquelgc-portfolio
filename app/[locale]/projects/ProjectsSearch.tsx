@@ -1,6 +1,6 @@
 "use client"
 
-import { useMemo, useState } from "react"
+import { Fragment, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { AnimatePresence, motion } from "framer-motion"
 import cn from "classnames"
@@ -8,7 +8,7 @@ import cn from "classnames"
 import CONFIG from "@/app/[locale]/(utils)/(constants)/configuration"
 import type { ProjectType } from "@/app/[locale]/(utils)/(constants)/project.text.d"
 import { getTechnologyCathegories, getTechTitle, techCategoryStyle, type TechCategoryKey, type TechnologyString } from "@/app/[locale]/(utils)/(constants)/technologies.d"
-import { Divider } from "@/app/[locale]/(utils)/(components)/Divider"
+import { Divider, YearDivider } from "@/app/[locale]/(utils)/(components)/Divider"
 import { Icon } from "@/app/[locale]/(utils)/(components)/Icons"
 import { SearchFilter, type SearchFacet, type SearchField } from "@/app/[locale]/(utils)/(components)/SearchFilter"
 import { MultiChoice } from "@/app/[locale]/(utils)/(components)/Buttons"
@@ -22,7 +22,7 @@ const offClass = "bg-transparent border-miquel-black-300 opacity-70 hover:opacit
 export function ProjectsSearch({ main, others, locale }: { main: ProjectType[], others: ProjectType[], locale: Locale }) {
   const { t: tProjects } = useTranslation("projects")
   const { t: tTech } = useTranslation("technologies")
-  const [sortMode, setSortMode] = useState<"relevancy" | "time">("relevancy")
+  const [sortMode, setSortMode] = useState<"relevancy" | "time">("time")
   const [sortDir, setSortDir] = useState<"asc" | "desc">("desc")
 
   const sortFn = (projects: ProjectType[]) => {
@@ -123,20 +123,28 @@ export function ProjectsSearch({ main, others, locale }: { main: ProjectType[], 
       render={(projects, filtering) => {
         const sorted = sortFn(projects)
         return filtering
-          ? <FilteredProjects projects={sorted} emptyText={tProjects("no-projects-filter")} />
-          : <DefaultProjects main={sorted} others={others} />
+          ? <FilteredProjects projects={sorted} emptyText={tProjects("no-projects-filter")} showYears={sortMode === "time"} />
+          : <DefaultProjects main={sorted} others={others} showYears={sortMode === "time"} />
       }}
     />
   )
 }
 
-function DefaultProjects({ main, others }: { main: ProjectType[], others: ProjectType[] }) {
+function DefaultProjects({ main, others, showYears }: { main: ProjectType[], others: ProjectType[], showYears: boolean }) {
   return (
     <>
       <div className="flex flex-col justify-center gap-6">
-        {main.map((object, idx) =>
-          <Project object={object} key={idx}/>
-        )}
+        {main.map((object, idx) => {
+          const year = showYears ? projectYear(object) : ""
+          const previousYear = idx > 0 ? projectYear(main[idx - 1]) : ""
+
+          return (
+            <Fragment key={object.link}>
+              {year && year !== previousYear && <YearDivider year={year} />}
+              <Project object={object}/>
+            </Fragment>
+          )
+        })}
       </div>
 
       {others.length > 0 &&
@@ -150,22 +158,29 @@ function DefaultProjects({ main, others }: { main: ProjectType[], others: Projec
   )
 }
 
-function FilteredProjects({ projects, emptyText }: { projects: ProjectType[], emptyText: string }) {
+function FilteredProjects({ projects, emptyText, showYears }: { projects: ProjectType[], emptyText: string, showYears: boolean }) {
   return (
     <div className="flex flex-col justify-center gap-6">
       <AnimatePresence mode="popLayout">
-        {projects.length > 0 ? projects.map(project =>
-          <motion.div
-            key={project.link}
-            layout
-            initial={{ opacity: 0, y: 18, scale: .98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -12, scale: .98 }}
-            transition={{ duration: .25 }}
-          >
-            <Project object={project}/>
-          </motion.div>
-        ) :
+        {projects.length > 0 ? projects.map((project, idx) => {
+          const year = showYears ? projectYear(project) : ""
+          const previousYear = idx > 0 ? projectYear(projects[idx - 1]) : ""
+
+          return (
+            <motion.div
+              key={project.link}
+              layout
+              initial={{ opacity: 0, y: 18, scale: .98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -12, scale: .98 }}
+              transition={{ duration: .25 }}
+              className="flex flex-col gap-6"
+            >
+              {year && year !== previousYear && <YearDivider year={year} />}
+              <Project object={project}/>
+            </motion.div>
+          )
+        }) :
           <motion.p
             key="empty"
             initial={{ opacity: 0, y: 12 }}
@@ -179,6 +194,11 @@ function FilteredProjects({ projects, emptyText }: { projects: ProjectType[], em
       </AnimatePresence>
     </div>
   )
+}
+
+function projectYear(project: ProjectType) {
+  const year = new Date(project.date ?? "").getFullYear()
+  return Number.isNaN(year) ? "" : String(year)
 }
 
 function unique<T>(values: T[]) {
