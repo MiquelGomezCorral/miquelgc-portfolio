@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import cn from 'classnames';
 import GlowingText from "./GlowingText";
 
@@ -98,13 +99,13 @@ interface IconLinkProps extends IconProps{
   onClick?: () => void
 }
 export function IconLink({ link, blank, notAddToStack, stayPage, onClick, className, ...props}: IconLinkProps) {
-  const { goToPageFrom, currentPage } = usePageStackStore()
+  const { goToPageFrom } = usePageStackStore()
+  const pathname = usePathname()
+  const href = stayPage ? link.startsWith("#") ? link : `${pathname === "/" ? "" : pathname}/${link}` : link
   
   return (
     <Link 
-      href={
-        (stayPage && currentPage !== "") ? `${currentPage}/${link}` : link
-      }
+      href={href}
       target={blank ? "_blank": ""}
       className={cn("relative group", className)}
       onClick={() => {

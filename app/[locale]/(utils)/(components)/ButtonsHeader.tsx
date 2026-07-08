@@ -73,7 +73,7 @@ interface HeaderButtonLinkProps  {
 export function ButtonLink({icon, link, blank, notAddToStack, stayPage, onClick, className, ...props }: HeaderButtonLinkProps){
   const router = useRouter()
   const pathname = usePathname()
-  const href = stayPage ? `${pathname === "/" ? "" : pathname}/${link}` : link
+  const href = stayPage ? link.startsWith("#") ? link : `${pathname === "/" ? "" : pathname}/${link}` : link
 
   return (
     <Link

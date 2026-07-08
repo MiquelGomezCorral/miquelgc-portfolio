@@ -2,12 +2,14 @@
 
 import { ButtonLink } from "@/app/[locale]/(utils)/(components)/ButtonsHeader";
 import { IconLink } from "./Icons";
-import { usePageStackStore } from "@/app/[locale]/(global_state)/state"
+import { usePathname } from "next/navigation"
 import { useTranslation } from "react-i18next";
 
 export function ArrowUp() {
-  const { currentPage } = usePageStackStore()
+  const pathname = usePathname()
   const {t} = useTranslation("footer")
+  const isProjectsPage = pathname === "/projects" || pathname === "/es/projects"
+
   return(
     <>
       <div className="group/arrow">
@@ -28,7 +30,7 @@ export function ArrowUp() {
         </ButtonLink>
       </div>
 
-      { (currentPage === "/projects") ?
+      { isProjectsPage ?
         <ButtonLink link="/">
           {t("discover")}
         </ButtonLink>
