@@ -85,6 +85,11 @@ const config: Config = {
         //     500: "#583EDC",
         //   }
       },
+      zIndex: {
+        "app-header": "40",
+        "app-overlay": "50",
+        "app-balls": "60",
+      },
       keyframes: {
         fadeOut: {
           '0%': { opacity: '1' },
