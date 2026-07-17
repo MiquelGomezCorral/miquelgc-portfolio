@@ -26,7 +26,7 @@ export default async function Footer({ params }: { params: { locale: string } })
           </header>
 
           <nav className="flex flex-col gap-4  md:items-start items-center w-full">
-            <DownloadCV>
+            <DownloadCV className='active:scale-95 active:duration-75'>
               <Icon
                 src="download-document" title={Curriculum}
                 width={20} height={20}
