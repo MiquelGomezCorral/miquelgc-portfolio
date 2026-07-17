@@ -19,7 +19,7 @@ export default async function Projects({ params }: { params: any }) {
   const bestProjects = [...ProjectsWeb, ...Projects].sort((a, b) => (b.relevancy ?? 0) - (a.relevancy ?? 0)).slice(0, CONFIG.numProjectsLanding)
 
   return (
-    <Section id={t("id")} title={t("title")} iconName={t("icon")} link="/projects" classname="group/proyects">
+    <Section id={t("id")} title={t("title")} iconName={t("icon")} link="/projects" classname="group/proyects" activeScale="bigButtons">
     
       <main className="flex flex-col justify-center gap-6">
         {bestProjects.map((object, idx) =>

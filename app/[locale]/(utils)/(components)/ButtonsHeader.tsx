@@ -11,19 +11,22 @@ import { Icon } from "@/app/[locale]/(utils)/(components)/Icons"
 import { Button } from '@/app/[locale]/(utils)/(components)/Buttons';
 import { Modal } from '@/app/[locale]/(utils)/(components)/Utils';
 
+type ActiveScale = 'smallButtons' | 'bigButtons'
 
 interface HeaderButtonProps  {
   className?: string,
   disabled?: boolean,
+  activeScale?: ActiveScale,
   children?: React.ReactNode,
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void,
 }
-export function HeaderButton({className, disabled, onClick, ...props}: HeaderButtonProps) {
+export function HeaderButton({className, disabled, activeScale = 'smallButtons', onClick, ...props}: HeaderButtonProps) {
   return (
     <button className={
       cn(
         "text-miquel-white text-start text-nowrap miquel-opacity flex items-center drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)]",
-        {"active:duration-75 active:scale-95": !disabled},
+        {"active:duration-75 active:scale-95": !disabled && activeScale === 'smallButtons'},
+        {"active:duration-75 active:scale-[0.98]": !disabled && activeScale === 'bigButtons'},
         {"hover:opacity-70 cursor-not-allowed text-red-400": disabled},
         className
       )}
@@ -70,8 +73,9 @@ interface HeaderButtonLinkProps  {
   className?: string
   children?: React.ReactNode,
   onClick?: () => void,
+  activeScale?: ActiveScale,
 }
-export function ButtonLink({icon, link, blank, notAddToStack, stayPage, onClick, className, ...props }: HeaderButtonLinkProps){
+export function ButtonLink({icon, link, blank, notAddToStack, stayPage, onClick, className, activeScale, ...props }: HeaderButtonLinkProps){
   const router = useRouter()
   const pathname = usePathname()
   const href = stayPage ? link.startsWith("#") ? link : `${pathname === "/" ? "" : pathname}/${link}` : link
@@ -92,11 +96,11 @@ export function ButtonLink({icon, link, blank, notAddToStack, stayPage, onClick,
       }}
     >
       {icon ?
-        <HeaderButtonIcon icon={icon} className={cn("",className)}>
+          <HeaderButtonIcon icon={icon} className={cn("",className)} activeScale={activeScale}>
           {props.children}
         </HeaderButtonIcon>
         :
-        <HeaderButton className={cn("",className)}>
+          <HeaderButton className={cn("",className)} activeScale={activeScale}>
           {props.children}
         </HeaderButton>
       }

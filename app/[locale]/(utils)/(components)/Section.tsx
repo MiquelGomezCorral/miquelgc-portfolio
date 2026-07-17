@@ -6,12 +6,12 @@ import { Icon } from "@/app/[locale]/(utils)/(components)/Icons";
 import { Divider } from "@/app/[locale]/(utils)/(components)/Divider";
 
 
-export function Section({id, title, iconName, link, classname, ...props}:{id: string, title: string, iconName: string, link?: string, classname?: string, children: React.ReactNode}){
+export function Section({id, title, iconName, link, classname, activeScale, ...props}:{id: string, title: string, iconName: string, link?: string, classname?: string, activeScale?: 'smallButtons' | 'bigButtons', children: React.ReactNode}){
   return(
     <section id={id} className={cn("w-full flex flex-col gap-6 group", classname)}>
       {
         link ? 
-        <ButtonLink link={link} className="w-full">
+        <ButtonLink link={link} className="w-full" activeScale={activeScale}>
           <SectionHeader title={title} iconName={iconName} adjustIcon/>
         </ButtonLink>
         :
