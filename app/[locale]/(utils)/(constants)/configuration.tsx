@@ -1,7 +1,7 @@
 class Configuration {
   constructor(
     // =============== General ===============
-    public version = "1.6.2",
+    public version = "1.6.3",
 
     public debounceTime = 300, // ms
     public debounceTimeShort = 100, // ms
