@@ -22,7 +22,7 @@ interface IconButtonArrow extends IconProps{
 }
 export function IconButtonArrow({ type, onClick, className, ...props}: IconButtonArrow){
   return(
-    <button className={cn("", className)} onClick={onClick}>
+    <button className={cn("transition-transform duration-300 active:duration-75 active:scale-95", className)} onClick={onClick}>
       <div className={cn(`gap-2 text-xs flex items-center rounded-full p-2`,
       )}>
         <Icon {...props} type={type}/>
@@ -38,9 +38,9 @@ interface IconGlowingProps extends IconProps{
 }
 export function IconGlowingButton({ solid, ...props}: IconGlowingProps){
   return(
-    <button className="relative">
+    <button className="relative transition-transform duration-300 active:duration-75 active:scale-95">
       <div className="absolute rounded-full flex h-full w-full bg-miquel-blue-400/50 blur-md" />
-      <div className={cn(`relative gap-2 text-xs flex items-center rounded-full p-2 transition-[background-color,transform] duration-300 active:scale-95 active:duration-75`,
+      <div className={cn(`relative gap-2 text-xs flex items-center rounded-full p-2 transition-colors duration-300`,
         {'px-4': props.text},
         {'border border-miquel-blue-400 bg-miquel-black-500 hover:bg-miquel-black-300 group-hover:bg-miquel-black-300 active:bg-miquel-black-700': !solid},
         {'bg-miquel-blue-400 hover:bg-miquel-blue-500 group-hover:bg-miquel-blue-500 active:bg-miquel-blue-700': solid},
@@ -107,7 +107,7 @@ export function IconLink({ link, blank, notAddToStack, stayPage, onClick, classN
     <Link 
       href={href}
       target={blank ? "_blank": ""}
-      className={cn("relative group", className)}
+      className={cn("relative group transition-transform duration-300 active:duration-75 active:scale-95", className)}
       onClick={() => {
         if(!notAddToStack)
           goToPageFrom(window.location.pathname, link)
@@ -126,7 +126,7 @@ interface IconCopyProps extends IconProps{
 export function IconCopy({ copyText, ...props}: IconCopyProps) {
   return (
     <button 
-      className="relative group"
+      className="relative group transition-transform duration-300 active:duration-75 active:scale-95"
       onClick={ShowAlertCopy(copyText)}
     >
       <Icon {...props} hover/>
@@ -149,7 +149,7 @@ export interface IconProps {
 export function Icon({width, height, src, title, text, hover, disable, type = "white", glowing, className}: IconProps){
   return (
     <figure className={
-      cn("relative flex items-center justify-center rounded-full transition-[opacity,transform] duration-300 gap-2 active:duration-75 active:scale-95", 
+      cn("relative flex items-center justify-center rounded-full transition-opacity duration-300 gap-2", 
       className, 
       {"hover:opacity-100 group-hover:opacity-100": !disable},
       {"opacity-70": hover},
