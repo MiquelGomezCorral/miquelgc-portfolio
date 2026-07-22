@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Terms of Use | MiquelGC Banking",
-  description: "Terms of use for MiquelGC Banking.",
+  title: "Terms of Use | Honey Hold Enable Banking",
+  description: "Terms of use for Honey Hold Enable Banking.",
 };
 
 export default function TermsPage() {
@@ -10,12 +10,12 @@ export default function TermsPage() {
     <main className="mx-auto max-w-3xl">
       <article className="space-y-10 leading-7 text-miquel-white-500">
         <header className="space-y-3 border-b border-miquel-white-500-a pb-8">
-          <p className="text-sm font-medium uppercase tracking-[0.16em] text-miquel-blue-200">MiquelGC Banking</p>
+          <p className="text-sm font-medium uppercase tracking-[0.16em] text-miquel-blue-200">Honey Hold Enable Banking</p>
           <h1 className="text-4xl font-semibold tracking-tight text-miquel-white-200 sm:text-5xl">Terms of Use</h1>
           <p>Last updated: July 22, 2026</p>
         </header>
 
-        <p>MiquelGC Banking is a private, non-commercial application intended exclusively for use by its owner.</p>
+        <p>Honey Hold Enable Banking is a private, non-commercial application intended exclusively for use by its owner.</p>
 
         <p>The application provides read-only access to account information explicitly authorised through Enable Banking.</p>
 

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Privacy Notice | MiquelGC Banking",
-  description: "Privacy notice for MiquelGC Banking.",
+  title: "Privacy Notice | Honey Hold Enable Banking",
+  description: "Privacy notice for Honey Hold Enable Banking.",
 };
 
 export default function PrivacyPage() {
@@ -10,7 +10,7 @@ export default function PrivacyPage() {
     <main className="mx-auto max-w-3xl">
       <article className="space-y-10 leading-7 text-miquel-white-500">
         <header className="space-y-3 border-b border-miquel-white-500-a pb-8">
-          <p className="text-sm font-medium uppercase tracking-[0.16em] text-miquel-blue-200">MiquelGC Banking</p>
+          <p className="text-sm font-medium uppercase tracking-[0.16em] text-miquel-blue-200">Honey Hold Enable Banking</p>
           <h1 className="text-4xl font-semibold tracking-tight text-miquel-white-200 sm:text-5xl">Privacy Notice</h1>
           <p>Last updated: July 22, 2026</p>
         </header>
@@ -51,7 +51,7 @@ export default function PrivacyPage() {
 
         <section className="space-y-3">
           <h2 className="text-2xl font-semibold text-miquel-white-200">Contact</h2>
-          <p>For privacy-related matters: <a className="text-miquel-blue-200 underline underline-offset-4" href="mailto:privacy@miquelgc.net">privacy@miquelgc.net</a></p>
+          <p>For privacy-related matters: <a className="text-miquel-blue-200 underline underline-offset-4" href="mailto:privacy@miquelgc.net">miquelgc2000@gmail.com</a></p>
         </section>
       </article>
     </main>
