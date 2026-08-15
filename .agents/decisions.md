@@ -51,3 +51,13 @@ Each decision: date, what was decided, what was rejected, why.
 - **Rejected:** Inferring locale from `t.language`, `i18n.language`, or URL parsing inside data-fetch functions.
 - **Why:** `t.language` unreliable in server context; explicit parameter is deterministic and testable.
 - **Locked.**
+
+### 2026-08-15 — Portfolio data and media use centralized SHA-based revalidation
+- **Chosen:** Keep one daily Vercel cron. Cache the repository list and each repository's `.portfolio.yaml` independently with tags. The cron compares cached revisions with a live GitHub check and invalidates only repositories whose YAML or referenced media blob SHAs changed.
+- **Chosen:** Version remote media URLs with the individual Git blob SHA. Normalize YAML media paths before looking them up. Keep image optimization enabled with a 31-day minimum cache TTL.
+- **Rejected:** Per-repository GitHub workflows, a database or generated manifest, polling every request, and disabling image optimization globally.
+- **Why:** The portfolio repositories should require no maintenance, unchanged projects should remain cached, and changed images should refresh without repeatedly transforming unchanged assets.
+- **Operational constraint:** `GITHUB_TOKEN` is required in Vercel for the authenticated GitHub API limit. The cron revision check fails closed when GitHub tree responses are truncated or unavailable rather than silently missing media changes. Normal page rendering may fall back to the YAML SHA during a transient media-metadata failure so the portfolio remains available; the next successful cron check corrects the URL.
+- **Failure handling:** Repository revision checks use `Promise.allSettled`. Successful repositories continue through comparison and revalidation; failed repositories are excluded and keep their existing cache. One summary failure email is sent through the existing EmailJS service using its REST API, without allowing email delivery failure to undo revalidation.
+- **Deferred:** Healthchecks.io success/failure pings remain a separate follow-up and are not part of this code change.
+- **Locked.**

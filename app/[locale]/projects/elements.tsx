@@ -32,6 +32,7 @@ export function Project({ object, disabled, seeMore, descriptionBelow, linkGit =
         alt={object.title}
         width={800}
         height={450}
+        sizes="(min-width: 1024px) 26vw, 95vw"
         className={cn("rounded-xl w-[95%] lg:w-10/12 group-hover/img:lg:w-11/12 lg:translate-x-4 transition-[width,transform,opacity] duration-500 aspect-video")}
       />
       {object.gif && (
@@ -41,6 +42,7 @@ export function Project({ object, disabled, seeMore, descriptionBelow, linkGit =
         width={800}
         height={450}
         unoptimized
+        sizes="(min-width: 1024px) 26vw, 95vw"
         className="absolute rounded-xl w-[95%] lg:w-10/12 group-hover/img:lg:w-11/12 lg:translate-x-4 transition-[width,transform,opacity] duration-500 aspect-video opacity-0 group-hover/img:opacity-100"
         />
       )}

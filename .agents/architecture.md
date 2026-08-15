@@ -21,7 +21,7 @@
 ## Top-level layout
 - `app/[locale]/` — App Router pages with i18n locale segment
   - `(utils)/` — shared components, constants, functions, i18n TranslationsProvider
-    - `(constants)/` — `github-projects.ts` (fetches repos), `technologies.d.tsx` (tech defs), `configuration.tsx` (global config), `nameSpaces.d.tsx` (i18n namespaces), `CardType` interface files
+    - `(constants)/` — `github-projects.ts` (cached GitHub project data and media revisions), `technologies.d.tsx` (tech defs), `configuration.tsx` (global config), `nameSpaces.d.tsx` (i18n namespaces), `CardType` interface files
     - `(components)/` — `Toast.tsx` (Zustand toast), `FormSendEmail.tsx`, `Buttons.tsx`, `Carrousel.tsx`, `Card.tsx`, `Icons.tsx`
   - `(global_state)/` — Zustand store for page-stack navigation
   - `(sections)/` — page section components (Header, InfoSection, Projects, etc.)
@@ -37,4 +37,5 @@
 ## Boundaries
 - `locales/{en,es}/languages.json` — orphaned, not registered in `nameSpaces.d.tsx`
 - `setup/merge.sh` — local git automation, no CI usage
+- `app/api/revalidate/route.ts` — authenticated daily cron endpoint; compares cached and live GitHub project revisions and selectively invalidates cache tags
 - `node_modules/`, `.next/` — generated artifacts, never commit

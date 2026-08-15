@@ -42,6 +42,7 @@ export function ProjectPageTemplate({object,  t, params, headerDisplay, stickyHe
                   src={object.logo.startsWith("http") ? object.logo : `/assets/projects/${object.logo}.webp`}
                   alt={object.title}
                   fill
+                  sizes="(min-width: 768px) 768px, 100vw"
                   className="rounded-xl"
                   />
                   : null
@@ -113,7 +114,7 @@ export function CarrouselItem({ screenShoot }: { screenShoot: string}) {
         src={src}
         alt={screenShoot}
         fill
-        loading="eager"
+        sizes="(min-width: 640px) 384px, 208px"
         className="rounded-xl"
       />
     </figure>

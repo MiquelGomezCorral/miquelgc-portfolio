@@ -2,7 +2,7 @@ import { load } from "js-yaml"
 import type { TFunction } from "i18next";
 import type { LocaleText, ProjectType } from "./project.text.d"
 import { TechnologyString } from "./technologies.d"
-import { GithubUser, YoutubeEmbed, Seconds1h, ProjectsFolder} from "./constants.text.d"
+import { GithubUser, YoutubeEmbed, ProjectsFolder} from "./constants.text.d"
 import CONFIG from "./configuration"
 
 const GH_TOKEN = process.env.GITHUB_TOKEN  // fine-grained PAT, public repo read
@@ -27,6 +27,7 @@ type PortfolioYml = {
   relevancy?: number
   featured?: boolean
   tags?: string[]
+  hide?: boolean
 }
 
 type GhRepo = {
@@ -36,6 +37,44 @@ type GhRepo = {
   pushed_at: string
   private: boolean
   fork: boolean
+}
+
+type GithubFile = {
+  content: string
+  sha: string
+}
+
+type GithubTree = {
+  truncated?: boolean
+  tree: Array<{
+    path: string
+    type: string
+    sha: string
+  }>
+}
+
+type PortfolioFile = {
+  sha: string
+  yaml: PortfolioYml | null
+}
+
+type MediaShas = Record<string, string>
+
+type GithubProjectRevision = {
+  repo: string
+  branch: string
+  sha: string
+}
+
+type GithubProjectRevisionResult = {
+  revisions: GithubProjectRevision[]
+  failures: Array<{ repo: string; error: string }>
+}
+
+export const githubProjectsListTag = "github-projects-list"
+
+export function githubProjectTag(repo: string): string {
+  return `github-project:${repo}`
 }
 
 const authHeaders: Record<string, string> = { Accept: "application/vnd.github+json" }
@@ -55,29 +94,83 @@ function normalizeTags(tags: string[] | string | undefined): string[] {
   return Array.isArray(tags) ? tags : tags ? [tags] : []
 }
 
-function rawUrl(repo: string, branch: string, path: string): string {
-  return `https://raw.githubusercontent.com/${GithubUser}/${repo}/${branch}/${path.replace(/^\.?\//, "")}`
+function normalizePath(path: string): string {
+  return path.replace(/^\.?\//, "")
 }
 
-async function fetchRepos(): Promise<GhRepo[]> {
+function portfolioMediaPaths(yaml: PortfolioYml): string[] {
+  return [...new Set([
+    yaml.logo,
+    yaml.gif,
+    ...(yaml.screenShoots ?? []),
+  ].filter((path): path is string => Boolean(path)).map(normalizePath))].sort()
+}
+
+function rawUrl(repo: string, branch: string, path: string, version?: string): string {
+  const url = `https://raw.githubusercontent.com/${GithubUser}/${repo}/${branch}/${normalizePath(path)}`
+  return version ? `${url}?v=${encodeURIComponent(version)}` : url
+}
+
+function githubFetchOptions(cached: boolean, tags: string[] = []): RequestInit & { next?: { tags: string[] } } {
+  if (!cached) return { headers: authHeaders, cache: "no-store" }
+
+  return {
+    headers: authHeaders,
+    cache: "force-cache",
+    next: { tags },
+  }
+}
+
+async function fetchRepos(cached = true): Promise<GhRepo[]> {
   const res = await fetch(
     `https://api.github.com/users/${GithubUser}/repos?per_page=100&sort=pushed`,
-    { headers: authHeaders, next: { revalidate: Seconds1h, tags: ["github-projects"] } }
+    githubFetchOptions(cached, [githubProjectsListTag])
   )
   if (!res.ok) throw new Error(`GitHub repos: ${res.status}`)
   const repos: GhRepo[] = await res.json()
   return repos.filter(r => !r.private && !r.fork)
 }
 
-async function fetchPortfolioYml(repo: GhRepo): Promise<PortfolioYml | null> {
-  const url = rawUrl(repo.name, repo.default_branch, ".portfolio.yaml")
-  const res = await fetch(url, { next: { revalidate: Seconds1h, tags: ["github-projects"] } })
-  if (!res.ok) return null
+async function fetchPortfolioFile(repo: GhRepo, cached = true): Promise<PortfolioFile | null> {
+  const url = `https://api.github.com/repos/${GithubUser}/${encodeURIComponent(repo.name)}/contents/.portfolio.yaml?ref=${encodeURIComponent(repo.default_branch)}`
+  const res = await fetch(url, githubFetchOptions(cached, [githubProjectTag(repo.name)]))
+  if (res.status === 404) return null
+  if (!res.ok) throw new Error(`GitHub ${repo.name} .portfolio.yaml: ${res.status}`)
+
+  const file: GithubFile = await res.json()
   try {
-    return load(await res.text()) as PortfolioYml
+    const content = Buffer.from(file.content.replace(/\s/g, ""), "base64").toString("utf8")
+    return { sha: file.sha, yaml: load(content) as PortfolioYml }
   } catch {
-    return null
+    return { sha: file.sha, yaml: null }
   }
+}
+
+async function fetchPortfolioMedia(repo: GhRepo, yaml: PortfolioYml, cached = true): Promise<MediaShas> {
+  const paths = portfolioMediaPaths(yaml)
+  if (paths.length === 0 || yaml.hide) return {}
+
+  const url = `https://api.github.com/repos/${GithubUser}/${encodeURIComponent(repo.name)}/git/trees/${encodeURIComponent(repo.default_branch)}?recursive=1`
+  const res = await fetch(url, githubFetchOptions(cached, [githubProjectTag(repo.name)]))
+  if (!res.ok) throw new Error(`GitHub ${repo.name} tree: ${res.status}`)
+
+  const tree: GithubTree = await res.json()
+  if (tree.truncated) throw new Error(`GitHub ${repo.name} tree was truncated`)
+
+  const files = new Map(
+    tree.tree
+      .filter(entry => entry.type === "blob")
+      .map(entry => [normalizePath(entry.path), entry.sha])
+  )
+
+  return Object.fromEntries(paths.map(path => [path, files.get(path) ?? "missing"]))
+}
+
+function projectRevision(yamlSha: string, mediaShas: MediaShas): string {
+  return JSON.stringify({
+    yaml: yamlSha,
+    media: Object.entries(mediaShas).sort(([a], [b]) => a.localeCompare(b)),
+  })
 }
 
 export async function getGithubProjects(locale: Locale, t: TFunction, filter: ProjectFilter = "all"): Promise<ProjectType[]> {
@@ -85,8 +178,11 @@ export async function getGithubProjects(locale: Locale, t: TFunction, filter: Pr
 
   const settled = await Promise.all(
     repos.map(async repo => {
-      const yaml = await fetchPortfolioYml(repo)
-      if (!yaml) return null
+      const file = await fetchPortfolioFile(repo).catch(() => null)
+      if (!file?.yaml || file.yaml.hide) return null
+      const yaml = file.yaml
+      const mediaShas = await fetchPortfolioMedia(repo, yaml).catch(() => null)
+      const mediaVersion = (path: string) => mediaShas?.[normalizePath(path)] ?? file.sha
 
       const tags = normalizeTags(yaml.tags)
       if (filter === "main" && tags.includes(CONFIG.projectOtherTag)) return null
@@ -101,9 +197,9 @@ export async function getGithubProjects(locale: Locale, t: TFunction, filter: Pr
         descriptionShort: pick(yaml.descriptionShort, locale),
         descriptionLong: pick(yaml.descriptionLong, locale),
         technologies: yaml.technologies ?? [],
-        gif: yaml.gif ? rawUrl(repo.name, branch, yaml.gif) : "",
-        logo: yaml.logo ? rawUrl(repo.name, branch, yaml.logo) : "",
-        screenShoots: (yaml.screenShoots ?? []).map(p => rawUrl(repo.name, branch, p)),
+        gif: yaml.gif ? rawUrl(repo.name, branch, yaml.gif, mediaVersion(yaml.gif)) : "",
+        logo: yaml.logo ? rawUrl(repo.name, branch, yaml.logo, mediaVersion(yaml.logo)) : "",
+        screenShoots: (yaml.screenShoots ?? []).map(p => rawUrl(repo.name, branch, p, mediaVersion(p))),
         link: `${ProjectsFolder}${yaml.slug}`,
         youtube: yaml.youtube ? YoutubeEmbed + yaml.youtube : "",
         github: repo.html_url,
@@ -127,4 +223,44 @@ export async function getGithubProjects(locale: Locale, t: TFunction, filter: Pr
   return settled
     .filter((p): p is NonNullable<typeof p> => p !== null)
     .sort((a, b) => b._order - a._order)
+}
+
+function errorMessage(error: unknown): string {
+  return error instanceof Error ? error.message : "Unknown GitHub error"
+}
+
+export async function getGithubProjectRevisions(cached = true): Promise<GithubProjectRevisionResult> {
+  const repos = await fetchRepos(cached)
+  const results = await Promise.allSettled(
+    repos.map(async repo => {
+      const file = await fetchPortfolioFile(repo, cached)
+      if (!file) return null
+      const mediaShas = file.yaml && !file.yaml.hide
+        ? await fetchPortfolioMedia(repo, file.yaml, cached)
+        : {}
+
+      return {
+        repo: repo.name,
+        branch: repo.default_branch,
+        sha: projectRevision(file.sha, mediaShas),
+      }
+    })
+  )
+
+  const revisions: GithubProjectRevision[] = []
+  const failures: GithubProjectRevisionResult["failures"] = []
+
+  results.forEach((result, index) => {
+    if (result.status === "fulfilled") {
+      if (result.value) revisions.push(result.value)
+      return
+    }
+
+    failures.push({
+      repo: repos[index].name,
+      error: errorMessage(result.reason),
+    })
+  })
+
+  return { revisions, failures }
 }

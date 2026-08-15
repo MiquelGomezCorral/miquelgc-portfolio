@@ -2,7 +2,12 @@ import type { NextConfig } from "next"
 
 const nextConfig: NextConfig = {
   images: {
-    remotePatterns: [{ protocol: "https", hostname: "raw.githubusercontent.com" }],
+    minimumCacheTTL: 60 * 60 * 24 * 31,
+    remotePatterns: [{
+      protocol: "https",
+      hostname: "raw.githubusercontent.com",
+      pathname: "/MiquelGomezCorral/**",
+    }],
   },
 }
 
