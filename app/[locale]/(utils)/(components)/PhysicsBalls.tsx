@@ -160,6 +160,16 @@ export default function PhysicsBalls() {
       pointer.lastMove = now
     }
 
+    const getScalingBalls = () => {
+      if (balls.length < CONFIG.physicsBallsScalingMin)
+        return 1
+      return CONFIG.physicsBallsScaling
+    }
+    const addBallsScaling = (event: Event) => {
+      for (let i = 0; i < getScalingBalls(); i++) {
+        addBall(event)
+      }
+    }
     const addBall = (event: Event) => {
       const { x, y } = (event as CustomEvent<BallSpawn>).detail
 
@@ -241,14 +251,14 @@ export default function PhysicsBalls() {
     resize()
     window.addEventListener("resize", resize)
     window.addEventListener("pointermove", movePointer, { passive: true })
-    window.addEventListener(CONFIG.physicsBallsCreateEvent, addBall)
+    window.addEventListener(CONFIG.physicsBallsCreateEvent, addBallsScaling)
     frame = requestAnimationFrame(tick)
 
     return () => {
       cancelAnimationFrame(frame)
       window.removeEventListener("resize", resize)
       window.removeEventListener("pointermove", movePointer)
-      window.removeEventListener(CONFIG.physicsBallsCreateEvent, addBall)
+      window.removeEventListener(CONFIG.physicsBallsCreateEvent, addBallsScaling)
     }
   }, [])
 

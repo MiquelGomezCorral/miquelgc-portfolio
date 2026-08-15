@@ -89,6 +89,8 @@ class Configuration {
       18,
       258,
     ] as const,
+    public physicsBallsScalingMin = 20,
+    public physicsBallsScaling = 10,
   ) {}
 }
 
