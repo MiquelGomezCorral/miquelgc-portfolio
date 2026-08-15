@@ -8,6 +8,31 @@ import StyledComponentsRegistry from "@/app/lib/styled-components-registry";
 
 const inter = Inter({ subsets: ["latin"] });
 
+const speculationRules = {
+  prefetch: [
+    {
+      where: {
+        and: [
+          {
+            or: [
+              { href_matches: "/projects*" },
+              { href_matches: "/es/projects*" },
+            ],
+          },
+          { not: { href_matches: "/projects/string_art*" } },
+          { not: { href_matches: "/projects/smoking*" } },
+          { not: { href_matches: "/es/projects/string_art*" } },
+          { not: { href_matches: "/es/projects/smoking*" } },
+          { not: { selector_matches: "[href*='#']" } },
+          { not: { selector_matches: "[target='_blank']" } },
+          { not: { selector_matches: "[rel~=nofollow]" } },
+        ],
+      },
+      eagerness: "moderate",
+    },
+  ],
+};
+
 export const metadata: Metadata = {
   title: "Miquel Gómez Corral | Portfolio",
   description:
@@ -59,6 +84,10 @@ export default function RootLayout({children}: {children: React.ReactNode;}) {
       <body
         className={`${inter.className} w-full sm:pt-32 gap-20 flex flex-col justify-center items-center bg-miquel-background text-miquel-white-200`}
       >
+        <script
+          type="speculationrules"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(speculationRules) }}
+        />
         <StyledComponentsRegistry>
           <PhysicsBalls />
           {children}
